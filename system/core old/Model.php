@@ -1,5 +1,4 @@
 <?php
-
 /**
  * CodeIgniter
  *
@@ -37,69 +36,42 @@
  * @since	Version 1.0.0
  * @filesource
  */
-defined('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * Application Controller Class
- *
- * This class object is the super class that every library in
- * CodeIgniter will be assigned to.
+ * Model Class
  *
  * @package		CodeIgniter
  * @subpackage	Libraries
  * @category	Libraries
  * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/userguide3/general/controllers.html
+ * @link		https://codeigniter.com/userguide3/libraries/config.html
  */
-#[\AllowDynamicProperties]
-class CI_Controller
-{
-
-	/**
-	 * Reference to the CI singleton
-	 *
-	 * @var	object
-	 */
-	private static $instance;
-
-	/**
-	 * CI_Loader
-	 *
-	 * @var	CI_Loader
-	 */
-	public $load;
+class CI_Model {
 
 	/**
 	 * Class constructor
 	 *
+	 * @link	https://github.com/bcit-ci/CodeIgniter/issues/5332
 	 * @return	void
 	 */
-	public function __construct()
-	{
-		self::$instance = &$this;
-
-		// Assign all the class objects that were instantiated by the
-		// bootstrap file (CodeIgniter.php) to local class variables
-		// so that CI can run as one big super object.
-		foreach (is_loaded() as $var => $class) {
-			$this->$var = &load_class($class);
-		}
-
-		$this->load = &load_class('Loader', 'core');
-		$this->load->initialize();
-		log_message('info', 'Controller Class Initialized');
-	}
-
-	// --------------------------------------------------------------------
+	public function __construct() {}
 
 	/**
-	 * Get the CI singleton
+	 * __get magic
 	 *
-	 * @static
-	 * @return	object
+	 * Allows models to access CI's loaded classes using the same
+	 * syntax as controllers.
+	 *
+	 * @param	string	$key
 	 */
-	public static function &get_instance()
+	public function __get($key)
 	{
-		return self::$instance;
+		// Debugging note:
+		//	If you're here because you're getting an error message
+		//	saying 'Undefined Property: system/core/Model.php', it's
+		//	most likely a typo in your model code.
+		return get_instance()->$key;
 	}
+
 }

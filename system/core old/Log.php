@@ -1,5 +1,4 @@
 <?php
-
 /**
  * CodeIgniter
  *
@@ -37,7 +36,7 @@
  * @since	Version 1.0.0
  * @filesource
  */
-defined('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * Logging Class
@@ -48,9 +47,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/userguide3/general/errors.html
  */
-#[\AllowDynamicProperties]
-class CI_Log
-{
+class CI_Log {
 
 	/**
 	 * Path to save log files
@@ -124,32 +121,38 @@ class CI_Log
 	 */
 	public function __construct()
 	{
-		$config = &get_config();
+		$config =& get_config();
 
-		isset(self::$func_overload) or self::$func_overload = (! is_php('8.0') && extension_loaded('mbstring') && @ini_get('mbstring.func_overload'));
+		isset(self::$func_overload) OR self::$func_overload = ( ! is_php('8.0') && extension_loaded('mbstring') && @ini_get('mbstring.func_overload'));
 
-		$this->_log_path = ($config['log_path'] !== '') ? $config['log_path'] : APPPATH . 'logs/';
+		$this->_log_path = ($config['log_path'] !== '') ? $config['log_path'] : APPPATH.'logs/';
 		$this->_file_ext = (isset($config['log_file_extension']) && $config['log_file_extension'] !== '')
 			? ltrim($config['log_file_extension'], '.') : 'php';
 
-		file_exists($this->_log_path) or mkdir($this->_log_path, 0755, TRUE);
+		file_exists($this->_log_path) OR mkdir($this->_log_path, 0755, TRUE);
 
-		if (! is_dir($this->_log_path) or ! is_really_writable($this->_log_path)) {
+		if ( ! is_dir($this->_log_path) OR ! is_really_writable($this->_log_path))
+		{
 			$this->_enabled = FALSE;
 		}
 
-		if (is_numeric($config['log_threshold'])) {
+		if (is_numeric($config['log_threshold']))
+		{
 			$this->_threshold = (int) $config['log_threshold'];
-		} elseif (is_array($config['log_threshold'])) {
+		}
+		elseif (is_array($config['log_threshold']))
+		{
 			$this->_threshold = 0;
 			$this->_threshold_array = array_flip($config['log_threshold']);
 		}
 
-		if (! empty($config['log_date_format'])) {
+		if ( ! empty($config['log_date_format']))
+		{
 			$this->_date_fmt = $config['log_date_format'];
 		}
 
-		if (! empty($config['log_file_permissions']) && is_int($config['log_file_permissions'])) {
+		if ( ! empty($config['log_file_permissions']) && is_int($config['log_file_permissions']))
+		{
 			$this->_file_permissions = $config['log_file_permissions'];
 		}
 	}
@@ -167,49 +170,58 @@ class CI_Log
 	 */
 	public function write_log($level, $msg)
 	{
-		if ($this->_enabled === FALSE) {
+		if ($this->_enabled === FALSE)
+		{
 			return FALSE;
 		}
 
 		$level = strtoupper($level);
 
-		if ((! isset($this->_levels[$level]) or ($this->_levels[$level] > $this->_threshold))
-			&& ! isset($this->_threshold_array[$this->_levels[$level]])
-		) {
+		if (( ! isset($this->_levels[$level]) OR ($this->_levels[$level] > $this->_threshold))
+			&& ! isset($this->_threshold_array[$this->_levels[$level]]))
+		{
 			return FALSE;
 		}
 
-		$filepath = $this->_log_path . 'log-' . date('Y-m-d') . '.' . $this->_file_ext;
+		$filepath = $this->_log_path.'log-'.date('Y-m-d').'.'.$this->_file_ext;
 		$message = '';
 
-		if (! file_exists($filepath)) {
+		if ( ! file_exists($filepath))
+		{
 			$newfile = TRUE;
 			// Only add protection to php files
-			if ($this->_file_ext === 'php') {
+			if ($this->_file_ext === 'php')
+			{
 				$message .= "<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>\n\n";
 			}
 		}
 
-		if (! $fp = @fopen($filepath, 'ab')) {
+		if ( ! $fp = @fopen($filepath, 'ab'))
+		{
 			return FALSE;
 		}
 
 		flock($fp, LOCK_EX);
 
 		// Instantiating DateTime with microseconds appended to initial date is needed for proper support of this format
-		if (strpos($this->_date_fmt, 'u') !== FALSE) {
+		if (strpos($this->_date_fmt, 'u') !== FALSE)
+		{
 			$microtime_full = microtime(TRUE);
 			$microtime_short = sprintf("%06d", ($microtime_full - floor($microtime_full)) * 1000000);
-			$date = new DateTime(date('Y-m-d H:i:s.' . $microtime_short, $microtime_full));
+			$date = new DateTime(date('Y-m-d H:i:s.'.$microtime_short, $microtime_full));
 			$date = $date->format($this->_date_fmt);
-		} else {
+		}
+		else
+		{
 			$date = date($this->_date_fmt);
 		}
 
 		$message .= $this->_format_line($level, $date, $msg);
 
-		for ($written = 0, $length = self::strlen($message); $written < $length; $written += $result) {
-			if (($result = fwrite($fp, self::substr($message, $written))) === FALSE) {
+		for ($written = 0, $length = self::strlen($message); $written < $length; $written += $result)
+		{
+			if (($result = fwrite($fp, self::substr($message, $written))) === FALSE)
+			{
 				break;
 			}
 		}
@@ -217,7 +229,8 @@ class CI_Log
 		flock($fp, LOCK_UN);
 		fclose($fp);
 
-		if (isset($newfile) && $newfile === TRUE) {
+		if (isset($newfile) && $newfile === TRUE)
+		{
 			chmod($filepath, $this->_file_permissions);
 		}
 
@@ -239,7 +252,7 @@ class CI_Log
 	 */
 	protected function _format_line($level, $date, $message)
 	{
-		return $level . ' - ' . $date . ' --> ' . $message . PHP_EOL;
+		return $level.' - '.$date.' --> '.$message.PHP_EOL;
 	}
 
 	// --------------------------------------------------------------------
@@ -269,10 +282,11 @@ class CI_Log
 	 */
 	protected static function substr($str, $start, $length = NULL)
 	{
-		if (self::$func_overload) {
+		if (self::$func_overload)
+		{
 			// mb_substr($str, $start, null, '8bit') returns an empty
 			// string on PHP 5.3
-			isset($length) or $length = ($start >= 0 ? self::strlen($str) - $start : -$start);
+			isset($length) OR $length = ($start >= 0 ? self::strlen($str) - $start : -$start);
 			return mb_substr($str, $start, $length, '8bit');
 		}
 
