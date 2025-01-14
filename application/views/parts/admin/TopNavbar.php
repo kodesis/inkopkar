@@ -41,6 +41,63 @@
                         </div>
                     </div>
                 </div>
+                <div class="sidebar-menu">
+                    <ul class="menu">
+                        <?php
+                        $url_now = $this->uri->segment('1');
+                        ?>
+                        <li class="sidebar-title">Menu</li>
 
+                        <li
+                            class="sidebar-item <?php if ($url_now == 'dashboard') {
+                                                    echo 'active ';
+                                                } ?> ">
+                            <a href="<?= base_url('dashboard') ?>" class='sidebar-link'>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Dashboard</span>
+                            </a>
+
+
+                        </li>
+
+                        <li
+                            class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-stack"></i>
+                                <span>Components</span>
+                            </a>
+
+                            <ul class="submenu ">
+
+                                <li class="submenu-item  ">
+                                    <a href="component-accordion.html" class="submenu-link">Accordion</a>
+
+                                </li>
+
+                                <li class="submenu-item  ">
+                                    <a href="component-alert.html" class="submenu-link">Alert</a>
+
+                                </li>
+
+                            </ul>
+
+
+                        </li>
+
+                        <li class="sidebar-title">Page Management</li>
+
+                        <li
+                            class="sidebar-item <?php if ($url_now == 'blog_management') {
+                                                    echo 'active ';
+                                                } ?>">
+                            <a href="<?= base_url('blog_management') ?>" class='sidebar-link'>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Blog Management</span>
+                            </a>
+
+
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
