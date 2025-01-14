@@ -81,13 +81,13 @@
                                     </div>
                                     <div class="tgmenu__action tgmenu__action-two d-none d-md-block">
                                         <ul class="list-wrap">
-                                            <li class="header-search">
+                                            <!-- <li class="header-search">
                                                 <a href="javascript:void(0)" class="search-open-btn">
                                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none">
                                                         <path d="M19 19.0002L14.657 14.6572M14.657 14.6572C15.3999 13.9143 15.9892 13.0324 16.3912 12.0618C16.7933 11.0911 17.0002 10.0508 17.0002 9.00021C17.0002 7.9496 16.7933 6.90929 16.3913 5.93866C15.9892 4.96803 15.3999 4.08609 14.657 3.34321C13.9141 2.60032 13.0322 2.01103 12.0616 1.60898C11.0909 1.20693 10.0506 1 9.00002 1C7.94942 1 6.90911 1.20693 5.93848 1.60898C4.96785 2.01103 4.08591 2.60032 3.34302 3.34321C1.84269 4.84354 0.999817 6.87842 0.999817 9.00021C0.999817 11.122 1.84269 13.1569 3.34302 14.6572C4.84335 16.1575 6.87824 17.0004 9.00002 17.0004C11.1218 17.0004 13.1567 16.1575 14.657 14.6572Z" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                                     </svg>
                                                 </a>
-                                            </li>
+                                            </li> -->
                                             <li class="offCanvas-menu">
                                                 <a href="javascript:void(0)" class="menu-tigger">
                                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" fill="none">

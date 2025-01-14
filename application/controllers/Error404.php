@@ -21,7 +21,8 @@ class Error404 extends CI_Controller
 	 */
 	public function index()
 	{
-		$this->load->view('webview/Error/error_404');
-		// $this->load->view('_parts/Wrapper', $data);
+		$data['content']     = 'webview/Error/error_404';
+
+		$this->load->view('parts/index_1/Wrapper', $data);
 	}
 }

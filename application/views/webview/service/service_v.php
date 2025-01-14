@@ -36,11 +36,11 @@
                         <h6 class="title" style="font-size: 25px;">INKOPKAR menawarkan beragam layanan yang dirancang untuk memenuhi kebutuhan koperasi karyawan, di antaranya:</h6>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <!-- <div class="col-lg-6">
                     <div class="section-more-btn">
                         <a href="services.html" class="btn border-btn">See More Services</a>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="row">
                 <div class="col-12">
@@ -81,7 +81,7 @@
                                                 <li><i class="fas fa-check"></i>100% Secure</li>
                                             </ul>
                                         </div> -->
-                                        <a href="services-details.html" class="btn">Read More</a>
+                                        <!-- <a href="services-details.html" class="btn">Read More</a> -->
                                     </div>
                                 </div>
                             </div>
@@ -100,7 +100,7 @@
                                                 <li><i class="fas fa-check"></i>100% Secure</li>
                                             </ul>
                                         </div> -->
-                                        <a href="services-details.html" class="btn">Read More</a>
+                                        <!-- <a href="services-details.html" class="btn">Read More</a> -->
                                     </div>
                                 </div>
                             </div>
@@ -119,7 +119,7 @@
                                                 <li><i class="fas fa-check"></i>100% Secure</li>
                                             </ul>
                                         </div> -->
-                                        <a href="services-details.html" class="btn">Read More</a>
+                                        <!-- <a href="services-details.html" class="btn">Read More</a> -->
                                     </div>
                                 </div>
                             </div>
@@ -138,7 +138,7 @@
                                                 <li><i class="fas fa-check"></i>100% Secure</li>
                                             </ul>
                                         </div> -->
-                                        <a href="services-details.html" class="btn">Read More</a>
+                                        <!-- <a href="services-details.html" class="btn">Read More</a> -->
                                     </div>
                                 </div>
                             </div>
@@ -187,50 +187,5 @@
         </div>
     </section>
     <!-- services-area-end -->
-    <!-- brand-area -->
-    <div class="brand__area-five">
-        <div class="container">
-            <div class="swiper-container brand-active">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="brand-item">
-                            <img src="<?= base_url() ?>assets/img/brand/brand_img01.png" alt="">
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="brand-item">
-                            <img src="<?= base_url() ?>assets/img/brand/brand_img02.png" alt="">
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="brand-item">
-                            <img src="<?= base_url() ?>assets/img/brand/brand_img03.png" alt="">
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="brand-item">
-                            <img src="<?= base_url() ?>assets/img/brand/brand_img04.png" alt="">
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="brand-item">
-                            <img src="<?= base_url() ?>assets/img/brand/brand_img05.png" alt="">
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="brand-item">
-                            <img src="<?= base_url() ?>assets/img/brand/brand_img06.png" alt="">
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="brand-item">
-                            <img src="<?= base_url() ?>assets/img/brand/brand_img03.png" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- brand-area -->
 </main>
 <!-- main-area-end -->

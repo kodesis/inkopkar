@@ -27,7 +27,7 @@ class Dashboard extends CI_Controller
 
 
 
-		$data['content']  = 'webview/admin/dashboard/dashboard_view';
+		$data['content']  = 'webview/admin/dashboard/dashboard_v';
 		// $data['content_js'] = 'webview/admin/dashboard/dashboard_js';
 
 

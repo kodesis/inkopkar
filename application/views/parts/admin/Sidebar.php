@@ -1,12 +1,12 @@
 <body>
-    <script src="<?= base_url() ?>assets/cms/static/js/initTheme.js"></script>
+    <script src="<?= base_url() ?>assets/admin/static/js/initTheme.js"></script>
     <div id="app">
         <div id="sidebar">
             <div class="sidebar-wrapper active">
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="logo">
-                            <a href="<?= base_url('dashboard') ?>"><img src="<?= base_url() ?>assets/cms/Logo/dapenbukopin_lg1.png" alt="Logo" srcset=""></a>
+                            <a href="<?= base_url('dashboard') ?>"><img src="<?= base_url() ?>assets/admin/Logo/logo.gif" alt="Logo" srcset=""></a>
                         </div>
                         <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
@@ -43,141 +43,60 @@
                 </div>
                 <div class="sidebar-menu">
                     <ul class="menu">
-
                         <?php
-                        $url = $this->uri->segment(1);
+                        $url_now = $this->uri->segment('1');
                         ?>
-
-                        <li class="sidebar-title">Menu Utama</li>
+                        <li class="sidebar-title">Menu</li>
 
                         <li
-                            class="sidebar-item <?php if ($url == "dashboard") {
-                                                    echo "active";
+                            class="sidebar-item <?php if ($url_now == 'dashboard') {
+                                                    echo 'active ';
                                                 } ?> ">
                             <a href="<?= base_url('dashboard') ?>" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
-                        </li>
-                        <li
-                            class="sidebar-item <?php if ($url == "PDP_Bank_KB_Bukopin") {
-                                                    echo "active";
-                                                } ?> ">
-                            <a href="<?= base_url('PDP_Bank_KB_Bukopin') ?>" class='sidebar-link'>
-                                <i class="bi bi-grid-fill"></i>
-                                <span>PDP Bank KB Bukopin</span>
-                            </a>
+
+
                         </li>
 
                         <li
-                            class="sidebar-item <?php if ($url == "Triwulan") {
-                                                    echo "active";
-                                                } ?> ">
-                            <a href="<?= base_url('Laporan_Triwulan') ?>" class='sidebar-link'>
-                                <i class="bi bi-grid-fill"></i>
-                                <span>Laporan Triwulan</span>
+                            class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-stack"></i>
+                                <span>Components</span>
                             </a>
+
+                            <ul class="submenu ">
+
+                                <li class="submenu-item  ">
+                                    <a href="component-accordion.html" class="submenu-link">Accordion</a>
+
+                                </li>
+
+                                <li class="submenu-item  ">
+                                    <a href="component-alert.html" class="submenu-link">Alert</a>
+
+                                </li>
+
+                            </ul>
+
+
                         </li>
+
+                        <li class="sidebar-title">Page Management</li>
 
                         <li
-                            class="sidebar-item <?php if ($url == "Tahunan") {
-                                                    echo "active";
-                                                } ?> ">
-                            <a href="<?= base_url('Laporan_Tahunan') ?>" class='sidebar-link'>
-                                <i class="bi bi-grid-fill"></i>
-                                <span>Laporan Tahunan</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-title">Menu</li>
-
-                        <!-- KALO ADMIN SHOW USER MANAGEMENT -->
-                        <?php
-                        if ($this->session->userdata('role_id') == 1) {
-                        ?>
-                            <li
-                                class="sidebar-item <?php if ($url == "UserManagement") {
-                                                        echo "active";
-                                                    } ?>">
-                                <a href="<?= base_url() ?>UserManagement" class='sidebar-link'>
-                                    <i class="bi bi-grid-fill"></i>
-                                    <span>User Management</span>
-                                </a>
-                            </li>
-                        <?php
-                        }
-
-                        if ($this->session->userdata('role_id') == 1 || $this->session->userdata('role_id') == 2) {
-
-                        ?>
-                            <li
-                                class="sidebar-item <?php if ($url == "SaldoUsers" || $url == "SaldoUser") {
-                                                        echo "active";
-                                                    } ?>">
-                                <a href="<?= base_url() ?><?php if ($this->session->userdata('role_id') == 1) {
-                                                                echo "SaldoUsers";
-                                                            } else {
-                                                                echo "SaldoUser";
-                                                            } ?>" class='sidebar-link'>
-                                    <i class="bi bi-grid-fill"></i>
-                                    <span>Saldo Peserta</span>
-                                </a>
-                            </li>
-                        <?php
-                        }
-
-                        if ($this->session->userdata('role_id') == 1) {
-
-                        ?>
-                            <li class="sidebar-title">Menu Halaman</li>
-
-                            <li
-                                class="sidebar-item <?php if ($url == "FileManagement") {
-                                                        echo "active";
-                                                    } ?>">
-                                <a href="<?= base_url() ?>FileManagement" class='sidebar-link'>
-                                    <i class="bi bi-grid-fill"></i>
-                                    <span>File Management</span>
-                                </a>
-                            </li>
-                            <li
-                                class="sidebar-item <?php if ($url == "Banner") {
-                                                        echo "active";
-                                                    } ?> ">
-                                <a href="<?= base_url('Banner') ?>" class='sidebar-link'>
-                                    <i class="bi bi-grid-fill"></i>
-                                    <span>Banner Management</span>
-                                </a>
-                            </li>
-                            <li
-                                class="sidebar-item <?php if ($url == "Team") {
-                                                        echo "active";
-                                                    } ?> ">
-                                <a href="<?= base_url('Team') ?>" class='sidebar-link'>
-                                    <i class="bi bi-grid-fill"></i>
-                                    <span>Team Management</span>
-                                </a>
-                            </li>
-                            <li
-                                class="sidebar-item <?php if ($url == "RunningText") {
-                                                        echo "active";
-                                                    } ?>">
-                                <a href="<?= base_url() ?>RunningText" class='sidebar-link'>
-                                    <i class="bi bi-grid-fill"></i>
-                                    <span>Running Text</span>
-                                </a>
-                            </li>
-                        <?php
-                        }
-                        ?>
-                        <!-- <li
-                            class="sidebar-item <?php if ($url == "SaldoUser") {
-                                                    echo "active";
+                            class="sidebar-item <?php if ($url_now == 'blog_management') {
+                                                    echo 'active ';
                                                 } ?>">
-                            <a href="<?= base_url() ?>SaldoUser" class='sidebar-link'>
+                            <a href="<?= base_url('blog_management') ?>" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
-                                <span>Saldo User</span>
+                                <span>Blog Management</span>
                             </a>
-                        </li> -->
+
+
+                        </li>
                     </ul>
                 </div>
             </div>

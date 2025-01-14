@@ -37,46 +37,59 @@
                 </div>
             </div>
             <div class="row align-items-center">
-                <div class="col-lg-5">
+                <div class="col-lg-12">
                     <div class="contact__content">
                         <div class="section-title mb-35">
                             <h2 class="title">How can we help you?</h2>
                             <p>When an unknown printer took a galley of type and scrambled it to make type pecimen book. It has survived not only five areafact types remaining essentially unchangedIt</p>
                         </div>
                         <div class="contact__info">
-                            <ul class="list-wrap">
-                                <li>
-                                    <div class="icon">
-                                        <i class="flaticon-pin"></i>
-                                    </div>
-                                    <div class="content">
-                                        <h4 class="title">Address</h4>
-                                        <p>Awamileaug Drive, Kensington London, UK</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="icon">
-                                        <i class="flaticon-phone-call"></i>
-                                    </div>
-                                    <div class="content">
-                                        <h4 class="title">Phone</h4>
-                                        <a href="tel:0123456789">+48 500-130-0001</a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="icon">
-                                        <i class="flaticon-mail"></i>
-                                    </div>
-                                    <div class="content">
-                                        <h4 class="title">E-mail</h4>
-                                        <a href="mailto:info@gmail.com">info@gmail.com</a>
-                                    </div>
-                                </li>
-                            </ul>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <ul class="list-wrap">
+                                        <li>
+                                            <div class="icon">
+                                                <i class="flaticon-pin"></i>
+                                            </div>
+                                            <div class="content">
+                                                <h4 class="title">Address</h4>
+                                                <p>Awamileaug Drive, Kensington London, UK</p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-4">
+                                    <ul class="list-wrap">
+                                        <li>
+                                            <div class="icon">
+                                                <i class="flaticon-phone-call"></i>
+                                            </div>
+                                            <div class="content">
+                                                <h4 class="title">Phone</h4>
+                                                <a href="tel:0123456789">+48 500-130-0001</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-4">
+                                    <ul class="list-wrap">
+                                        <li>
+                                            <div class="icon">
+                                                <i class="flaticon-mail"></i>
+                                            </div>
+                                            <div class="content">
+                                                <h4 class="title">E-mail</h4>
+                                                <a href="mailto:info@gmail.com">info@gmail.com</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-7">
+                <!-- <div class="col-lg-7">
                     <div class="contact__form-wrap">
                         <h2 class="title">Give Us a Message</h2>
                         <p>Your email address will not be published. Required fields are marked *</p>
@@ -109,55 +122,10 @@
                         </form>
                         <p class="ajax-response mb-0"></p>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </section>
     <!-- contact-area-end -->
-    <!-- call-back-area -->
-    <section class="call-back-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="call-back-content">
-                        <div class="section-title white-title mb-10">
-                            <h2 class="title">Request A Call Back</h2>
-                        </div>
-                        <p>Ever find yourself staring at your computer screen a good consulting slogan to come to mind? Oftentimes.</p>
-                        <div class="shape">
-                            <img src="<?= base_url() ?>assets/img/images/call_back_shape.png" alt="" data-aos="fade-right" data-aos-delay="400">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="call-back-form">
-                        <form action="#">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-grp">
-                                        <input type="text" placeholder="Name *">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-grp">
-                                        <input type="email" placeholder="E-mail *">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-grp">
-                                        <input type="number" placeholder="Phone *">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <button type="submit" class="btn">Send Now</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- call-back-area-end -->
 </main>
 <!-- main-area-end -->

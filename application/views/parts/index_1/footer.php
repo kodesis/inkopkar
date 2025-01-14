@@ -4,18 +4,18 @@
         <div class="footer__newsletter-two">
             <div class="container">
                 <div class="footer__newsletter-inner">
-                    <h2 class="title">Subscribe Newsletter For Latest Updates</h2>
-                    <form action="#">
+                    <h2 class="title">Thank You For Visiting INKOPKAR</h2>
+                    <!-- <form action="#">
                         <input type="text" placeholder="e-mail Type . . .">
                         <button type="submit" class="btn">Subscribe</button>
-                    </form>
+                    </form> -->
                     <div class="footer__social-two">
                         <ul class="list-wrap">
-                            <li><a href="javascript:void(0)"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="javascript:void(0)"><i class="fab fa-twitter"></i></a></li>
+                            <!-- <li><a href="javascript:void(0)"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="javascript:void(0)"><i class="fab fa-twitter"></i></a></li> -->
                             <li><a href="https://www.instagram.com/inkopkar_id" target="_blank"><i class="fab fa-instagram"></i></a></li>
                             <li><a href="https://www.tiktok.com/@inkopkar_id" target="_blank"><i class="fab fa-tiktok"></i></a></li>
-                            <li><a href="javascript:void(0)"><i class="fab fa-youtube"></i></a></li>
+                            <!-- <li><a href="javascript:void(0)"><i class="fab fa-youtube"></i></a></li> -->
                         </ul>
                     </div>
                 </div>
@@ -24,13 +24,13 @@
         <div class="footer__top-two">
             <div class="container">
                 <div class="row">
-                    <div class="col-xl-4 col-lg-5 col-md-6">
+                    <div class="col-xl-7 col-lg-5 col-md-6">
                         <div class="footer-widget">
                             <div class="footer__content-two">
                                 <div class="fw-logo mb-25">
                                     <a href="index.html"><img src="<?= base_url() ?>/assets/img/logo/w_logo.png" alt=""></a>
                                 </div>
-                                <p>FBersama INKOPKAR, Membangun Masa Depan Lebih Baik!</p>
+                                <p>Bersama INKOPKAR, Membangun Masa Depan Lebih Baik!</p>
                                 <div class="footer-info-list footer-info-two">
                                     <ul class="list-wrap">
                                         <li>
@@ -62,22 +62,21 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-2 col-lg-3 col-sm-6">
+                    <div class="col-xl-5 col-lg-3 col-sm-6">
                         <div class="footer-widget">
-                            <h4 class="fw-title">Information</h4>
+                            <h4 class="fw-title">Our pages</h4>
                             <div class="footer-link-list">
                                 <ul class="list-wrap">
-                                    <li><a href="about.html">Information</a></li>
-                                    <li><a href="about.html">About us</a></li>
-                                    <li><a href="team.html">Meet our team</a></li>
-                                    <li><a href="contact.html">Case stories</a></li>
-                                    <li><a href="blog.html">Latest news</a></li>
-                                    <li><a href="contact.html">Contact us</a></li>
+                                    <li><a href="<?= base_url() ?>">Home</a></li>
+                                    <li><a href="<?= base_url('about') ?>">About us</a></li>
+                                    <li><a href="<?= base_url('service') ?>">Our Service</a></li>
+                                    <li><a href="<?= base_url('blog') ?>">Blog</a></li>
+                                    <li><a href="<?= base_url('contact') ?>">Contact us</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <!-- <div class="col-xl-3 col-lg-4 col-sm-6">
                         <div class="footer-widget">
                             <h4 class="fw-title">Top Links</h4>
                             <div class="footer-link-list">
@@ -90,8 +89,8 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6">
+                    </div> -->
+                    <!-- <div class="col-xl-4 col-lg-4 col-md-6">
                         <div class="footer-widget">
                             <h4 class="fw-title">Instagram Posts</h4>
                             <div class="footer-instagram">
@@ -105,7 +104,7 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
