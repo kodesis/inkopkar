@@ -83,20 +83,25 @@
 
 
                         </li> -->
+                        <?php
+                        if ($this->session->userdata('role_id') == 1) {
+                        ?>
+                            <li class="sidebar-title">Page Management</li>
 
-                        <li class="sidebar-title">Page Management</li>
-
-                        <li
-                            class="sidebar-item <?php if ($url_now == 'blog_management') {
-                                                    echo 'active ';
-                                                } ?>">
-                            <a href="<?= base_url('blog_management') ?>" class='sidebar-link'>
-                                <i class="bi bi-grid-fill"></i>
-                                <span>Blog Management</span>
-                            </a>
+                            <li
+                                class="sidebar-item <?php if ($url_now == 'blog_management') {
+                                                        echo 'active ';
+                                                    } ?>">
+                                <a href="<?= base_url('blog_management') ?>" class='sidebar-link'>
+                                    <i class="bi bi-grid-fill"></i>
+                                    <span>Blog Management</span>
+                                </a>
 
 
-                        </li>
+                            </li>
+                        <?php
+                        }
+                        ?>
                     </ul>
                 </div>
             </div>
