@@ -60,7 +60,7 @@
 
                         </li>
 
-                        <li
+                        <!-- <li
                             class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-stack"></i>
@@ -82,7 +82,7 @@
                             </ul>
 
 
-                        </li>
+                        </li> -->
 
                         <li class="sidebar-title">Page Management</li>
 
