@@ -34,9 +34,9 @@
                     <div class="testimonial__img-wrap-two">
                         <img src="<?= base_url() ?>assets/img/inkopkar/foto2.jpg" alt="">
                         <div class="testimonial__img-shape-two">
-                            <img src="<?= base_url() ?>assets/img/images/h3_testimonial_shape01.png" alt="" class="alltuchtopdown">
+                            <!-- <img src="<?= base_url() ?>assets/img/images/h3_testimonial_shape01.png" alt="" class="alltuchtopdown">
                             <img src="<?= base_url() ?>assets/img/images/inner_testimonial_shape.png" alt="" class="rotateme">
-                            <img src="<?= base_url() ?>assets/img/images/h3_testimonial_shape03.png" alt="">
+                            <img src="<?= base_url() ?>assets/img/images/h3_testimonial_shape03.png" alt=""> -->
                         </div>
                     </div>
                 </div>

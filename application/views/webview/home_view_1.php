@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div class="swiper-slide slider__single">
-                    <div class="slider__bg" data-background="<?= base_url() ?>/assets/img/inkopkar/slider2.jpg"></div>
+                    <div class="slider__bg" data-background="<?= base_url() ?>/assets/img/inkopkar/slider3.jpg"></div>
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-6">
@@ -140,7 +140,7 @@
                                 </ul>
                             </div>
                             <div class="about__list-img">
-                                <img src="<?= base_url() ?>/assets/img/images/about_list_img.jpg" alt="INKOPKAR Programs">
+                                <img src="<?= base_url() ?>/assets/img/inkopkar/slider2.jpg" alt="INKOPKAR Programs">
                             </div>
                         </div>
                         <!-- <div class="about-bottom">
