@@ -1,7 +1,7 @@
 <!-- main-area -->
 <main class="fix">
     <!-- breadcrumb-area -->
-    <section class="breadcrumb__area breadcrumb__bg" data-background="<?= base_url() ?>assets/img/bg/breadcrumb_bg.jpg">
+    <section class="breadcrumb__area breadcrumb__bg" data-background="<?= base_url() ?>assets/img/inkopkar/service.png">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
