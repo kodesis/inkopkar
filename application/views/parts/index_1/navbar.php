@@ -146,11 +146,11 @@
                                         </div>
                                         <div class="social-links">
                                             <ul class="list-wrap">
-                                                <!-- <li><a href="javascript:void(0)"><i class="fab fa-facebook-f"></i></a></li>
-                                                <li><a href="javascript:void(0)"><i class="fab fa-twitter"></i></a></li> -->
+                                                <li><a href="javascript:void(0)"><i class="fab fa-facebook-f"></i></a></li>
+                                                <li><a href="javascript:void(0)"><i class="fab fa-twitter"></i></a></li>
                                                 <li><a href="https://www.instagram.com/inkopkar_id" target="_blank"><i class="fab fa-instagram"></i></a></li>
                                                 <li><a href="https://www.tiktok.com/@inkopkar_id" target="_blank"><i class="fab fa-tiktok"></i></a></li>
-                                                <!-- <li><a href="javascript:void(0)"><i class="fab fa-youtube"></i></a></li> -->
+                                                <li><a href="javascript:void(0)"><i class="fab fa-youtube"></i></a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -223,11 +223,11 @@
                 </div>
             </div>
             <div class="offCanvas__social-icon mt-30">
-                <!-- <a href="javascript:void(0)"><i class="fab fa-facebook-f"></i></a>
+                <a href="javascript:void(0)"><i class="fab fa-facebook-f"></i></a>
                 <a href="javascript:void(0)"><i class="fab fa-twitter"></i></a>
-                <a href="javascript:void(0)"><i class="fab fa-google-plus-g"></i></a> -->
-                <li><a href="https://www.instagram.com/inkopkar_id" target="_blank"><i class="fab fa-instagram"></i></a></li>
-                <li><a href="https://www.tiktok.com/@inkopkar_id" target="_blank"><i class="fab fa-tiktok"></i></a></li>
+                <a href="javascript:void(0)"><i class="fab fa-google-plus-g"></i></a>
+                <a href="https://www.instagram.com/inkopkar_id" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@inkopkar_id" target="_blank"><i class="fab fa-tiktok"></i></a>
             </div>
         </div>
         <div class="offCanvas__overly"></div>
