@@ -57,7 +57,7 @@
                                 <i class="flaticon-financial-profit"></i>
                             </div>
                             <div class="features__content">
-                                <h4 class="title"><a href="services-details.html">Pendanaan & Simpan Pinjam</a></h4>
+                                <h4 class="title"><a href="<?= base_url('service') ?>">Pendanaan & Simpan Pinjam</a></h4>
                                 <p>Menyediakan solusi keuangan untuk simpanan dan pinjaman usaha anggota koperasi.</p>
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                                 <i class="flaticon-light-bulb"></i>
                             </div>
                             <div class="features__content">
-                                <h4 class="title"><a href="services-details.html">Pelatihan & Edukasi</a></h4>
+                                <h4 class="title"><a href="<?= base_url('service') ?>">Pelatihan & Edukasi</a></h4>
                                 <p>Program pelatihan berbasis keterampilan dan manajemen untuk meningkatkan kompetensi anggota.</p>
                             </div>
                         </div>
@@ -79,7 +79,7 @@
                                 <i class="flaticon-target"></i>
                             </div>
                             <div class="features__content">
-                                <h4 class="title"><a href="services-details.html">Pengembangan Usaha</a></h4>
+                                <h4 class="title"><a href="<?= base_url('service') ?>">Pengembangan Usaha</a></h4>
                                 <p>Kolaborasi antar koperasi untuk menciptakan peluang bisnis baru dan memperkuat jaringan usaha.</p>
                             </div>
                         </div>
@@ -90,7 +90,7 @@
                                 <i class="flaticon-profit"></i>
                             </div>
                             <div class="features__content">
-                                <h4 class="title"><a href="services-details.html">Pemasaran & Distribusi</a></h4>
+                                <h4 class="title"><a href="<?= base_url('service') ?>">Pemasaran & Distribusi</a></h4>
                                 <p>Membantu memasarkan produk koperasi ke pasar nasional dan internasional.</p>
                             </div>
                         </div>
@@ -106,7 +106,7 @@
             <div class="row align-items-center justify-content-center">
                 <div class="col-lg-6 col-md-8">
                     <div class="about__img-wrap-two">
-                        <img src="<?= base_url() ?>/assets/img/inkopkar/bapak1.jpg" style="width: 75%;" alt="INKOPKAR Activities">
+                        <img src="<?= base_url() ?>/assets/img/inkopkar/foto1.jpg" style="width: 75%;" alt="INKOPKAR Activities">
                         <div class="shape">
                             <img src="<?= base_url() ?>/assets/img/images/h2_about_img_shape.png" alt="" class="alltuchtopdown">
                         </div>
@@ -184,9 +184,9 @@
                             <i class="flaticon-pie-chart"></i>
                         </div>
                         <div class="services__content-two">
-                            <h2 class="title"><a href="services-details.html">Analisis Usaha</a></h2>
+                            <h2 class="title"><a href="<?= base_url('service') ?>">Analisis Usaha</a></h2>
                             <p>Kami menyediakan analisis usaha untuk membantu koperasi memahami pasar dan peluang bisnis.</p>
-                            <a href="services-details.html" class="btn">Selengkapnya</a>
+                            <a href="<?= base_url('service') ?>" class="btn">Selengkapnya</a>
                         </div>
                     </div>
                 </div>
@@ -196,9 +196,9 @@
                             <i class="flaticon-budget"></i>
                         </div>
                         <div class="services__content-two">
-                            <h2 class="title"><a href="services-details.html">Peluang Investasi</a></h2>
+                            <h2 class="title"><a href="<?= base_url('service') ?>">Peluang Investasi</a></h2>
                             <p>INKOPKAR mendukung investasi yang berkelanjutan untuk pertumbuhan koperasi dan anggotanya.</p>
-                            <a href="services-details.html" class="btn">Selengkapnya</a>
+                            <a href="<?= base_url('service') ?>" class="btn">Selengkapnya</a>
                         </div>
                     </div>
                 </div>
@@ -208,9 +208,9 @@
                             <i class="flaticon-piggy-bank"></i>
                         </div>
                         <div class="services__content-two">
-                            <h2 class="title"><a href="services-details.html">Konsultasi Keuangan</a></h2>
+                            <h2 class="title"><a href="<?= base_url('service') ?>">Konsultasi Keuangan</a></h2>
                             <p>Kami menawarkan solusi keuangan yang aman dan terpercaya untuk koperasi dan anggotanya.</p>
-                            <a href="services-details.html" class="btn">Selengkapnya</a>
+                            <a href="<?= base_url('service') ?>" class="btn">Selengkapnya</a>
                         </div>
                     </div>
                 </div>
@@ -220,9 +220,9 @@
                             <i class="flaticon-target"></i>
                         </div>
                         <div class="services__content-two">
-                            <h2 class="title"><a href="services-details.html">Pengembangan Pasar</a></h2>
+                            <h2 class="title"><a href="<?= base_url('service') ?>">Pengembangan Pasar</a></h2>
                             <p>Mendukung koperasi untuk memperluas jangkauan pasar dan memperkuat daya saingnya.</p>
-                            <a href="services-details.html" class="btn">Selengkapnya</a>
+                            <a href="<?= base_url('service') ?>" class="btn">Selengkapnya</a>
                         </div>
                     </div>
                 </div>
@@ -236,7 +236,7 @@
     <!-- services-area-end -->
     <!-- choose-area -->
     <section class="choose__area-two">
-        <div class="choose__bg" data-background="<?= base_url() ?>/assets/img/inkopkar/foto1.jpg"></div>
+        <div class="choose__bg" data-background="<?= base_url() ?>/assets/img/inkopkar/bapak1.jpg" style="width: 40%;"></div>
         <div class="container">
             <div class="row justify-content-end">
                 <div class="col-lg-8 col-md-10">
