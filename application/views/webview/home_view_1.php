@@ -236,7 +236,7 @@
     <!-- services-area-end -->
     <!-- choose-area -->
     <section class="choose__area-two">
-        <div class="choose__bg" data-background="<?= base_url() ?>/assets/img/inkopkar/foto6.jpg" style="width: 40%;"></div>
+        <div class="choose__bg" data-background="<?= base_url() ?>/assets/img/inkopkar/foto7.jpg" style="width: 40%;"></div>
         <div class="container">
             <div class="row justify-content-end">
                 <div class="col-lg-8 col-md-10">
