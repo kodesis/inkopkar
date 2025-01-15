@@ -26,9 +26,9 @@ class Blog extends CI_Controller
 		$this->load->model('Artikel_Management_m', 'artikel_management');
 		$this->load->helper(array('form', 'url'));
 		$this->load->library('upload');
-		if (!$this->session->userdata('user_logged_in')) {
-			redirect('auth'); // Redirect to the 'autentic' page
-		}
+		// if (!$this->session->userdata('user_logged_in')) {
+		// 	redirect('auth'); // Redirect to the 'autentic' page
+		// }
 		$this->load->library('pagination');
 	}
 	public function index()
