@@ -5,7 +5,7 @@
         <div class="swiper-container slider__active">
             <div class="swiper-wrapper">
                 <div class="swiper-slide slider__single">
-                    <div class="slider__bg" data-background="<?= base_url() ?>/assets/img/slider/slider_bg01.jpg"></div>
+                    <div class="slider__bg" data-background="<?= base_url() ?>/assets/img/inkopkar/slider1.jpg"></div>
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-6">
@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div class="swiper-slide slider__single">
-                    <div class="slider__bg" data-background="<?= base_url() ?>/assets/img/slider/slider_bg02.jpg"></div>
+                    <div class="slider__bg" data-background="<?= base_url() ?>/assets/img/inkopkar/slider2.jpg"></div>
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-6">
@@ -106,7 +106,7 @@
             <div class="row align-items-center justify-content-center">
                 <div class="col-lg-6 col-md-8">
                     <div class="about__img-wrap-two">
-                        <img src="<?= base_url() ?>/assets/img/images/h2_about_img.jpg" alt="INKOPKAR Activities">
+                        <img src="<?= base_url() ?>/assets/img/inkopkar/bapak2.jpg" style="width: 75%;" alt="INKOPKAR Activities">
                         <div class="shape">
                             <img src="<?= base_url() ?>/assets/img/images/h2_about_img_shape.png" alt="" class="alltuchtopdown">
                         </div>
@@ -236,7 +236,7 @@
     <!-- services-area-end -->
     <!-- choose-area -->
     <section class="choose__area-two">
-        <div class="choose__bg" data-background="<?= base_url() ?>/assets/img/bg/choose_bg.jpg"></div>
+        <div class="choose__bg" data-background="<?= base_url() ?>/assets/img/inkopkar/foto1.jpg"></div>
         <div class="container">
             <div class="row justify-content-end">
                 <div class="col-lg-8 col-md-10">

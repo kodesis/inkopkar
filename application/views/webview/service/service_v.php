@@ -69,7 +69,7 @@
                             <div class="tab-pane fade show active" id="health-tab-pane" role="tabpanel" aria-labelledby="health-tab" tabindex="0">
                                 <div class="services__item-four shine-animate-item">
                                     <div class="services__thumb-four shine-animate">
-                                        <img src="<?= base_url() ?>assets/img/services/h3_services_img01.jpg" alt="">
+                                        <img src="<?= base_url() ?>assets/img/inkopkar/foto4.jpg" alt="">
                                     </div>
                                     <div class="services__content-four">
                                         <h2 class="title"><a href="services-details.html">Pendanaan dan Simpan Pinjam</a></h2>
@@ -88,7 +88,7 @@
                             <div class="tab-pane fade" id="travel-tab-pane" role="tabpanel" aria-labelledby="travel-tab" tabindex="0">
                                 <div class="services__item-four shine-animate-item">
                                     <div class="services__thumb-four shine-animate">
-                                        <img src="<?= base_url() ?>assets/img/services/h3_services_img02.jpg" alt="">
+                                        <img src="<?= base_url() ?>assets/img/inkopkar/foto5.jpg" alt="">
                                     </div>
                                     <div class="services__content-four">
                                         <h2 class="title"><a href="services-details.html">Pemasaran dan Distribusi</a></h2>
@@ -107,7 +107,7 @@
                             <div class="tab-pane fade" id="vehicle-tab-pane" role="tabpanel" aria-labelledby="vehicle-tab" tabindex="0">
                                 <div class="services__item-four shine-animate-item">
                                     <div class="services__thumb-four shine-animate">
-                                        <img src="<?= base_url() ?>assets/img/services/h3_services_img01.jpg" alt="">
+                                        <img src="<?= base_url() ?>assets/img/inkopkar/foto4.jpg" alt="">
                                     </div>
                                     <div class="services__content-four">
                                         <h2 class="title"><a href="services-details.html">Pelatihan dan Edukasi</a></h2>
@@ -126,7 +126,7 @@
                             <div class="tab-pane fade" id="cargo-tab-pane" role="tabpanel" aria-labelledby="cargo-tab" tabindex="0">
                                 <div class="services__item-four shine-animate-item">
                                     <div class="services__thumb-four shine-animate">
-                                        <img src="<?= base_url() ?>assets/img/services/h3_services_img02.jpg" alt="">
+                                        <img src="<?= base_url() ?>assets/img/inkopkar/foto5.jpg" alt="">
                                     </div>
                                     <div class="services__content-four">
                                         <h2 class="title"><a href="services-details.html">Pengembangan Usaha Bersama</a></h2>
