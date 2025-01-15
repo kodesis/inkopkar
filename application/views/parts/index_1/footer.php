@@ -28,7 +28,7 @@
                         <div class="footer-widget">
                             <div class="footer__content-two">
                                 <div class="fw-logo mb-25">
-                                    <a href="index.html"><img src="<?= base_url() ?>/assets/img/logo/w_logo.png" alt=""></a>
+                                    <a href="index.html"><img src="<?= base_url() ?>/assets/img/logo/logo.gif" alt=""></a>
                                 </div>
                                 <p>Bersama INKOPKAR, Membangun Masa Depan Lebih Baik!</p>
                                 <div class="footer-info-list footer-info-two">
