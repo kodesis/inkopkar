@@ -140,7 +140,7 @@
                                 </ul>
                             </div>
                             <div class="about__list-img">
-                                <img src="<?= base_url() ?>/assets/img/inkopkar/slider2.jpg" alt="INKOPKAR Programs">
+                                <img src="<?= base_url() ?>/assets/img/inkopkar/slider2.jpg" style="max-width: 125%; width: 125%;" alt="INKOPKAR Programs">
                             </div>
                         </div>
                         <!-- <div class="about-bottom">
