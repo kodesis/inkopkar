@@ -77,7 +77,7 @@
             <div class="row align-items-center justify-content-center">
                 <div class="col-lg-6 col-md-8">
                     <div class="about__img-wrap-six">
-                        <img src="<?= base_url() ?>assets/img/inkopkar/foto3.jpg" style="width: 80%;" alt="">
+                        <img src="<?= base_url() ?>assets/img/inkopkar/foto31.jpg" style="width: 80%;" alt="">
                         <!-- <img src="<?= base_url() ?>assets/img/images/h4_about_img02.jpg" alt="" data-parallax='{"x" : 40}'> -->
                         <!-- <div class="experience__box-four">
                             <h2 class="title">25</h2>
