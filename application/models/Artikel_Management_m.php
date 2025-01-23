@@ -3,9 +3,12 @@
 class Artikel_Management_m extends CI_Model
 {
     var $table = 'artikel';
-    var $column_order = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable orderable
-    var $column_search = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable searchable 
-    var $order = array('artikel.tanggal' => 'DESC'); // default order 
+    // var $column_order = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable orderable
+    // var $column_search = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable searchable 
+    var $column_order = array('Id', 'thumbnail'); //set column field database for datatable orderable
+    var $column_search = array('Id', 'thumbnail'); //set column field database for datatable searchable 
+
+    var $order = array('artikel.Id' => 'DESC'); // default order 
 
     function _get_datatables_query()
     {

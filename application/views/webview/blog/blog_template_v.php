@@ -1,7 +1,7 @@
 <!-- main-area -->
 <main class="fix">
     <!-- breadcrumb-area -->
-    <section class="breadcrumb__area breadcrumb__bg" data-background="<?= base_url() ?>assets/img/bg/breadcrumb_bg.jpg">
+    <section class="breadcrumb__area breadcrumb__bg" data-background="<?= base_url() ?>assets/img/inkopkar/blog.png">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
@@ -39,28 +39,12 @@
                                         <div class="blog__post-thumb-two">
                                             <a href="<?= base_url('blog/detail') ?>" class="shine-animate"><img src="<?= base_url() ?>assets/img/blog/h2_blog_post01.jpg" alt=""></a>
                                         </div>
-                                        <div class="blog__post-content-two">
-                                            <div class="blog-post-meta">
-                                                <ul class="list-wrap">
-                                                    <li><i class="fas fa-calendar-alt"></i>Oct 21, 2024</li>
-                                                </ul>
-                                            </div>
-                                            <h2 class="title"><a href="<?= base_url('blog/detail') ?>">Marketing your area business downturn now a days</a></h2>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="blog__post-two shine-animate-item">
                                         <div class="blog__post-thumb-two">
                                             <a href="<?= base_url('blog/detail') ?>" class="shine-animate"><img src="<?= base_url() ?>assets/img/blog/h2_blog_post02.jpg" alt=""></a>
-                                        </div>
-                                        <div class="blog__post-content-two">
-                                            <div class="blog-post-meta">
-                                                <ul class="list-wrap">
-                                                    <li><i class="fas fa-calendar-alt"></i>Oct 21, 2024</li>
-                                                </ul>
-                                            </div>
-                                            <h2 class="title"><a href="<?= base_url('blog/detail') ?>">Improving The Double Diamond Design Process</a></h2>
                                         </div>
                                     </div>
                                 </div>
@@ -69,29 +53,12 @@
                                         <div class="blog__post-thumb-two">
                                             <a href="<?= base_url('blog/detail') ?>" class="shine-animate"><img src="<?= base_url() ?>assets/img/blog/h2_blog_post03.jpg" alt=""></a>
                                         </div>
-                                        <div class="blog__post-content-two">
-                                            <div class="blog-post-meta">
-                                                <ul class="list-wrap">
-                                                    <li><i class="fas fa-calendar-alt"></i>Oct 21, 2024</li>
-                                                </ul>
-                                            </div>
-                                            <h2 class="title"><a href="<?= base_url('blog/detail') ?>">Revealing Images With CSS Mask Animations</a></h2>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="blog__post-two shine-animate-item">
                                         <div class="blog__post-thumb-two">
                                             <a href="<?= base_url('blog/detail') ?>" class="shine-animate"><img src="<?= base_url() ?>assets/img/blog/h2_blog_post04.jpg" alt=""></a>
-                                        </div>
-                                        <div class="blog__post-content-two">
-                                            <div class="blog-post-meta">
-                                                <ul class="list-wrap">
-                                                    <li><i class="fas fa-calendar-alt"></i>Oct 21, 2024</li>
-                                                </ul>
-                                            </div>
-                                            <h2 class="title"><a href="<?= base_url('blog/detail') ?>">Improving The Double Diamond
-                                                    Design Process</a></h2>
                                         </div>
                                     </div>
                                 </div>
@@ -100,30 +67,12 @@
                                         <div class="blog__post-thumb-two">
                                             <a href="<?= base_url('blog/detail') ?>" class="shine-animate"><img src="<?= base_url() ?>assets/img/blog/h2_blog_post05.jpg" alt=""></a>
                                         </div>
-                                        <div class="blog__post-content-two">
-                                            <div class="blog-post-meta">
-                                                <ul class="list-wrap">
-                                                    <li><i class="fas fa-calendar-alt"></i>Oct 21, 2024</li>
-                                                </ul>
-                                            </div>
-                                            <h2 class="title"><a href="<?= base_url('blog/detail') ?>">Falling For Oklch: A Love Story
-                                                    Of Color Spaces, Gamuts ...</a></h2>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="blog__post-two shine-animate-item">
                                         <div class="blog__post-thumb-two">
                                             <a href="<?= base_url('blog/detail') ?>" class="shine-animate"><img src="<?= base_url() ?>assets/img/blog/h2_blog_post06.jpg" alt=""></a>
-                                        </div>
-                                        <div class="blog__post-content-two">
-                                            <div class="blog-post-meta">
-                                                <ul class="list-wrap">
-                                                    <li><i class="fas fa-calendar-alt"></i>Oct 21, 2024</li>
-                                                </ul>
-                                            </div>
-                                            <h2 class="title"><a href="<?= base_url('blog/detail') ?>">Better Context Menus With Safe
-                                                    Triangles</a></h2>
                                         </div>
                                     </div>
                                 </div>

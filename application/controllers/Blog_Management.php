@@ -44,10 +44,10 @@ class Blog_Management extends CI_Controller
             $row = array();
             $row[] = $no;
             // $row[] = $cat->category;
-            $row[] = $cat->title;
+            // $row[] = $cat->title;
             $row[] = '<img width="100px" src="' . $path . '">';
-            $row[] = $cat->tanggal;
-            $row[] = $cat->view_count;
+            // $row[] = $cat->tanggal;
+            // $row[] = $cat->view_count;
             // $row[] = $cat->halaman_page;
 
             $row[] = '<center> <div class="list-icons d-inline-flex">

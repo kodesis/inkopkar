@@ -17,7 +17,7 @@
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="<?= base_url('dashboard') ?>">Dashboard</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Tambah Artikel</li>
+                            <li class="breadcrumb-item active" aria-current="page">Tambah Blog</li>
                         </ol>
                     </nav>
                 </div>
@@ -34,7 +34,7 @@
                         if ($this->uri->segment(3) == null) {
                         ?>
                             <div class="card-header">
-                                <h4 class="card-title">Tambah Artikel</h4>
+                                <h4 class="card-title">Tambah Blog</h4>
                             </div>
                             <div class="card-content">
                                 <div class="card-body">
@@ -55,19 +55,19 @@
                                                     </select>
                                                 </div>
                                             </div> -->
-                                            <div class="col-12">
+                                            <!-- <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="email-id-vertical">Title</label>
                                                     <input type="text" class="form-control" id="title_add" name="title" placeholder="Title">
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <div class="col-12">
                                                 <div class="form-group">
-                                                    <label for="contact-info-vertical">Thumbnail</label>
+                                                    <label for="contact-info-vertical">Picture</label>
                                                     <input type="file" class="form-control" id="thumbnail_add" name="thumbnail" placeholder="Thumbnail">
                                                 </div>
                                             </div>
-                                            <div class="col-12">
+                                            <!-- <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="text">Text</label>
                                                     <textarea class="form-control" name="text" id="summernote1"></textarea>
@@ -84,7 +84,7 @@
                                                     <label for="password-vertical">Jam</label>
                                                     <input type="time" id="jam_add" class="form-control" name="jam" placeholder="Jam">
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </form>
                                     <div class="col-12 d-flex justify-content-end">
@@ -98,7 +98,7 @@
                         } else {
                         ?>
                             <div class="card-header">
-                                <h4 class="card-title">Update Artikel</h4>
+                                <h4 class="card-title">Update Blog</h4>
                             </div>
                             <div class="card-content">
                                 <div class="card-body">
@@ -120,19 +120,19 @@
                                                     </select>
                                                 </div>
                                             </div> -->
-                                            <div class="col-12">
+                                            <!-- <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="email-id-vertical">Title</label>
                                                     <input type="text" class="form-control" id="title_edit" name="title" placeholder="Title" value="<?= $artikel->title ?>">
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <div class="col-12">
                                                 <div class="form-group">
-                                                    <label for="contact-info-vertical">Thumbnail</label>
+                                                    <label for="contact-info-vertical">Picture</label>
                                                     <input type="file" class="form-control" id="thumbnail_edit" name="thumbnail" placeholder="Thumbnail">
                                                 </div>
                                             </div>
-                                            <div class="col-12">
+                                            <!-- <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="text">Text</label>
                                                     <textarea class="form-control" name="text" id="summernote1"><?= $artikel->text ?></textarea>
@@ -156,7 +156,7 @@
                                                     <label for="password-vertical">Jam</label>
                                                     <input type="time" id="jam_edit" class="form-control" name="jam" placeholder="Jam" value="<?= $time ?>">
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </form>
                                     <div class="col-12 d-flex justify-content-end">

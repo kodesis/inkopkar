@@ -1,12 +1,12 @@
 <!-- main-area -->
 <main class="fix">
     <!-- breadcrumb-area -->
-    <section class="breadcrumb__area breadcrumb__bg" data-background="<?= base_url() ?>assets/img/bg/breadcrumb_bg.jpg">
+    <section class="breadcrumb__area breadcrumb__bg" data-background="<?= base_url() ?>assets/img/inkopkar/about2.png">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="breadcrumb__content">
-                        <h2 class="title">Contact With Us</h2>
+                        <h2 class="title">Contact Us</h2>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>

@@ -24,7 +24,7 @@
             data: function(data) {}
         },
         columnDefs: [{
-            targets: 5, // The 8th column (0-indexed)
+            targets: 2, // The 8th column (0-indexed)
             orderable: false // Disable sorting
         }]
     })
@@ -70,15 +70,16 @@
         //         timer: 1500
         //     });
         // } else
-        if (!ttltitleValue) {
-            swal.fire({
-                customClass: 'slow-animation',
-                icon: 'error',
-                showConfirmButton: false,
-                title: 'Kolom Title Tidak Boleh Kosong',
-                timer: 1500
-            });
-        } else if (!ttlthumbnailValue) {
+        // if (!ttltitleValue) {
+        //     swal.fire({
+        //         customClass: 'slow-animation',
+        //         icon: 'error',
+        //         showConfirmButton: false,
+        //         title: 'Kolom Title Tidak Boleh Kosong',
+        //         timer: 1500
+        //     });
+        // } else
+        if (!ttlthumbnailValue) {
             swal.fire({
                 customClass: 'slow-animation',
                 icon: 'error',
@@ -86,22 +87,22 @@
                 title: 'Kolom Thumbnail Tidak Boleh Kosong',
                 timer: 1500
             });
-        } else if (!ttltanggalValue) {
-            swal.fire({
-                customClass: 'slow-animation',
-                icon: 'error',
-                showConfirmButton: false,
-                title: 'Kolom Tanggal Tidak Boleh Kosong',
-                timer: 1500
-            });
-        } else if (!ttljamValue) {
-            swal.fire({
-                customClass: 'slow-animation',
-                icon: 'error',
-                showConfirmButton: false,
-                title: 'Kolom Jam Tidak Boleh Kosong',
-                timer: 1500
-            });
+            // } else if (!ttltanggalValue) {
+            //     swal.fire({
+            //         customClass: 'slow-animation',
+            //         icon: 'error',
+            //         showConfirmButton: false,
+            //         title: 'Kolom Tanggal Tidak Boleh Kosong',
+            //         timer: 1500
+            //     });
+            // } else if (!ttljamValue) {
+            //     swal.fire({
+            //         customClass: 'slow-animation',
+            //         icon: 'error',
+            //         showConfirmButton: false,
+            //         title: 'Kolom Jam Tidak Boleh Kosong',
+            //         timer: 1500
+            //     });
         } else {
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
@@ -161,12 +162,11 @@
                                     title: 'Berhasil Menambahkan Artikel',
                                     timer: 1500
                                 });
-                                document.getElementById('add_artikel').reset(); // Reset the form
-                                $('#table2').DataTable().ajax.reload(); // Assuming you are using AJAX to load data
-                                $('#exampleModalScrollable').modal('hide'); // Hide the modal
                                 // location.reload();
-                                location.href = '<?= base_url('Blog_Management') ?>';
-
+                                setTimeout(function() {
+                                    console.log('Redirecting to Blog_Management...');
+                                    location.href = '<?= base_url('Blog_Management') ?>';
+                                }, 1500); // Delay for smooth transition
                             }
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
@@ -201,110 +201,108 @@
         //         timer: 1500
         //     });
         // } else
-        if (!ttltitleValue) {
-            swal.fire({
-                customClass: 'slow-animation',
-                icon: 'error',
-                showConfirmButton: false,
-                title: 'Kolom Title Tidak Boleh Kosong',
-                timer: 1500
-            });
-        } else if (!ttltanggalValue) {
-            swal.fire({
-                customClass: 'slow-animation',
-                icon: 'error',
-                showConfirmButton: false,
-                title: 'Kolom Tanggal Tidak Boleh Kosong',
-                timer: 1500
-            });
-        } else if (!ttljamValue) {
-            swal.fire({
-                customClass: 'slow-animation',
-                icon: 'error',
-                showConfirmButton: false,
-                title: 'Kolom Jam Tidak Boleh Kosong',
-                timer: 1500
-            });
-        } else {
-            const swalWithBootstrapButtons = Swal.mixin({
-                customClass: {
-                    InputEvent: 'form-control',
-                    confirmButton: 'btn btn-success',
-                    cancelButton: 'btn btn-danger'
-                },
-                buttonsStyling: false
-            })
+        // if (!ttltitleValue) {
+        //     swal.fire({
+        //         customClass: 'slow-animation',
+        //         icon: 'error',
+        //         showConfirmButton: false,
+        //         title: 'Kolom Title Tidak Boleh Kosong',
+        //         timer: 1500
+        //     });
+        // } else if (!ttltanggalValue) {
+        //     swal.fire({
+        //         customClass: 'slow-animation',
+        //         icon: 'error',
+        //         showConfirmButton: false,
+        //         title: 'Kolom Tanggal Tidak Boleh Kosong',
+        //         timer: 1500
+        //     });
+        // } else if (!ttljamValue) {
+        //     swal.fire({
+        //         customClass: 'slow-animation',
+        //         icon: 'error',
+        //         showConfirmButton: false,
+        //         title: 'Kolom Jam Tidak Boleh Kosong',
+        //         timer: 1500
+        //     });
+        // } else {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                InputEvent: 'form-control',
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        })
 
-            swalWithBootstrapButtons.fire({
-                title: 'Ingin Mengubah Data Artikel?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Ya, Ubah',
-                cancelButtonText: 'Tidak',
-                reverseButtons: true
-            }).then((result) => {
+        swalWithBootstrapButtons.fire({
+            title: 'Ingin Mengubah Data Artikel?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, Ubah',
+            cancelButtonText: 'Tidak',
+            reverseButtons: true
+        }).then((result) => {
 
-                if (result.isConfirmed) {
+            if (result.isConfirmed) {
 
-                    var url;
-                    var formData;
-                    url = "<?php echo site_url('Blog_Management/proses_update') ?>";
+                var url;
+                var formData;
+                url = "<?php echo site_url('Blog_Management/proses_update') ?>";
 
-                    // window.location = url_base;
-                    var formData = new FormData($("#update_artikel")[0]);
-                    $.ajax({
-                        url: url,
-                        type: "POST",
-                        data: formData,
-                        contentType: false,
-                        processData: false,
-                        dataType: "JSON",
-                        beforeSend: function() {
+                // window.location = url_base;
+                var formData = new FormData($("#update_artikel")[0]);
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    dataType: "JSON",
+                    beforeSend: function() {
+                        swal.fire({
+                            icon: 'info',
+                            timer: 3000,
+                            showConfirmButton: false,
+                            title: 'Loading...'
+
+                        });
+                    },
+                    success: function(data) {
+                        /* if(!data.status)alert("ho"); */
+                        if (!data.status) swal.fire('Gagal menyimpan data', 'error');
+                        else {
+
+                            // document.getElementById('rumahadat').reset();
+                            // $('#add_modal').modal('hide');
+                            (JSON.stringify(data));
+                            // alert(data)
                             swal.fire({
-                                icon: 'info',
-                                timer: 3000,
+                                customClass: 'slow-animation',
+                                icon: 'success',
                                 showConfirmButton: false,
-                                title: 'Loading...'
-
+                                title: 'Berhasil Mengubah Artikel',
+                                timer: 1500
                             });
-                        },
-                        success: function(data) {
-                            /* if(!data.status)alert("ho"); */
-                            if (!data.status) swal.fire('Gagal menyimpan data', 'error');
-                            else {
-
-                                // document.getElementById('rumahadat').reset();
-                                // $('#add_modal').modal('hide');
-                                (JSON.stringify(data));
-                                // alert(data)
-                                swal.fire({
-                                    customClass: 'slow-animation',
-                                    icon: 'success',
-                                    showConfirmButton: false,
-                                    title: 'Berhasil Mengubah Artikel',
-                                    timer: 1500
-                                });
-                                document.getElementById('update_artikel').reset(); // Reset the form
-                                // $('#table2').DataTable().ajax.reload(); // Assuming you are using AJAX to load data
-                                // $('#exampleModalScrollable').modal('hide'); // Hide the modal
-                                // location.reload();
+                            setTimeout(function() {
+                                console.log('Redirecting to Blog_Management...');
                                 location.href = '<?= base_url('Blog_Management') ?>';
-
-                            }
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            swal.fire('Operation Failed!', errorThrown, 'error');
-                        },
-                        complete: function() {
-                            console.log('Editing job done');
+                            }, 1500); // Delay for smooth transition
                         }
-                    });
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        swal.fire('Operation Failed!', errorThrown, 'error');
+                    },
+                    complete: function() {
+                        console.log('Editing job done');
+                    }
+                });
 
 
-                }
+            }
 
-            })
-        }
+        })
+        // }
     }
 
     function onDelete(id) {
@@ -346,7 +344,7 @@
                                 'Data berhasil dihapus.',
                                 'success'
                             )
-                            $('#table_artikel').DataTable().ajax.reload(); // Assuming you are using AJAX to load data
+                            jquery_datatable.ajax.reload();
                         }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {

@@ -1,7 +1,7 @@
 <!-- main-area -->
 <main class="fix">
     <!-- breadcrumb-area -->
-    <section class="breadcrumb__area breadcrumb__bg" data-background="<?= base_url() ?>assets/img/inkopkar/about1.png">
+    <section class="breadcrumb__area breadcrumb__bg" data-background="<?= base_url() ?>assets/img/inkopkar/about2.png">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
@@ -32,7 +32,7 @@
             <div class="row align-items-center justify-content-center">
                 <div class="col-lg-5 col-md-8">
                     <div class="testimonial__img-wrap-two">
-                        <img src="<?= base_url() ?>assets/img/inkopkar/foto2.jpg" alt="">
+                        <img src="<?= base_url() ?>assets/img/inkopkar/baru/about2.jpg" alt="">
                         <div class="testimonial__img-shape-two">
                             <!-- <img src="<?= base_url() ?>assets/img/images/h3_testimonial_shape01.png" alt="" class="alltuchtopdown">
                             <img src="<?= base_url() ?>assets/img/images/inner_testimonial_shape.png" alt="" class="rotateme">
@@ -77,7 +77,7 @@
             <div class="row align-items-center justify-content-center">
                 <div class="col-lg-6 col-md-8">
                     <div class="about__img-wrap-six">
-                        <img src="<?= base_url() ?>assets/img/inkopkar/foto31.jpg" style="width: 80%;" alt="">
+                        <img src="<?= base_url() ?>assets/img/inkopkar/baru/about3.jpg" style="width: 80%;" alt="">
                         <!-- <img src="<?= base_url() ?>assets/img/images/h4_about_img02.jpg" alt="" data-parallax='{"x" : 40}'> -->
                         <!-- <div class="experience__box-four">
                             <h2 class="title">25</h2>

@@ -1,7 +1,7 @@
 <!-- main-area -->
 <main class="fix">
     <!-- breadcrumb-area -->
-    <section class="breadcrumb__area breadcrumb__bg" data-background="<?= base_url() ?>assets/img/bg/breadcrumb_bg.jpg">
+    <section class="breadcrumb__area breadcrumb__bg" data-background="<?= base_url() ?>assets/img/inkopkar/blog.png">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
@@ -31,38 +31,46 @@
         <div class="container">
             <div class="blog__inner-wrap">
                 <div class="row">
-                    <div class="col-70">
+                    <div class="col-100">
                         <div class="blog-post-wrap">
                             <div class="row gutter-24">
+                                <!-- <div class="col-md-4">
+                                    <div class="blog__post-two shine-animate-item">
+                                        <div class="blog__post-thumb-two">
+                                            <img src="<?= base_url() ?>assets/img/blog/h2_blog_post01.jpg" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="blog__post-two shine-animate-item">
+                                        <div class="blog__post-thumb-two"><img src="<?= base_url() ?>assets/img/blog/h2_blog_post02.jpg" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="blog__post-two shine-animate-item">
+                                        <div class="blog__post-thumb-two"><img src="<?= base_url() ?>assets/img/blog/h2_blog_post03.jpg" alt="">
+                                        </div>
+                                    </div>
+                                </div> -->
                                 <?php
                                 if (!empty($users_data)) {
                                     foreach ($users_data as $b) {
 
                                 ?>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="blog__post-two shine-animate-item">
                                                 <div class="blog__post-thumb-two">
-                                                    <a href="<?= base_url('blog/detail') ?>" class="shine-animate"><img src="<?= base_url('uploads/blog/' . $b->thumbnail) ?>" alt=""></a>
+                                                    <img src="<?= base_url('uploads/blog/' . $b->thumbnail) ?>" alt="">
                                                 </div>
-                                                <div class="blog__post-content-two">
+                                                <!-- <div class="blog__post-content-two">
                                                     <div class="blog-post-meta">
                                                         <ul class="list-wrap">
-                                                            <!-- <li>
-                                                                <a href="<?= base_url('blog') ?>" class="blog__post-tag-two">Business</a>
-                                                            </li> -->
                                                             <li><i class="fas fa-calendar-alt"></i><?= $b->tanggal ?></li>
                                                         </ul>
                                                     </div>
                                                     <h2 class="title"><a href="<?= base_url('blog/detail/' . $b->Id) ?>"><?= $b->title ?></a></h2>
-                                                    <!-- <div class="blog-avatar">
-                                                        <div class="avatar-thumb">
-                                                            <img src="<?= base_url() ?>assets/img/blog/blog_avatar01.png" alt="">
-                                                        </div>
-                                                        <div class="avatar-content">
-                                                            <p>By <a href="<?= base_url('blog/detail') ?>">Doman Smith</a></p>
-                                                        </div>
-                                                    </div> -->
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                     <?php
@@ -79,15 +87,6 @@
                             </div>
                             <div class="pagination-wrap mt-40">
                                 <nav aria-label="Page navigation example">
-                                    <!-- <ul class="pagination list-wrap">
-                                        <li class="page-item"><a class="page-link" href="#"><i class="fas fa-angle-double-left"></i></a></li>
-                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                        <li class="page-item next-page"><a class="page-link" href="#"><i class="fas fa-angle-double-right"></i></a>
-                                        </li>
-                                    </ul> -->
                                     <?=
                                     $pagination
                                     ?>
@@ -95,14 +94,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-30">
+                    <!-- <div class="col-30">
                         <aside class="blog__sidebar">
                             <div class="sidebar__widget sidebar__widget-two">
                                 <div class="sidebar__search">
-                                    <!-- <form action="<?= site_url('latest_news') ?>" method="get" class="search-form">
-                                        <input class="form-control" type="text" name="search" placeholder="Search" value="<?= htmlspecialchars($this->input->get('search') ?? '', ENT_QUOTES, 'UTF-8'); ?>">
-                                        <button class="btn-search" type="submit"><i class="fas fa-search special-tag"></i></button>
-                                    </form> -->
+                                    
                                     <form action="<?= site_url('blog') ?>" method="get">
                                         <input type="text" name="search" value="<?= htmlspecialchars($this->input->get('search') ?? '', ENT_QUOTES, 'UTF-8'); ?>" placeholder="Search . . .">
                                         <button type="submit">
@@ -144,7 +140,7 @@
                                 </div>
                             </div>
                         </aside>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
