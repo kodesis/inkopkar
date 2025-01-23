@@ -92,7 +92,7 @@
                                 class="sidebar-item <?php if ($url_now == 'blog_management') {
                                                         echo 'active ';
                                                     } ?>">
-                                <a href="<?= base_url('blog_management') ?>" class='sidebar-link'>
+                                <a href="<?= base_url('Blog_Management') ?>" class='sidebar-link'>
                                     <i class="bi bi-grid-fill"></i>
                                     <span>Blog Management</span>
                                 </a>
