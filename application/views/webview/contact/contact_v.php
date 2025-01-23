@@ -32,7 +32,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="contact-map">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3152.332792000835!2d144.96011341744386!3d-37.805673299999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d4c2b349649%3A0xb6899234e561db11!2sEnvato!5e0!3m2!1sen!2sbd!4v1685027435635!5m2!1sen!2sbd" allowfullscreen loading="lazy"></iframe>
+                        <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3152.332792000835!2d144.96011341744386!3d-37.805673299999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d4c2b349649%3A0xb6899234e561db11!2sEnvato!5e0!3m2!1sen!2sbd!4v1685027435635!5m2!1sen!2sbd" allowfullscreen loading="lazy"></iframe> -->
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.1660043370134!2d106.8479139!3d-6.241840799999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3bc06592607%3A0x7fbad132495ad5d1!2sJl.%20Tebet%20Barat%20Dalam%20Raya%20No.15%2C%20RT.15%2FRW.5%2C%20Tebet%20Bar.%2C%20Kec.%20Tebet%2C%20Kota%20Jakarta%20Selatan%2C%20Daerah%20Khusus%20Ibukota%20Jakarta%2012810!5e0!3m2!1sid!2sid!4v1737601380159!5m2!1sid!2sid" style="border:0;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>
@@ -53,7 +54,7 @@
                                             </div>
                                             <div class="content">
                                                 <h4 class="title">Address</h4>
-                                                <p>Awamileaug Drive, Kensington London, UK</p>
+                                                <p>Jl. Tebet Barat Dalam Raya No.15 Jakarta Selatan 12810</p>
                                             </div>
                                         </li>
                                     </ul>
@@ -66,7 +67,10 @@
                                             </div>
                                             <div class="content">
                                                 <h4 class="title">Phone</h4>
-                                                <a href="tel:0123456789">+48 500-130-0001</a>
+                                                <!-- <a href="tel:0123456789">+48 500-130-0001</a> -->
+                                                <a href="tel:0218290289">+62 21 8290289</a>
+                                                <br>
+                                                <a href="tel:0218353631">+62 21 8353631</a>
                                             </div>
                                         </li>
                                     </ul>
@@ -79,7 +83,7 @@
                                             </div>
                                             <div class="content">
                                                 <h4 class="title">E-mail</h4>
-                                                <a href="mailto:info@gmail.com">info@gmail.com</a>
+                                                <a href="mailto:admin@inkopkar.coop">admin@inkopkar.coop</a>
                                             </div>
                                         </li>
                                     </ul>

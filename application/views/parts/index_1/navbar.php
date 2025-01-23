@@ -31,16 +31,16 @@
             <div class="tg-header__right-side">
                 <div class="tg-header__top tg-header__top-two">
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-8">
                             <ul class="tg-header__top-info tg-header__top-info-two list-wrap">
-                                <li><i class="flaticon-phone-call"></i><a href="tel:0123456789">+123 9898 500</a></li>
-                                <li><i class="flaticon-pin"></i>256 Avenue, Mark Street, NewYork City</li>
+                                <li><i class="flaticon-phone-call"></i><a href="tel:0218290289">+62 21 8290289 - 8353631</a></li>
+                                <li><i class="flaticon-pin"></i>Jl. Tebet Barat Dalam Raya No.15 Jakarta Selatan 12810</li>
                             </ul>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
                             <ul class="tg-header__top-right tg-header__top-right-two list-wrap">
-                                <li><i class="flaticon-envelope"></i><a href="mailto:info@apexa.com">info@apexa.com</a></li>
-                                <li><i class="flaticon-time"></i>Mon-Fri: 10:00am - 09:00pm</li>
+                                <li><i class="flaticon-envelope"></i><a href="mailto:admin@inkopkar.coop">admin@inkopkar.coop</a></li>
+                                <!-- <li><i class="flaticon-time"></i>Mon-Fri: 10:00am - 09:00pm</li> -->
                             </ul>
                         </div>
                     </div>
@@ -141,7 +141,7 @@
                                         <div class="contact-info">
                                             <ul class="list-wrap">
                                                 <li><a href="mailto:info@apexa.com">info@apexa.com</a></li>
-                                                <li><a href="tel:0123456789">+123 888 9999</a></li>
+                                                <li><a href="tel:0218290289">+62 21 8290289 - 8353631</a></li>
                                             </ul>
                                         </div>
                                         <div class="social-links">
@@ -209,17 +209,17 @@
             <div class="offCanvas__side-info mb-30">
                 <div class="contact-list mb-30">
                     <h4>Office Address</h4>
-                    <p>123/A, Miranda City Likaoli <br> Prikano, Dope</p>
+                    <p>Jl. Tebet Barat Dalam Raya No.15 <br> Jakarta Selatan 12810</p>
                 </div>
                 <div class="contact-list mb-30">
                     <h4>Phone Number</h4>
-                    <p>+0989 7876 9865 9</p>
-                    <p>+(090) 8765 86543 85</p>
+                    <p>+62 21 8290289</p>
+                    <p>+62 21 8353631</p>
                 </div>
                 <div class="contact-list mb-30">
                     <h4>Email Address</h4>
-                    <p>info@example.com</p>
-                    <p>example.mail@hum.com</p>
+                    <p>admin@inkopkar.coop</p>
+                    <!-- <p>example.mail@hum.com</p> -->
                 </div>
             </div>
             <div class="offCanvas__social-icon mt-30">

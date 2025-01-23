@@ -38,7 +38,7 @@
                                                 <i class="flaticon-phone-call"></i>
                                             </div>
                                             <div class="content">
-                                                <a href="tel:0123456789">+123 888 9999</a>
+                                                <a href="tel:0218290289">+62 21 8290289 - 8353631</a>
                                             </div>
                                         </li>
                                         <li>
@@ -46,7 +46,7 @@
                                                 <i class="flaticon-envelope"></i>
                                             </div>
                                             <div class="content">
-                                                <a href="mailto:info@apexa.com">info@apexa.com</a>
+                                                <a href="mailto:admin@inkopkar.coop">admin@inkopkar.coop</a>
                                             </div>
                                         </li>
                                         <li>
@@ -54,7 +54,7 @@
                                                 <i class="flaticon-pin"></i>
                                             </div>
                                             <div class="content">
-                                                <p>Sydney Harbour Bridge Circular City of Sydney, Australia.</p>
+                                                <p>Jl. Tebet Barat Dalam Raya No.15 <br> Jakarta Selatan 12810</p>
                                             </div>
                                         </li>
                                     </ul>
