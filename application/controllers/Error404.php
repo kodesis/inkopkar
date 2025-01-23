@@ -23,6 +23,6 @@ class Error404 extends CI_Controller
 	{
 		$data['content']     = 'webview/Error/error_404';
 
-		$this->load->view('parts/index_1/Wrapper', $data);
+		$this->load->view('parts/index_1/wrapper', $data);
 	}
 }
