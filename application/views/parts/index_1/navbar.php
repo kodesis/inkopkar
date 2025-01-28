@@ -67,6 +67,10 @@
                                                             echo 'active ';
                                                         } ?> menu-item"><a href="<?= base_url('about') ?>">About Us</a></li>
 
+                                            <li class="<?php if ($url_now == 'team') {
+                                                            echo 'active ';
+                                                        } ?> menu-item"><a href="<?= base_url('team') ?>">Anggota</a></li>
+
                                             <li class="<?php if ($url_now == 'service') {
                                                             echo 'active ';
                                                         } ?> menu-item"><a href="<?= base_url('service') ?>">Our Service</a></li>

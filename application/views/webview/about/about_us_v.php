@@ -26,51 +26,34 @@
         </div>
     </section>
     <!-- breadcrumb-area-end -->
-    <!-- testimonial-area -->
-    <section class="testimonial__area-four testimonial__bg testimonial__bg-two" data-background="<?= base_url() ?>assets/img/bg/h3_testimonial_bg.jpg">
+    <!-- about-area -->
+    <section class="about__area-five">
         <div class="container">
-            <div class="row align-items-center justify-content-center">
-                <div class="col-lg-5 col-md-8">
-                    <div class="testimonial__img-wrap-two">
-                        <img src="<?= base_url() ?>assets/img/inkopkar/baru/about2.jpg" alt="">
-                        <div class="testimonial__img-shape-two">
-                            <!-- <img src="<?= base_url() ?>assets/img/images/h3_testimonial_shape01.png" alt="" class="alltuchtopdown">
-                            <img src="<?= base_url() ?>assets/img/images/inner_testimonial_shape.png" alt="" class="rotateme">
-                            <img src="<?= base_url() ?>assets/img/images/h3_testimonial_shape03.png" alt=""> -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="about__content-five">
+                        <div class="section-title mb-30">
+                            <h2 class="title"><span>Sejarah</span> <br> INKOPKAR</h2>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-7">
-                    <div class="about__content-six">
-                        <div class="section-title mb-25">
-                            <span class="sub-title">About Us</span>
-                            <h2 class="title">Apa Itu <br> INKOPKAR?</h2>
+                        <div class="about__img-wrap-five">
+                            <img src="<?= base_url() ?>/assets/img/inkopkar/baru/about3.png" alt="">
                         </div>
-                        <p style="text-align: justify;"><b>INKOPKAR</b> merupakan organisasi koperasi tingkat nasional yang menaungi
-                            koperasi-koperasi karyawan dari berbagai sektor. Didirikan dengan tujuan meningkatkan
-                            kesejahteraan ekonomi karyawan, kami menyediakan berbagai layanan keuangan, pelatihan, dan
-                            pengembangan usaha.</p>
-                        <!-- <div class="about__content-inner-four">
-                            <div class="about__list-box">
-                                <ul class="list-wrap">
-                                    <li><i class="flaticon-arrow-button"></i>Medicare Advantage Plans</li>
-                                    <li><i class="flaticon-arrow-button"></i>Analysis & Research</li>
-                                    <li><i class="flaticon-arrow-button"></i>100% Secure Money Back</li>
-                                </ul>
-                            </div>
-                            <div class="about__list-img-three">
-                                <img src="<?= base_url() ?>assets/img/images/about_list_img03.png" alt="">
-                                <a href="https://www.youtube.com/watch?v=6mkoGSqTqFI" class="play-btn popup-video"><i class="fas fa-play"></i></a>
-                            </div>
-                        </div>
-                        <a href="contact.html" class="btn btn-two">Quick Contact Us</a> -->
+                        <p style="text-align: justify;">
+                            Kelahiran Induk Koperasi Karyawan (INKOPKAR) tidak bisa dilepaskan dari inisiasi sosok Agus Sudono, tokoh buruh Indonesia. Setelah malang melintang dalam berbagai organisasi buruh bahkan menjadi pegiat buruh internasional dengan menjadi salah satu Anggota Dewan Pimpinan di ILO (International Labour International) 1969-1999 di Geneva - Swiss, ia menyadari bahwa perjuangan buruh adalah perjuangan ekonomi.
+                            <br>
+                            <br>
+                            Perjuangan untuk meningkatkan kesejahteraan kemudian kemudian diwujudkan dengan menghimpun kekuatan ekonomi karyawan melalui koperasi di setiap perusahaan sebagai koperasi primer, lalu koperasi primer mendirikan koperasi sekunder tingkat propinsi yang disebut Pusat Koperasi. Sebanyak 5 Pusat Koperasi yaitu Puskoperindo DIKI Jakarta Raya, Puskobin Jawa Barat Puskobin DI Yogyakarta, Puskobin Bali dan Puskobin Jawa Tengah kemudian mendirikan Induk Koperasi Pekerja Indonesia (Inkoperindo) pada tanggal 14 - 16 Januari 1986 yang didaftarkan oleh Direktur Jenderal Bina Lembaga Koperasi dengan Nomor Badan Hukum 8291 tanggal 29 Januari 1986.
+                            <br>
+                            <br>
+                            Pada Rapat Anggota Khusus Perubahan Anggaran Dasar tanggal 23 Agustus 1986, Inkoperindo berubah nama menjadi Induk Koperasi Karyawan (INKOPKAR). Setelah itu dilakukan perubahan Anggaran Dasar pada tanggal 7 Oktober 1989 dan tanggal 20 Juli 1991 yang telah didaftarkan pada Direktur Jenderal Bina Lembaga Koperasi pada tanggal 11 September 1992 dengan Nomor Badan Hukum 8291C.
+
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- testimonial-area-end -->
-
+    <!-- about-area-end -->
     <!-- choose-area -->
     <section class="choose-area">
         <div class="container">
@@ -89,32 +72,29 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="choose-content">
-                        <div class="section-title white-title  mb-25">
-                            <span class="sub-title">Visi Dan Misi</span>
-                            <h2 class="title">Apa Visi INKOPKAR?</h2>
+                    <div class="about__content-six">
+                        <div class="section-title white-title mb-25">
+                            <span class="sub-title">About Us</span>
+                            <h2 class="title">Apa Itu <br> INKOPKAR?</h2>
                         </div>
-                        <p style="text-align: justify;">Menjadi koperasi terkemuka yang mendukung pemberdayaan ekonomi karyawan Indonesia.</p>
-                        <div class="section-title white-title  mb-25">
-                            <!-- <span class="sub-title">Visi Dan Misi</span> -->
-                            <h4 class="title">Apa Misi INKOPKAR?</h4>
+                        <p style="text-align: justify; color: #ffffff;"><b>INKOPKAR</b> merupakan organisasi koperasi tingkat nasional yang menaungi
+                            koperasi-koperasi karyawan dari berbagai sektor. Didirikan dengan tujuan meningkatkan
+                            kesejahteraan ekonomi karyawan, kami menyediakan berbagai layanan keuangan, pelatihan, dan
+                            pengembangan usaha.</p>
+                        <!-- <div class=" about__content-inner-four">
+                        <div class="about__list-box">
+                            <ul class="list-wrap">
+                                <li><i class="flaticon-arrow-button"></i>Medicare Advantage Plans</li>
+                                <li><i class="flaticon-arrow-button"></i>Analysis & Research</li>
+                                <li><i class="flaticon-arrow-button"></i>100% Secure Money Back</li>
+                            </ul>
                         </div>
-                        <div class="about__content-inner-four">
-                            <div class="about__list-box">
-                                <ul class="list-wrap">
-                                    <li style="color: #ffffff;"><i class="flaticon-arrow-button"></i>Memberikan layanan terbaik dalam pengelolaan keuangan koperasi.</li>
-                                    <li style="color: #ffffff;"><i class="flaticon-arrow-button"></i>Mengembangkan peluang usaha yang berorientasi pada kesejahteraan anggota.</li>
-                                    <li style="color: #ffffff;"><i class="flaticon-arrow-button"></i>Menyediakan pelatihan dan edukasi untuk meningkatkan keterampilan dan
-                                        profesionalitas anggota koperasi.</li>
-                                    <li style="color: #ffffff;"><i class="flaticon-arrow-button"></i>Menjaga nilai-nilai gotong royong dan keadilan dalam setiap program kerja.</li>
-                                </ul>
-                            </div>
-                            <!-- <div class="about__list-img-three">
-                                <img src="<?= base_url() ?>assets/img/images/about_list_img03.png" alt="">
-                                <a href="https://www.youtube.com/watch?v=6mkoGSqTqFI" class="play-btn popup-video"><i class="fas fa-play"></i></a>
-                            </div> -->
+                        <div class="about__list-img-three">
+                            <img src="<?= base_url() ?>assets/img/images/about_list_img03.png" alt="">
+                            <a href="https://www.youtube.com/watch?v=6mkoGSqTqFI" class="play-btn popup-video"><i class="fas fa-play"></i></a>
                         </div>
-                        <a href="contact.html" class="btn btn-one">Quick Contact Us</a>
+                    </div>
+                    <a href="contact.html" class="btn btn-two">Quick Contact Us</a> -->
                     </div>
                 </div>
             </div>
@@ -125,6 +105,56 @@
         </div>
     </section>
     <!-- choose-area-end -->
+    <!-- testimonial-area -->
+    <section class="testimonial__area-four testimonial__bg testimonial__bg-two" data-background="<?= base_url() ?>assets/img/bg/h3_testimonial_bg.jpg">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-lg-5 col-md-8">
+                    <div class="testimonial__img-wrap-two">
+                        <img src="<?= base_url() ?>assets/img/inkopkar/baru/about2.jpg" alt="">
+                        <div class="testimonial__img-shape-two">
+                            <!-- <img src="<?= base_url() ?>assets/img/images/h3_testimonial_shape01.png" alt="" class="alltuchtopdown">
+                            <img src="<?= base_url() ?>assets/img/images/inner_testimonial_shape.png" alt="" class="rotateme">
+                            <img src="<?= base_url() ?>assets/img/images/h3_testimonial_shape03.png" alt=""> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="choose-content">
+                        <div class="section-title  mb-25">
+                            <span class="sub-title">Visi Dan Misi</span>
+                            <h2 class="title">Apa Visi INKOPKAR?</h2>
+                        </div>
+                        <p style="text-align: justify; color: #014A41">Menjadi koperasi terkemuka yang mendukung pemberdayaan ekonomi karyawan Indonesia.</p>
+                        <div class="section-title  mb-25">
+                            <!-- <span class="sub-title">Visi Dan Misi</span> -->
+                            <h4 class="title">Apa Misi INKOPKAR?</h4>
+                        </div>
+                        <div class="about__content-inner-four">
+                            <div class="about__list-box">
+                                <ul class="list-wrap">
+                                    <li><i class="flaticon-arrow-button"></i>Memberikan layanan terbaik dalam pengelolaan keuangan koperasi.</li>
+                                    <li><i class="flaticon-arrow-button"></i>Mengembangkan peluang usaha yang berorientasi pada kesejahteraan anggota.</li>
+                                    <li><i class="flaticon-arrow-button"></i>Menyediakan pelatihan dan edukasi untuk meningkatkan keterampilan dan
+                                        profesionalitas anggota koperasi.</li>
+                                    <li><i class="flaticon-arrow-button"></i>Menjaga nilai-nilai gotong royong dan keadilan dalam setiap program kerja.</li>
+                                </ul>
+                            </div>
+                            <!-- <div class="about__list-img-three">
+                                <img src="<?= base_url() ?>assets/img/images/about_list_img03.png" alt="">
+                                <a href="https://www.youtube.com/watch?v=6mkoGSqTqFI" class="play-btn popup-video"><i class="fas fa-play"></i></a>
+                            </div> -->
+                        </div>
+                        <a href="<?= base_url('contact') ?> " class="btn btn-one">Quick Contact Us</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- testimonial-area-end -->
+
+
     <!-- about-area -->
     <!-- <section class="about__area-six">
         <div class="container">

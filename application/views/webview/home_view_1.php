@@ -13,7 +13,7 @@
                                     <span class="sub-title">Bersama INKOPKAR</span>
                                     <h2 class="title">Mendukung Kesejahteraan Karyawan Indonesia</h2>
                                     <p>Kami hadir untuk menciptakan solusi ekonomi yang inovatif dan berkelanjutan demi kemajuan anggota koperasi.</p>
-                                    <a href="contact.html" class="btn">Pelajari Lebih Lanjut</a>
+                                    <a href="<?= base_url('contact') ?>" class="btn">Pelajari Lebih Lanjut</a>
                                 </div>
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                                     <span class="sub-title">Visi Kami</span>
                                     <h2 class="title">Memberdayakan Ekonomi Karyawan</h2>
                                     <p>INKOPKAR berkomitmen untuk meningkatkan keterampilan dan profesionalitas anggota koperasi melalui berbagai program pelatihan.</p>
-                                    <a href="contact.html" class="btn">Gabung Sekarang</a>
+                                    <!-- <a href="contact.html" class="btn">Gabung Sekarang</a> -->
                                 </div>
                             </div>
                         </div>
@@ -46,6 +46,46 @@
         </div>
     </section>
     <!-- slider-area-end -->
+    <!-- about-area -->
+    <section id="about" class="about-area pt-120 pb-120">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="about-img-wrap">
+                        <div class="mask-img-wrap">
+                            <img src="<?= base_url() ?>/assets/img/inkopkar/baru/index1.jpg" alt="" />
+                        </div>
+                        <div class="shape">
+                            <img src="<?= base_url() ?>/assets/img/images/about_shape01.png" alt="" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="about-content">
+                        <div class="section-title mb-35 tg-heading-subheading animation-style3">
+                            <span class="sub-title">Simply Know About</span>
+                            <h2 class="title tg-element-title">
+                                Sejarah <br />
+                                INKOPKAR
+                            </h2>
+                        </div>
+                        <p>Kelahiran Induk Koperasi Karyawan (INKOPKAR) tidak bisa dilepaskan dari inisiasi sosok Agus Sudono, tokoh buruh Indonesia. Setelah malang melintang dalam berbagai organisasi buruh bahkan menjadi pegiat buruh internasional dengan menjadi salah satu Anggota Dewan Pimpinan di ILO (International Labour International) 1969-1999 di Geneva - Swiss, ia menyadari bahwa perjuangan buruh adalah perjuangan ekonomi.</p>
+                        <div class="about-bottom">
+                            <a href="<?= base_url('about') ?>" class="btn btn-two">Read More</a>
+                        </div>
+                        <div class="about-shape-wrap">
+                            <img src="<?= base_url() ?>/assets/img/images/about_shape03.png" alt="" />
+                            <img src="<?= base_url() ?>/assets/img/images/about_shape04.png" alt="" class="ribbonRotate" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="about-left-shape">
+            <img src="<?= base_url() ?>/assets/img/images/about_shape02.png" alt="" />
+        </div>
+    </section>
+    <!-- about-area-end -->
     <!-- features-area -->
     <section class="features__area">
         <div class="container-fluid p-0">
