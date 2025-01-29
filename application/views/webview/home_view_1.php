@@ -53,7 +53,7 @@
                 <div class="col-lg-6">
                     <div class="about-img-wrap">
                         <div class="mask-img-wrap">
-                            <img src="<?= base_url() ?>/assets/img/inkopkar/baru/index1.jpg" alt="" />
+                            <img src="<?= base_url() ?>/assets/img/inkopkar/baru/foto_index1.jpg" alt="" />
                         </div>
                         <div class="shape">
                             <img src="<?= base_url() ?>/assets/img/images/about_shape01.png" alt="" />
