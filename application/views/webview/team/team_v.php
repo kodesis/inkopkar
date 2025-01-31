@@ -27,7 +27,7 @@
     </section>
     <!-- breadcrumb-area-end -->
     <!-- team-area -->
-    <section class="team-area pt-120 pb-90" data-background="<?= base_url() ?>assets/img/bg/h3_services_bg_color.png">
+    <!-- <section class="team-area pt-120 pb-90" data-background="<?= base_url() ?>assets/img/bg/h3_services_bg_color.png">
         <div class="container">
             <div class="team-item-wrap">
                 <div class="row justify-content-center">
@@ -120,7 +120,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- team-area-end -->
     <!-- team-area -->
     <section class="team-area pt-120 pb-90">
