@@ -1,7 +1,7 @@
 <!-- main-area -->
 <main class="fix">
     <!-- breadcrumb-area -->
-    <section class="breadcrumb__area breadcrumb__bg" data-background="<?= base_url() ?>/assets/img/bg/breadcrumb_bg.jpg">
+    <section class="breadcrumb__area breadcrumb__bg" data-background="<?= base_url() ?>/assets/img/inkopkar/team.png">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
@@ -48,7 +48,7 @@
                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8">
                         <div class="team-item">
                             <div class="team-thumb">
-                                <img src="<?= base_url() ?>/assets/img/team/team_img02.jpg" alt="">
+                                <img src="<?= base_url() ?>/assets/img/team/default_avatar.jpg" alt="">
 
                             </div>
                             <div class="team-content">
@@ -60,7 +60,7 @@
                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8">
                         <div class="team-item">
                             <div class="team-thumb">
-                                <img src="<?= base_url() ?>/assets/img/team/team_img03.jpg" alt="">
+                                <img src="<?= base_url() ?>/assets/img/team/default_avatar.jpg" alt="">
 
                             </div>
                             <div class="team-content">
@@ -72,7 +72,7 @@
                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8">
                         <div class="team-item">
                             <div class="team-thumb">
-                                <img src="<?= base_url() ?>/assets/img/team/team_img04.jpg" alt="">
+                                <img src="<?= base_url() ?>/assets/img/team/default_avatar.jpg" alt="">
 
                             </div>
                             <div class="team-content">
@@ -84,7 +84,7 @@
                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8">
                         <div class="team-item">
                             <div class="team-thumb">
-                                <img src="<?= base_url() ?>/assets/img/team/team_img05.jpg" alt="">
+                                <img src="<?= base_url() ?>/assets/img/team/default_avatar.jpg" alt="">
 
                             </div>
                             <div class="team-content">
@@ -127,7 +127,8 @@
         <div class="container">
             <div class="team-item-wrap">
                 <div class="row justify-content-center">
-                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8">
+                    <img src="<?= base_url() ?>/assets/img/inkopkar/Struktur_Inkopkar.png" alt="">
+                    <!-- <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8">
                         <div class="team-item">
                             <div class="team-thumb">
                                 <img src="<?= base_url() ?>/assets/img/team/team_img01.jpg" alt="">
@@ -222,14 +223,14 @@
                                 <span>Kalimantan Barat</span>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
     </section>
     <!-- team-area-end -->
     <!-- team-area -->
-    <section class="team-area pt-120 pb-90" data-background="<?= base_url() ?>assets/img/bg/h3_services_bg_color.png">
+    <!-- <section class="team-area pt-120 pb-90" data-background="<?= base_url() ?>assets/img/bg/h3_services_bg_color.png">
         <div class="container">
             <div class="team-item-wrap">
                 <div class="row justify-content-center">
@@ -467,7 +468,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- team-area-end -->
 </main>
 <!-- main-area-end -->

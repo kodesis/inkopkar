@@ -355,17 +355,17 @@
                                 <div class="blog__post-thumb-two">
                                     <a href="<?= base_url('blog/detail/' . $b->Id) ?>" class="shine-animate"><img src="<?= base_url('uploads/blog/' . $b->thumbnail) ?>" alt=""></a>
                                 </div>
-                                <div class="blog__post-content-two">
-                                    <div class="blog-post-meta">
-                                        <ul class="list-wrap">
-                                            <!-- <li>
+                                <!-- <div class="blog__post-content-two"> -->
+                                <!-- <div class="blog-post-meta"> -->
+                                <!-- <ul class="list-wrap"> -->
+                                <!-- <li>
                                                 <a href="<?= base_url('blog/detail/' . $b->Id) ?>" class="blog__post-tag-two">Business</a>
                                             </li> -->
-                                            <li><i class="fas fa-calendar-alt"></i><?= $b->tanggal ?></li>
-                                        </ul>
-                                    </div>
-                                    <h2 class="title"><a href="<?= base_url('blog/detail/' . $b->Id) ?>"><?= $b->title ?></a></h2>
-                                    <!-- <div class="blog-avatar">
+                                <!-- <li><i class="fas fa-calendar-alt"></i><?= $b->tanggal ?></li> -->
+                                <!-- </ul> -->
+                                <!-- </div> -->
+                                <!-- <h2 class="title"><a href="<?= base_url('blog/detail/' . $b->Id) ?>"><?= $b->title ?></a></h2> -->
+                                <!-- <div class="blog-avatar">
                                         <div class="avatar-thumb">
                                             <img src="<?= base_url() ?>/assets/img/blog/blog_avatar01.png" alt="">
                                         </div>
@@ -373,7 +373,7 @@
                                             <p>By <a href="<?= base_url('blog/detail/' . $b->Id) ?>">Doman Smith</a></p>
                                         </div>
                                     </div> -->
-                                </div>
+                                <!-- </div> -->
                             </div>
                         </div>
 

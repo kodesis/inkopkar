@@ -46,8 +46,48 @@
                             <br>
                             <br>
                             Pada Rapat Anggota Khusus Perubahan Anggaran Dasar tanggal 23 Agustus 1986, Inkoperindo berubah nama menjadi Induk Koperasi Karyawan (INKOPKAR). Setelah itu dilakukan perubahan Anggaran Dasar pada tanggal 7 Oktober 1989 dan tanggal 20 Juli 1991 yang telah didaftarkan pada Direktur Jenderal Bina Lembaga Koperasi pada tanggal 11 September 1992 dengan Nomor Badan Hukum 8291C.
-
                         </p>
+                        <br>
+                        <br>
+                        <br>
+                        <p><b>Keanggotaan INKOPKAR terdiri dari 8 Puskopkar yang masih aktif berbadan hukum, yaitu :</b></p>
+                        <br>
+                        <div class="table">
+                            <?php
+                            // Sample data array
+                            $data = [
+                                ['nama' => 'Banten', 'provinsi' => 'Banten'],
+                                ['nama' => 'DKI', 'provinsi' => 'DKI Jakarta'],
+                                ['nama' => 'Jateng', 'provinsi' => 'Jawa Tengah'],
+                                ['nama' => 'DIY', 'provinsi' => 'DI Yogyakarta'],
+                                ['nama' => 'Jatim', 'provinsi' => 'Jawa Timur'],
+                                ['nama' => 'Bali', 'provinsi' => 'Bali'],
+                                ['nama' => 'Riau', 'provinsi' => 'Riau'],
+                                ['nama' => 'Kalbar', 'provinsi' => 'Kalimantan Barat'],
+                            ];
+
+                            ?>
+
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Nama</th>
+                                        <th>Provinsi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($data as $index => $row) : ?>
+                                        <tr>
+                                            <td><?= $index + 1; ?></td>
+                                            <td>Puskopkar <?= htmlspecialchars($row['nama']); ?></td>
+                                            <td><?= htmlspecialchars($row['provinsi']); ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+
+                        </div>
                     </div>
                 </div>
             </div>

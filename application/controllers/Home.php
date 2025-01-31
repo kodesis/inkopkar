@@ -22,7 +22,7 @@ class Home extends CI_Controller
 	public function index()
 	{
 		$this->load->model('Artikel_Management_m', 'artikel_management');
-		$data['recent'] = $this->artikel_management->artikel_home();
+		$data['users_data'] = $this->artikel_management->artikel_home();
 		$data['content'] = 'webview/home_view_1';
 		// $data['content_js'] = 'webview/home/home_js';
 		$this->load->view('parts/index_1/wrapper', $data);
