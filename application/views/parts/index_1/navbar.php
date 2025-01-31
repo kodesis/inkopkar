@@ -60,12 +60,12 @@
                                             ?>
                                             <li class="<?php if ($url_now == '') {
                                                             echo 'active';
-                                                        } ?> menu-item"><a href="<?= base_url() ?>">Home</a>
+                                                        } ?> menu-item"><a href="<?= base_url() ?>">Beranda</a>
 
                                             </li>
                                             <li class="<?php if ($url_now == 'about') {
                                                             echo 'active ';
-                                                        } ?> menu-item"><a href="<?= base_url('about') ?>">About Us</a></li>
+                                                        } ?> menu-item"><a href="<?= base_url('about') ?>">Tentang Kami</a></li>
 
                                             <li class="<?php if ($url_now == 'team') {
                                                             echo 'active ';
@@ -73,14 +73,14 @@
 
                                             <li class="<?php if ($url_now == 'service') {
                                                             echo 'active ';
-                                                        } ?> menu-item"><a href="<?= base_url('service') ?>">Our Service</a></li>
+                                                        } ?> menu-item"><a href="<?= base_url('service') ?>">Service Kami</a></li>
 
                                             <li class="<?php if ($url_now == 'blog') {
                                                             echo 'active ';
                                                         } ?> menu-item"><a href="<?= base_url('blog') ?>">Blog</a></li>
                                             <li class="<?php if ($url_now == 'contact') {
                                                             echo 'active ';
-                                                        } ?> menu-item"><a href="<?= base_url('contact') ?>">Contact Us</a></li>
+                                                        } ?> menu-item"><a href="<?= base_url('contact') ?>">Kontak Kami</a></li>
                                         </ul>
                                     </div>
                                     <div class="tgmenu__action tgmenu__action-two d-none d-md-block">
@@ -144,8 +144,8 @@
                                     <div class="tgmobile__menu-bottom">
                                         <div class="contact-info">
                                             <ul class="list-wrap">
-                                                <li><a href="mailto:info@apexa.com">info@apexa.com</a></li>
-                                                <li><a href="tel:0218290289">+62 21 8290289 - 8353631</a></li>
+                                                <!-- <li><a href="mailto:info@apexa.com">info@apexa.com</a></li>
+                                                <li><a href="tel:0218290289">+62 21 8290289 - 8353631</a></li> -->
                                             </ul>
                                         </div>
                                         <div class="social-links">
@@ -212,16 +212,16 @@
             </div>
             <div class="offCanvas__side-info mb-30">
                 <div class="contact-list mb-30">
-                    <h4>Office Address</h4>
+                    <h4>Alamat Kantor</h4>
                     <p>Jl. Tebet Barat Dalam Raya No.15 <br> Jakarta Selatan 12810</p>
                 </div>
                 <div class="contact-list mb-30">
-                    <h4>Phone Number</h4>
+                    <h4>Nomor Telpon</h4>
                     <p>+62 21 8290289</p>
                     <p>+62 21 8353631</p>
                 </div>
                 <div class="contact-list mb-30">
-                    <h4>Email Address</h4>
+                    <h4>Alamat Email</h4>
                     <p>admin@inkopkar.coop</p>
                     <!-- <p>example.mail@hum.com</p> -->
                 </div>

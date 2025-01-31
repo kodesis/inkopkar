@@ -41,8 +41,8 @@
                 <div class="col-lg-12">
                     <div class="contact__content">
                         <div class="section-title mb-35">
-                            <h2 class="title">How can we help you?</h2>
-                            <p>When an unknown printer took a galley of type and scrambled it to make type pecimen book. It has survived not only five areafact types remaining essentially unchangedIt</p>
+                            <h2 class="title">Bagaimana kami dapat membantu Anda?</h2>
+                            <p>Ketika seorang pencetak yang tidak dikenal mengambil kumpulan huruf dan mengacaknya untuk membuat buku contoh huruf. Ini telah bertahan tidak hanya lima era perubahan tetapi tetap hampir tidak berubah.</p>
                         </div>
                         <div class="contact__info">
                             <div class="row">
@@ -53,7 +53,7 @@
                                                 <i class="flaticon-pin"></i>
                                             </div>
                                             <div class="content">
-                                                <h4 class="title">Address</h4>
+                                                <h4 class="title">Alamat</h4>
                                                 <p>Jl. Tebet Barat Dalam Raya No.15 Jakarta Selatan 12810</p>
                                             </div>
                                         </li>
@@ -66,7 +66,7 @@
                                                 <i class="flaticon-phone-call"></i>
                                             </div>
                                             <div class="content">
-                                                <h4 class="title">Phone</h4>
+                                                <h4 class="title">Telepon</h4>
                                                 <a href="tel:0218290289">+62 21 8290289</a>
                                                 <br>
                                                 <a href="tel:0218353631">+62 21 8353631</a>
@@ -87,7 +87,6 @@
                                         </li>
                                     </ul>
                                 </div>
-
                             </div>
                         </div>
                     </div>

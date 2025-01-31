@@ -63,7 +63,7 @@
                 <div class="col-lg-6">
                     <div class="about-content">
                         <div class="section-title mb-35 tg-heading-subheading animation-style3">
-                            <span class="sub-title">Simply Know About</span>
+                            <span class="sub-title">Ketauhi Tentang Kami</span>
                             <h2 class="title tg-element-title">
                                 Sejarah <br />
                                 INKOPKAR
@@ -71,7 +71,7 @@
                         </div>
                         <p>Kelahiran Induk Koperasi Karyawan (INKOPKAR) tidak bisa dilepaskan dari inisiasi sosok Agus Sudono, tokoh buruh Indonesia. Setelah malang melintang dalam berbagai organisasi buruh bahkan menjadi pegiat buruh internasional dengan menjadi salah satu Anggota Dewan Pimpinan di ILO (International Labour International) 1969-1999 di Geneva - Swiss, ia menyadari bahwa perjuangan buruh adalah perjuangan ekonomi.</p>
                         <div class="about-bottom">
-                            <a href="<?= base_url('about') ?>" class="btn btn-two">Read More</a>
+                            <a href="<?= base_url('about') ?>" class="btn btn-two">Baca Lebih Lanjut</a>
                         </div>
                         <div class="about-shape-wrap">
                             <img src="<?= base_url() ?>/assets/img/images/about_shape03.png" alt="" />
@@ -339,8 +339,8 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <div class="section-title text-center mb-50 tg-heading-subheading animation-style3">
-                        <span class="sub-title">OUR BLOG UPDATE</span>
-                        <h2 class="title tg-element-title">Featured News And Insights</h2>
+                        <span class="sub-title">PEMBARUAN BLOG KAMI</span>
+                        <h2 class="title tg-element-title">Berita dan Wawasan Unggulan</h2>
                     </div>
                 </div>
             </div>
@@ -383,7 +383,7 @@
                 } else {
                     ?>
                     <div class="col-12 center-content">
-                        <h4 style="font-weight: lighter; color:grey; font-size:1rem;">Artikel Tidak Ditemukan</h4>
+                        <h4 style="font-weight: lighter; color:grey; font-size:1rem;">Blog Tidak Ditemukan</h4>
                     </div>
                 <?php
                 }

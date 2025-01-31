@@ -6,11 +6,11 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="breadcrumb__content">
-                        <h2 class="title">All Services</h2>
+                        <h2 class="title">Semua Layanan</h2>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="<?= base_url() ?>">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">About</li>
+                                <li class="breadcrumb-item active" aria-current="page">Layanan</li>
                             </ol>
                         </nav>
                     </div>
@@ -32,7 +32,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <div class="section-title white-title mb-40">
-                        <span class="sub-title">WHAT WE OFFER</span>
+                        <span class="sub-title">APA YANG KAMI TAWARKAN</span>
                         <h6 class="title" style="font-size: 25px;">INKOPKAR menawarkan beragam layanan yang dirancang untuk memenuhi kebutuhan koperasi karyawan, di antaranya:</h6>
                     </div>
                 </div>

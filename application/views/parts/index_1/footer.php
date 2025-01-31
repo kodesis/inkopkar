@@ -4,7 +4,7 @@
         <div class="footer__newsletter-two">
             <div class="container">
                 <div class="footer__newsletter-inner">
-                    <h2 class="title">Thank You For Visiting INKOPKAR</h2>
+                    <h2 class="title">Terima Kasih Telah Mengunjungi INKOPKAR</h2>
                     <!-- <form action="#">
                         <input type="text" placeholder="e-mail Type . . .">
                         <button type="submit" class="btn">Subscribe</button>
@@ -64,14 +64,14 @@
                     </div>
                     <div class="col-xl-5 col-lg-3 col-sm-6">
                         <div class="footer-widget">
-                            <h4 class="fw-title">Our pages</h4>
+                            <h4 class="fw-title">Halaman Kami</h4>
                             <div class="footer-link-list">
                                 <ul class="list-wrap">
-                                    <li><a href="<?= base_url() ?>">Home</a></li>
-                                    <li><a href="<?= base_url('about') ?>">About us</a></li>
-                                    <li><a href="<?= base_url('service') ?>">Our Service</a></li>
+                                    <li><a href="<?= base_url() ?>">Beranda</a></li>
+                                    <li><a href="<?= base_url('about') ?>">Tentang Kami</a></li>
+                                    <li><a href="<?= base_url('service') ?>">Layanan Kami</a></li>
                                     <li><a href="<?= base_url('blog') ?>">Blog</a></li>
-                                    <li><a href="<?= base_url('contact') ?>">Contact us</a></li>
+                                    <li><a href="<?= base_url('contact') ?>">Kontak Kami</a></li>
                                 </ul>
                             </div>
                         </div>
