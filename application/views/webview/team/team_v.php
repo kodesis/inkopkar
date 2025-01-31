@@ -1,12 +1,13 @@
 <!-- main-area -->
 <main class="fix">
     <!-- breadcrumb-area -->
-    <section class="breadcrumb__area breadcrumb__bg" data-background="<?= base_url() ?>/assets/img/inkopkar/team.png">
+    <section class="breadcrumb__area breadcrumb__bg" data-background="<?= base_url() ?>/assets/img/inkopkar/team1.png">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="breadcrumb__content">
-                        <h2 class="title">Our Team Members</h2>
+                        <!-- <h2 class="title">Our Team Members</h2> -->
+                        <h2 class="title">Susunan Pengurus Induk Koperasi Karyawan</h2>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -127,7 +128,7 @@
         <div class="container">
             <div class="team-item-wrap">
                 <div class="row justify-content-center">
-                    <img src="<?= base_url() ?>/assets/img/inkopkar/Struktur_Inkopkar.png" alt="">
+                    <img src="<?= base_url() ?>/assets/img/inkopkar/Struktur_Inkopkar1.png" alt="">
                     <!-- <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8">
                         <div class="team-item">
                             <div class="team-thumb">

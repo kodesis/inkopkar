@@ -35,7 +35,7 @@ class Blog extends CI_Controller
 		//pagination settings
 		$config['base_url'] = site_url('blog');
 		$config['total_rows'] = $this->artikel_management->item_count($search);
-		$config['per_page'] = "6";
+		$config['per_page'] = "9";
 		$config["uri_segment"] = 3;
 		$config['enable_query_strings'] = TRUE;
 		$config['page_query_string'] = TRUE;

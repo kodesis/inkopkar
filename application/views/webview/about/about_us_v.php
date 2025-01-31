@@ -6,11 +6,11 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="breadcrumb__content">
-                        <h2 class="title">About Us</h2>
+                        <h2 class="title">Tentang Kami</h2>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="<?= base_url() ?>">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">About</li>
+                                <li class="breadcrumb-item active" aria-current="page">Tentang</li>
                             </ol>
                         </nav>
                     </div>
@@ -114,7 +114,7 @@
                 <div class="col-lg-6">
                     <div class="about__content-six">
                         <div class="section-title white-title mb-25">
-                            <span class="sub-title">About Us</span>
+                            <span class="sub-title">Tentang Kami</span>
                             <h2 class="title">Apa Itu <br> INKOPKAR?</h2>
                         </div>
                         <p style="text-align: justify; color: #ffffff;"><b>INKOPKAR</b> merupakan organisasi koperasi tingkat nasional yang menaungi
@@ -185,7 +185,7 @@
                                 <a href="https://www.youtube.com/watch?v=6mkoGSqTqFI" class="play-btn popup-video"><i class="fas fa-play"></i></a>
                             </div> -->
                         </div>
-                        <a href="<?= base_url('contact') ?> " class="btn btn-one">Quick Contact Us</a>
+                        <a href="<?= base_url('contact') ?> " class="btn btn-one">Kontak Kami</a>
                     </div>
                 </div>
 
