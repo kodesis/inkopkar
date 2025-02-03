@@ -40,10 +40,10 @@
             <div class="row align-items-center">
                 <div class="col-lg-12">
                     <div class="contact__content">
-                        <div class="section-title mb-35">
+                        <!-- <div class="section-title mb-35">
                             <h2 class="title">Bagaimana kami dapat membantu Anda?</h2>
                             <p>Ketika seorang pencetak yang tidak dikenal mengambil kumpulan huruf dan mengacaknya untuk membuat buku contoh huruf. Ini telah bertahan tidak hanya lima era perubahan tetapi tetap hampir tidak berubah.</p>
-                        </div>
+                        </div> -->
                         <div class="contact__info">
                             <div class="row">
                                 <div class="col-lg-4">
