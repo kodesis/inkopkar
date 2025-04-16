@@ -105,8 +105,6 @@ class Artikel_Management extends CI_Controller
         $title = $this->input->post('title');
         // $thumbnail = $this->input->post('thumbnail');
         $text = $this->input->post('text');
-        $tanggal = $this->input->post('tanggal');
-        $jam = $this->input->post('jam');
 
         $tanggal_full = $tanggal . ' ' . $jam;
 
@@ -159,7 +157,6 @@ class Artikel_Management extends CI_Controller
                     'title'             => $title,
                     'thumbnail'            => $file,
                     'text'            => $text,
-                    'tanggal'             => $tanggal_full,
                     'view_count' => 0
                 ),
             );
@@ -174,16 +171,12 @@ class Artikel_Management extends CI_Controller
         $title = $this->input->post('title');
         // $thumbnail = $this->input->post('thumbnail');
         $text = $this->input->post('text');
-        $tanggal = $this->input->post('tanggal');
-        $jam = $this->input->post('jam');
-        $tanggal_full = $tanggal . ' ' . $jam;
 
         $data_update = [
             // 'updated'           => $date->format('Y-m-d H:i:s'),
             // 'category'             => $kategori,
             'title'             => $title,
             'text'              => $text,
-            'tanggal'              => $tanggal_full,
         ];
 
         $config['upload_path'] = FCPATH . 'uploads/artikel/'; // Same as the config file
