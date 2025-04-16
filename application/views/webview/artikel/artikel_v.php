@@ -66,7 +66,7 @@
                                                 <div class="blog__post-content-two">
                                                     <div class="blog-post-meta">
                                                         <ul class="list-wrap">
-                                                            <li><i class="fas fa-calendar-alt"></i><?= $b->tanggal ?></li>
+                                                            <li><i class="fas fa-calendar-alt"></i><?= date('d F Y, H:i:s', strtotime($b->tanggal)) ?></li>
                                                         </ul>
                                                     </div>
                                                     <h2 class="title"><a href="<?= base_url('artikel/detail/' . $b->Id) ?>"><?= $b->title ?></a></h2>

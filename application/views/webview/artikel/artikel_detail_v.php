@@ -51,7 +51,7 @@
                                                 </div>
                                             </div>
                                         </li> -->
-                                        <li><i class="fas fa-calendar-alt"></i><?= $detail->tanggal ?></li>
+                                        <li><i class="fas fa-calendar-alt"></i><?= date('d F Y, H:i:s', strtotime($detail->tanggal)) ?></li>
                                         <!-- <li><i class="far fa-comment"></i><a href="blog-details.html">05 Comments</a></li> -->
                                     </ul>
                                 </div>
@@ -87,7 +87,7 @@
                                                 </div>
                                                 <div class="sidebar__post-content">
                                                     <h5 class="title"><a href="<?= base_url('artikel/detail/' . $r->Id) ?>"><?= $r->title ?></a></h5>
-                                                    <span class="date"><i class="flaticon-time"></i><?= $r->tanggal ?></span>
+                                                    <span class="date"><i class="flaticon-time"></i><?= date('d F Y, H:i:s', strtotime($r->tanggal)) ?></span>
                                                 </div>
                                             </div>
                                     <?php
