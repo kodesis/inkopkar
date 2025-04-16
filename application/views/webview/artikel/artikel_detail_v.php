@@ -34,7 +34,7 @@
                     <div class="col-70">
                         <div class="blog__details-wrap">
                             <div class="blog__details-thumb">
-                                <img src="<?= base_url('uploads/blog/' . $detail->thumbnail) ?>" alt="">
+                                <img src="<?= base_url('uploads/artikel/' . $detail->thumbnail) ?>" alt="">
                             </div>
                             <div class="blog__details-content">
                                 <h2 class="title"><?= $detail->title ?></h2>
@@ -83,10 +83,10 @@
                                     ?>
                                             <div class="sidebar__post-item">
                                                 <div class="sidebar__post-thumb">
-                                                    <a href="blog-details.html"><img src="<?= base_url('uploads/blog/' . $r->thumbnail) ?>" alt=""></a>
+                                                    <a href="blog-details.html"><img src="<?= base_url('uploads/artikel/' . $r->thumbnail) ?>" alt=""></a>
                                                 </div>
                                                 <div class="sidebar__post-content">
-                                                    <h5 class="title"><a href="<?= base_url('blog/detail/' . $r->Id) ?>"><?= $r->title ?></a></h5>
+                                                    <h5 class="title"><a href="<?= base_url('artikel/detail/' . $r->Id) ?>"><?= $r->title ?></a></h5>
                                                     <span class="date"><i class="flaticon-time"></i><?= $r->tanggal ?></span>
                                                 </div>
                                             </div>
