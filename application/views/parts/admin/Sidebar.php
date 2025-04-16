@@ -6,7 +6,7 @@
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="logo">
-                            <a href="<?= base_url('dashboard') ?>"><img src="<?= base_url() ?>assets/admin/Logo/logo.gif" alt="Logo" srcset=""></a>
+                            <a href="<?= base_url('dashboard') ?>"><img style="height: 3rem" src="<?= base_url() ?>assets/admin/Logo/logo.gif" alt="Logo" srcset=""></a>
                         </div>
                         <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
@@ -60,39 +60,119 @@
 
                         </li>
 
+
+
+                        <li class="sidebar-title">Sistem</li>
+
                         <!-- <li
-                            class="sidebar-item  has-sub">
+                            class="sidebar-item <?php if ($url_now == 'koperasi_management') {
+                                                    echo 'active ';
+                                                } ?>">
+                            <a href="<?= base_url('koperasi_management') ?>" class='sidebar-link'>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Koperasi Management</span>
+                            </a>
+                        </li> -->
+
+                        <li
+                            class="sidebar-item <?php if ($url_now == 'koperasi_management' || $url_now == 'toko_management') {
+                                                    echo 'active ';
+                                                } ?> has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-stack"></i>
-                                <span>Components</span>
+                                <span>Koperasi</span>
                             </a>
 
-                            <ul class="submenu ">
-
-                                <li class="submenu-item  ">
-                                    <a href="component-accordion.html" class="submenu-link">Accordion</a>
+                            <ul class="submenu">
+                                <li class="submenu-item <?php if ($url_now == 'koperasi_management') {
+                                                            echo 'active ';
+                                                        } ?>">
+                                    <a href="<?= base_url('koperasi_management') ?>" class="submenu-link">Koperasi Management</a>
 
                                 </li>
 
-                                <li class="submenu-item  ">
-                                    <a href="component-alert.html" class="submenu-link">Alert</a>
+                                <li class="submenu-item <?php if ($url_now == 'toko_management') {
+                                                            echo 'active ';
+                                                        } ?>">
+                                    <a href="<?= base_url('toko_management') ?>" class="submenu-link">Toko Management</a>
 
                                 </li>
 
                             </ul>
 
 
-                        </li> -->
+                        </li>
+                        <?php
+                        if ($this->session->userdata('role') == "Admin" || $this->session->userdata('role') == "Kasir") {
+                        ?>
+                            <li
+                                class="sidebar-item <?php if ($url_now == 'anggota_management') {
+                                                        echo 'active ';
+                                                    } ?>">
+                                <a href="<?= base_url('anggota_management') ?>" class='sidebar-link'>
+                                    <i class="bi bi-grid-fill"></i>
+                                    <span>Anggota Management</span>
+                                </a>
+                            </li>
+                            </li>
+                        <?php
+                        }
+                        ?>
+                        <?php
+                        if ($this->session->userdata('role') == "Kasir") {
+                        ?>
+                            <li
+                                class="sidebar-item <?php if ($url_now == 'nota_management/add') {
+                                                        echo 'active ';
+                                                    } ?>">
+                                <a href="<?= base_url('nota_management/add') ?>" class='sidebar-link'>
+                                    <i class="bi bi-grid-fill"></i>
+                                    <span>Nota Kredit</span>
+                                </a>
+                            </li>
+                            </li>
+                        <?php
+                        }
+                        ?>
+                        <?php
+                        if ($this->session->userdata('role') == "Admin") {
+                        ?>
+                            <li class="sidebar-title">Page Management</li>
 
-                        <li class="sidebar-title">Page Management</li>
+                            <li
+                                class="sidebar-item <?php if ($url_now == 'gallery_management') {
+                                                        echo 'active ';
+                                                    } ?>">
+                                <a href="<?= base_url('Gallery_Management') ?>" class='sidebar-link'>
+                                    <i class="bi bi-grid-fill"></i>
+                                    <span>Gallery Management</span>
+                                </a>
+
+
+                            </li>
+                            <li
+                                class="sidebar-item <?php if ($url_now == 'artikel_management') {
+                                                        echo 'active ';
+                                                    } ?>">
+                                <a href="<?= base_url('Artikel_Management') ?>" class='sidebar-link'>
+                                    <i class="bi bi-grid-fill"></i>
+                                    <span>Artikel Management</span>
+                                </a>
+
+
+                            </li>
+                        <?php
+                        }
+                        ?>
+                        <li class="sidebar-title">Account</li>
 
                         <li
-                            class="sidebar-item <?php if ($url_now == 'blog_management') {
+                            class="sidebar-item <?php if ($url_now == 'logout') {
                                                     echo 'active ';
                                                 } ?>">
-                            <a href="<?= base_url('Blog_Management') ?>" class='sidebar-link'>
-                                <i class="bi bi-grid-fill"></i>
-                                <span>Blog Management</span>
+                            <a href="<?= base_url('auth/logout') ?>" class='sidebar-link'>
+                                <i class="bi bi-box-arrow-left"></i>
+                                <span>Logout</span>
                             </a>
 
 

@@ -38,7 +38,7 @@
                         <div class="about__img-wrap-five">
                             <img src="<?= base_url() ?>/assets/img/inkopkar/baru/about3.png" alt="">
                         </div>
-                        <p style="text-align: justify;">
+                        <!-- <p style="text-align: justify;">
                             Kelahiran Induk Koperasi Karyawan (INKOPKAR) tidak bisa dilepaskan dari inisiasi sosok Agus Sudono, tokoh buruh Indonesia. Setelah malang melintang dalam berbagai organisasi buruh bahkan menjadi pegiat buruh internasional dengan menjadi salah satu Anggota Dewan Pimpinan di ILO (International Labour International) 1969-1999 di Geneva - Swiss, ia menyadari bahwa perjuangan buruh adalah perjuangan ekonomi.
                             <br>
                             <br>
@@ -46,6 +46,15 @@
                             <br>
                             <br>
                             Pada Rapat Anggota Khusus Perubahan Anggaran Dasar tanggal 23 Agustus 1986, Inkoperindo berubah nama menjadi Induk Koperasi Karyawan (INKOPKAR). Setelah itu dilakukan perubahan Anggaran Dasar pada tanggal 7 Oktober 1989 dan tanggal 20 Juli 1991 yang telah didaftarkan pada Direktur Jenderal Bina Lembaga Koperasi pada tanggal 11 September 1992 dengan Nomor Badan Hukum 8291C.
+                        </p> -->
+                        <p>
+                            Kelahiran Induk Koperasi Karyawan (INKOPKAR) tidak bisa dilepaskan dari inisiasi sosok Agus Sudono, tokoh buruh Indonesia. Setelah malang melintang dalam berbagai organisasi buruh bahkan menjadi pegiat buruh internasional dengan menjadi salah satu Anggota Dewan Pimpinan di ILO (International Labour International) 1969-1999 di Geneva - Swiss, ia menyadari bahwa perjuangan buruh adalah perjuangan ekonomi.
+                            <br>
+                            <br>
+                            Perjuangan untuk meningkatkan kesejahteraan kemudian diwujudkan dengan menghimpun kekuatan ekonomi karyawan melalui koperasi di setiap perusahaan sebagai koperasi primer, lalu koperasi primer mendirikan koperasi sekunder tingkat propinsi yang disebut Pusat Koperasi. Sebanyak 5 Pusat Koperasi kemudian mendirikan Induk Koperasi Pekerja Indonesia (Inkoperindo) pada tanggal 14 - 16 Januari 1986.
+                            <br>
+                            <br>
+                            Pada Rapat Anggota Khusus Perubahan Anggaran Dasar tanggal 23 Agustus 1986, Inkoperindo berubah nama menjadi Induk Koperasi Karyawan (INKOPKAR). Setelah itu dilakukan perubahan Anggaran Dasar pada tanggal 7 Oktober 1989, 20 Juli 1991 dan 9 Maret 2025 dengan Nomor Badan Hukum 8291.
                         </p>
                         <br>
                         <br>

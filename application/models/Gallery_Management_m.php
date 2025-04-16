@@ -1,18 +1,20 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Artikel_Management_m extends CI_Model
+class Gallery_Management_m extends CI_Model
 {
-    var $table = 'artikel';
-    var $column_order = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable orderable
-    var $column_search = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable searchable 
+    var $table = 'gallery';
+    // var $column_order = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable orderable
+    // var $column_search = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable searchable 
+    var $column_order = array('Id', 'thumbnail'); //set column field database for datatable orderable
+    var $column_search = array('Id', 'thumbnail'); //set column field database for datatable searchable 
 
-    var $order = array('artikel.Id' => 'DESC'); // default order 
+    var $order = array('gallery.Id' => 'DESC'); // default order 
 
     function _get_datatables_query()
     {
 
-        $this->db->select('artikel.*');
-        $this->db->from('artikel');
+        $this->db->select('gallery.*');
+        $this->db->from('gallery');
         $i = 0;
         foreach ($this->column_search as $item) // loop column 
         {
@@ -69,7 +71,7 @@ class Artikel_Management_m extends CI_Model
 
     public function save_file($data)
     {
-        $this->db->insert('artikel', $data);
+        $this->db->insert('gallery', $data);
         return $this->db->insert_id();
     }
 
@@ -85,7 +87,7 @@ class Artikel_Management_m extends CI_Model
 
     public function update_file($data, $where)
     {
-        $this->db->update('artikel', $data, $where);
+        $this->db->update('gallery', $data, $where);
     }
 
     public function delete($where)
@@ -102,14 +104,14 @@ class Artikel_Management_m extends CI_Model
     public function get_all()
     {
         $this->db->select('*');
-        $this->db->from('artikel');
+        $this->db->from('gallery');
         return $this->db->get()->result();
     }
 
-    public function get_artikel()
+    public function get_gallery()
     {
         $this->db->select('*');
-        $this->db->from('artikel');
+        $this->db->from('gallery');
 
 
         $this->db->order_by('tanggal', 'DESC');
@@ -117,12 +119,12 @@ class Artikel_Management_m extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-    public function artikel_recent()
+    public function gallery_recent()
     {
 
         // Get weekly top news, ensuring it does not include trending_1, trending_2, sub_trending_1, or sub_trending_2
         $this->db->select('*');
-        $this->db->from('artikel');
+        $this->db->from('gallery');
 
         // Exclude the articles that are part of trending_1, trending_2, sub_trending_1, and sub_trending_2
         $this->db->order_by('tanggal', 'DESC');
@@ -130,12 +132,12 @@ class Artikel_Management_m extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-    public function artikel_home()
+    public function gallery_home()
     {
 
         // Get weekly top news, ensuring it does not include trending_1, trending_2, sub_trending_1, or sub_trending_2
         $this->db->select('*');
-        $this->db->from('artikel');
+        $this->db->from('gallery');
 
         // Exclude the articles that are part of trending_1, trending_2, sub_trending_1, and sub_trending_2
         $this->db->order_by('tanggal', 'DESC');
@@ -147,16 +149,16 @@ class Artikel_Management_m extends CI_Model
     {
         $this->db->set('view_count', 'view_count + 1', FALSE); // FALSE prevents escaping of the expression
         $this->db->where('Id', $id);
-        $this->db->update('artikel'); // Replace 'your_table_name' with your actual table name
+        $this->db->update('gallery'); // Replace 'your_table_name' with your actual table name
     }
 
     function item_get($limit, $start, $search)
     {
         if ($search) {
             // $sql = "SELECT * FROM item_list WHERE nama LIKE '%$search%' OR nomor LIKE '%$search%' ORDER BY Id DESC limit " . $start . ", " . $limit;
-            $sql = "SELECT * FROM artikel WHERE artikel.title LIKE '%$search%' ORDER BY Id DESC limit " . $start . ", " . $limit;
+            $sql = "SELECT * FROM gallery WHERE gallery.title LIKE '%$search%' ORDER BY Id DESC limit " . $start . ", " . $limit;
         } else {
-            $sql = "SELECT * FROM artikel ORDER BY Id DESC limit " . $start . ", " . $limit;
+            $sql = "SELECT * FROM gallery ORDER BY Id DESC limit " . $start . ", " . $limit;
         }
         $query = $this->db->query($sql);
         return $query->result();
@@ -165,9 +167,9 @@ class Artikel_Management_m extends CI_Model
     function item_count($search)
     {
         if ($search) {
-            $sql = "SELECT * FROM artikel WHERE title LIKE '%$search%'";
+            $sql = "SELECT * FROM gallery WHERE title LIKE '%$search%'";
         } else {
-            $sql = "SELECT * FROM artikel";
+            $sql = "SELECT * FROM gallery";
         }
         $query = $this->db->query($sql);
         return $query->num_rows();

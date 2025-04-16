@@ -57,6 +57,7 @@
                              <input type="submit" onclick="register()" class="btn btn-login" value="Sign up now" />
                          </div>
                          <p>Already have an account? <a href="login.html" class="link-bold">Sign In</a> now</p>
+                         <p>You are Cashier? <a href="<?= base_url('auth/cashier') ?>" class="link-bold">Login </a> Here</p>
                      </div>
                  </div>
              </div>

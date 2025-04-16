@@ -6,11 +6,11 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="breadcrumb__content">
-                        <h2 class="title">Semua Blogs</h2>
+                        <h2 class="title">Semua Artikel</h2>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="<?= base_url() ?>">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Blogs</li>
+                                <li class="breadcrumb-item active" aria-current="page">Artikel</li>
                             </ol>
                         </nav>
                     </div>
@@ -61,16 +61,16 @@
                                         <div class="col-md-4">
                                             <div class="blog__post-two shine-animate-item">
                                                 <div class="blog__post-thumb-two">
-                                                    <img src="<?= base_url('uploads/blog/' . $b->thumbnail) ?>" alt="">
+                                                    <img src="<?= base_url('uploads/artikel/' . $b->thumbnail) ?>" alt="">
                                                 </div>
-                                                <!-- <div class="blog__post-content-two">
+                                                <div class="blog__post-content-two">
                                                     <div class="blog-post-meta">
                                                         <ul class="list-wrap">
                                                             <li><i class="fas fa-calendar-alt"></i><?= $b->tanggal ?></li>
                                                         </ul>
                                                     </div>
-                                                    <h2 class="title"><a href="<?= base_url('blog/detail/' . $b->Id) ?>"><?= $b->title ?></a></h2>
-                                                </div> -->
+                                                    <h2 class="title"><a href="<?= base_url('artikel/detail/' . $b->Id) ?>"><?= $b->title ?></a></h2>
+                                                </div>
                                             </div>
                                         </div>
                                     <?php

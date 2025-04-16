@@ -22,6 +22,27 @@ class Auth_m extends CI_Model
             return false;
         }
     }
+
+    public function user_kasir_login($username, $password)
+    {
+
+        $this->db->select('u.*');
+        $this->db->from('anggota u');
+        $where = '(username = "' . $username . '")';
+        // $this->db->join('mast_regional m', 'u.id_regional=m.id', 'left');
+
+        $this->db->where($where);
+
+        $this->db->where('u.kasir', 1);
+        $this->db->limit(1);
+        $query = $this->db->get();
+        $user = $query->row();
+        if (!empty($user) && password_verify($password, $user->password)) {
+            return $user;
+        } else {
+            return false;
+        }
+    }
     public function save($data)
     {
 

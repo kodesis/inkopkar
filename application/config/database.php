@@ -75,6 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
+	// 'hostname' => 'localhost',
+	// 'username' => 'root',
+	// 'password' => '',
+	// 'database' => 'inkopkar',
 	'hostname' => 'inkopkar.coop',
 	'username' => 'inkopka1_admin',
 	'password' => 'inkopkar123!@#',

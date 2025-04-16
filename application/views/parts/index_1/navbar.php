@@ -75,9 +75,12 @@
                                                             echo 'active ';
                                                         } ?> menu-item"><a href="<?= base_url('service') ?>">Service Kami</a></li>
 
-                                            <li class="<?php if ($url_now == 'blog') {
+                                            <li class="<?php if ($url_now == 'gallery') {
                                                             echo 'active ';
-                                                        } ?> menu-item"><a href="<?= base_url('blog') ?>">Blog</a></li>
+                                                        } ?> menu-item"><a href="<?= base_url('gallery') ?>">Gallery</a></li>
+                                            <li class="<?php if ($url_now == 'artikel') {
+                                                            echo 'active ';
+                                                        } ?> menu-item"><a href="<?= base_url('artikel') ?>">Artikel</a></li>
                                             <li class="<?php if ($url_now == 'contact') {
                                                             echo 'active ';
                                                         } ?> menu-item"><a href="<?= base_url('contact') ?>">Kontak Kami</a></li>

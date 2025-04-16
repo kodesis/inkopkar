@@ -17,7 +17,7 @@
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="<?= base_url('dashboard') ?>">Dashboard</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Tambah Blog</li>
+                            <li class="breadcrumb-item active" aria-current="page">Tambah Gallery</li>
                         </ol>
                     </nav>
                 </div>
@@ -34,7 +34,7 @@
                         if ($this->uri->segment(3) == null) {
                         ?>
                             <div class="card-header">
-                                <h4 class="card-title">Tambah Blog</h4>
+                                <h4 class="card-title">Tambah Gallery</h4>
                             </div>
                             <div class="card-content">
                                 <div class="card-body">
@@ -90,7 +90,7 @@
                                     <div class="col-12 d-flex justify-content-end">
                                         <button type="submit" onclick="save_artikel()" class="btn btn-primary me-1 mb-1">Submit</button>
                                         <button type="reset" onclick="reset_artikel()" class="btn btn-light-secondary me-1 mb-1">Reset</button>
-                                        <a href="<?= base_url('Blog_Management') ?>" class="btn btn-warning me-1 mb-1">Back</a>
+                                        <a href="<?= base_url('Gallery_Management') ?>" class="btn btn-warning me-1 mb-1">Back</a>
                                     </div>
                                 </div>
                             </div>
@@ -98,7 +98,7 @@
                         } else {
                         ?>
                             <div class="card-header">
-                                <h4 class="card-title">Update Blog</h4>
+                                <h4 class="card-title">Update Gallery</h4>
                             </div>
                             <div class="card-content">
                                 <div class="card-body">
@@ -161,7 +161,7 @@
                                     </form>
                                     <div class="col-12 d-flex justify-content-end">
                                         <button type="submit" onclick="update_artikel()" class="btn btn-primary me-1 mb-1">Submit</button>
-                                        <a href="<?= base_url('Blog_Management') ?>" class="btn btn-warning me-1 mb-1">Back</a>
+                                        <a href="<?= base_url('Gallery_Management') ?>" class="btn btn-warning me-1 mb-1">Back</a>
                                     </div>
                                 </div>
                             </div>

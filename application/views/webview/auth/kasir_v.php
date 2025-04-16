@@ -28,7 +28,7 @@
                      <div class="form-login">
                          <form id="login_form">
                              <div class="form-group">
-                                 <input type="text" class="form-control account" placeholder="Email Address" id="email" name="email" />
+                                 <input type="text" class="form-control account" placeholder="Username" id="username" name="username" />
                              </div>
                              <div class="form-group">
                                  <input type="password" class="form-control" placeholder="Password" id="password" name="password" />
@@ -44,8 +44,7 @@
                          <div class="form-group">
                              <input type="submit" onclick="login()" class="btn btn-login" value="Sign In" />
                          </div>
-                         <!-- <p>Don't have an account? <a href="<?= base_url('auth/register') ?>" class="link-bold">Sign up</a> now</p> -->
-                         <p>You are Cashier? <a href="<?= base_url('auth/') ?>" class="link-bold">Login </a> Here</p>
+                         <!-- <p>Don’t have an account? <a href="<?= base_url('auth/register') ?>" class="link-bold">Sign up</a> now</p> -->
                      </div>
                  </div>
              </div>

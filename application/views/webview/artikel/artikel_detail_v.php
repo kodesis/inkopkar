@@ -6,11 +6,11 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="breadcrumb__content">
-                        <h2 class="title">Blog Details</h2>
+                        <h2 class="title">Artikel Details</h2>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="<?= base_url() ?>">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Blog Details</li>
+                                <li class="breadcrumb-item active" aria-current="page">Artikel Details</li>
                             </ol>
                         </nav>
                     </div>

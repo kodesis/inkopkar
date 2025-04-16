@@ -25,4 +25,5 @@
     <link rel="stylesheet" href="<?= base_url('assets/admin') ?>/compiled/css/app.css">
     <link rel="stylesheet" href="<?= base_url('assets/admin') ?>/compiled/css/app-dark.css">
     <link rel="stylesheet" href="<?= base_url('assets/admin') ?>/compiled/css/iconly.css">
+
 </head>

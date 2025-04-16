@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Blog extends CI_Controller
+class Artikel extends CI_Controller
 {
 
 	/**
@@ -33,7 +33,7 @@ class Blog extends CI_Controller
 		$search = htmlspecialchars($this->input->get('search') ?? '', ENT_QUOTES, 'UTF-8');
 
 		//pagination settings
-		$config['base_url'] = site_url('blog');
+		$config['base_url'] = site_url('artikel');
 		$config['total_rows'] = $this->artikel_management->item_count($search);
 		$config['per_page'] = "9";
 		$config["uri_segment"] = 3;
@@ -78,8 +78,8 @@ class Blog extends CI_Controller
 		$data['pagination'] = $this->pagination->create_links();
 
 		$data['recent'] = $this->artikel_management->artikel_recent();
-		// $data['blog'] = $this->artikel_management->get_artikel();
-		$data['content'] = 'webview/blog/blog_v';
+		// $data['artikel'] = $this->artikel_management->get_artikel();
+		$data['content'] = 'webview/artikel/artikel_v';
 		// $data['content_js'] = 'webview/home/home_js';
 		$this->load->view('parts/index_1/wrapper', $data);
 	}
@@ -93,7 +93,7 @@ class Blog extends CI_Controller
 
 			if ($detail) {
 				$data['detail'] = $detail;
-				$data['content'] = 'webview/blog/blog_detail_v';
+				$data['content'] = 'webview/artikel/artikel_detail_v';
 			} else {
 				redirect('error404');
 			}

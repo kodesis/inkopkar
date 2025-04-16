@@ -12,18 +12,16 @@
         <script src="<?= base_url('assets/admin') ?>/extensions/choices.js/public/assets/scripts/choices.js"></script>
         <script src="<?= base_url('assets/admin') ?>/static/js/pages/form-element-select.js"></script>
         <!-- Need: Apexcharts -->
-        <script src="<?= base_url('assets/admin') ?>/extensions/apexcharts/apexcharts.min.js"></script>
-        <script src="<?= base_url('assets/admin') ?>/static/js/pages/dashboard.js"></script>
+        <!-- <script src="<?= base_url('assets/admin') ?>/extensions/apexcharts/apexcharts.min.js"></script> -->
+        <!-- <script src="<?= base_url('assets/admin') ?>/static/js/pages/dashboard.js"></script> -->
 
         <script src="<?= base_url('assets/admin') ?>/extensions/sweetalert2/sweetalert2.min.js"></script>>
         <script src="<?= base_url('assets/admin') ?>/static/js/pages/sweetalert2.js"></script>>
 
-        <script src="<?= base_url('assets/admin') ?>/extensions/jquery/jquery.min.js"></script>
+        <!-- <script src="<?= base_url('assets/admin') ?>/extensions/jquery/jquery.min.js"></script> -->
         <script src="<?= base_url('assets/admin') ?>/extensions/summernote/summernote-lite.min.js"></script>
         <script src="<?= base_url('assets/admin') ?>/static/js/pages/summernote.js"></script>
-        </body>
-
-        </html>
+        <script src="<?= base_url('assets/admin') ?>/extensions/choices.js/public/assets/scripts/choices.js"></script>
 
         </body>
 

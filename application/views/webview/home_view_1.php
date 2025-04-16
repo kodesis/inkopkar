@@ -69,7 +69,9 @@
                                 INKOPKAR
                             </h2>
                         </div>
-                        <p>Kelahiran Induk Koperasi Karyawan (INKOPKAR) tidak bisa dilepaskan dari inisiasi sosok Agus Sudono, tokoh buruh Indonesia. Setelah malang melintang dalam berbagai organisasi buruh bahkan menjadi pegiat buruh internasional dengan menjadi salah satu Anggota Dewan Pimpinan di ILO (International Labour International) 1969-1999 di Geneva - Swiss, ia menyadari bahwa perjuangan buruh adalah perjuangan ekonomi.</p>
+                        <!-- <p>Kelahiran Induk Koperasi Karyawan (INKOPKAR) tidak bisa dilepaskan dari inisiasi sosok Agus Sudono, tokoh buruh Indonesia. Setelah malang melintang dalam berbagai organisasi buruh bahkan menjadi pegiat buruh internasional dengan menjadi salah satu Anggota Dewan Pimpinan di ILO (International Labour International) 1969-1999 di Geneva - Swiss, ia menyadari bahwa perjuangan buruh adalah perjuangan ekonomi.</p> -->
+                        <p>Kelahiran Induk Koperasi Karyawan (INKOPKAR) berawal dari inisiasi Agus Sudono, tokoh buruh Indonesia yang juga pernah menjabat sebagai Anggota Dewan Pimpinan ILO di Geneva, Swiss (1969-1999). Ia meyakini bahwa perjuangan buruh sejatinya adalah perjuangan ekonomi.Perjuangan itu diwujudkan melalui pembentukan koperasi di setiap perusahaan (koperasi primer), yangkemudian membentuk koperasi tingkat provinsi (Pusat Koperasi). Lima Pusat Koperasi tersebut mendirikanInduk Koperasi Pekerja Indonesia (Inkoperindo) pada 14-16 Januari 1986.
+                            Pada Rapat Anggota Khusus tanggal 23 Agustus 1986, Inkoperindo resmi berganti nama menjadi INKOPKAR.Perubahan Anggaran Dasar kemudian dilakukan pada 7 Oktober 1989, 20 Juli 1991, dan 9 Maret 2025 denganNomor Badan Hukum 8291.</p>
                         <div class="about-bottom">
                             <a href="<?= base_url('about') ?>" class="btn btn-two">Baca Lebih Lanjut</a>
                         </div>
@@ -97,8 +99,11 @@
                                 <i class="flaticon-financial-profit"></i>
                             </div>
                             <div class="features__content">
-                                <h4 class="title"><a href="<?= base_url('service') ?>">Pendanaan & Simpan Pinjam</a></h4>
-                                <p>Menyediakan solusi keuangan untuk simpanan dan pinjaman usaha anggota koperasi.</p>
+                                <!-- <h4 class="title"><a href="<?= base_url('service') ?>">Pendanaan & Simpan Pinjam</a></h4>
+                                <p>Menyediakan solusi keuangan untuk simpanan dan pinjaman usaha anggota koperasi.</p> -->
+
+                                <h4 class="title"><a href="<?= base_url('service') ?>">Pengembangan Perumahan Pekerja</a></h4>
+                                <p>Membantu pekerja dan karyawan mendapatkan hunian yang layak dengan harga yang terjangkau.</p>
                             </div>
                         </div>
                     </div>
@@ -108,8 +113,10 @@
                                 <i class="flaticon-light-bulb"></i>
                             </div>
                             <div class="features__content">
-                                <h4 class="title"><a href="<?= base_url('service') ?>">Pelatihan & Edukasi</a></h4>
-                                <p>Program pelatihan berbasis keterampilan dan manajemen untuk meningkatkan kompetensi anggota.</p>
+                                <!-- <h4 class="title"><a href="<?= base_url('service') ?>">Pelatihan & Edukasi</a></h4>
+                                <p>Program pelatihan berbasis keterampilan dan manajemen untuk meningkatkan kompetensi anggota.</p> -->
+                                <h4 class="title"><a href="<?= base_url('service') ?>">Moderenisasi Toko Kopkar</a></h4>
+                                <p>Menyediakan fasilitas belanja bagi pekerja dan karyawan untuk mendapatkan barang konsumsi dengan saldo kredit bulanan.</p>
                             </div>
                         </div>
                     </div>
@@ -119,8 +126,11 @@
                                 <i class="flaticon-target"></i>
                             </div>
                             <div class="features__content">
-                                <h4 class="title"><a href="<?= base_url('service') ?>">Pengembangan Usaha</a></h4>
-                                <p>Kolaborasi antar koperasi untuk menciptakan peluang bisnis baru dan memperkuat jaringan usaha.</p>
+                                <!-- <h4 class="title"><a href="<?= base_url('service') ?>">Pengembangan Usaha</a></h4>
+                                <p>Kolaborasi antar koperasi untuk menciptakan peluang bisnis baru dan memperkuat jaringan usaha.</p> -->
+
+                                <h4 class="title"><a href="<?= base_url('service') ?>">Peningkatan Unit Simpan Pinjam</a></h4>
+                                <p>Solusi keuangan untuk mendukung kebutuhan anggota koperasi, mulai dari simpanan hingga pinjaman usaha.</p>
                             </div>
                         </div>
                     </div>
@@ -130,8 +140,10 @@
                                 <i class="flaticon-profit"></i>
                             </div>
                             <div class="features__content">
+                                <!-- <h4 class="title"><a href="<?= base_url('service') ?>">Pemasaran & Distribusi</a></h4>
+                                <p>Membantu memasarkan produk koperasi ke pasar nasional dan internasional.</p> -->
                                 <h4 class="title"><a href="<?= base_url('service') ?>">Pemasaran & Distribusi</a></h4>
-                                <p>Membantu memasarkan produk koperasi ke pasar nasional dan internasional.</p>
+                                <p>Membantu koperasi memasarkan produk-produk unggulan ke pasar nasional maupun internasional.</p>
                             </div>
                         </div>
                     </div>
@@ -173,10 +185,19 @@
                         <div class="about__content-inner">
                             <div class="about__list-box">
                                 <ul class="list-wrap">
-                                    <li><i class="flaticon-arrow-button"></i>Peningkatan Kesejahteraan Anggota</li>
+                                    <!-- <li><i class="flaticon-arrow-button"></i>Peningkatan Kesejahteraan Anggota</li>
                                     <li><i class="flaticon-arrow-button"></i>Pemberdayaan Koperasi Lokal</li>
                                     <li><i class="flaticon-arrow-button"></i>Solusi Keuangan Terintegrasi</li>
-                                    <li><i class="flaticon-arrow-button"></i>Kolaborasi Antar Koperasi</li>
+                                    <li><i class="flaticon-arrow-button"></i>Kolaborasi Antar Koperasi</li> -->
+
+                                    <li><i class="flaticon-arrow-button"></i>Pembiayaan Perumahan </li>
+                                    <li><i class="flaticon-arrow-button"></i>Pengembangan Perumahan</li>
+                                    <li><i class="flaticon-arrow-button"></i>Toko Koperasi</li>
+                                    <li><i class="flaticon-arrow-button"></i>Simpanan & Pinjaman Usaha</li>
+                                    <li><i class="flaticon-arrow-button"></i>Pemasaran & Distribusi</li>
+                                    <li><i class="flaticon-arrow-button"></i>Pelatihan</li>
+                                    <li><i class="flaticon-arrow-button"></i>Kolaborasi Usaha</li>
+                                    <li><i class="flaticon-arrow-button"></i>Perluasan Koneksi</li>
                                 </ul>
                             </div>
                             <div class="about__list-img">
@@ -299,17 +320,21 @@
                                 <!-- Visi Tab -->
                                 <div class="tab-pane fade show active" id="visi-tab-pane" role="tabpanel" aria-labelledby="visi-tab" tabindex="0">
                                     <div class="choose__tab-content">
-                                        <p>Menjadi wadah koperasi terkemuka yang mampu menghadirkan solusi inovatif untuk pengembangan koperasi dan kesejahteraan anggotanya.</p>
+                                        <p>Menjadi induk koperasi yang terpercaya dalam memberikan kesejahteraan kepada anggotanya</p>
                                     </div>
                                 </div>
                                 <!-- Misi Tab -->
                                 <div class="tab-pane fade" id="misi-tab-pane" role="tabpanel" aria-labelledby="misi-tab" tabindex="0">
                                     <div class="choose__tab-content">
                                         <ul class="list-wrap">
-                                            <li><i class="fas fa-check"></i>Meningkatkan kapabilitas koperasi melalui pelatihan dan pendampingan.</li>
+                                            <!-- <li><i class="fas fa-check"></i>Meningkatkan kapabilitas koperasi melalui pelatihan dan pendampingan.</li>
                                             <li><i class="fas fa-check"></i>Mengembangkan produk dan layanan yang relevan dengan kebutuhan koperasi modern.</li>
                                             <li><i class="fas fa-check"></i>Menjalin kemitraan strategis untuk mendukung pertumbuhan koperasi.</li>
-                                            <li><i class="fas fa-check"></i>Memberikan solusi keuangan yang terpercaya untuk koperasi dan anggotanya.</li>
+                                            <li><i class="fas fa-check"></i>Memberikan solusi keuangan yang terpercaya untuk koperasi dan anggotanya.</li> -->
+                                            <li><i class="fas fa-check"></i>Melaksanakan kegiatan-kegiatan ekonomi untuk memenuhi kebutuhan hidup dan meningkatkan kesejahteraan anggotanya.</li>
+                                            <li><i class="fas fa-check"></i>Melaksanakan usaha di bidang perumahan melalui penyediaan perumahan yang sehat dan layak huni dengan harga terjangkau.</li>
+                                            <li><i class="fas fa-check"></i>Melaksanakan usaha jasa, toko ritel, perdagangan, industri, jasa keuangan, investasi serta usaha usaha lainnya yang secara tidak langsung dapat meningkatkan kesejahteraan anggota.</li>
+                                            <li><i class="fas fa-check"></i>Bekerjasama dengan koperasi dan lembaga lainnya untuk mengembangakan usaha.</li>
                                         </ul>
                                     </div>
                                 </div>

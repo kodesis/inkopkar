@@ -8,9 +8,49 @@
 <script src="<?= base_url('assets/admin') ?>/extensions/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?= base_url('assets/admin') ?>/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
 
+<!-- Select2 CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
+<!-- Select2 JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+
+
 
 <script>
-    let jquery_datatable = $("#table_artikel").DataTable({
+    // let selects1 = $('#id_toko_add').select2({
+    //     placeholder: "-- Pilih Toko Koperasi --",
+    //     allowClear: true,
+    //     width: '100%',
+    // });
+    // let selects2 = $('#id_toko_edit').select2({
+    //     placeholder: "-- Pilih Toko Koperasi --",
+    //     allowClear: true,
+    //     width: '100%',
+    // });
+
+    function formatNumber(input) {
+        let value = input.value.replace(/\D/g, ''); // Remove all non-numeric characters
+        if (value !== "") {
+            input.value = new Intl.NumberFormat('id-ID').format(value); // Format with thousands separator
+        }
+    }
+
+    function removeFormat(input) {
+        input.value = input.value.replace(/\D/g, ''); // Remove formatting (keep only numbers)
+    }
+
+    function validateAndFormat(input) {
+        let value = input.value.replace(/\D/g, ''); // Remove non-numeric characters
+        if (value.length > 15) { // Prevent excessive input (adjust as needed)
+            value = value.substring(0, 15);
+        }
+        input.value = value; // Update input value while typing
+    }
+
+
+
+    let jquery_datatable = $("#table_1").DataTable({
         responsive: true,
         processing: true, //Feature control the processing indicator.
         serverSide: true, //Feature control DataTables' server-side processing mode.
@@ -19,90 +59,123 @@
 
         // Load data for the table's content from an Ajax source
         ajax: {
-            url: "<?php echo site_url('Blog_Management/ajax_list') ?> ",
+            url: "<?php echo site_url('Anggota_Management/ajax_list') ?> ",
             type: "POST",
             data: function(data) {}
         },
         columnDefs: [{
-            targets: 2, // The 8th column (0-indexed)
+            targets: 10, // The 8th column (0-indexed)
             orderable: false // Disable sorting
         }]
     })
-    document.addEventListener('DOMContentLoaded', function() {
-        // Get current date and time
-        const now = new Date();
 
-        // Format date as YYYY-MM-DD
-        const year = now.getFullYear();
-        const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are zero-based
-        const day = String(now.getDate()).padStart(2, '0');
-        const formattedDate = `${year}-${month}-${day}`;
-
-        // Format time as HH:MM
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const formattedTime = `${hours}:${minutes}`;
-
-        // Set the values of the inputs
-        document.getElementById('tanggal_add').value = formattedDate;
-        document.getElementById('jam_add').value = formattedTime;
-    });
-
-    function reset_artikel() {
-        document.getElementById('add_artikel').reset(); // Reset the form
+    function reset_Anggota() {
+        document.getElementById('add_Anggota').reset(); // Reset the form
     }
 
-    function save_artikel() {
-        // const ttlkategoriValue = $('#kategori_add').val();
-        const ttltitleValue = $('#title_add').val();
-        const ttlthumbnailValue = $('#thumbnail_add').val();
-        // const ttltextValue = $('#text').val();
-        const ttltanggalValue = $('#tanggal_add').val();
-        const ttljamValue = $('#jam_add').val();
+    function save_Anggota() {
+        const nomor_anggota_add = $('#nomor_anggota_add').val();
+        const nama_add = $('#nama_add').val();
+        const tempat_lahir_add = $('#tempat_lahir_add').val();
+        const tanggal_lahir_add = $('#tanggal_lahir_add').val();
+        const no_telp_add = $('#no_telp_add').val();
+        const username_add = $('#username_add').val();
+        const password_add = $('#password_add').val();
+        const kredit_limit_add = $('#kredit_limit_add').val();
+        const sisa_kredit_add = $('#sisa_kredit_add').val();
+        const id_koperasi_add = $('#password_add').val();
 
 
-        // if (!ttlkategoriValue) {
-        //     swal.fire({
-        //         customClass: 'slow-animation',
-        //         icon: 'error',
-        //         showConfirmButton: false,
-        //         title: 'Kolom Kategori Tidak Boleh Kosong',
-        //         timer: 1500
-        //     });
-        // } else
-        // if (!ttltitleValue) {
-        //     swal.fire({
-        //         customClass: 'slow-animation',
-        //         icon: 'error',
-        //         showConfirmButton: false,
-        //         title: 'Kolom Title Tidak Boleh Kosong',
-        //         timer: 1500
-        //     });
-        // } else
-        if (!ttlthumbnailValue) {
-            swal.fire({
+        if (!nomor_anggota_add) {
+            Swal.fire({
                 customClass: 'slow-animation',
                 icon: 'error',
                 showConfirmButton: false,
-                title: 'Kolom Thumbnail Tidak Boleh Kosong',
+                title: 'Kolom Nomor Anggota Tidak Boleh Kosong',
                 timer: 1500
             });
-            // } else if (!ttltanggalValue) {
-            //     swal.fire({
-            //         customClass: 'slow-animation',
-            //         icon: 'error',
-            //         showConfirmButton: false,
-            //         title: 'Kolom Tanggal Tidak Boleh Kosong',
-            //         timer: 1500
-            //     });
-            // } else if (!ttljamValue) {
-            //     swal.fire({
-            //         customClass: 'slow-animation',
-            //         icon: 'error',
-            //         showConfirmButton: false,
-            //         title: 'Kolom Jam Tidak Boleh Kosong',
-            //         timer: 1500
-            //     });
+            return false;
+        } else if (!nama_add) {
+            Swal.fire({
+                customClass: 'slow-animation',
+                icon: 'error',
+                showConfirmButton: false,
+                title: 'Kolom Nama Tidak Boleh Kosong',
+                timer: 1500
+            });
+            return false;
+        } else if (!tempat_lahir_add) {
+            Swal.fire({
+                customClass: 'slow-animation',
+                icon: 'error',
+                showConfirmButton: false,
+                title: 'Kolom Tempat Lahir Tidak Boleh Kosong',
+                timer: 1500
+            });
+            return false;
+        } else if (!tanggal_lahir_add) {
+            Swal.fire({
+                customClass: 'slow-animation',
+                icon: 'error',
+                showConfirmButton: false,
+                title: 'Kolom Tanggal Lahir Tidak Boleh Kosong',
+                timer: 1500
+            });
+            return false;
+        } else if (!no_telp_add) {
+            Swal.fire({
+                customClass: 'slow-animation',
+                icon: 'error',
+                showConfirmButton: false,
+                title: 'Kolom Nomor Telepon Tidak Boleh Kosong',
+                timer: 1500
+            });
+            return false;
+        } else if (!username_add) {
+            Swal.fire({
+                customClass: 'slow-animation',
+                icon: 'error',
+                showConfirmButton: false,
+                title: 'Kolom Username Tidak Boleh Kosong',
+                timer: 1500
+            });
+            return false;
+        } else if (!password_add) {
+            Swal.fire({
+                customClass: 'slow-animation',
+                icon: 'error',
+                showConfirmButton: false,
+                title: 'Kolom Password Tidak Boleh Kosong',
+                timer: 1500
+            });
+            return false;
+        } else if (!kredit_limit_add) {
+            Swal.fire({
+                customClass: 'slow-animation',
+                icon: 'error',
+                showConfirmButton: false,
+                title: 'Kolom Kredit Limit Tidak Boleh Kosong',
+                timer: 1500
+            });
+            return false;
+        } else if (!sisa_kredit_add) {
+            Swal.fire({
+                customClass: 'slow-animation',
+                icon: 'error',
+                showConfirmButton: false,
+                title: 'Kolom Sisa Kredit Tidak Boleh Kosong',
+                timer: 1500
+            });
+            return false;
+        } else if (!id_koperasi_add) {
+            Swal.fire({
+                customClass: 'slow-animation',
+                icon: 'error',
+                showConfirmButton: false,
+                title: 'Kolom ID Koperasi Tidak Boleh Kosong',
+                timer: 1500
+            });
+            return false;
         } else {
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
@@ -114,7 +187,7 @@
             })
 
             swalWithBootstrapButtons.fire({
-                title: 'Ingin Menambahkan Data Artikel?',
+                title: 'Ingin Menambahkan Data Anggota?',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Ya, Tambahkan',
@@ -126,10 +199,10 @@
 
                     var url;
                     var formData;
-                    url = "<?php echo site_url('Blog_Management/save') ?>";
+                    url = "<?php echo site_url('Anggota_Management/save') ?>";
 
                     // window.location = url_base;
-                    var formData = new FormData($("#add_artikel")[0]);
+                    var formData = new FormData($("#add_Anggota")[0]);
                     $.ajax({
                         url: url,
                         type: "POST",
@@ -159,13 +232,13 @@
                                     customClass: 'slow-animation',
                                     icon: 'success',
                                     showConfirmButton: false,
-                                    title: 'Berhasil Menambahkan Artikel',
+                                    title: 'Berhasil Menambahkan Anggota',
                                     timer: 1500
                                 });
                                 // location.reload();
                                 setTimeout(function() {
-                                    console.log('Redirecting to Blog_Management...');
-                                    location.href = '<?= base_url('Blog_Management') ?>';
+                                    console.log('Redirecting to Anggota_Management...');
+                                    location.href = '<?= base_url('Anggota_Management') ?>';
                                 }, 1500); // Delay for smooth transition
                             }
                         },
@@ -184,7 +257,7 @@
         }
     }
 
-    function update_artikel() {
+    function update_Anggota() {
         // const ttlkategoriValue = $('#kategori_edit').val();
         const ttltitleValue = $('#title_edit').val();
         // const ttltextValue = $('#text').val();
@@ -236,7 +309,7 @@
         })
 
         swalWithBootstrapButtons.fire({
-            title: 'Ingin Mengubah Data Artikel?',
+            title: 'Ingin Mengubah Data Anggota?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Ya, Ubah',
@@ -248,10 +321,10 @@
 
                 var url;
                 var formData;
-                url = "<?php echo site_url('Blog_Management/proses_update') ?>";
+                url = "<?php echo site_url('Anggota_Management/proses_update') ?>";
 
                 // window.location = url_base;
-                var formData = new FormData($("#update_artikel")[0]);
+                var formData = new FormData($("#update_Anggota")[0]);
                 $.ajax({
                     url: url,
                     type: "POST",
@@ -281,12 +354,12 @@
                                 customClass: 'slow-animation',
                                 icon: 'success',
                                 showConfirmButton: false,
-                                title: 'Berhasil Mengubah Artikel',
+                                title: 'Berhasil Mengubah Anggota',
                                 timer: 1500
                             });
                             setTimeout(function() {
-                                console.log('Redirecting to Blog_Management...');
-                                location.href = '<?= base_url('Blog_Management') ?>';
+                                console.log('Redirecting to Anggota_Management...');
+                                location.href = '<?= base_url('Anggota_Management') ?>';
                             }, 1500); // Delay for smooth transition
                         }
                     },
@@ -327,7 +400,7 @@
             if (result.isConfirmed) {
 
                 $.ajax({
-                    url: "<?php echo site_url('Blog_Management/delete') ?>",
+                    url: "<?php echo site_url('Anggota_Management/delete') ?>",
                     type: "POST",
                     data: {
                         id_delete: id
@@ -374,7 +447,7 @@
         formData.append("file", file);
 
         $.ajax({
-            url: "<?php echo site_url('Blog_Management/upload_summernote') ?>",
+            url: "<?php echo site_url('Anggota_Management/upload_summernote') ?>",
             type: "POST",
             data: formData,
             processData: false,

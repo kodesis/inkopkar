@@ -24,20 +24,33 @@ class Auth extends CI_Controller
 		if ($this->session->userdata('user_logged_in') == True) {
 			redirect('dashboard');
 		}
-		$data['content'] = 'webview/auth/login_v';
-		$data['content_js'] = 'webview/auth/login_js';
+		// $data['content'] = 'webview/auth/login_v';
+		// $data['content_js'] = 'webview/auth/login_js';
+		$data['content'] = 'webview/auth/kasir_v';
+		$data['content_js'] = 'webview/auth/kasir_js';
+
 		$this->load->view('parts/index_1/wrapper', $data);
 	}
-	public function register()
+	public function admin()
 	{
 		if ($this->session->userdata('user_logged_in') == True) {
 			redirect('dashboard');
 		}
-		$data['content'] = 'webview/auth/register_v';
-		$data['content_js'] = 'webview/auth/register_js';
+		$data['content'] = 'webview/auth/login_v';
+		$data['content_js'] = 'webview/auth/login_js';
+
 		$this->load->view('parts/index_1/wrapper', $data);
 	}
-	public function login_process()
+	// public function register()
+	// {
+	// 	if ($this->session->userdata('user_logged_in') == True) {
+	// 		redirect('dashboard');
+	// 	}
+	// 	$data['content'] = 'webview/auth/register_v';
+	// 	$data['content_js'] = 'webview/auth/register_js';
+	// 	$this->load->view('parts/index_1/wrapper', $data);
+	// }
+	public function login_admin_process()
 	{
 
 		$this->load->model('Auth_m', 'login');
@@ -75,7 +88,49 @@ class Auth extends CI_Controller
 			echo json_encode(array("status" => 'Gagal Cari'));
 		}
 	}
+	public function login_process()
+	{
 
+		$this->load->model('Auth_m', 'login');
+
+		$username = $this->input->post('username');
+		$password = $this->input->post('password');
+		$active     = 1;
+
+
+		$user = $this->login->user_kasir_login($username, $password, $active);
+
+		if (!empty($user)) {
+
+			// if ($user->role_id == 1) {
+			// 	$role = 'Admin';
+			// } else if ($user->role_id == 2) {
+			// 	$role = 'User';
+			// }
+			$this->session->set_userdata([
+				'user_user_id'   => $user->id,
+				'name'  => $user->nama,
+				'username'      => $user->username,
+				'id_toko'      => $user->id_toko,
+
+				'role_id'      => 3,
+				'role'      => 'Kasir',
+				// 'id_toko'      => $user->id_toko,
+				'user_email'      => $user->kasir,
+				// 'last_acces_time'      => $user->last_acces,
+				'user_logged_in' => true
+			]);
+			echo json_encode(array("status" => 'Success'));
+
+			// if ($user->role_id == 1) {
+			// 	echo json_encode(array("status" => 'admin'));
+			// } else if ($user->role_id == 2) {
+			// 	echo json_encode(array("status" => 'user'));
+			// }
+		} else {
+			echo json_encode(array("status" => 'Gagal Cari'));
+		}
+	}
 	public function register_process()
 	{
 		$this->load->model('Auth_m', 'regis');

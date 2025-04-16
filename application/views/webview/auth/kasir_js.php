@@ -12,7 +12,7 @@
     function login() {
         event.preventDefault(); // Prevent the default form submission
 
-        const ttlnamaValue = $('#email').val();
+        const ttlnamaValue = $('#username').val();
         const ttlfileValue = $('#password').val();
 
 
@@ -36,7 +36,7 @@
             var base_url = "<?php echo base_url(); ?>";
             var url;
             var formData;
-            url = "<?php echo site_url('auth/login_admin_process') ?>";
+            url = "<?php echo site_url('auth/login_process') ?>";
 
             // window.location = url_base;
             var formData = new FormData($("#login_form")[0]);
