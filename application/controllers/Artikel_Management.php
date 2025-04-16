@@ -106,8 +106,6 @@ class Artikel_Management extends CI_Controller
         // $thumbnail = $this->input->post('thumbnail');
         $text = $this->input->post('text');
 
-        $tanggal_full = $tanggal . ' ' . $jam;
-
         $config['upload_path'] = FCPATH . 'uploads/artikel/'; // Same as the config file
         $config['allowed_types'] = 'jpg|jpeg|png';
         $config['file_name'] = 'thumbnail_' . $title;
