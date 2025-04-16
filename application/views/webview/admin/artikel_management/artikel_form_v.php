@@ -55,25 +55,25 @@
                                                     </select>
                                                 </div>
                                             </div> -->
-                                            <!-- <div class="col-12">
+                                            <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="email-id-vertical">Title</label>
                                                     <input type="text" class="form-control" id="title_add" name="title" placeholder="Title">
                                                 </div>
-                                            </div> -->
+                                            </div>
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="contact-info-vertical">Picture</label>
                                                     <input type="file" class="form-control" id="thumbnail_add" name="thumbnail" placeholder="Thumbnail">
                                                 </div>
                                             </div>
-                                            <!-- <div class="col-12">
+                                            <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="text">Text</label>
                                                     <textarea class="form-control" name="text" id="summernote1"></textarea>
                                                 </div>
                                             </div>
-                                            <div class="col-6">
+                                            <!-- <div class="col-6">
                                                 <div class="form-group">
                                                     <label for="password-vertical">Tanggal</label>
                                                     <input type="date" id="tanggal_add" class="form-control" name="tanggal" placeholder="Tanggal">
@@ -120,19 +120,19 @@
                                                     </select>
                                                 </div>
                                             </div> -->
-                                            <!-- <div class="col-12">
+                                            <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="email-id-vertical">Title</label>
                                                     <input type="text" class="form-control" id="title_edit" name="title" placeholder="Title" value="<?= $artikel->title ?>">
                                                 </div>
-                                            </div> -->
+                                            </div>
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="contact-info-vertical">Picture</label>
                                                     <input type="file" class="form-control" id="thumbnail_edit" name="thumbnail" placeholder="Thumbnail">
                                                 </div>
                                             </div>
-                                            <!-- <div class="col-12">
+                                            <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="text">Text</label>
                                                     <textarea class="form-control" name="text" id="summernote1"><?= $artikel->text ?></textarea>
@@ -145,7 +145,7 @@
                                             list($date, $time) = explode(' ', $tanggal);
 
                                             ?>
-                                            <div class="col-6">
+                                            <!-- <div class="col-6">
                                                 <div class="form-group">
                                                     <label for="password-vertical">Tanggal</label>
                                                     <input type="date" id="tanggal_edit" class="form-control" name="tanggal" placeholder="Tanggal" value="<?= $date ?>">
