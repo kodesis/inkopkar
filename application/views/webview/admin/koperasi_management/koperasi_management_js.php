@@ -24,7 +24,7 @@
             data: function(data) {}
         },
         columnDefs: [{
-            targets: 4, // The 8th column (0-indexed)
+            targets: [4, 5], // The 8th column (0-indexed)
             orderable: false // Disable sorting
         }]
     })

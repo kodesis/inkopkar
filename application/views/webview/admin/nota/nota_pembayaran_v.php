@@ -9,14 +9,14 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Table Nota Management</h3>
+                    <h3>Table Nota Pembayaran Management</h3>
                     <!-- <p class="text-subtitle text-muted">Powerful interactive tables with datatables (jQuery required).</p> -->
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="<?= base_url('dashboard') ?>">Dashboard</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Nota Management</li>
+                            <li class="breadcrumb-item active" aria-current="page">Nota Pembayaran Management</li>
                         </ol>
                     </nav>
                 </div>
@@ -48,6 +48,11 @@
                             <td><?= $Anggota->no_telp ?></td>
                         </tr>
                         <tr>
+                            <td style="width: 20%;">Nama Koperasi</td>
+                            <td>:</td>
+                            <td><?= $koperasi->nama_koperasi ?> - <?= $koperasi->alamat ?></td>
+                        </tr>
+                        <tr>
                             <td style="width: 20%;">Kredit Limit</td>
                             <td>:</td>
                             <td><?= number_format(
@@ -76,12 +81,10 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Tanggal</th>
-                                    <!-- <th>Nama Anggota</th> -->
-                                    <th>Nominal Kredit</th>
-                                    <th>Nominal Cash</th>
+                                    <th>Nominal</th>
                                     <th>Toko - Kasir</th>
                                     <th>Status</th>
-                                    <th>#</th>
+                                    <!-- <th>#</th> -->
                                 </tr>
                             </thead>
 

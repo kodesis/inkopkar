@@ -34,6 +34,21 @@
                     </h5>
                 </div>
                 <div class="card-body">
+                    <!-- Custom filter bar -->
+                    <div class="d-flex justify-content-end align-items-center gap-2 mb-2 flex-wrap" id="customFilterContainer">
+                        <!-- Search by dropdown -->
+                        <div id="datatable-filter-bar" class="d-flex align-items-center">
+                            <label for="searchBy" class="me-2 mb-0">Search by:</label>
+                            <select id="searchBy" class="form-select form-select-sm" style="width: auto;">
+                                <option value="">All</option>
+                                <option value="nama_koperasi">Nama Koperasi</option>
+                                <option value="nama_toko">Nama Toko</option>
+                            </select>
+                        </div>
+                        <!-- Placeholder for the DataTables search box -->
+                        <div id="custom-dt-search" class="ms-3"></div>
+                    </div>
+
                     <div class="table-responsive datatable-minimal">
                         <table class="table" id="table_1">
                             <thead>
@@ -42,14 +57,14 @@
                                     <th>Nama Koperasi</th>
                                     <th>Nama Toko</th>
                                     <th>Alamat</th>
-                                    <th>Telpon</th>
+                                    <th>PIC</th>
                                     <th>#</th>
                                 </tr>
                             </thead>
-
                         </table>
                     </div>
                 </div>
+
             </div>
         </section>
         <!-- Minimal jQuery Datatable end -->

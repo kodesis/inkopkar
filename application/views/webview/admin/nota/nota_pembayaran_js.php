@@ -3,77 +3,56 @@
 <link rel="stylesheet" href="<?= base_url('assets/admin') ?>/compiled/css/app.css">
 <link rel="stylesheet" href="<?= base_url('assets/admin') ?>/compiled/css/app-dark.css">
 
-<script src="<?= base_url('assets/admin') ?>/static/js/initTheme.js"></script>
-<script src="<?= base_url('assets/admin') ?>/extensions/jquery/jquery.min.js"></script>
+<!-- <script src="<?= base_url('assets/admin') ?>/static/js/initTheme.js"></script> -->
+<!-- <script src="<?= base_url('assets/admin') ?>/extensions/jquery/jquery.min.js"></script> -->
 <script src="<?= base_url('assets/admin') ?>/extensions/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?= base_url('assets/admin') ?>/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+<!-- jQuery (Must be loaded first) -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+
+<!-- Select2 CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
+<!-- Select2 JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+
 
 
 <script>
-    $(document).ready(function() {
-        // Move dropdown into DataTables filter container and wrap for alignment
-        $('#datatable-filter-bar').appendTo('#table_1_filter');
-
-        // Optional: wrap both elements in a flex container to align side-by-side neatly
-        $('#table_1_filter').addClass('d-flex align-items-center gap-5');
-
-        // Initialize DataTable
-
-
-        // Reload table on filter change
-        $('#searchBy').on('change', function() {
-            jquery_datatable.ajax.reload();
-        });
+    let selects1 = $('#id_anggota_add').select2({
+        placeholder: "-- Pilih Anggota --",
+        allowClear: true,
+        width: '100%',
     });
 
     let jquery_datatable = $("#table_1").DataTable({
         responsive: true,
-        processing: true,
-        serverSide: true,
-        order: [],
+        processing: true, //Feature control the processing indicator.
+        serverSide: true, //Feature control DataTables' server-side processing mode.
+        order: [], //Initial no order.
         iDisplayLength: 10,
+
+        // Load data for the table's content from an Ajax source
         ajax: {
-            url: "<?php echo site_url('Toko_Management/ajax_list') ?>",
+            url: "<?php echo site_url('Anggota/ajax_list_pembayaran/' . $this->uri->segment(3)) ?> ",
             type: "POST",
-            data: function(data) {
-                data.searchBy = $('#searchBy').val();
-            }
+            data: function(data) {}
         },
         columnDefs: [{
-            targets: [5],
-            orderable: false
+            targets: 4, // The 8th column (0-indexed)
+            orderable: false // Disable sorting
         }]
-    });
+    })
 
 
-    document.addEventListener('DOMContentLoaded', function() {
-        // Get current date and time
-        const now = new Date();
-
-        // Format date as YYYY-MM-DD
-        const year = now.getFullYear();
-        const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are zero-based
-        const day = String(now.getDate()).padStart(2, '0');
-        const formattedDate = `${year}-${month}-${day}`;
-
-        // Format time as HH:MM
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const formattedTime = `${hours}:${minutes}`;
-
-        // Set the values of the inputs
-        document.getElementById('tanggal_add').value = formattedDate;
-        document.getElementById('jam_add').value = formattedTime;
-    });
-
-    function reset_Toko() {
-        document.getElementById('add_Toko').reset(); // Reset the form
+    function reset_Nota() {
+        document.getElementById('add_Nota').reset(); // Reset the form
     }
 
-    function save_Toko() {
-        const ttltitleValue = $('#nama_toko_add').val();
-        // const ttlthumbnailValue = $('#telp_add').val();
-        const ttltanggalValue = $('#alamat_add').val();
+    function save_Nota() {
+        const ttltitleValue = $('#id_anggota_add').val();
+        const ttlthumbnailValue = $('#nominal_kredit_add').val();
 
 
         if (!ttltitleValue) {
@@ -81,25 +60,17 @@
                 customClass: 'slow-animation',
                 icon: 'error',
                 showConfirmButton: false,
-                title: 'Kolom Nama Toko Tidak Boleh Kosong',
+                title: 'Kolom Anggota Tidak Boleh Kosong',
                 timer: 1500
             });
-        } else if (!ttltanggalValue) {
+        } else if (!ttlthumbnailValue) {
             swal.fire({
                 customClass: 'slow-animation',
                 icon: 'error',
                 showConfirmButton: false,
-                title: 'Kolom Alamat Tidak Boleh Kosong',
+                title: 'Kolom Nominal Tidak Boleh Kosong',
                 timer: 1500
             });
-            // } else if (!ttlthumbnailValue) {
-            //     swal.fire({
-            //         customClass: 'slow-animation',
-            //         icon: 'error',
-            //         showConfirmButton: false,
-            //         title: 'Kolom Nomor Telpon Tidak Boleh Kosong',
-            //         timer: 1500
-            //     });
         } else {
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
@@ -111,7 +82,7 @@
             })
 
             swalWithBootstrapButtons.fire({
-                title: 'Ingin Menambahkan Data Toko?',
+                title: 'Ingin Menambahkan Data Nota?',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Ya, Tambahkan',
@@ -123,10 +94,10 @@
 
                     var url;
                     var formData;
-                    url = "<?php echo site_url('Toko_Management/save') ?>";
+                    url = "<?php echo site_url('Anggota/save') ?>";
 
                     // window.location = url_base;
-                    var formData = new FormData($("#add_Toko")[0]);
+                    var formData = new FormData($("#add_Nota")[0]);
                     $.ajax({
                         url: url,
                         type: "POST",
@@ -156,13 +127,13 @@
                                     customClass: 'slow-animation',
                                     icon: 'success',
                                     showConfirmButton: false,
-                                    title: 'Berhasil Menambahkan Toko',
+                                    title: 'Berhasil Menambahkan Nota',
                                     timer: 1500
                                 });
                                 // location.reload();
                                 setTimeout(function() {
-                                    console.log('Redirecting to Toko_Management...');
-                                    location.href = '<?= base_url('Toko_Management') ?>';
+                                    console.log('Redirecting to Anggota...');
+                                    location.href = '<?= base_url('Anggota') ?>';
                                 }, 1500); // Delay for smooth transition
                             }
                         },
@@ -181,7 +152,7 @@
         }
     }
 
-    function update_Toko() {
+    function update_Nota() {
         // const ttlkategoriValue = $('#kategori_edit').val();
         const ttltitleValue = $('#title_edit').val();
         // const ttltextValue = $('#text').val();
@@ -233,7 +204,7 @@
         })
 
         swalWithBootstrapButtons.fire({
-            title: 'Ingin Mengubah Data Toko?',
+            title: 'Ingin Mengubah Data Nota?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Ya, Ubah',
@@ -245,10 +216,10 @@
 
                 var url;
                 var formData;
-                url = "<?php echo site_url('Toko_Management/proses_update') ?>";
+                url = "<?php echo site_url('Anggota/proses_update') ?>";
 
                 // window.location = url_base;
-                var formData = new FormData($("#update_Toko")[0]);
+                var formData = new FormData($("#update_Nota")[0]);
                 $.ajax({
                     url: url,
                     type: "POST",
@@ -278,12 +249,12 @@
                                 customClass: 'slow-animation',
                                 icon: 'success',
                                 showConfirmButton: false,
-                                title: 'Berhasil Mengubah Toko',
+                                title: 'Berhasil Mengubah Nota',
                                 timer: 1500
                             });
                             setTimeout(function() {
-                                console.log('Redirecting to Toko_Management...');
-                                location.href = '<?= base_url('Toko_Management') ?>';
+                                console.log('Redirecting to Anggota...');
+                                location.href = '<?= base_url('Anggota') ?>';
                             }, 1500); // Delay for smooth transition
                         }
                     },
@@ -324,7 +295,7 @@
             if (result.isConfirmed) {
 
                 $.ajax({
-                    url: "<?php echo site_url('Toko_Management/delete') ?>",
+                    url: "<?php echo site_url('Anggota/delete') ?>",
                     type: "POST",
                     data: {
                         id_delete: id
@@ -335,13 +306,24 @@
                     },
                     success: function(data) {
                         if (!data.status) showAlert('Gagal!', data.message.toString().replace(/<[^>]*>/g, ''), 'error');
-                        else {
+                        else if (data.status == 'Tidak Bisa Delete') {
+                            (JSON.stringify(data));
+                            // alert(data)
+                            swal.fire({
+                                customClass: 'slow-animation',
+                                icon: 'error',
+                                showConfirmButton: false,
+                                title: 'Tidak Bisa Hapus Data!!',
+                                timer: 1500
+                            });
+                        } else {
                             swalWithBootstrapButtons.fire(
                                 'Terhapus!',
                                 'Data berhasil dihapus.',
                                 'success'
                             )
                             jquery_datatable.ajax.reload();
+                            // location.reload();
                         }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
@@ -371,7 +353,7 @@
         formData.append("file", file);
 
         $.ajax({
-            url: "<?php echo site_url('Toko_Management/upload_summernote') ?>",
+            url: "<?php echo site_url('Anggota/upload_summernote') ?>",
             type: "POST",
             data: formData,
             processData: false,

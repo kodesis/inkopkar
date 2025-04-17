@@ -25,6 +25,8 @@ class Anggota extends CI_Controller
         parent::__construct();
         $this->load->model('Nota_m', 'nota');
         $this->load->model('anggota_Management_m', 'anggota_management');
+        $this->load->model('toko_Management_m', 'toko_management');
+        $this->load->model('koperasi_Management_m', 'koperasi_management');
         $this->load->model('nota_Management_m', 'nota_management');
         $this->load->helper(array('form', 'url'));
         $this->load->library('upload');
@@ -45,7 +47,8 @@ class Anggota extends CI_Controller
             $no++;
             $row = array();
             $row[] = $cat->id;
-            $row[] = $cat->tanggal_jam;
+            $date = new DateTime($cat->tanggal_jam);
+            $row[] = $date->format('d F Y, H:i:s');
             // $row[] = $cat->nama;
             // $row[] = "Rp. " . $cat->nominal_kredit;
             $row[] = '<div style="text-align: right;">' . number_format(
@@ -252,5 +255,70 @@ class Anggota extends CI_Controller
                 'error' => $this->upload->display_errors(),
             ]);
         }
+    }
+    public function detail_pembayaran($id)
+    {
+        $anggota = $this->anggota_management->get_id_edit($id);
+        $data['Anggota'] = $anggota;
+        $toko = $this->toko_management->get_id_edit($anggota->id_toko);
+        $koperasi = $this->koperasi_management->get_id_edit($toko->id_koperasi);
+        $data['koperasi'] = $koperasi;
+        $data['content']     = 'webview/admin/nota/nota_pembayaran_v';
+        $data['content_js'] = 'webview/admin/nota/nota_pembayaran_js';
+        $this->load->view('parts/admin/Wrapper', $data);
+    }
+    public function ajax_list_pembayaran($id)
+    {
+        $list = $this->nota->get_datatables_pembayaran($id);
+        $data = array();
+        $crs = "";
+        $no = $_POST['start'];
+
+        foreach ($list as $cat) {
+            // $path = base_url() . 'uploads/blog/' . $cat->thumbnail;
+
+            $no++;
+            $row = array();
+            $row[] = $cat->id;
+            $date = new DateTime($cat->tanggal_jam);
+            $row[] = $date->format('d F Y, H:i:s');
+            // $row[] = $cat->nama;
+            // $row[] = "Rp. " . $cat->nominal_kredit;
+            $row[] = '<div style="text-align: right;">' . number_format(
+                $cat->nominal,
+                0,
+                ',',
+                '.'
+            ) . '</div>';
+            // $row[] = $cat->tanggal_jam;
+            $row[] = $cat->nama_koperasi . " - " . $cat->nama_toko . " - " . $cat->nama;
+            // $row[] = $cat->view_count;
+            if ($cat->status == "1") {
+
+                $row[] = '<center> <div class="list-icons d-inline-flex">
+                
+                                                <a class="btn btn-success">Terbayar Ke Koperasi</a>
+            </div>
+    </center>';
+            } else if ($cat->status == "1") {
+                $row[] = '<center> <div class="list-icons d-inline-flex">
+                
+                                                <a class="btn btn-success">Terbayar Ke Inkopkar</a>
+            </div>
+    </center>';
+            }
+            // <a title="Update User" href="' . base_url('Anggota_Management/update/' . $cat->id) . '" class="btn btn-warning"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"> <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path> <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path> </svg></a>
+
+
+            $data[] = $row;
+        }
+
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $this->nota->count_all_pembayaran($id),
+            "recordsFiltered" => $this->nota->count_filtered_pembayaran($id),
+            "data" => $data,
+        );
+        echo json_encode($output);
     }
 }

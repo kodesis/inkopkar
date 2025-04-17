@@ -26,6 +26,8 @@ class Nota_Management extends CI_Controller
         $this->load->model('nota_m', 'nota');
         $this->load->model('nota_Management_m', 'nota_management');
         $this->load->model('anggota_Management_m', 'anggota_management');
+        $this->load->model('toko_Management_m', 'toko_management');
+        $this->load->model('koperasi_Management_m', 'koperasi_management');
 
         $this->load->helper(array('form', 'url'));
         $this->load->library(array('upload', 'Api_Whatsapp'));
@@ -114,7 +116,7 @@ class Nota_Management extends CI_Controller
         $id_anggota = $this->input->post('id_anggota');
         $anggota = $this->anggota_management->get_id_edit($id_anggota);
 
-        $nominal_kredit = $this->input->post('nominal_kredit');
+        $nominal_kredit = (int) str_replace('.', '', $this->input->post('nominal_kredit'));
         $token = random_int(100000, 999999); // Generate a secure random number
 
         // Get the current year
@@ -257,5 +259,88 @@ class Nota_Management extends CI_Controller
     {
         $anggota = $this->anggota_management->get_id_edit($id);
         echo json_encode(array("status" => TRUE, 'nama' => $anggota->nama, 'nomor_anggota' => $anggota->nomor_anggota, 'kredit_limit' => $anggota->kredit_limit, 'usage_kredit' => $anggota->usage_kredit));
+    }
+
+    public function add_pembayaran()
+    {
+        $data['anggota'] = $this->nota_management->get_anggota();
+        $data['content']     = 'webview/admin/nota_management/nota_pembayaran_form_v';
+        $data['content_js'] = 'webview/admin/nota_management/nota_management_js';
+        $this->load->view('parts/admin/Wrapper', $data);
+    }
+
+    public function save_pembayaran()
+    {
+        $date = (new DateTime('now', new DateTimeZone('Asia/Jakarta')))->format('Y-m-d H:i:s');
+        $id_anggota = $this->input->post('id_anggota');
+        $anggota = $this->anggota_management->get_id_edit($id_anggota);
+
+        $nominal_bayar = (int) str_replace('.', '', $this->input->post('nominal_kredit'));
+        $token = random_int(100000, 999999); // Generate a secure random number
+
+        // Get the current year
+        $current_year = date('Y');
+
+        // Get the latest ID from the database for the current year
+        $latest_entry = $this->nota_management->get_latest_entry_pembayaran($current_year);
+
+        if ($latest_entry) {
+            // Extract only the first 6 digits of the latest ID (numeric part)
+            $latest_number = (int) substr($latest_entry->id, 0, 6);
+            $new_number = str_pad($latest_number + 1, 6, '0', STR_PAD_LEFT);
+        } else {
+            $new_number = "000001"; // Start from 000001 if no previous entry
+        }
+
+        $usage_now = $anggota->usage_kredit - $nominal_bayar;
+
+        // Create the new ID
+        $new_id = $new_number . $current_year;
+
+        // Save the new data
+        $sub_id = $this->nota_management->save_pembayaran([
+            'id'             => $new_id, // New generated ID
+            'tanggal_jam'    => $date,
+            'id_anggota'     => $id_anggota,
+            'nominal' => $nominal_bayar,
+            'token'          => $token,
+            'id_kasir'       => $this->session->userdata('user_user_id'),
+            'id_toko'        => $this->session->userdata('id_toko'),
+            'status'         => 1
+        ]);
+
+        // $task_name = $get_task_detail['task_name'];
+        // $nama_member = $get_user["nama"];
+        // $comment = $this->input->post("commentt");
+        // $nama_session = $this->session->userdata('nama');
+        // $msg = "Kode verifikasi Anda adalah: " . $token . " \n Gunakan kode ini untuk melengkapi proses verifikasi nota anda.";
+        // $this->api_whatsapp->wa_notif($msg, $anggota->no_telp);
+        // Update anggota's usage_kredit
+        // $usage_kredit = $anggota->usage_kredit + $nominal_kredit;
+
+        // $this->anggota_management->update_data(['usage_kredit' => $usage_kredit], ['id' => $id_anggota]);
+        $anggota = $this->anggota_management->get_id_edit($id_anggota);
+
+        $update = $this->anggota_management->update_data(['usage_kredit' => $usage_now], ['id' => $id_anggota]);
+
+
+        $toko = $this->toko_management->get_id_edit($anggota->id_toko);
+        $koperasi = $this->koperasi_management->get_id_edit($toko->id_koperasi);
+        $saldo_tagihan = $koperasi->saldo_tagihan + $nominal_bayar;
+
+        $this->koperasi_management->update_data(['saldo_tagihan' => $saldo_tagihan], ['id' => $koperasi->id]);
+
+        if (!$sub_id) {
+            echo json_encode(["status" => FALSE, "error" => "Failed to send WhatsApp message"]);
+            exit;
+        } elseif (isset($response['error'])) {
+            echo json_encode(["status" => FALSE, "error" => $response['error']]);
+            exit;
+        }
+
+        // If successful
+        echo json_encode(["status" => TRUE, "sub_id" => $sub_id, "Telp" => $anggota->no_telp]);
+
+        // echo json_encode(["status" => TRUE, "sub_id" => $sub_id]);
     }
 }

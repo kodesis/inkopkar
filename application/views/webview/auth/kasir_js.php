@@ -66,7 +66,7 @@
                             customClass: 'slow-animation',
                             icon: 'error',
                             showConfirmButton: false,
-                            title: 'Email Dan Password Salah',
+                            title: 'Username Dan Password Salah',
                             timer: 1500
                         });
                     } else {

@@ -105,8 +105,11 @@ class Nota_Management_m extends CI_Model
     }
     public function get_anggota()
     {
-        $this->db->select('*');
+        $this->db->select('anggota.*, koperasi.nama_koperasi');
         $this->db->from('anggota');
+        $this->db->join('toko', 'anggota.id_toko = toko.id', 'left');
+        $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
+
         return $this->db->get()->result();
     }
     public function get_latest_entry($year)
@@ -119,5 +122,22 @@ class Nota_Management_m extends CI_Model
 
         $query = $this->db->get();
         return $query->row(); // Return the latest row
+    }
+    public function get_latest_entry_pembayaran($year)
+    {
+        $this->db->select('id');
+        $this->db->from('nota_pembayaran'); // Change to your actual table name
+        $this->db->where("RIGHT(id, 4) =", $year); // Fix the SQL syntax
+        $this->db->order_by("id", "DESC");
+        $this->db->limit(1);
+
+        $query = $this->db->get();
+        return $query->row(); // Return the latest row
+    }
+
+    public function save_pembayaran($data)
+    {
+        $this->db->insert('nota_pembayaran', $data);
+        return $this->db->insert_id();
     }
 }

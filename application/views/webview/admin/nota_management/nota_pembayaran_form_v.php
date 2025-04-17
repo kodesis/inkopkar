@@ -17,7 +17,7 @@
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="<?= base_url('dashboard') ?>">Dashboard</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Tambah Nota</li>
+                            <li class="breadcrumb-item active" aria-current="page">Tambah Nota Pembayaran</li>
                         </ol>
                     </nav>
                 </div>
@@ -31,7 +31,7 @@
                     <div class="card">
 
                         <div class="card-header">
-                            <h4 class="card-title">Tambah Nota</h4>
+                            <h4 class="card-title">Tambah Nota Pembayaran</h4>
                         </div>
 
                         <div class="card-content">
@@ -68,7 +68,7 @@
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="text">Anggota</label>
-                                                <select class="choices form-select" name="id_anggota" id="id_anggota_add" onchange="get_detail_user(); toggleNominalKredit();">
+                                                <select class="choices form-select" name="id_anggota" id="id_anggota_add" onchange="get_detail_user_pembayaran(); ">
                                                     <option disabled selected>-- Pilih Anggota --</option>
                                                     <?php
                                                     foreach ($anggota as $c) {
@@ -85,16 +85,16 @@
                                                 <label for="email-id-vertical">Nominal</label>
                                                 <!-- <input type="number" class="form-control" id="nominal_kredit_add" name="nominal_kredit" onchange="cek_nominal()" placeholder="Nominal"> -->
                                                 <div class="form-group position-relative has-icon-left">
-                                                    <input type="text" class="form-control" id="nominal_kredit_add" name="nominal_kredit" onchange="cek_nominal()" onfocus="removeFormat(this)" onblur="formatNumber(this)" disabled>
+                                                    <input type="number" class="form-control" id="nominal_kredit_add" name="nominal_kredit" onchange="cek_nominal_pembayaran()" onfocus="removeFormat(this)" onblur="formatNumber(this)" disabled>
                                                     <div class="form-control-icon">
                                                         <p>Rp.</p>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-12">
                                             <div class="form-group">
-                                                <label for="text">Nominal Kredit</label>
+                                                <label for="text">Nominal Sisa Kredit</label>
                                                 <!-- <input disabled class="form-control" type="text" id="nominal_kredit_sekarang"> -->
                                                 <div class="form-group position-relative has-icon-left">
                                                     <input disabled type="text" class="form-control" id="nominal_kredit_sekarang">
@@ -104,22 +104,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-6">
-                                            <div class="form-group">
-                                                <label for="text">Nominal Cash</label>
-                                                <!-- <input disabled class="form-control" type="text" id="nominal_cash_sekarang"> -->
-                                                <div class="form-group position-relative has-icon-left">
-                                                    <input disabled type="text" class="form-control" id="nominal_cash_sekarang">
-                                                    <div class="form-control-icon">
-                                                        <p>Rp.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </form>
                                 <div class="col-12 d-flex justify-content-end">
-                                    <button type="submit" onclick="save_Nota(event)" class="btn btn-primary me-1 mb-1">Submit</button>
+                                    <button type="submit" onclick="save_Nota_pembayaran(event)" class="btn btn-primary me-1 mb-1">Submit</button>
                                     <button type="reset" onclick="reset_Nota()" class="btn btn-light-secondary me-1 mb-1">Reset</button>
                                     <a href="<?= base_url('Nota_Management') ?>" class="btn btn-warning me-1 mb-1">Back</a>
                                 </div>

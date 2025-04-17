@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Nota_m extends CI_Model
+class Riwayat_Kasir_m extends CI_Model
 {
     var $table = 'nota';
     // var $column_order = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable orderable
@@ -10,16 +10,21 @@ class Nota_m extends CI_Model
 
     var $order = array('nota.id' => 'DESC'); // default order 
 
-    function _get_datatables_query($id)
+    function _get_datatables_query()
     {
 
         $this->db->select('nota.*, toko.nama_toko, koperasi.nama_koperasi, anggota.nama');
         $this->db->from('nota');
-        $this->db->where('id_anggota', $id);
         $this->db->join('toko', 'nota.id_toko = toko.id', 'left');
         $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
-        $this->db->join('anggota', 'anggota.id = nota.id_kasir', 'left');
-
+        $this->db->join('anggota', 'anggota.id = nota.id_anggota', 'left');
+        if ($this->session->userdata('role') == "Kasir") {
+            $this->db->where('nota.id_toko', $this->session->userdata('id_toko'));
+        } else if ($this->session->userdata('role') == "Koperasi") {
+            $this->db->where('toko.id_koperasi', $this->session->userdata('id_koperasi'));
+        } else if ($this->session->userdata('role') == "Anggota") {
+            $this->db->where('nota.id_anggota', $this->session->userdata('user_user_id'));
+        }
         $i = 0;
         foreach ($this->column_search as $item) // loop column 
         {
@@ -49,26 +54,26 @@ class Nota_m extends CI_Model
         }
     }
 
-    function get_datatables($id)
+    function get_datatables()
     {
-        $this->_get_datatables_query($id);
+        $this->_get_datatables_query();
         if ($_POST['length'] != -1)
             $this->db->limit($_POST['length'], $_POST['start']);
         $query = $this->db->get();
         return $query->result();
     }
 
-    function count_filtered($id)
+    function count_filtered()
     {
-        $this->_get_datatables_query($id);
+        $this->_get_datatables_query();
         $query = $this->db->get();
         return $query->num_rows();
     }
 
-    function count_all($id)
+    function count_all()
     {
 
-        $this->_get_datatables_query($id);
+        $this->_get_datatables_query();
         $query = $this->db->get();
 
         return $this->db->count_all_results();
@@ -129,16 +134,21 @@ class Nota_m extends CI_Model
 
     var $order_pembayaran = array('nota_pembayaran.id' => 'DESC'); // default order 
 
-    function _get_datatables_query_pembayaran($id)
+    function _get_datatables_query_pembayaran()
     {
 
         $this->db->select('nota_pembayaran.*, toko.nama_toko, koperasi.nama_koperasi, anggota.nama');
         $this->db->from('nota_pembayaran');
-        $this->db->where('id_anggota', $id);
         $this->db->join('toko', 'nota_pembayaran.id_toko = toko.id', 'left');
         $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
         $this->db->join('anggota', 'anggota.id = nota_pembayaran.id_kasir', 'left');
-
+        if ($this->session->userdata('role') == "Kasir") {
+            $this->db->where('toko.id', $this->session->userdata('id_toko'));
+        } else if ($this->session->userdata('role') == "Koperasi") {
+            $this->db->where('toko.id_koperasi', $this->session->userdata('id_koperasi'));
+        } else if ($this->session->userdata('role') == "Anggota") {
+            $this->db->where('nota_pembayaran.id_anggota', $this->session->userdata('user_user_id'));
+        }
         $i = 0;
         foreach ($this->column_search_pembayaran as $item) // loop column 
         {
@@ -168,26 +178,26 @@ class Nota_m extends CI_Model
         }
     }
 
-    function get_datatables_pembayaran($id)
+    function get_datatables_pembayaran()
     {
-        $this->_get_datatables_query_pembayaran($id);
+        $this->_get_datatables_query_pembayaran();
         if ($_POST['length'] != -1)
             $this->db->limit($_POST['length'], $_POST['start']);
         $query = $this->db->get();
         return $query->result();
     }
 
-    function count_filtered_pembayaran($id)
+    function count_filtered_pembayaran()
     {
-        $this->_get_datatables_query_pembayaran($id);
+        $this->_get_datatables_query_pembayaran();
         $query = $this->db->get();
         return $query->num_rows();
     }
 
-    function count_all_pembayaran($id)
+    function count_all_pembayaran()
     {
 
-        $this->_get_datatables_query_pembayaran($id);
+        $this->_get_datatables_query_pembayaran();
         $query = $this->db->get();
 
         return $this->db->count_all_results();

@@ -5,18 +5,27 @@ class Anggota_Management_m extends CI_Model
     var $table = 'anggota';
     // var $column_order = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable orderable
     // var $column_search = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable searchable 
-    var $column_order = array('id', 'nomor_anggota', 'nama', 'tempat_lahir', 'tanggal_lahir', 'no_telp', 'username', 'kredit_limit', 'usage_kredit', 'id_toko'); //set column field database for datatable orderable
-    var $column_search = array('id', 'nomor_anggota', 'nama', 'tempat_lahir', 'tanggal_lahir', 'no_telp', 'username', 'kredit_limit', 'usage_kredit', 'id_toko'); //set column field database for datatable searchable 
+    var $column_order = array('id', 'nomor_anggota', 'nama', 'tempat_lahir', 'tanggal_lahir', 'no_telp', 'username', 'kredit_limit', 'usage_kredit', 'id_koperasi', 'kasir'); //set column field database for datatable orderable
+    var $column_search = array('id', 'nomor_anggota', 'nama', 'tempat_lahir', 'tanggal_lahir', 'no_telp', 'username', 'kredit_limit', 'usage_kredit', 'id_koperasi', 'kasir'); //set column field database for datatable searchable 
 
     var $order = array('anggota.id' => 'DESC'); // default order 
 
-    function _get_datatables_query()
+    function _get_datatables_query($detail = null)
     {
 
         $this->db->select('anggota.*, koperasi.nama_koperasi, toko.nama_toko');
         $this->db->from('anggota');
         $this->db->join('toko', 'anggota.id_toko = toko.id', 'left');
         $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
+        if ($detail) {
+            $this->db->where('id_koperasi', $detail);
+            $this->db->where('usage_kredit >', '0');
+        } else if ($this->session->userdata('role') == "Koperasi") {
+            $this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
+        }
+        // if ($this->session->userdata('role') == "Kasir") {
+        //     $this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
+        // }
         $i = 0;
         foreach ($this->column_search as $item) // loop column 
         {
@@ -46,26 +55,26 @@ class Anggota_Management_m extends CI_Model
         }
     }
 
-    function get_datatables()
+    function get_datatables($detail)
     {
-        $this->_get_datatables_query();
+        $this->_get_datatables_query($detail);
         if ($_POST['length'] != -1)
             $this->db->limit($_POST['length'], $_POST['start']);
         $query = $this->db->get();
         return $query->result();
     }
 
-    function count_filtered()
+    function count_filtered($detail)
     {
-        $this->_get_datatables_query();
+        $this->_get_datatables_query($detail);
         $query = $this->db->get();
         return $query->num_rows();
     }
 
-    function count_all()
+    function count_all($detail)
     {
 
-        $this->_get_datatables_query();
+        $this->_get_datatables_query($detail);
         $query = $this->db->get();
 
         return $this->db->count_all_results();
@@ -107,6 +116,9 @@ class Anggota_Management_m extends CI_Model
         $this->db->select('toko.*, koperasi.nama_koperasi');
         $this->db->from('toko');
         $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
+        if ($this->session->userdata('role') == "Koperasi") {
+            $this->db->where('koperasi.id', $this->session->userdata('id_koperasi'));
+        }
         return $this->db->get()->result();
     }
 }

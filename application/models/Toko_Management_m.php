@@ -5,8 +5,8 @@ class Toko_Management_m extends CI_Model
     var $table = 'toko';
     // var $column_order = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable orderable
     // var $column_search = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable searchable 
-    var $column_order = array('id', 'nama_koperasi', 'nama_toko', 'alamat', 'pic'); //set column field database for datatable orderable
-    var $column_search = array('id', 'nama_koperasi', 'nama_toko', 'alamat', 'pic'); //set column field database for datatable searchable 
+    var $column_order = array('koperasi.id', 'nama_koperasi', 'nama_toko', 'toko.alamat', 'pic'); //set column field database for datatable orderable
+    var $column_search = array('koperasi.id', 'nama_koperasi', 'nama_toko'); //set column field database for datatable searchable 
 
     var $order = array('toko.id' => 'DESC'); // default order 
 
@@ -18,24 +18,44 @@ class Toko_Management_m extends CI_Model
         $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id');
 
         $i = 0;
-        foreach ($this->column_search as $item) // loop column 
-        {
-            if ($_POST['search']['value']) // if datatable send POST for search
-            {
+        // foreach ($this->column_search as $item) // loop column 
+        // {
+        //     if ($_POST['search']['value']) // if datatable send POST for search
+        //     {
 
-                if ($i === 0) // first loop
-                {
-                    $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
-                    $this->db->like($item, $_POST['search']['value']);
-                } else {
-                    $this->db->or_like($item, $_POST['search']['value']);
+        //         if ($i === 0) // first loop
+        //         {
+        //             $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
+        //             $this->db->like($item, $_POST['search']['value']);
+        //         } else {
+        //             $this->db->or_like($item, $_POST['search']['value']);
+        //         }
+
+        //         if (count($this->column_search) - 1 == $i) //last loop
+        //             $this->db->group_end(); //close bracket
+        //     }
+        //     $i++;
+        // }
+
+        $searchValue = $_POST['search']['value'];
+        $searchBy = $_POST['searchBy'] ?? ''; // Optional fallback
+
+        if ($searchValue) {
+            $this->db->group_start();
+
+            if ($searchBy == '') {
+                // Search all
+                foreach ($this->column_search as $item) {
+                    $this->db->or_like($item, $searchValue);
                 }
-
-                if (count($this->column_search) - 1 == $i) //last loop
-                    $this->db->group_end(); //close bracket
+            } else {
+                // Search specific field
+                $this->db->like($searchBy, $searchValue);
             }
-            $i++;
+
+            $this->db->group_end();
         }
+
 
         if (isset($_POST['order'])) // here order processing
         {

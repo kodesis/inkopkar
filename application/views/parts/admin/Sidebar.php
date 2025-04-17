@@ -74,37 +74,71 @@
                             </a>
                         </li> -->
 
+                        <?php
+                        if ($this->session->userdata('role') == "Admin") {
+                        ?>
+                            <li
+                                class="sidebar-item <?php if ($url_now == 'koperasi_management' || $url_now == 'toko_management') {
+                                                        echo 'active ';
+                                                    } ?> has-sub">
+                                <a href="#" class='sidebar-link'>
+                                    <i class="bi bi-stack"></i>
+                                    <span>Koperasi</span>
+                                </a>
+
+                                <ul class="submenu">
+                                    <li class="submenu-item <?php if ($url_now == 'koperasi_management') {
+                                                                echo 'active ';
+                                                            } ?>">
+                                        <a href="<?= base_url('koperasi_management') ?>" class="submenu-link">Koperasi Management</a>
+
+                                    </li>
+
+                                    <li class="submenu-item <?php if ($url_now == 'toko_management') {
+                                                                echo 'active ';
+                                                            } ?>">
+                                        <a href="<?= base_url('toko_management') ?>" class="submenu-link">Toko Management</a>
+
+                                    </li>
+
+                                </ul>
+
+
+                            </li>
+                        <?php
+                        }
+                        ?>
+
                         <li
-                            class="sidebar-item <?php if ($url_now == 'koperasi_management' || $url_now == 'toko_management') {
+                            class="sidebar-item <?php if ($url_now == 'riwayat_kasir') {
                                                     echo 'active ';
                                                 } ?> has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-stack"></i>
-                                <span>Koperasi</span>
+                                <span>Riwayat Kasir</span>
                             </a>
 
                             <ul class="submenu">
-                                <li class="submenu-item <?php if ($url_now == 'koperasi_management') {
+                                <li class="submenu-item <?php if ($url_now == 'riwayat_kasir/detail') {
                                                             echo 'active ';
                                                         } ?>">
-                                    <a href="<?= base_url('koperasi_management') ?>" class="submenu-link">Koperasi Management</a>
+                                    <a href="<?= base_url('riwayat_kasir/detail') ?>" class="submenu-link">Penjualan Kredit</a>
 
                                 </li>
 
-                                <li class="submenu-item <?php if ($url_now == 'toko_management') {
+                                <li class="submenu-item <?php if ($url_now == 'riwayat_kasir/detail_pembayaran') {
                                                             echo 'active ';
                                                         } ?>">
-                                    <a href="<?= base_url('toko_management') ?>" class="submenu-link">Toko Management</a>
+                                    <a href="<?= base_url('riwayat_kasir/detail_pembayaran') ?>" class="submenu-link">Riwayat Pembayaran</a>
 
                                 </li>
 
                             </ul>
-
-
                         </li>
                         <?php
-                        if ($this->session->userdata('role') == "Admin" || $this->session->userdata('role') == "Kasir") {
+                        if ($this->session->userdata('role') == "Admin" || $this->session->userdata('role') == "Koperasi") {
                         ?>
+                            </li>
                             <li
                                 class="sidebar-item <?php if ($url_now == 'anggota_management') {
                                                         echo 'active ';
@@ -119,7 +153,7 @@
                         }
                         ?>
                         <?php
-                        if ($this->session->userdata('role') == "Kasir") {
+                        if ($this->session->userdata('role') == "Admin" || $this->session->userdata('role') == "Koperasi" || $this->session->userdata('role') == "Kasir") {
                         ?>
                             <li
                                 class="sidebar-item <?php if ($url_now == 'nota_management/add') {
@@ -128,6 +162,16 @@
                                 <a href="<?= base_url('nota_management/add') ?>" class='sidebar-link'>
                                     <i class="bi bi-grid-fill"></i>
                                     <span>Nota Kredit</span>
+                                </a>
+                            </li>
+                            </li>
+                            <li
+                                class="sidebar-item <?php if ($url_now == 'nota_management/add_pembayaran') {
+                                                        echo 'active ';
+                                                    } ?>">
+                                <a href="<?= base_url('nota_management/add_pembayaran') ?>" class='sidebar-link'>
+                                    <i class="bi bi-grid-fill"></i>
+                                    <span>Nota Pembayaran</span>
                                 </a>
                             </li>
                             </li>
@@ -157,6 +201,19 @@
                                 <a href="<?= base_url('Artikel_Management') ?>" class='sidebar-link'>
                                     <i class="bi bi-grid-fill"></i>
                                     <span>Artikel Management</span>
+                                </a>
+
+
+                            </li>
+                            <li class="sidebar-title">Utility</li>
+
+                            <li
+                                class="sidebar-item <?php if ($url_now == 'utility') {
+                                                        echo 'active ';
+                                                    } ?>">
+                                <a href="<?= base_url('utility') ?>" class='sidebar-link'>
+                                    <i class="bi bi-gear"></i>
+                                    <span>Utility</span>
                                 </a>
 
 

@@ -496,6 +496,65 @@
         }
     }
 
+    function get_detail_user_pembayaran() {
+        var selectedOption = $("#id_anggota_add option:selected");
+        const ttltitleValue = $('#id_anggota_add').val();
+
+        if (selectedOption.val()) {
+            var url;
+            var formData;
+            url = "<?php echo site_url('Nota_Management/cari_detail_user/') ?>" + ttltitleValue;
+
+            // window.location = url_base;
+            // var formData = new FormData($("#add_Nota")[0]);
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                dataType: "JSON",
+                beforeSend: function() {
+                    swal.fire({
+                        icon: 'info',
+                        timer: 1500,
+                        showConfirmButton: false,
+                        title: 'Loading...'
+
+                    });
+                },
+                success: function(data) {
+                    /* if(!data.status)alert("ho"); */
+                    if (!data.status) console.log('Verifikasi Gagal', 'error : ' + data.Pesan);
+                    else {
+                        $("#detail_nama").text(data.nama);
+                        $("#detail_nomor_anggota").text(data.nomor_anggota);
+                        // $("#detail_kredit_limit").text(data.kredit_limit);
+                        // $("#detail_usage_kredit").text(data.usage_kredit);
+                        // Ensure the values are numbers before formatting
+                        var kreditLimit = Number(data.kredit_limit).toLocaleString("id-ID");
+                        var usageKredit = Number(data.usage_kredit).toLocaleString("id-ID");
+
+                        $("#detail_kredit_limit").text(kreditLimit);
+                        $("#detail_usage_kredit").text(usageKredit);
+                        $("#nominal_kredit_add").val(usageKredit);
+                        cek_nominal_pembayaran();
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    swal.fire('Operation Failed!', errorThrown, 'error');
+                },
+                complete: function() {
+                    console.log('Editing job done');
+                }
+            });
+
+            $("#detail_user").show();
+        } else {
+            $("#detail_user").hide();
+        }
+    }
+
     function toggleNominalKredit() {
         console.log('cek anggota');
 
@@ -536,6 +595,123 @@
         } else {
             $("#nominal_cash_sekarang").val("0");
             $("#nominal_kredit_sekarang").val(nominal_kredit_add.toLocaleString("id-ID"));
+        }
+    }
+
+    function cek_nominal_pembayaran() {
+        console.log('lagi itung');
+        const nominal_kredit_add = Number($('#nominal_kredit_add').val().replace(/\./g, '')) || 0;
+        const detail_usage_kredit = Number($('#detail_usage_kredit').text().replace(/\./g, '')) || 0;
+        const detail_kredit_limit = Number($('#detail_kredit_limit').text().replace(/\./g, '')) || 0;
+
+        console.log('usage_kredit :' + detail_usage_kredit);
+        console.log('kredit_limit :' + detail_kredit_limit);
+        const usage_now = detail_usage_kredit - nominal_kredit_add;
+
+        $("#nominal_kredit_sekarang").val(usage_now.toLocaleString("id-ID"));
+
+    }
+
+    function save_Nota_pembayaran(event) {
+        event.preventDefault(); // Prevent form from submitting and refreshing
+        const ttltitleValue = $('#id_anggota_add').val();
+        const ttlthumbnailValue = $('#nominal_kredit_add').val();
+
+
+        if (!ttltitleValue) {
+            swal.fire({
+                customClass: 'slow-animation',
+                icon: 'error',
+                showConfirmButton: false,
+                title: 'Kolom Anggota Tidak Boleh Kosong',
+                timer: 1500
+            });
+        } else if (!ttlthumbnailValue) {
+            swal.fire({
+                customClass: 'slow-animation',
+                icon: 'error',
+                showConfirmButton: false,
+                title: 'Kolom Nominal Tidak Boleh Kosong',
+                timer: 1500
+            });
+        } else {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    InputEvent: 'form-control',
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+                title: 'Ingin Menambahkan Data Nota?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, Tambahkan',
+                cancelButtonText: 'Tidak',
+                reverseButtons: true
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+
+                    var url;
+                    var formData;
+                    url = "<?php echo site_url('Nota_Management/save_pembayaran') ?>";
+
+                    // window.location = url_base;
+                    var formData = new FormData($("#add_Nota")[0]);
+                    $.ajax({
+                        url: url,
+                        type: "POST",
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        dataType: "JSON",
+                        beforeSend: function() {
+                            swal.fire({
+                                icon: 'info',
+                                timer: 3000,
+                                showConfirmButton: false,
+                                title: 'Loading...'
+
+                            });
+                        },
+                        success: function(data) {
+                            /* if(!data.status)alert("ho"); */
+                            if (!data.status) swal.fire('Gagal menyimpan data', 'error :' + data.Pesan);
+                            else {
+
+                                // document.getElementById('rumahadat').reset();
+                                // $('#add_modal').modal('hide');
+                                (JSON.stringify(data));
+                                // alert(data)
+                                swal.fire({
+                                    customClass: 'slow-animation',
+                                    icon: 'success',
+                                    showConfirmButton: false,
+                                    title: 'Berhasil Menambahkan Nota',
+                                    timer: 1500
+                                });
+                                // location.reload();
+                                setTimeout(function() {
+                                    console.log('Redirecting to Nota Anggota...');
+                                    location.href = '<?= base_url('Anggota/detail_pembayaran/') ?>' + ttltitleValue;
+                                }, 3000); // Delay for smooth transition
+                            }
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            swal.fire('Operation Failed!', errorThrown, 'error');
+                        },
+                        complete: function() {
+                            console.log('Editing job done');
+                        }
+                    });
+
+
+                }
+
+            })
         }
     }
 </script>

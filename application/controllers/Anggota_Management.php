@@ -30,9 +30,9 @@ class Anggota_Management extends CI_Controller
             redirect('auth'); // Redirect to the 'autentic' page
         }
     }
-    public function ajax_list()
+    public function ajax_list($detail = null)
     {
-        $list = $this->anggota_management->get_datatables();
+        $list = $this->anggota_management->get_datatables($detail);
         $data = array();
         $crs = "";
         $no = $_POST['start'];
@@ -63,16 +63,26 @@ class Anggota_Management extends CI_Controller
                 ',',
                 '.'
             ) . '</div>';
-            $row[] = $cat->nama_koperasi . " - " . $cat->nama_toko;
+            // $row[] = $cat->nama_koperasi . " - " . $cat->nama_toko;
+            $row[] = $cat->nama_koperasi;
+            if ($cat->kasir == '1') {
+                $row[] = 'Kasir';
+            } else {
+                $row[] = 'Anggota';
+            }
             // $row[] = $cat->view_count;
             // $row[] = $cat->halaman_page;
 
             $row[] = '<center> <div class="list-icons d-inline-flex">
-             <a title="Detail User" href="' . base_url('Anggota/detail/' . $cat->id) . '" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg></a> 
+             <a title="Detail User" href="' . base_url('Anggota/detail_pembayaran/' . $cat->id) . '" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#ffffff" d="M64 64C28.7 64 0 92.7 0 128L0 384c0 35.3 28.7 64 64 64l448 0c35.3 0 64-28.7 64-64l0-256c0-35.3-28.7-64-64-64L64 64zm64 320l-64 0 0-64c35.3 0 64 28.7 64 64zM64 192l0-64 64 0c0 35.3-28.7 64-64 64zM448 384c0-35.3 28.7-64 64-64l0 64-64 0zm64-192c-35.3 0-64-28.7-64-64l64 0 0 64zM288 160a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"/></svg></svg></a>
+
+             <a title="Detail User" href="' . base_url('Anggota/detail/' . $cat->id) . '" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#ffffff" d="M64 32C28.7 32 0 60.7 0 96l0 32 576 0 0-32c0-35.3-28.7-64-64-64L64 32zM576 224L0 224 0 416c0 35.3 28.7 64 64 64l448 0c35.3 0 64-28.7 64-64l0-192zM112 352l64 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-64 0c-8.8 0-16-7.2-16-16s7.2-16 16-16zm112 16c0-8.8 7.2-16 16-16l128 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-128 0c-8.8 0-16-7.2-16-16z"/></svg></a>
+
                 <a title="Update User" href="' . base_url('Anggota_Management/update/' . $cat->id) . '" class="btn btn-warning"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit">
                                                         <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                                                         <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
                                                     </svg></a> 
+
                                                 <a title="Delete User" onclick="onDelete(' . $cat->id . ')" class="btn btn-danger"><svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1">
                                                         <polyline points="3 6 5 6 21 6"></polyline>
                                                         <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
@@ -87,13 +97,20 @@ class Anggota_Management extends CI_Controller
 
         $output = array(
             "draw" => $_POST['draw'],
-            "recordsTotal" => $this->anggota_management->count_all(),
-            "recordsFiltered" => $this->anggota_management->count_filtered(),
+            "recordsTotal" => $this->anggota_management->count_all($detail),
+            "recordsFiltered" => $this->anggota_management->count_filtered($detail),
             "data" => $data,
         );
         echo json_encode($output);
     }
     public function index()
+    {
+
+        $data['content']     = 'webview/admin/anggota_management/anggota_management_v';
+        $data['content_js'] = 'webview/admin/anggota_management/anggota_management_js';
+        $this->load->view('parts/admin/Wrapper', $data);
+    }
+    public function detail($detail)
     {
 
         $data['content']     = 'webview/admin/anggota_management/anggota_management_v';
@@ -125,10 +142,11 @@ class Anggota_Management extends CI_Controller
         $no_telp = $this->input->post('no_telp');
         $username = $this->input->post('username');
         $password = $this->input->post('password');
-        $kredit_limit = $this->input->post('kredit_limit');
+        $kredit_limit = (int) str_replace('.', '', $this->input->post('kredit_limit'));
+
         // $usage_kredit = $this->input->post('usage_kredit');
         $id_toko = $this->input->post('id_toko');
-        $kasir = $this->input->post('kasir') ? 1 : 0; // 1 if checked, 0 if unchecked
+        $kasir = $this->input->post('kasir') ? 3 : 4; // 1 if checked, 0 if unchecked
 
         // Prepare data array
         $data = array(
@@ -143,7 +161,7 @@ class Anggota_Management extends CI_Controller
             // 'usage_kredit' => $usage_kredit,
             'usage_kredit' => 0,
             'id_toko' => $id_toko,
-            'kasir' => $kasir // Add the checkbox value to the array
+            'role' => $kasir // Add the checkbox value to the array
         );
 
         // Save data using the model
@@ -160,10 +178,10 @@ class Anggota_Management extends CI_Controller
         $no_telp = $this->input->post('no_telp');
         $username = $this->input->post('username');
         $password = $this->input->post('password');
-        $kredit_limit = $this->input->post('kredit_limit');
+        $kredit_limit = (int) str_replace('.', '', $this->input->post('kredit_limit'));
         // $usage_kredit = $this->input->post('usage_kredit');
         $id_toko = $this->input->post('id_toko');
-        $kasir = $this->input->post('kasir') ? 1 : 0; // 1 if checked, 0 if unchecked
+        $kasir = $this->input->post('kasir') ? 3 : 4; // 1 if checked, 0 if unchecked
 
         // Prepare data array
         $data_update = [
@@ -177,7 +195,7 @@ class Anggota_Management extends CI_Controller
             'kredit_limit' => $kredit_limit,
             // 'usage_kredit' => $usage_kredit,
             'id_toko' => $id_toko,
-            'kasir' => $kasir // Add the checkbox value to the array
+            'role' => $kasir // Add the checkbox value to the array
         ];
 
         if (!empty($password)) {

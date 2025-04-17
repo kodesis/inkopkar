@@ -47,7 +47,8 @@
                                     <th>Username</th>
                                     <th>Kredit Limit</th>
                                     <th>Usage Kredit</th>
-                                    <th>Toko</th>
+                                    <th>Koperasi</th>
+                                    <th>Role</th>
                                     <th>#</th>
                                 </tr>
                             </thead>

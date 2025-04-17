@@ -88,7 +88,7 @@
                                                     <label for="email-id-vertical">Kredit Limit</label>
                                                     <!-- <input type="number" class="form-control" id="kredit_limit_add" name="kredit_limit" placeholder="Kredit Limit"> -->
                                                     <div class="form-group position-relative has-icon-left">
-                                                        <input type="text" class="form-control" id="kredit_limit_edit" name="kredit_limit"
+                                                        <input type="text" class="form-control" id="kredit_limit_add" name="kredit_limit"
                                                             placeholder="Kredit Limit"
                                                             onfocus="removeFormat(this)" oninput="validateAndFormat(this)" onblur="formatNumber(this)">
                                                         <div class="form-control-icon">
@@ -106,26 +106,66 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="text">Toko Koperasi</label>
-                                                    <select class="choices form-control" name="id_toko" id="id_toko_add">
-                                                        <option disabled selected>-- Pilih Toko Koperasi --</option>
-                                                        <?php
-                                                        foreach ($koperasi as $c) {
-                                                        ?>
-                                                            <option value="<?= $c->id ?>"><?= $c->id . ' - ' . $c->nama_koperasi . ' - ' . $c->nama_toko ?></option>
-                                                        <?php
-                                                        }
-                                                        ?>
-                                                    </select>
+                                                    <?php
+                                                    if ($this->session->userdata('role') == "Koperasi") {
+                                                    ?>
+                                                        <select class="choices form-control" name="id_toko" id="id_toko_add">
+                                                            <option disabled selected>-- Pilih Toko Koperasi --</option>
+                                                            <?php
+                                                            foreach ($koperasi as $c) {
+                                                            ?>
+                                                                <option value="<?= $c->id ?>"><?= $c->id . ' - ' . $c->nama_koperasi . ' - ' . $c->nama_toko ?></option>
+                                                            <?php
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                    <?php
+                                                    } else if ($this->session->userdata('role') == "Admin") {
+                                                    ?>
+                                                        <select class="choices form-control" name="id_toko" id="id_toko_add">
+                                                            <option disabled selected>-- Pilih Toko Koperasi --</option>
+                                                            <?php
+                                                            foreach ($koperasi as $c) {
+                                                            ?>
+                                                                <option value="<?= $c->id ?>"><?= $c->id . ' - ' . $c->nama_koperasi . ' - ' . $c->nama_toko ?></option>
+                                                            <?php
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                    <?php
+                                                    }
+                                                    ?>
                                                 </div>
                                             </div>
-                                            <div class="col-12">
-                                                <div class="form-check">
-                                                    <div class="checkbox">
-                                                        <input type="checkbox" name="kasir" id="kasir_add" class="form-check-input">
-                                                        <label for="checkbox1">Kasir</label>
+                                            <?php
+                                            if ($this->session->userdata('role') == "Koperasi") {
+                                            ?>
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label for="text">Role</label>
+                                                        <select class="choices form-control" name="role" id="kasir_add">
+                                                            <option disabled selected>-- Pilih Role --</option>
+                                                            <option value="1">Admin Inkopkar</option>
+                                                            <option value="2">User Koperasi</option>
+                                                            <option value="3">User Kasir</option>
+                                                            <option value="4">User Anggota</option>
+                                                        </select>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            <?php
+                                            } elseif ($this->session->userdata('role')) {
+                                            ?>
+                                                <div class="col-12">
+                                                    <div class="form-check">
+                                                        <div class="checkbox">
+                                                            <input type="checkbox" name="role" id="kasir_add" class="form-check-input">
+                                                            <label for="checkbox1">Kasir</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <?php
+                                            }
+                                            ?>
                                         </div>
                                     </form>
                                     <div class="col-12 d-flex justify-content-end">

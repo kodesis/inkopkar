@@ -74,6 +74,7 @@ class Auth extends CI_Controller
 				'name'  => $user->nama,
 				'role_id'      => $user->role_id,
 				'role'      => $role,
+				'id_toko'      => 1,
 				'user_email'      => $user->email,
 				// 'last_acces_time'      => $user->last_acces,
 				'user_logged_in' => true
@@ -107,17 +108,25 @@ class Auth extends CI_Controller
 			// } else if ($user->role_id == 2) {
 			// 	$role = 'User';
 			// }
+			if ($user->role == 1) {
+				$role = 'Admin';
+			} else if ($user->role == 2) {
+				$role = 'Koperasi';
+			} else if ($user->role == 3) {
+				$role = 'Kasir';
+			} else if ($user->role == 4) {
+				$role = 'Anggota';
+			}
 			$this->session->set_userdata([
 				'user_user_id'   => $user->id,
 				'name'  => $user->nama,
 				'username'      => $user->username,
 				'id_toko'      => $user->id_toko,
+				'id_koperasi'      => $user->id_koperasi,
 
 				'role_id'      => 3,
-				'role'      => 'Kasir',
-				// 'id_toko'      => $user->id_toko,
+				'role'      => $role,
 				'user_email'      => $user->kasir,
-				// 'last_acces_time'      => $user->last_acces,
 				'user_logged_in' => true
 			]);
 			echo json_encode(array("status" => 'Success'));

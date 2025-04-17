@@ -59,7 +59,7 @@
 
         // Load data for the table's content from an Ajax source
         ajax: {
-            url: "<?php echo site_url('Anggota_Management/ajax_list') ?> ",
+            url: "<?php echo site_url('Anggota_Management/ajax_list/' . $this->uri->segment('3')) ?> ",
             type: "POST",
             data: function(data) {}
         },
@@ -82,7 +82,6 @@
         const username_add = $('#username_add').val();
         const password_add = $('#password_add').val();
         const kredit_limit_add = $('#kredit_limit_add').val();
-        const sisa_kredit_add = $('#sisa_kredit_add').val();
         const id_koperasi_add = $('#password_add').val();
 
 
@@ -155,15 +154,6 @@
                 icon: 'error',
                 showConfirmButton: false,
                 title: 'Kolom Kredit Limit Tidak Boleh Kosong',
-                timer: 1500
-            });
-            return false;
-        } else if (!sisa_kredit_add) {
-            Swal.fire({
-                customClass: 'slow-animation',
-                icon: 'error',
-                showConfirmButton: false,
-                title: 'Kolom Sisa Kredit Tidak Boleh Kosong',
                 timer: 1500
             });
             return false;

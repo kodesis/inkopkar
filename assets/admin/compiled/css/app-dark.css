@@ -10830,7 +10830,7 @@ html[data-bs-theme=dark] .burger-btn {
 
 html[data-bs-theme=dark] #main {
     margin-left: 300px;
-    padding: 2rem;
+    padding: 1rem;
     min-height: 100vh
 }
 

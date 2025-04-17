@@ -46,10 +46,67 @@ class Koperasi_Management extends CI_Controller
             $row[] = $cat->nama_koperasi;
             $row[] = $cat->alamat;
             $row[] = $cat->telp;
-            // $row[] = $cat->view_count;
-            // $row[] = $cat->halaman_page;
+
+            $this->db->select_sum('usage_kredit');
+            $this->db->from('anggota');
+            $this->db->join('toko', 'toko.id = anggota.id_toko');
+            $this->db->where('id_koperasi', $cat->id);
+            $query = $this->db->get();
+            $result = $query->row();
+            $row[] = '<div style="text-align: right;">Rp. ' . number_format(
+                $result->usage_kredit,
+                0,
+                ',',
+                '.'
+            ) . '</div>';
+
+            // $this->db->select_sum('nominal');
+            // $this->db->from('nota_pembayaran');
+            // $this->db->join('anggota', 'anggota.id = nota_pembayaran.id_toko');
+            // $this->db->join('toko', 'toko.id = anggota.id_toko');
+            // $this->db->where('id_koperasi', $cat->id);
+            // $this->db->where('nota_pembayaran.status', '1');
+            // $query = $this->db->get();
+            // $result = $query->row();
+            // $total_nominal_tagihan = $result->nominal ?? 0;
+            // $row[] = '<div style="text-align: right;">Rp. ' . number_format(
+            //     $total_nominal_tagihan,
+            //     0,
+            //     ',',
+            //     '.'
+            // ) . '</div>';
+            $row[] = '<div style="text-align: right;">Rp. ' . number_format(
+                $cat->saldo_tagihan,
+                0,
+                ',',
+                '.'
+            ) . '</div>';
+
+            // $this->db->select_sum('nominal');
+            // $this->db->from('nota_pembayaran');
+            // $this->db->join('anggota', 'anggota.id = nota_pembayaran.id_toko');
+            // $this->db->join('toko', 'toko.id = anggota.id_toko');
+            // $this->db->where('id_koperasi', $cat->id);
+            // $this->db->where('nota_pembayaran.status', '2');
+            // $query = $this->db->get();
+            // $result = $query->row();
+            // $total_nominal_rekening = $result->nominal ?? 0;
+            // $row[] = '<div style="text-align: right;">Rp. ' . number_format(
+            //     $total_nominal_rekening,
+            //     0,
+            //     ',',
+            //     '.'
+            // ) . '</div>';
+            $row[] = '<div style="text-align: right;">Rp. ' . number_format(
+                $cat->saldo_rekening,
+                0,
+                ',',
+                '.'
+            ) . '</div>';
 
             $row[] = '<center> <div class="list-icons d-inline-flex">
+            <a title="Detail Koperasi" href="' . base_url('anggota_management/detail/' . $cat->id) . '" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#ffffff" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg></a>
+
                 <a title="Update User" href="' . base_url('Koperasi_Management/update/' . $cat->id) . '" class="btn btn-warning"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit">
                                                         <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                                                         <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
@@ -60,6 +117,7 @@ class Koperasi_Management extends CI_Controller
                                                         <line x1="10" y1="11" x2="10" y2="17"></line>
                                                         <line x1="14" y1="11" x2="14" y2="17"></line>
                                                     </svg></a>
+                                                     
             </div>
     </center>';
 

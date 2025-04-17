@@ -9,7 +9,7 @@
              <div class="box-form-login">
                  <div class="head-login">
                      <h3>Sign in</h3>
-                     <p>Sign in with your email and password</p>
+                     <p>Sign in with your username and password</p>
                      <!-- <div class="box-login-with">
                          <div class="form-group">
                              <a href="#" class="btn btn-login-social">
