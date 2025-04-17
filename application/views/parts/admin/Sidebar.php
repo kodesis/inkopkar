@@ -148,7 +148,6 @@
                                     <span>Anggota Management</span>
                                 </a>
                             </li>
-                            </li>
                         <?php
                         }
                         ?>
@@ -164,7 +163,13 @@
                                     <span>Nota Kredit</span>
                                 </a>
                             </li>
-                            </li>
+                        <?php
+                        }
+                        ?>
+                        </li>
+                        <?php
+                        if ($this->session->userdata('role') == "Admin" || $this->session->userdata('role') == "Koperasi") {
+                        ?>
                             <li
                                 class="sidebar-item <?php if ($url_now == 'nota_management/add_pembayaran') {
                                                         echo 'active ';
@@ -174,10 +179,10 @@
                                     <span>Nota Pembayaran</span>
                                 </a>
                             </li>
-                            </li>
                         <?php
                         }
                         ?>
+
                         <?php
                         if ($this->session->userdata('role') == "Admin") {
                         ?>
