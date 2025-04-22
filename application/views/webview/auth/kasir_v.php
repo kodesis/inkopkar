@@ -26,7 +26,7 @@
                      </div>
                      <div class="text-or"><span>or</span></div> -->
                      <div class="form-login">
-                         <form id="login_form">
+                         <form id="login_form" onsubmit="login(event)">
                              <div class="form-group">
                                  <input type="text" class="form-control account" placeholder="Username" id="username" name="username" />
                              </div>
@@ -34,16 +34,17 @@
                                  <input type="password" class="form-control" placeholder="Password" id="password" name="password" />
                                  <span class="view-password" onclick="changePassword()" style="cursor: pointer;"></span>
                              </div>
+                             <div class="box-forgot-pass">
+                                 <label>
+                                     <input type="checkbox" class="cb-remember" value="1" /> Remember me
+                                 </label>
+                                 <a href="forgot-password.html">Forgot Password ?</a>
+                             </div>
+                             <div class="form-group">
+                                 <!-- <input type="submit" onclick="login()" class="btn btn-login" value="Sign In" /> -->
+                                 <input type="submit" class="btn btn-login" value="Sign In" />
+                             </div>
                          </form>
-                         <div class="box-forgot-pass">
-                             <label>
-                                 <input type="checkbox" class="cb-remember" value="1" /> Remember me
-                             </label>
-                             <a href="forgot-password.html">Forgot Password ?</a>
-                         </div>
-                         <div class="form-group">
-                             <input type="submit" onclick="login()" class="btn btn-login" value="Sign In" />
-                         </div>
                          <!-- <p>Don’t have an account? <a href="<?= base_url('auth/register') ?>" class="link-bold">Sign up</a> now</p> -->
                      </div>
                  </div>

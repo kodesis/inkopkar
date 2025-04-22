@@ -8,8 +8,13 @@
     //         passwordField.type = "password";
     //     }
     // }
+    $(document).ready(function() {
+        $('#login_form').on('submit', function(event) {
+            login(event);
+        });
+    });
 
-    function login() {
+    function login(event) {
         event.preventDefault(); // Prevent the default form submission
 
         const ttlnamaValue = $('#username').val();
