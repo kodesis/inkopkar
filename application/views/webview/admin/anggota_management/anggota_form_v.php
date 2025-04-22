@@ -144,7 +144,7 @@
                                                     <div class="form-group">
                                                         <label for="text">Role</label>
                                                         <select class="choices form-control" name="role" id="kasir_add">
-                                                            <option disabled>-- Pilih Role --</option>
+                                                            <option disabled selected>-- Pilih Role --</option>
                                                             <option value="1">Admin Inkopkar</option>
                                                             <option value="2">User Koperasi</option>
                                                             <option value="3">User Kasir</option>
