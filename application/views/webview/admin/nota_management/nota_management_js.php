@@ -146,7 +146,7 @@
                                 setTimeout(function() {
                                     console.log('Redirecting to Nota Anggota...');
                                     // location.href = '<?= base_url('Anggota/detail/') ?>' + ttltitleValue;
-                                    location.href = '<?= base_url('nota_management/verifikasi/') ?>' + data.sub_id;
+                                    location.href = '<?= base_url('Nota_Management/verifikasi/') ?>' + data.sub_id;
                                 }, 3000); // Delay for smooth transition
                             }
                         },
@@ -268,7 +268,7 @@
                             setTimeout(function() {
                                 console.log('Redirecting to Nota_Management...');
                                 // location.href = '<?= base_url('Anggota/detail/') ?>' + ttltitleValue;
-                                location.href = '<?= base_url('nota_management/verifikasi/') ?>' + ttltitleValue;
+                                location.href = '<?= base_url('Nota_Management/verifikasi/') ?>' + ttltitleValue;
 
                             }, 1500); // Delay for smooth transition
                         }
@@ -420,7 +420,7 @@
                             setTimeout(function() {
                                 console.log('Redirecting to Nota Anggota...');
                                 location.href = '<?= base_url('Anggota/detail/') ?>' + data.id_anggota;
-                                // location.href = '<?= base_url('nota_management/verifikasi/') ?>' + ttltitleValue;
+                                // location.href = '<?= base_url('Nota_Management/verifikasi/') ?>' + ttltitleValue;
                             }, 1500); // Delay for smooth transition
                         }
                     },
