@@ -1,17 +1,3 @@
-<style>
-    .free_app::after {
-        content: none !important;
-    }
-
-    .free_app svg {
-        width: 1em;
-        height: 1em;
-        vertical-align: middle;
-        margin-left: 0.5em;
-        fill: white;
-    }
-</style>
-
 <!-- main-area -->
 <main class="fix">
     <!-- slider-area -->
@@ -28,12 +14,11 @@
                                     <h2 class="title">Mendukung Kesejahteraan Karyawan Indonesia</h2>
                                     <p>Kami hadir untuk menciptakan solusi ekonomi yang inovatif dan berkelanjutan demi kemajuan anggota koperasi.</p>
                                     <a href="<?= base_url('contact') ?>" class="btn">Pelajari Lebih Lanjut</a>
-                                    <a href="<?= base_url('produk') ?>" class="btn free_app">
-                                        Aplikasi Gratis
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="16" height="16">
-                                            <path fill="#ffffff" d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z" />
-                                        </svg>
-                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="slider__content d-flex flex-column justify-content-end" style="height: 100%;">
+                                    <a href="<?= base_url('contact') ?>" class="btn">Pelajari Lebih Lanjut</a>
                                 </div>
                             </div>
                         </div>
@@ -53,12 +38,6 @@
                                     <h2 class="title">Memberdayakan Ekonomi Karyawan</h2>
                                     <p>INKOPKAR berkomitmen untuk meningkatkan keterampilan dan profesionalitas anggota koperasi melalui berbagai program pelatihan.</p>
                                     <!-- <a href="contact.html" class="btn">Gabung Sekarang</a> -->
-                                    <a href="<?= base_url('produk') ?>" class="btn free_app">
-                                        Aplikasi Gratis
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="16" height="16">
-                                            <path fill="#ffffff" d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z" />
-                                        </svg>
-                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -385,7 +364,7 @@
     </section>
     <!-- choose-area-two -->
     <!-- blog-post-area -->
-    <!-- <section class="blog__post-area-two blog__post-bg-two" data-background="<?= base_url() ?>/assets/img/bg/blog_post_bg.jpg">
+    <section class="blog__post-area-two blog__post-bg-two" data-background="<?= base_url() ?>/assets/img/bg/blog_post_bg.jpg">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-6">
@@ -406,6 +385,25 @@
                                 <div class="blog__post-thumb-two">
                                     <a href="<?= base_url('blog/detail/' . $b->Id) ?>" class="shine-animate"><img src="<?= base_url('uploads/blog/' . $b->thumbnail) ?>" alt=""></a>
                                 </div>
+                                <!-- <div class="blog__post-content-two"> -->
+                                <!-- <div class="blog-post-meta"> -->
+                                <!-- <ul class="list-wrap"> -->
+                                <!-- <li>
+                                                <a href="<?= base_url('blog/detail/' . $b->Id) ?>" class="blog__post-tag-two">Business</a>
+                                            </li> -->
+                                <!-- <li><i class="fas fa-calendar-alt"></i><?= $b->tanggal ?></li> -->
+                                <!-- </ul> -->
+                                <!-- </div> -->
+                                <!-- <h2 class="title"><a href="<?= base_url('blog/detail/' . $b->Id) ?>"><?= $b->title ?></a></h2> -->
+                                <!-- <div class="blog-avatar">
+                                        <div class="avatar-thumb">
+                                            <img src="<?= base_url() ?>/assets/img/blog/blog_avatar01.png" alt="">
+                                        </div>
+                                        <div class="avatar-content">
+                                            <p>By <a href="<?= base_url('blog/detail/' . $b->Id) ?>">Doman Smith</a></p>
+                                        </div>
+                                    </div> -->
+                                <!-- </div> -->
                             </div>
                         </div>
 
@@ -420,13 +418,65 @@
                 <?php
                 }
                 ?>
+                <!-- <div class="col-lg-4 col-md-6">
+                    <div class="blog__post-two shine-animate-item">
+                        <div class="blog__post-thumb-two">
+                            <a href="blog-details.html" class="shine-animate"><img src="<?= base_url() ?>/assets/img/blog/h2_blog_post02.jpg" alt=""></a>
+                        </div>
+                        <div class="blog__post-content-two">
+                            <div class="blog-post-meta">
+                                <ul class="list-wrap">
+                                    <li>
+                                        <a href="blog.html" class="blog__post-tag-two">Audit</a>
+                                    </li>
+                                    <li><i class="fas fa-calendar-alt"></i>Oct 21, 2024</li>
+                                </ul>
+                            </div>
+                            <h2 class="title"><a href="blog-details.html">Improving The Double Diamond Design Process</a></h2>
+                            <div class="blog-avatar">
+                                <div class="avatar-thumb">
+                                    <img src="<?= base_url() ?>/assets/img/blog/blog_avatar01.png" alt="">
+                                </div>
+                                <div class="avatar-content">
+                                    <p>By <a href="blog-details.html">Doman Smith</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="blog__post-two shine-animate-item">
+                        <div class="blog__post-thumb-two">
+                            <a href="blog-details.html" class="shine-animate"><img src="<?= base_url() ?>/assets/img/blog/h2_blog_post03.jpg" alt=""></a>
+                        </div>
+                        <div class="blog__post-content-two">
+                            <div class="blog-post-meta">
+                                <ul class="list-wrap">
+                                    <li>
+                                        <a href="blog.html" class="blog__post-tag-two">Investment</a>
+                                    </li>
+                                    <li><i class="fas fa-calendar-alt"></i>Oct 21, 2024</li>
+                                </ul>
+                            </div>
+                            <h2 class="title"><a href="blog-details.html">Revealing Images With CSS Mask Animations</a></h2>
+                            <div class="blog-avatar">
+                                <div class="avatar-thumb">
+                                    <img src="<?= base_url() ?>/assets/img/blog/blog_avatar01.png" alt="">
+                                </div>
+                                <div class="avatar-content">
+                                    <p>By <a href="blog-details.html">Doman Smith</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
             </div>
         </div>
         <div class="blog-shape-wrap">
             <img src="<?= base_url() ?>/assets/img/images/blog_shape01.png" alt="" data-aos="fade-right" data-aos-delay="400">
             <img src="<?= base_url() ?>/assets/img/images/blog_shape02.png" alt="" data-aos="fade-left" data-aos-delay="400">
         </div>
-    </section> -->
+    </section>
     <!-- blog-post-area-end -->
 </main>
 <!-- main-area-end -->
