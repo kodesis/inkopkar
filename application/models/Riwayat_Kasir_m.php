@@ -24,13 +24,16 @@ class Riwayat_Kasir_m extends CI_Model
         if ($this->session->userdata('role') == "Kasir") {
             // $this->db->where('nota.id_toko', $this->session->userdata('id_toko'));
             $this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
-            $this->db->where('nota.status', '1');
+            // $this->db->where('nota.status', '1');
+            $this->db->where('nota.status <', '2');
         } else if ($this->session->userdata('role') == "Koperasi") {
             $this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
-            $this->db->where('nota.status', '1');
+            // $this->db->where('nota.status', '1');
+            $this->db->where('nota.status <', '2');
         } else if ($this->session->userdata('role') == "Anggota") {
             $this->db->where('nota.id_anggota', $this->session->userdata('user_user_id'));
         } else {
+            // $this->db->where('nota.status', '1');
             $this->db->where('nota.status <', '2');
         }
 
