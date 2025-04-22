@@ -51,35 +51,20 @@ class Dashboard extends CI_Controller
 
 		$this->db->select_sum('usage_kredit');
 		$this->db->from('nota');
-		// $this->db->join('toko', 'toko.id = nota.id_toko');
 		$this->db->join('anggota', 'anggota.id = nota.id_anggota');
-		// $this->db->join('toko', 'toko.id = anggota.id_toko');
 		if ($this->session->userdata('role') == "Kasir") {
 			$this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
-			// $this->db->where('nota.id_toko', $this->session->userdata('id_toko'));
 		} else if ($this->session->userdata('role') == "Koperasi") {
 			$this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
 		} else if ($this->session->userdata('role') == "Anggota") {
 			$this->db->where('id_anggota', $this->session->userdata('user_user_id'));
 		}
 
-		// $this->db->select_sum('nominal_kredit');
-		// $this->db->from('nota');
-		// // $this->db->join('toko', 'toko.id = nota.id_toko');
-		// $this->db->join('anggota', 'anggota.id = nota.id_anggota');
-		// $this->db->join('toko', 'toko.id = anggota.id_toko');
-		// if ($this->session->userdata('role') == "Kasir") {
-		// 	$this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
-		// 	$this->db->where('nota.id_toko', $this->session->userdata('id_toko'));
-		// } else if ($this->session->userdata('role') == "Koperasi") {
-		// 	$this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
-		// } else if ($this->session->userdata('role') == "Anggota") {
-		// 	$this->db->where('id_anggota', $this->session->userdata('user_user_id'));
-		// }
 		$query = $this->db->get();
 		$result = $query->row();
 
 		$total_semua_kredit = 0;
+		$total_kredit = 0;
 		if ($this->session->userdata('role') == "Admin") {
 			$this->db->select_sum('nominal_kredit');
 			$this->db->from('nota');
@@ -88,11 +73,27 @@ class Dashboard extends CI_Controller
 			$query = $this->db->get();
 			$semua_kredit = $query->row();
 			$total_semua_kredit = $semua_kredit->nominal_kredit;
+		} else {
+			$this->db->select_sum('usage_kredit');
+			$this->db->from('anggota');
+			// $this->db->join('anggota', 'anggota.id = nota.id_anggota');
+			if ($this->session->userdata('role') == "Kasir") {
+				$this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
+			} else if ($this->session->userdata('role') == "Koperasi") {
+				$this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
+			} else if ($this->session->userdata('role') == "Anggota") {
+				$this->db->where('id', $this->session->userdata('user_user_id'));
+			}
+			$query = $this->db->get();
+			$result = $query->row();
+			$total_kredit = $result->usage_kredit;
 		}
 
 		$data['total_semua_kredit'] = $total_semua_kredit;
 
-		$data['total_kredit'] = $result->usage_kredit;
+		$data['total_kredit'] = $total_kredit;
+		echo $total_semua_kredit;
+		echo  $total_kredit;
 		// $data['total_kredit'] = $result->nominal_kredit;
 
 		$data['content']  = 'webview/admin/dashboard/dashboard_v';
