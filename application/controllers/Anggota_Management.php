@@ -38,6 +38,9 @@ class Anggota_Management extends CI_Controller
         $no = $_POST['start'];
 
         foreach ($list as $cat) {
+            if ($cat->id == '1') {
+                continue;
+            }
             // $path = base_url() . 'uploads/blog/' . $cat->thumbnail;
 
             $no++;
