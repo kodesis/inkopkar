@@ -54,7 +54,7 @@ class Koperasi_Management extends CI_Controller
             $query = $this->db->get();
             $result = $query->row();
             $row[] = '<div style="text-align: right;">Rp. ' . number_format(
-                $result->usage_kredit,
+                $result->usage_kredit ?? 0,
                 0,
                 ',',
                 '.'
