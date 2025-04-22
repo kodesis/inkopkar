@@ -55,7 +55,7 @@
                                     <th>
                                         <div style="text-align: right;">Rp.
                                             <?= number_format(
-                                                $total->nominal,
+                                                $total->nominal ?? 0,
                                                 0,
                                                 ',',
                                                 '.'

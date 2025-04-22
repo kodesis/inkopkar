@@ -76,7 +76,7 @@ class Koperasi_Management extends CI_Controller
             //     '.'
             // ) . '</div>';
             $row[] = '<div style="text-align: right;">Rp. ' . number_format(
-                $cat->saldo_tagihan,
+                $cat->saldo_tagihan ?? 0,
                 0,
                 ',',
                 '.'
@@ -98,7 +98,7 @@ class Koperasi_Management extends CI_Controller
             //     '.'
             // ) . '</div>';
             $row[] = '<div style="text-align: right;">Rp. ' . number_format(
-                $cat->saldo_rekening,
+                $cat->saldo_rekening ?? 0,
                 0,
                 ',',
                 '.'
