@@ -125,10 +125,12 @@ class Nota_Management_m extends CI_Model
     {
         $this->db->select('anggota.*, koperasi.nama_koperasi');
         $this->db->from('anggota');
-        $this->db->join('toko', 'anggota.id_toko = toko.id', 'left');
-        $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
-        $this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
-        $this->db->where('role >', '1');
+        // $this->db->join('toko', 'anggota.id_toko = toko.id', 'left');
+        $this->db->join('koperasi', 'anggota.id_koperasi = koperasi.id', 'left');
+        if ($this->session->userdata('role') != 'Admin') {
+            $this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
+        }
+        $this->db->where('role >', '3');
 
         return $this->db->get()->result();
     }

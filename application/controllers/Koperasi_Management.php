@@ -49,7 +49,7 @@ class Koperasi_Management extends CI_Controller
 
             $this->db->select_sum('usage_kredit');
             $this->db->from('anggota');
-            $this->db->join('toko', 'toko.id = anggota.id_toko');
+            // $this->db->join('toko', 'toko.id = anggota.id_toko');
             $this->db->where('id_koperasi', $cat->id);
             $query = $this->db->get();
             $result = $query->row();

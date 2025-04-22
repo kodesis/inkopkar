@@ -5,20 +5,20 @@ class Nota_m extends CI_Model
     var $table = 'nota';
     // var $column_order = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable orderable
     // var $column_search = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable searchable 
-    var $column_order = array('id', 'tanggal_jam', 'nominal_kredit', 'nominal_cash', 'toko.nama_toko', 'nama'); //set column field database for datatable orderable
-    var $column_search = array('id', 'tanggal_jam', 'nominal_kredit', 'nominal_cash', 'toko.nama_toko', 'nama'); //set column field database for datatable searchable 
+    var $column_order = array('id', 'tanggal_jam', 'nominal_kredit', 'nominal_cash', 'koperasi.nama_koperasi', 'nama'); //set column field database for datatable orderable
+    var $column_search = array('id', 'tanggal_jam', 'nominal_kredit', 'nominal_cash', 'koperasi.nama_koperasi', 'nama'); //set column field database for datatable searchable 
 
     var $order = array('nota.id' => 'DESC'); // default order 
 
     function _get_datatables_query($id)
     {
 
-        $this->db->select('nota.*, toko.nama_toko, koperasi.nama_koperasi, anggota.nama');
+        $this->db->select('nota.*, koperasi.nama_koperasi, anggota.nama');
         $this->db->from('nota');
         $this->db->where('id_anggota', $id);
-        $this->db->join('toko', 'nota.id_toko = toko.id', 'left');
-        $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
+        // $this->db->join('toko', 'nota.id_toko = toko.id', 'left');
         $this->db->join('anggota', 'anggota.id = nota.id_kasir', 'left');
+        $this->db->join('koperasi', 'anggota.id_koperasi = koperasi.id', 'left');
 
         $i = 0;
         foreach ($this->column_search as $item) // loop column 

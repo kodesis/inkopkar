@@ -64,7 +64,7 @@ class Anggota extends CI_Controller
                 '.'
             ) . '</div>';
             // $row[] = $cat->tanggal_jam;
-            $row[] = $cat->nama_koperasi . " - " . $cat->nama_toko . " - " . $cat->nama;
+            $row[] = $cat->nama_koperasi . " - " . $cat->nama;
             // $row[] = $cat->view_count;
             if ($cat->status == 0) {
                 $row[] = '<center> <div class="list-icons d-inline-flex">
@@ -260,8 +260,8 @@ class Anggota extends CI_Controller
     {
         $anggota = $this->anggota_management->get_id_edit($id);
         $data['Anggota'] = $anggota;
-        $toko = $this->toko_management->get_id_edit($anggota->id_toko);
-        $koperasi = $this->koperasi_management->get_id_edit($toko->id_koperasi);
+        // $toko = $this->toko_management->get_id_edit($anggota->id_toko);
+        $koperasi = $this->koperasi_management->get_id_edit($anggota->id_koperasi);
         $data['koperasi'] = $koperasi;
         $data['content']     = 'webview/admin/nota/nota_pembayaran_v';
         $data['content_js'] = 'webview/admin/nota/nota_pembayaran_js';
@@ -291,7 +291,7 @@ class Anggota extends CI_Controller
                 '.'
             ) . '</div>';
             // $row[] = $cat->tanggal_jam;
-            $row[] = $cat->nama_koperasi . " - " . $cat->nama_toko . " - " . $cat->nama;
+            $row[] = $cat->nama_koperasi . " - " . $cat->nama;
             // $row[] = $cat->view_count;
             if ($cat->status == "1") {
 

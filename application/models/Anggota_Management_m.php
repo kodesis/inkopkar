@@ -5,18 +5,18 @@ class Anggota_Management_m extends CI_Model
     var $table = 'anggota';
     // var $column_order = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable orderable
     // var $column_search = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable searchable 
-    var $column_order = array('id', 'nomor_anggota', 'nama', 'tempat_lahir', 'tanggal_lahir', 'no_telp', 'username', 'kredit_limit', 'usage_kredit', 'id_koperasi', 'role'); //set column field database for datatable orderable
-    var $column_search = array('id', 'nomor_anggota', 'nama', 'tempat_lahir', 'tanggal_lahir', 'no_telp', 'username', 'kredit_limit', 'usage_kredit', 'id_koperasi', 'role'); //set column field database for datatable searchable 
+    var $column_order = array('id', 'nomor_anggota', 'nama', 'tempat_lahir', 'tanggal_lahir', 'no_telp', 'username', 'kredit_limit', 'usage_kredit', 'nama_koperasi', 'role'); //set column field database for datatable orderable
+    var $column_search = array('id', 'nomor_anggota', 'nama', 'tempat_lahir', 'tanggal_lahir', 'no_telp', 'username', 'kredit_limit', 'usage_kredit', 'nama_koperasi', 'role'); //set column field database for datatable searchable 
 
     var $order = array('anggota.id' => 'DESC'); // default order 
 
     function _get_datatables_query($detail = null)
     {
 
-        $this->db->select('anggota.*, koperasi.nama_koperasi, toko.nama_toko');
+        $this->db->select('anggota.*, koperasi.nama_koperasi');
         $this->db->from('anggota');
-        $this->db->join('toko', 'anggota.id_toko = toko.id', 'left');
-        $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
+        // $this->db->join('toko', 'anggota.id_toko = toko.id', 'left');
+        $this->db->join('koperasi', 'koperasi.id = anggota.id_koperasi', 'left');
         if ($detail) {
             $this->db->where('id_koperasi', $detail);
             $this->db->where('usage_kredit >', '0');

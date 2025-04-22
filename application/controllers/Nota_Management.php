@@ -322,8 +322,8 @@ class Nota_Management extends CI_Controller
         $update = $this->anggota_management->update_data(['usage_kredit' => $usage_now], ['id' => $id_anggota]);
 
 
-        $toko = $this->toko_management->get_id_edit($anggota->id_toko);
-        $koperasi = $this->koperasi_management->get_id_edit($toko->id_koperasi);
+        // $toko = $this->toko_management->get_id_edit($anggota->id_toko);
+        $koperasi = $this->koperasi_management->get_id_edit($anggota->id_koperasi);
         $saldo_tagihan = $koperasi->saldo_tagihan + $nominal_bayar;
 
         $this->koperasi_management->update_data(['saldo_tagihan' => $saldo_tagihan], ['id' => $koperasi->id]);

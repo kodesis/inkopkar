@@ -73,7 +73,7 @@
                                                     <?php
                                                     foreach ($anggota as $c) {
                                                     ?>
-                                                        <option value="<?= $c->id ?>"><?= $c->id ?> - <?= $c->nomor_anggota ?> - <?= $c->nama ?> - <?= $c->nama_koperasi ?></option>
+                                                        <option value="<?= $c->id ?>"><?= $c->nomor_anggota ?> - <?= $c->nama ?> - <?= $c->nama_koperasi ?></option>
                                                     <?php
                                                     }
                                                     ?>
