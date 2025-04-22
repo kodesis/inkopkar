@@ -17,7 +17,7 @@ class Riwayat_Kasir_m extends CI_Model
         $this->db->from('nota');
         $this->db->join('anggota', 'anggota.id = nota.id_anggota');
         // $this->db->join('toko', 'toko.id = anggota.id_toko');
-        $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
+        $this->db->join('koperasi', 'anggota.id_koperasi = koperasi.id', 'left');
         // $this->db->join('toko', 'nota.id_toko = toko.id', 'left');
         // $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
         // $this->db->join('anggota', 'anggota.id = nota.id_anggota', 'left');
