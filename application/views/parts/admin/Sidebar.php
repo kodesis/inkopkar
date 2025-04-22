@@ -65,10 +65,10 @@
                         <li class="sidebar-title">Sistem</li>
 
                         <!-- <li
-                            class="sidebar-item <?php if ($url_now == 'koperasi_management') {
+                            class="sidebar-item <?php if ($url_now == 'Koperasi_Management') {
                                                     echo 'active ';
                                                 } ?>">
-                            <a href="<?= base_url('koperasi_management') ?>" class='sidebar-link'>
+                            <a href="<?= base_url('Koperasi_Management') ?>" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Koperasi Management</span>
                             </a>
@@ -78,7 +78,7 @@
                         if ($this->session->userdata('role') == "Admin") {
                         ?>
                             <li
-                                class="sidebar-item <?php if ($url_now == 'koperasi_management' || $url_now == 'toko_management') {
+                                class="sidebar-item <?php if ($url_now == 'Koperasi_Management' || $url_now == 'Toko_Management') {
                                                         echo 'active ';
                                                     } ?> has-sub">
                                 <a href="#" class='sidebar-link'>
@@ -87,17 +87,17 @@
                                 </a>
 
                                 <ul class="submenu">
-                                    <li class="submenu-item <?php if ($url_now == 'koperasi_management') {
+                                    <li class="submenu-item <?php if ($url_now == 'Koperasi_Management') {
                                                                 echo 'active ';
                                                             } ?>">
-                                        <a href="<?= base_url('koperasi_management') ?>" class="submenu-link">Koperasi Management</a>
+                                        <a href="<?= base_url('Koperasi_Management') ?>" class="submenu-link">Koperasi Management</a>
 
                                     </li>
 
-                                    <li class="submenu-item <?php if ($url_now == 'toko_management') {
+                                    <li class="submenu-item <?php if ($url_now == 'Toko_Management') {
                                                                 echo 'active ';
                                                             } ?>">
-                                        <a href="<?= base_url('toko_management') ?>" class="submenu-link">Toko Management</a>
+                                        <a href="<?= base_url('Toko_Management') ?>" class="submenu-link">Toko Management</a>
 
                                     </li>
 

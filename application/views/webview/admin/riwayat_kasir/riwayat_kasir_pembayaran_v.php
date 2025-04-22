@@ -52,13 +52,7 @@
                                         Total
                                     </th>
                                     <th>
-                                        <div style="text-align: right;">Rp.
-                                            <?= number_format(
-                                                $total->nominal,
-                                                0,
-                                                ',',
-                                                '.'
-                                            ) ?>
+                                        <div style="text-align: right;">Rp. <?= number_format($total->nominal ?? 0, 0, ',', '.') ?>
                                         </div>
                                     </th>
                                 </tr>
