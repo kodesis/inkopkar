@@ -31,7 +31,7 @@ class Riwayat_Kasir_m extends CI_Model
         } else if ($this->session->userdata('role') == "Anggota") {
             $this->db->where('nota.id_anggota', $this->session->userdata('user_user_id'));
         } else {
-            $this->db->where('nota.status', '1');
+            $this->db->where('nota.status <', '2');
         }
 
         $i = 0;
