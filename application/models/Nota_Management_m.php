@@ -112,11 +112,12 @@ class Nota_Management_m extends CI_Model
         $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
         if ($this->session->userdata('role') == "Koperasi") {
             $this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
-            $this->db->where('role >', '2');
+            // $this->db->where('role >', '1');
         } else if ($this->session->userdata('role') == "Kasir") {
             $this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
-            $this->db->where('role', '4');
+            // $this->db->where('role', '4');
         }
+        $this->db->where('role >', '1');
 
         return $this->db->get()->result();
     }
@@ -127,7 +128,7 @@ class Nota_Management_m extends CI_Model
         $this->db->join('toko', 'anggota.id_toko = toko.id', 'left');
         $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
         $this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
-        $this->db->where('role >', '2');
+        $this->db->where('role >', '1');
 
         return $this->db->get()->result();
     }
