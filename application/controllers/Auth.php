@@ -31,16 +31,16 @@ class Auth extends CI_Controller
 
 		$this->load->view('parts/index_1/wrapper', $data);
 	}
-	public function admin()
-	{
-		if ($this->session->userdata('user_logged_in') == True) {
-			redirect('dashboard');
-		}
-		$data['content'] = 'webview/auth/login_v';
-		$data['content_js'] = 'webview/auth/login_js';
+	// public function admin()
+	// {
+	// 	if ($this->session->userdata('user_logged_in') == True) {
+	// 		redirect('dashboard');
+	// 	}
+	// 	$data['content'] = 'webview/auth/login_v';
+	// 	$data['content_js'] = 'webview/auth/login_js';
 
-		$this->load->view('parts/index_1/wrapper', $data);
-	}
+	// 	$this->load->view('parts/index_1/wrapper', $data);
+	// }
 	// public function register()
 	// {
 	// 	if ($this->session->userdata('user_logged_in') == True) {

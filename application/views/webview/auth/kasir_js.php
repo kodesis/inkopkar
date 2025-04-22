@@ -93,7 +93,7 @@
                         // } else if (data.status == 'user') {
                         //     window.location.href = base_url + 'SaldoUser'; // Assuming 'SaldoUser' is the path for the user page
                         // }
-                        window.location.href = base_url + 'dashboard'; // Assuming 'dashboard' is the path for admin dashboard
+                        // window.location.href = base_url + 'dashboard'; // Assuming 'dashboard' is the path for admin dashboard
 
                         // location.reload();
 
