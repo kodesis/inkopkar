@@ -65,7 +65,7 @@ class Riwayat_Kasir extends CI_Controller
             // $row[] = $cat->tanggal_jam;
             // $row[] = $cat->view_count;
             if ($this->session->userdata('role') != "Anggota") {
-                $button = base_url('riwayat_kasir_management/verifikasi/' . $cat->sub_id);
+                $button = base_url('Nota_Management/verifikasi/' . $cat->sub_id);
             } else {
                 $button = "#";
             }
