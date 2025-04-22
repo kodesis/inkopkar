@@ -92,8 +92,8 @@ class Dashboard extends CI_Controller
 		$data['total_semua_kredit'] = $total_semua_kredit;
 
 		$data['total_kredit'] = $total_kredit;
-		echo $total_semua_kredit;
-		echo  $total_kredit;
+		// echo $total_semua_kredit;
+		// echo  $total_kredit;
 		// $data['total_kredit'] = $result->nominal_kredit;
 
 		$data['content']  = 'webview/admin/dashboard/dashboard_v';
