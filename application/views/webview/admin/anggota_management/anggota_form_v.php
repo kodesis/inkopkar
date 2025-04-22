@@ -264,6 +264,39 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                            <?php
+                                            if ($this->session->userdata('role') == "Admin") {
+                                            ?>
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label for="text">Role</label>
+                                                        <select class="form-select" name="role" id="kasir_edit">
+                                                            <option disabled selected>-- Pilih Role --</option>
+                                                            <option <?= $Anggota->role == 1 ? 'selected' : '' ?>
+                                                                value="1">Admin Inkopkar</option>
+                                                            <option <?= $Anggota->role == 2 ? 'selected' : '' ?>
+                                                                value="2">User Koperasi</option>
+                                                            <option <?= $Anggota->role == 3 ? 'selected' : '' ?>
+                                                                value="3">User Kasir</option>
+                                                            <option <?= $Anggota->role == 4 ? 'selected' : '' ?>
+                                                                value="4">User Anggota</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            <?php
+                                            } elseif ($this->session->userdata('role') == "Koperasi") {
+                                            ?>
+                                                <div class="col-12">
+                                                    <div class="form-check">
+                                                        <div class="checkbox">
+                                                            <input type="checkbox" name="role" id="kasir_edit" class="form-check-input" value="3" <?= $Anggota->role == 3 ? 'selected' : '' ?>>
+                                                            <label for="checkbox1">Kasir</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <?php
+                                            }
+                                            ?>
                                         </div>
                                     </form>
                                     <div class="col-12 d-flex justify-content-end">

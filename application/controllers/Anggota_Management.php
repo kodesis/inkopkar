@@ -155,6 +155,12 @@ class Anggota_Management extends CI_Controller
         $id_toko = $this->input->post('id_toko');
         $role = $this->input->post('role') ? $this->input->post('role') : 4; // 1 if checked, 0 if unchecked
 
+        $this->db->from('toko');
+        $this->db->where('id', $id_toko);
+        $toko = $this->db->get()->row();
+        if ($role == 4) {
+            $id_toko = null;
+        }
         // Prepare data array
         $data = array(
             'nomor_anggota' => $nomor_anggota,
@@ -168,7 +174,9 @@ class Anggota_Management extends CI_Controller
             // 'usage_kredit' => $usage_kredit,
             'usage_kredit' => 0,
             'id_toko' => $id_toko,
-            'role' => $role // Add the checkbox value to the array
+            'id_koperasi' => $toko->id_koperasi,
+            'role' => $role, // Add the checkbox value to the array
+            'id_creator' => $this->session->userdata('user_user_id'),
         );
 
         // Save data using the model
@@ -188,7 +196,15 @@ class Anggota_Management extends CI_Controller
         $kredit_limit = (int) str_replace('.', '', $this->input->post('kredit_limit'));
         // $usage_kredit = $this->input->post('usage_kredit');
         $id_toko = $this->input->post('id_toko');
+        $role = $this->input->post('role') ? $this->input->post('role') : 4; // 1 if checked, 0 if unchecked
 
+        $this->db->from('toko');
+        $this->db->where('id', $id_toko);
+        $toko = $this->db->get()->row();
+
+        if ($role == 4) {
+            $id_toko = null;
+        }
         // Prepare data array
         $data_update = [
             'nomor_anggota' => $nomor_anggota,
@@ -201,7 +217,9 @@ class Anggota_Management extends CI_Controller
             'kredit_limit' => $kredit_limit,
             // 'usage_kredit' => $usage_kredit,
             'id_toko' => $id_toko,
-            'id_creator' => $this->session->userdata('user_user_id'),
+            'id_toko' => $id_toko,
+            // 'id_creator' => $this->session->userdata('user_user_id'),
+            'role' => $role // Add the checkbox value to the array
         ];
 
         if (!empty($password)) {

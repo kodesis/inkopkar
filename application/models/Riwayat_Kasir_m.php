@@ -5,27 +5,28 @@ class Riwayat_Kasir_m extends CI_Model
     var $table = 'nota';
     // var $column_order = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable orderable
     // var $column_search = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable searchable 
-    var $column_order = array('id', 'tanggal_jam', 'nominal_kredit', 'nominal_cash', 'toko.nama_toko', 'nama', 'nota.status'); //set column field database for datatable orderable
-    var $column_search = array('id', 'tanggal_jam', 'nominal_kredit', 'nominal_cash', 'toko.nama_toko', 'nama', 'nota.status'); //set column field database for datatable searchable 
+    var $column_order = array('id', 'tanggal_jam', 'nominal_kredit', 'nominal_cash', 'koperasi.nama_koperasi', 'nama', 'nota.status'); //set column field database for datatable orderable
+    var $column_search = array('id', 'tanggal_jam', 'nominal_kredit', 'nominal_cash', 'koperasi.nama_koperasi', 'nama', 'nota.status'); //set column field database for datatable searchable 
 
     var $order = array('nota.id' => 'DESC'); // default order 
 
     function _get_datatables_query()
     {
 
-        $this->db->select('nota.*, toko.nama_toko, koperasi.nama_koperasi, anggota.nama');
+        $this->db->select('nota.*, koperasi.nama_koperasi, anggota.nama');
         $this->db->from('nota');
         $this->db->join('anggota', 'anggota.id = nota.id_anggota');
-        $this->db->join('toko', 'toko.id = anggota.id_toko');
+        // $this->db->join('toko', 'toko.id = anggota.id_toko');
         $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
         // $this->db->join('toko', 'nota.id_toko = toko.id', 'left');
         // $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
         // $this->db->join('anggota', 'anggota.id = nota.id_anggota', 'left');
         if ($this->session->userdata('role') == "Kasir") {
-            $this->db->where('nota.id_toko', $this->session->userdata('id_toko'));
+            // $this->db->where('nota.id_toko', $this->session->userdata('id_toko'));
+            $this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
             $this->db->where('nota.status', '1');
         } else if ($this->session->userdata('role') == "Koperasi") {
-            $this->db->where('toko.id_koperasi', $this->session->userdata('id_koperasi'));
+            $this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
             $this->db->where('nota.status', '1');
         } else if ($this->session->userdata('role') == "Anggota") {
             $this->db->where('nota.id_anggota', $this->session->userdata('user_user_id'));
@@ -148,12 +149,14 @@ class Riwayat_Kasir_m extends CI_Model
         $this->db->select('nota_pembayaran.*, koperasi.nama_koperasi as nama_koperasi, anggota.nama as nama_anggota');
         $this->db->from('nota_pembayaran');
         $this->db->join('toko', 'nota_pembayaran.id_toko = toko.id', 'left');
-        $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
+        // $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
         $this->db->join('anggota', 'anggota.id = nota_pembayaran.id_anggota', 'left');
         if ($this->session->userdata('role') == "Kasir") {
-            $this->db->where('toko.id', $this->session->userdata('id_toko'));
+            // $this->db->where('toko.id', $this->session->userdata('id_toko'));
+            $this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
         } else if ($this->session->userdata('role') == "Koperasi") {
-            $this->db->where('toko.id_koperasi', $this->session->userdata('id_koperasi'));
+            // $this->db->where('toko.id_koperasi', $this->session->userdata('id_koperasi'));
+            $this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
         } else if ($this->session->userdata('role') == "Anggota") {
             $this->db->where('nota_pembayaran.id_anggota', $this->session->userdata('user_user_id'));
         }
@@ -217,12 +220,13 @@ class Riwayat_Kasir_m extends CI_Model
         $this->db->select_sum('nominal');
         $this->db->from('nota_pembayaran');
         $this->db->join('toko', 'nota_pembayaran.id_toko = toko.id', 'left');
-        $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
+        // $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
         $this->db->join('anggota', 'anggota.id = nota_pembayaran.id_anggota', 'left');
         if ($this->session->userdata('role') == "Kasir") {
-            $this->db->where('toko.id', $this->session->userdata('id_toko'));
+            // $this->db->where('toko.id', $this->session->userdata('id_toko'));
+            $this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
         } else if ($this->session->userdata('role') == "Koperasi") {
-            $this->db->where('toko.id_koperasi', $this->session->userdata('id_koperasi'));
+            $this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
         } else if ($this->session->userdata('role') == "Anggota") {
             $this->db->where('nota_pembayaran.id_anggota', $this->session->userdata('user_user_id'));
         }

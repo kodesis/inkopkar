@@ -53,14 +53,14 @@ class Dashboard extends CI_Controller
 		$this->db->from('nota');
 		// $this->db->join('toko', 'toko.id = nota.id_toko');
 		$this->db->join('anggota', 'anggota.id = nota.id_anggota');
-		$this->db->join('toko', 'toko.id = anggota.id_toko');
+		// $this->db->join('toko', 'toko.id = anggota.id_toko');
 		if ($this->session->userdata('role') == "Kasir") {
-			$this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
-			$this->db->where('nota.id_toko', $this->session->userdata('id_toko'));
+			$this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
+			// $this->db->where('nota.id_toko', $this->session->userdata('id_toko'));
 		} else if ($this->session->userdata('role') == "Koperasi") {
-			$this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
+			$this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
 		} else if ($this->session->userdata('role') == "Anggota") {
-			$this->db->where('id_anggota', $this->session->userdata('user_user_id'));
+			$this->db->where('anggota.id_anggota', $this->session->userdata('user_user_id'));
 		}
 
 		// $this->db->select_sum('nominal_kredit');

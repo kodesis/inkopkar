@@ -123,7 +123,6 @@ class Auth extends CI_Controller
 				'username'      => $user->username,
 				'id_toko'      => $user->id_toko,
 				'id_koperasi'      => $user->id_koperasi,
-
 				'role_id'      => $user->role,
 				'role'      => $role,
 				'user_logged_in' => true

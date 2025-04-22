@@ -53,10 +53,7 @@ class Nota_Management extends CI_Controller
             $row[] = $cat->tanggal_jam;
             $row[] = $cat->nama;
             $row[] = $cat->nominal_kredit;
-            // $row[] = $cat->view_count;
-            // $row[] = $cat->halaman_page;
 
-            // <a title="Update User" href="' . base_url('Nota_Management/update/' . $cat->id) . '" class="btn btn-warning"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"> <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path> <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path> </svg></a>
             $row[] = '<center> <div class="list-icons d-inline-flex">
                 
                                                 <a title="Delete User" onclick="onDelete(' . $cat->id . ')" class="btn btn-danger"><svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1">
@@ -209,25 +206,25 @@ class Nota_Management extends CI_Controller
             echo json_encode(array("status" => FALSE, "Pesan" => 'Token Salah'));
         }
     }
-    public function proses_update()
-    {
-        $date = new DateTime('now', new DateTimeZone('Asia/Jakarta'));
-        $id_edit = $this->input->post('id_edit');
-        $id_anggota = $this->input->post('id_anggota');
-        $nominal_kredit = $this->input->post('nominal_kredit');
+    // public function proses_update()
+    // {
+    //     $date = new DateTime('now', new DateTimeZone('Asia/Jakarta'));
+    //     $id_edit = $this->input->post('id_edit');
+    //     $id_anggota = $this->input->post('id_anggota');
+    //     $nominal_kredit = $this->input->post('nominal_kredit');
 
-        $data_update = [
-            'tanggal_jam'            => $date,
-            'id_anggota'            => $id_anggota,
-            'nominal_kredit'             => $nominal_kredit,
-        ];
+    //     $data_update = [
+    //         'tanggal_jam'            => $date,
+    //         'id_anggota'            => $id_anggota,
+    //         'nominal_kredit'             => $nominal_kredit,
+    //     ];
 
 
-        $this->nota_management->update_data($data_update, array('id' => $id_edit));
-        // echo json_encode(array("status" => TRUE, "title" => $title));
-        // $this->nota_management->update_data($data_update, array('Id' => $id_edit));
-        echo json_encode(array("status" => TRUE));
-    }
+    //     $this->nota_management->update_data($data_update, array('id' => $id_edit));
+    //     // echo json_encode(array("status" => TRUE, "title" => $title));
+    //     // $this->nota_management->update_data($data_update, array('Id' => $id_edit));
+    //     echo json_encode(array("status" => TRUE));
+    // }
     public function delete()
     {
         $id = $this->input->post('id_delete');
