@@ -83,6 +83,7 @@ class Dashboard extends CI_Controller
 		if ($this->session->userdata('role') == "Admin") {
 			$this->db->select_sum('nominal_kredit');
 			$this->db->from('nota');
+			$this->db->where('status >', '0');
 
 			$query = $this->db->get();
 			$semua_kredit = $query->row();
