@@ -110,7 +110,7 @@
                         ?>
 
                         <li
-                            class="sidebar-item <?php if ($url_now == 'riwayat_kasir') {
+                            class="sidebar-item <?php if ($url_now == 'Riwayat_Kasir') {
                                                     echo 'active ';
                                                 } ?> has-sub">
                             <a href="#" class='sidebar-link'>
@@ -119,20 +119,20 @@
                             </a>
 
                             <ul class="submenu">
-                                <li class="submenu-item <?php if ($url_now == 'riwayat_kasir/detail') {
+                                <li class="submenu-item <?php if ($url_now == 'Riwayat_Kasir/detail') {
                                                             echo 'active ';
                                                         } ?>">
-                                    <a href="<?= base_url('riwayat_kasir/detail') ?>" class="submenu-link">Penjualan Kredit</a>
+                                    <a href="<?= base_url('Riwayat_Kasir/detail') ?>" class="submenu-link">Penjualan Kredit</a>
 
                                 </li>
 
                                 <?php
                                 if ($this->session->userdata('role') == "Admin" || $this->session->userdata('role') == "Koperasi") {
                                 ?>
-                                    <li class="submenu-item <?php if ($url_now == 'riwayat_kasir/detail_pembayaran') {
+                                    <li class="submenu-item <?php if ($url_now == 'Riwayat_Kasir/detail_pembayaran') {
                                                                 echo 'active ';
                                                             } ?>">
-                                        <a href="<?= base_url('riwayat_kasir/detail_pembayaran') ?>" class="submenu-link">Riwayat Pembayaran</a>
+                                        <a href="<?= base_url('Riwayat_Kasir/detail_pembayaran') ?>" class="submenu-link">Riwayat Pembayaran</a>
 
                                     </li>
                                 <?php
@@ -141,10 +141,10 @@
                                 <?php
                                 if ($this->session->userdata('role') == "Admin") {
                                 ?>
-                                    <li class="submenu-item <?php if ($url_now == 'riwayat_kasir/detail_transaksi_inkopkar') {
+                                    <li class="submenu-item <?php if ($url_now == 'Riwayat_Kasir/detail_transaksi_inkopkar') {
                                                                 echo 'active ';
                                                             } ?>">
-                                        <a href="<?= base_url('riwayat_kasir/detail_transaksi_inkopkar') ?>" class="submenu-link">Riwayat Transaksi Inkopkar</a>
+                                        <a href="<?= base_url('Riwayat_Kasir/detail_transaksi_inkopkar') ?>" class="submenu-link">Riwayat Transaksi Inkopkar</a>
 
                                     </li>
                                 <?php
@@ -157,10 +157,10 @@
                         ?>
                             </li>
                             <li
-                                class="sidebar-item <?php if ($url_now == 'anggota_management') {
+                                class="sidebar-item <?php if ($url_now == 'Anggota_Management') {
                                                         echo 'active ';
                                                     } ?>">
-                                <a href="<?= base_url('anggota_management') ?>" class='sidebar-link'>
+                                <a href="<?= base_url('Anggota_Management') ?>" class='sidebar-link'>
                                     <i class="bi bi-grid-fill"></i>
                                     <span>Anggota Management</span>
                                 </a>
@@ -172,10 +172,10 @@
                         if ($this->session->userdata('role') == "Admin" || $this->session->userdata('role') == "Koperasi" || $this->session->userdata('role') == "Kasir") {
                         ?>
                             <li
-                                class="sidebar-item <?php if ($url_now == 'nota_management/add') {
+                                class="sidebar-item <?php if ($url_now == 'Nota_Management/add') {
                                                         echo 'active ';
                                                     } ?>">
-                                <a href="<?= base_url('nota_management/add') ?>" class='sidebar-link'>
+                                <a href="<?= base_url('Nota_Management/add') ?>" class='sidebar-link'>
                                     <i class="bi bi-grid-fill"></i>
                                     <span>Nota Kredit</span>
                                 </a>
@@ -188,10 +188,10 @@
                         if ($this->session->userdata('role') == "Admin" || $this->session->userdata('role') == "Koperasi") {
                         ?>
                             <li
-                                class="sidebar-item <?php if ($url_now == 'nota_management/add_pembayaran') {
+                                class="sidebar-item <?php if ($url_now == 'Nota_Management/add_pembayaran') {
                                                         echo 'active ';
                                                     } ?>">
-                                <a href="<?= base_url('nota_management/add_pembayaran') ?>" class='sidebar-link'>
+                                <a href="<?= base_url('Nota_Management/add_pembayaran') ?>" class='sidebar-link'>
                                     <i class="bi bi-grid-fill"></i>
                                     <span>Nota Pembayaran</span>
                                 </a>
@@ -206,7 +206,7 @@
                             <li class="sidebar-title">Page Management</li>
 
                             <li
-                                class="sidebar-item <?php if ($url_now == 'gallery_management') {
+                                class="sidebar-item <?php if ($url_now == 'Gallery_Management') {
                                                         echo 'active ';
                                                     } ?>">
                                 <a href="<?= base_url('Gallery_Management') ?>" class='sidebar-link'>
@@ -217,7 +217,7 @@
 
                             </li>
                             <li
-                                class="sidebar-item <?php if ($url_now == 'artikel_management') {
+                                class="sidebar-item <?php if ($url_now == 'Artikel_Management') {
                                                         echo 'active ';
                                                     } ?>">
                                 <a href="<?= base_url('Artikel_Management') ?>" class='sidebar-link'>
