@@ -148,9 +148,10 @@ class Riwayat_Kasir_m extends CI_Model
 
         $this->db->select('nota_pembayaran.*, koperasi.nama_koperasi as nama_koperasi, anggota.nama as nama_anggota');
         $this->db->from('nota_pembayaran');
-        $this->db->join('toko', 'nota_pembayaran.id_toko = toko.id', 'left');
         // $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
         $this->db->join('anggota', 'anggota.id = nota_pembayaran.id_anggota', 'left');
+        $this->db->join('koperasi', 'anggota.id_koperasi = koperasi.id', 'left');
+
         if ($this->session->userdata('role') == "Kasir") {
             // $this->db->where('toko.id', $this->session->userdata('id_toko'));
             $this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
