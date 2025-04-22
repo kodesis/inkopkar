@@ -231,6 +231,9 @@ class Nota_Management extends CI_Controller
 
         $nota = $this->nota_management->get_id_edit($id);
 
+        if ($nota->status != '0') {
+            echo json_encode(array("status" => FALSE));
+        }
         $anggota = $this->anggota_management->get_id_edit($nota->id_anggota);
 
         $usage_kredit = $anggota->usage_kredit - $nota->nominal_kredit;

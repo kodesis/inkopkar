@@ -27,7 +27,7 @@
                                     <span class="sub-title">Bersama INKOPKAR</span>
                                     <h2 class="title">Mendukung Kesejahteraan Karyawan Indonesia</h2>
                                     <p>Kami hadir untuk menciptakan solusi ekonomi yang inovatif dan berkelanjutan demi kemajuan anggota koperasi.</p>
-                                    <a href="<?= base_url('contact') ?>" class="btn">Pelajari Lebih Lanjut</a>
+                                    <a href="<?= base_url('contact') ?>" class="btn mb-1">Pelajari Lebih Lanjut</a>
                                     <a href="<?= base_url('produk') ?>" class="btn free_app">
                                         Aplikasi Gratis
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="16" height="16">
@@ -50,9 +50,9 @@
                             <div class="col-lg-6">
                                 <div class="slider__content">
                                     <span class="sub-title">Visi Kami</span>
-                                    <h2 class="title">Memberdayakan Ekonomi Karyawan</h2>
+                                    <h2 class="title">Memberdayakan Ekonomi Karyawan Indonesia</h2>
                                     <p>INKOPKAR berkomitmen untuk meningkatkan keterampilan dan profesionalitas anggota koperasi melalui berbagai program pelatihan.</p>
-                                    <!-- <a href="contact.html" class="btn">Gabung Sekarang</a> -->
+                                    <a href="<?= base_url('contact') ?>" class="btn">Gabung Sekarang Juga</a>
                                     <a href="<?= base_url('produk') ?>" class="btn free_app">
                                         Aplikasi Gratis
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="16" height="16">
