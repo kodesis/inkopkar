@@ -158,7 +158,7 @@
                                                 <div class="col-12">
                                                     <div class="form-check">
                                                         <div class="checkbox">
-                                                            <input type="checkbox" name="role" id="kasir_add" class="form-check-input">
+                                                            <input type="checkbox" name="role" id="kasir_add" class="form-check-input" value="3">
                                                             <label for="checkbox1">Kasir</label>
                                                         </div>
                                                     </div>
