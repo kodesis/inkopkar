@@ -5,8 +5,8 @@ class Riwayat_Kasir_m extends CI_Model
     var $table = 'nota';
     // var $column_order = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable orderable
     // var $column_search = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable searchable 
-    var $column_order = array('id', 'tanggal_jam', 'nominal_kredit', 'nominal_cash', 'toko.nama_toko', 'nama'); //set column field database for datatable orderable
-    var $column_search = array('id', 'tanggal_jam', 'nominal_kredit', 'nominal_cash', 'toko.nama_toko', 'nama'); //set column field database for datatable searchable 
+    var $column_order = array('id', 'tanggal_jam', 'nominal_kredit', 'nominal_cash', 'toko.nama_toko', 'nama', 'nota.status'); //set column field database for datatable orderable
+    var $column_search = array('id', 'tanggal_jam', 'nominal_kredit', 'nominal_cash', 'toko.nama_toko', 'nama', 'nota.status'); //set column field database for datatable searchable 
 
     var $order = array('nota.id' => 'DESC'); // default order 
 
@@ -29,6 +29,8 @@ class Riwayat_Kasir_m extends CI_Model
             $this->db->where('nota.status', '1');
         } else if ($this->session->userdata('role') == "Anggota") {
             $this->db->where('nota.id_anggota', $this->session->userdata('user_user_id'));
+        } else if ($this->session->userdata('role') == "Anggota") {
+            $this->db->where('nota.status', '1');
         }
 
         $i = 0;
