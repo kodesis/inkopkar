@@ -60,7 +60,7 @@ class Dashboard extends CI_Controller
 		} else if ($this->session->userdata('role') == "Koperasi") {
 			$this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
 		} else if ($this->session->userdata('role') == "Anggota") {
-			$this->db->where('anggota.id_anggota', $this->session->userdata('user_user_id'));
+			$this->db->where('id_anggota', $this->session->userdata('user_user_id'));
 		}
 
 		// $this->db->select_sum('nominal_kredit');
