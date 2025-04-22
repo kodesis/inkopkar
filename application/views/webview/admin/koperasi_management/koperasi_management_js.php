@@ -373,6 +373,89 @@
             },
         });
     }
+
+    function TransferInkopkar(id) {
+        const ttltitleValue = $('#nama_koperasi_add').val();
+        const ttlthumbnailValue = $('#telp_add').val();
+        const ttltanggalValue = $('#alamat_add').val();
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                InputEvent: 'form-control',
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Ingin Men-Transfer Saldo ke Inkopkar?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, Transfer',
+            cancelButtonText: 'Tidak',
+            reverseButtons: true
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+
+                var url;
+                var formData;
+                url = "<?php echo site_url('Koperasi_Management/transfer_inkopkar/') ?>" + id;
+
+                // window.location = url_base;
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    contentType: false,
+                    processData: false,
+                    dataType: "JSON",
+                    beforeSend: function() {
+                        swal.fire({
+                            icon: 'info',
+                            timer: 3000,
+                            showConfirmButton: false,
+                            title: 'Loading...'
+
+                        });
+                    },
+                    success: function(data) {
+                        /* if(!data.status)alert("ho"); */
+                        if (!data.status) swal.fire('Gagal menyimpan data', 'error :' + data.Pesan);
+                        else {
+
+                            // document.getElementById('rumahadat').reset();
+                            // $('#add_modal').modal('hide');
+                            (JSON.stringify(data));
+                            // alert(data)
+                            swal.fire({
+                                customClass: 'slow-animation',
+                                icon: 'success',
+                                showConfirmButton: false,
+                                title: 'Berhasil Men-Transfer Saldo ke Inkopkar',
+                                timer: 1500
+                            });
+                            // location.reload();
+                            setTimeout(function() {
+                                console.log('Redirecting to Koperasi_Management...');
+                                location.href = '<?= base_url('Koperasi_Management') ?>';
+                            }, 1500); // Delay for smooth transition
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        swal.fire('Operation Failed!', errorThrown, 'error');
+                    },
+                    complete: function() {
+                        console.log('Editing job done');
+                    }
+                });
+
+
+            }
+
+        })
+
+    }
 </script>
 <!-- Include jQuery (required by Summernote) -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

@@ -85,10 +85,11 @@
                                                 <label for="email-id-vertical">Nominal</label>
                                                 <!-- <input type="number" class="form-control" id="nominal_kredit_add" name="nominal_kredit" onchange="cek_nominal()" placeholder="Nominal"> -->
                                                 <div class="form-group position-relative has-icon-left">
-                                                    <input type="number" class="form-control" id="nominal_kredit_add" name="nominal_kredit" onchange="cek_nominal_pembayaran()" onfocus="removeFormat(this)" onblur="formatNumber(this)" disabled>
+                                                    <input type="number" class="form-control" id="nominal_kredit_add" onchange="cek_nominal_pembayaran()" onfocus="removeFormat(this)" onblur="formatNumber(this)" disabled>
                                                     <div class="form-control-icon">
                                                         <p>Rp.</p>
                                                     </div>
+                                                    <input type="hidden" id="nominal_kredit_value" name="nominal_kredit">
                                                 </div>
                                             </div>
                                         </div>

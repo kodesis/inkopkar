@@ -263,7 +263,7 @@ class Nota_Management extends CI_Controller
 
     public function add_pembayaran()
     {
-        $data['anggota'] = $this->nota_management->get_anggota();
+        $data['anggota'] = $this->nota_management->get_anggota_by_koperasi();
         $data['content']     = 'webview/admin/nota_management/nota_pembayaran_form_v';
         $data['content_js'] = 'webview/admin/nota_management/nota_management_js';
         $this->load->view('parts/admin/Wrapper', $data);
@@ -309,6 +309,7 @@ class Nota_Management extends CI_Controller
             'status'         => 1
         ]);
 
+        $Pergantian_status = $this->nota_management->get_nota_kredit_by_anggota_id($id_anggota);
         // $task_name = $get_task_detail['task_name'];
         // $nama_member = $get_user["nama"];
         // $comment = $this->input->post("commentt");

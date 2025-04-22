@@ -138,7 +138,7 @@
                                                 </div>
                                             </div>
                                             <?php
-                                            if ($this->session->userdata('role') == "Koperasi") {
+                                            if ($this->session->userdata('role') == "Admin") {
                                             ?>
                                                 <div class="col-12">
                                                     <div class="form-group">
@@ -153,7 +153,7 @@
                                                     </div>
                                                 </div>
                                             <?php
-                                            } elseif ($this->session->userdata('role')) {
+                                            } elseif ($this->session->userdata('role') == "Koperasi") {
                                             ?>
                                                 <div class="col-12">
                                                     <div class="form-check">
@@ -262,14 +262,6 @@
                                                         }
                                                         ?>
                                                     </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <div class="form-check">
-                                                    <div class="checkbox">
-                                                        <input type="checkbox" name="kasir" id="kasir_add" class="form-check-input" <?php if ($Anggota->kasir == 1) echo "checked" ?>>
-                                                        <label for="checkbox1">Kasir</label>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

@@ -115,7 +115,7 @@
                                                 } ?> has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-stack"></i>
-                                <span>Riwayat Kasir</span>
+                                <span>Riwayat</span>
                             </a>
 
                             <ul class="submenu">
@@ -126,13 +126,30 @@
 
                                 </li>
 
-                                <li class="submenu-item <?php if ($url_now == 'riwayat_kasir/detail_pembayaran') {
-                                                            echo 'active ';
-                                                        } ?>">
-                                    <a href="<?= base_url('riwayat_kasir/detail_pembayaran') ?>" class="submenu-link">Riwayat Pembayaran</a>
+                                <?php
+                                if ($this->session->userdata('role') == "Admin" || $this->session->userdata('role') == "Koperasi") {
+                                ?>
+                                    <li class="submenu-item <?php if ($url_now == 'riwayat_kasir/detail_pembayaran') {
+                                                                echo 'active ';
+                                                            } ?>">
+                                        <a href="<?= base_url('riwayat_kasir/detail_pembayaran') ?>" class="submenu-link">Riwayat Pembayaran</a>
 
-                                </li>
+                                    </li>
+                                <?php
+                                }
+                                ?>
+                                <?php
+                                if ($this->session->userdata('role') == "Admin") {
+                                ?>
+                                    <li class="submenu-item <?php if ($url_now == 'riwayat_kasir/detail_transaksi_inkopkar') {
+                                                                echo 'active ';
+                                                            } ?>">
+                                        <a href="<?= base_url('riwayat_kasir/detail_transaksi_inkopkar') ?>" class="submenu-link">Riwayat Transaksi Inkopkar</a>
 
+                                    </li>
+                                <?php
+                                }
+                                ?>
                             </ul>
                         </li>
                         <?php

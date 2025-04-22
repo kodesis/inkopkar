@@ -39,13 +39,30 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama</th>
+                                    <th>Koperasi</th>
                                     <th>Tanggal</th>
                                     <th>Nominal</th>
-                                    <th>Status</th>
+                                    <!-- <th>Status</th> -->
                                     <!-- <th>#</th> -->
                                 </tr>
                             </thead>
-
+                            <tfoot>
+                                <tr>
+                                    <th colspan="4">
+                                        Total
+                                    </th>
+                                    <th>
+                                        <div style="text-align: right;">Rp.
+                                            <?= number_format(
+                                                $total->nominal,
+                                                0,
+                                                ',',
+                                                '.'
+                                            ) ?>
+                                        </div>
+                                    </th>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>

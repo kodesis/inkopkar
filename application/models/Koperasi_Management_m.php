@@ -100,4 +100,24 @@ class Koperasi_Management_m extends CI_Model
         $this->db->from('koperasi');
         return $this->db->get()->result();
     }
+
+    public function total_saldo_koperasi()
+    {
+        $this->db->select_sum('saldo_tagihan');
+        $this->db->select_sum('saldo_rekening');
+        $this->db->from('koperasi');
+        return $this->db->get()->row();
+    }
+    public function total_saldo_usage_anggota()
+    {
+        $this->db->select_sum('usage_kredit');
+        $this->db->from('anggota');
+        return $this->db->get()->row();
+    }
+
+    public function save_log_transaksi($data)
+    {
+        $this->db->insert('log_transaksi', $data);
+        return $this->db->insert_id();
+    }
 }

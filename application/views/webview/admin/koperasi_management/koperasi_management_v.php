@@ -48,7 +48,36 @@
                                     <th>#</th>
                                 </tr>
                             </thead>
-
+                            <thead>
+                                <tr>
+                                    <th colspan="4">No</th>
+                                    <th>
+                                        <div style="text-align: right;">Rp. <?= number_format(
+                                                                                $total_usage->usage_kredit,
+                                                                                0,
+                                                                                ',',
+                                                                                '.'
+                                                                            )  ?></div>
+                                    </th>
+                                    <th>
+                                        <div style="text-align: right;">Rp. <?= number_format(
+                                                                                $total->saldo_tagihan,
+                                                                                0,
+                                                                                ',',
+                                                                                '.'
+                                                                            )  ?></div>
+                                    </th>
+                                    <th>
+                                        <div style="text-align: right;">Rp. <?= number_format(
+                                                                                $total->saldo_rekening,
+                                                                                0,
+                                                                                ',',
+                                                                                '.'
+                                                                            )  ?></div>
+                                    </th>
+                                    <th>#</th>
+                                </tr>
+                            </thead>
                         </table>
                     </div>
                 </div>

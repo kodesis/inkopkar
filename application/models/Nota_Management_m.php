@@ -18,6 +18,7 @@ class Nota_Management_m extends CI_Model
         $this->db->join('anggota', 'anggota.id = nota.id_anggota');
         $this->db->join('toko', 'nota.id_toko = toko.id', 'left');
         $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
+        $this->db->where('nota.status', '1');
         $i = 0;
         foreach ($this->column_search as $item) // loop column 
         {
@@ -112,6 +113,16 @@ class Nota_Management_m extends CI_Model
 
         return $this->db->get()->result();
     }
+    public function get_anggota_by_koperasi()
+    {
+        $this->db->select('anggota.*, koperasi.nama_koperasi');
+        $this->db->from('anggota');
+        $this->db->join('toko', 'anggota.id_toko = toko.id', 'left');
+        $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
+        $this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
+
+        return $this->db->get()->result();
+    }
     public function get_latest_entry($year)
     {
         $this->db->select('id');
@@ -139,5 +150,20 @@ class Nota_Management_m extends CI_Model
     {
         $this->db->insert('nota_pembayaran', $data);
         return $this->db->insert_id();
+    }
+
+    public function get_nota_kredit_by_anggota_id($id)
+    {
+        // Step 1: Get the records
+        $this->db->from('nota');
+        $this->db->where('id_anggota', $id);
+        $this->db->where('status', '1');
+        $notas = $this->db->get()->result();
+
+        // Step 2: Loop through and update status
+        foreach ($notas as $nota) {
+            $this->db->where('id', $nota->id); // assuming 'id' is the primary key
+            $this->db->update('nota', ['status' => '2']);
+        }
     }
 }

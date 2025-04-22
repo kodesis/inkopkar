@@ -75,6 +75,10 @@
                                                             echo 'active ';
                                                         } ?> menu-item"><a href="<?= base_url('service') ?>">Service Kami</a></li>
 
+                                            <li class="<?php if ($url_now == 'produk') {
+                                                            echo 'active ';
+                                                        } ?> menu-item"><a href="<?= base_url('produk') ?>">Produk</a></li>
+
                                             <li class="<?php if ($url_now == 'gallery') {
                                                             echo 'active ';
                                                         } ?> menu-item"><a href="<?= base_url('gallery') ?>">Gallery</a></li>

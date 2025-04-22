@@ -65,7 +65,11 @@ class Anggota_Management extends CI_Controller
             ) . '</div>';
             // $row[] = $cat->nama_koperasi . " - " . $cat->nama_toko;
             $row[] = $cat->nama_koperasi;
-            if ($cat->kasir == '1') {
+            if ($cat->role == '1') {
+                $row[] = 'Admin';
+            } else if ($cat->role == '2') {
+                $row[] = 'Koperasi';
+            } else if ($cat->role == '3') {
                 $row[] = 'Kasir';
             } else {
                 $row[] = 'Anggota';
@@ -146,7 +150,7 @@ class Anggota_Management extends CI_Controller
 
         // $usage_kredit = $this->input->post('usage_kredit');
         $id_toko = $this->input->post('id_toko');
-        $kasir = $this->input->post('kasir') ? 3 : 4; // 1 if checked, 0 if unchecked
+        $role = $this->input->post('role') ? $this->input->post('role') : 4; // 1 if checked, 0 if unchecked
 
         // Prepare data array
         $data = array(
@@ -161,7 +165,7 @@ class Anggota_Management extends CI_Controller
             // 'usage_kredit' => $usage_kredit,
             'usage_kredit' => 0,
             'id_toko' => $id_toko,
-            'role' => $kasir // Add the checkbox value to the array
+            'role' => $role // Add the checkbox value to the array
         );
 
         // Save data using the model
@@ -181,7 +185,6 @@ class Anggota_Management extends CI_Controller
         $kredit_limit = (int) str_replace('.', '', $this->input->post('kredit_limit'));
         // $usage_kredit = $this->input->post('usage_kredit');
         $id_toko = $this->input->post('id_toko');
-        $kasir = $this->input->post('kasir') ? 3 : 4; // 1 if checked, 0 if unchecked
 
         // Prepare data array
         $data_update = [
@@ -195,7 +198,7 @@ class Anggota_Management extends CI_Controller
             'kredit_limit' => $kredit_limit,
             // 'usage_kredit' => $usage_kredit,
             'id_toko' => $id_toko,
-            'role' => $kasir // Add the checkbox value to the array
+            'id_creator' => $this->session->userdata('user_user_id'),
         ];
 
         if (!empty($password)) {

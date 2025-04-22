@@ -538,6 +538,7 @@
                         $("#detail_kredit_limit").text(kreditLimit);
                         $("#detail_usage_kredit").text(usageKredit);
                         $("#nominal_kredit_add").val(usageKredit);
+                        $("#nominal_kredit_value").val(usageKredit);
                         cek_nominal_pembayaran();
                     }
                 },

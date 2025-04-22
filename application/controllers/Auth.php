@@ -124,9 +124,8 @@ class Auth extends CI_Controller
 				'id_toko'      => $user->id_toko,
 				'id_koperasi'      => $user->id_koperasi,
 
-				'role_id'      => 3,
+				'role_id'      => $user->role,
 				'role'      => $role,
-				'user_email'      => $user->kasir,
 				'user_logged_in' => true
 			]);
 			echo json_encode(array("status" => 'Success'));

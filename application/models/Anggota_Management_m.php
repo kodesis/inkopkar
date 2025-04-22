@@ -5,8 +5,8 @@ class Anggota_Management_m extends CI_Model
     var $table = 'anggota';
     // var $column_order = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable orderable
     // var $column_search = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable searchable 
-    var $column_order = array('id', 'nomor_anggota', 'nama', 'tempat_lahir', 'tanggal_lahir', 'no_telp', 'username', 'kredit_limit', 'usage_kredit', 'id_koperasi', 'kasir'); //set column field database for datatable orderable
-    var $column_search = array('id', 'nomor_anggota', 'nama', 'tempat_lahir', 'tanggal_lahir', 'no_telp', 'username', 'kredit_limit', 'usage_kredit', 'id_koperasi', 'kasir'); //set column field database for datatable searchable 
+    var $column_order = array('id', 'nomor_anggota', 'nama', 'tempat_lahir', 'tanggal_lahir', 'no_telp', 'username', 'kredit_limit', 'usage_kredit', 'id_koperasi', 'role'); //set column field database for datatable orderable
+    var $column_search = array('id', 'nomor_anggota', 'nama', 'tempat_lahir', 'tanggal_lahir', 'no_telp', 'username', 'kredit_limit', 'usage_kredit', 'id_koperasi', 'role'); //set column field database for datatable searchable 
 
     var $order = array('anggota.id' => 'DESC'); // default order 
 

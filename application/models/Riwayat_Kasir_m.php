@@ -15,16 +15,22 @@ class Riwayat_Kasir_m extends CI_Model
 
         $this->db->select('nota.*, toko.nama_toko, koperasi.nama_koperasi, anggota.nama');
         $this->db->from('nota');
-        $this->db->join('toko', 'nota.id_toko = toko.id', 'left');
+        $this->db->join('anggota', 'anggota.id = nota.id_anggota');
+        $this->db->join('toko', 'toko.id = anggota.id_toko');
         $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
-        $this->db->join('anggota', 'anggota.id = nota.id_anggota', 'left');
+        // $this->db->join('toko', 'nota.id_toko = toko.id', 'left');
+        // $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
+        // $this->db->join('anggota', 'anggota.id = nota.id_anggota', 'left');
         if ($this->session->userdata('role') == "Kasir") {
             $this->db->where('nota.id_toko', $this->session->userdata('id_toko'));
+            $this->db->where('nota.status', '1');
         } else if ($this->session->userdata('role') == "Koperasi") {
             $this->db->where('toko.id_koperasi', $this->session->userdata('id_koperasi'));
+            $this->db->where('nota.status', '1');
         } else if ($this->session->userdata('role') == "Anggota") {
             $this->db->where('nota.id_anggota', $this->session->userdata('user_user_id'));
         }
+
         $i = 0;
         foreach ($this->column_search as $item) // loop column 
         {
@@ -129,19 +135,19 @@ class Riwayat_Kasir_m extends CI_Model
     var $table_pembayaran = 'nota_pembayaran';
     // var $column_order = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable orderable
     // var $column_search = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable searchable 
-    var $column_order_pembayaran = array('nota_pembayaran.id', 'tanggal_jam', 'nominal_kredit', 'toko.nama_toko', 'nama'); //set column field database for datatable orderable
-    var $column_search_pembayaran = array('nota_pembayaran.id', 'tanggal_jam', 'nominal_kredit', 'toko.nama_toko', 'nama'); //set column field database for datatable searchable 
+    var $column_order_pembayaran = array('nota_pembayaran.id', 'nama_anggota', 'nama_koperasi', 'tanggal_jam', 'nominal', 'status'); //set column field database for datatable orderable
+    var $column_search_pembayaran = array('nota_pembayaran.id', 'nama_anggota', 'nama_koperasi', 'tanggal_jam', 'nominal', 'status'); //set column field database for datatable searchable 
 
     var $order_pembayaran = array('nota_pembayaran.id' => 'DESC'); // default order 
 
     function _get_datatables_query_pembayaran()
     {
 
-        $this->db->select('nota_pembayaran.*, toko.nama_toko, koperasi.nama_koperasi, anggota.nama');
+        $this->db->select('nota_pembayaran.*, koperasi.nama_koperasi as nama_koperasi, anggota.nama as nama_anggota');
         $this->db->from('nota_pembayaran');
         $this->db->join('toko', 'nota_pembayaran.id_toko = toko.id', 'left');
         $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
-        $this->db->join('anggota', 'anggota.id = nota_pembayaran.id_kasir', 'left');
+        $this->db->join('anggota', 'anggota.id = nota_pembayaran.id_anggota', 'left');
         if ($this->session->userdata('role') == "Kasir") {
             $this->db->where('toko.id', $this->session->userdata('id_toko'));
         } else if ($this->session->userdata('role') == "Koperasi") {
@@ -201,5 +207,101 @@ class Riwayat_Kasir_m extends CI_Model
         $query = $this->db->get();
 
         return $this->db->count_all_results();
+    }
+
+    function get_total_pembayaran()
+    {
+
+        $this->db->select_sum('nominal');
+        $this->db->from('nota_pembayaran');
+        $this->db->join('toko', 'nota_pembayaran.id_toko = toko.id', 'left');
+        $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
+        $this->db->join('anggota', 'anggota.id = nota_pembayaran.id_anggota', 'left');
+        if ($this->session->userdata('role') == "Kasir") {
+            $this->db->where('toko.id', $this->session->userdata('id_toko'));
+        } else if ($this->session->userdata('role') == "Koperasi") {
+            $this->db->where('toko.id_koperasi', $this->session->userdata('id_koperasi'));
+        } else if ($this->session->userdata('role') == "Anggota") {
+            $this->db->where('nota_pembayaran.id_anggota', $this->session->userdata('user_user_id'));
+        }
+        return $this->db->get()->row();
+    }
+
+    var $table_transaksi_inkopkar = 'log_transaksi';
+    // var $column_order = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable orderable
+    // var $column_search = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable searchable 
+    var $column_order_transaksi_inkopkar = array('log_transaksi.id', 'nama_admin', 'nama_koperasi', 'post_date', 'sebelum', 'nominal', 'sesudah'); //set column field database for datatable orderable
+    var $column_search_transaksi_inkopkar = array('log_transaksi.id', 'nama_admin', 'nama_koperasi', 'post_date', 'sebelum', 'nominal', 'sesudah'); //set column field database for datatable searchable 
+
+    var $order_transaksi_inkopkar = array('log_transaksi.id' => 'DESC'); // default order 
+
+    function _get_datatables_query_transaksi_inkopkar()
+    {
+
+        $this->db->select('log_transaksi.*, koperasi.nama_koperasi as nama_koperasi, anggota.nama as nama_admin');
+        $this->db->from('log_transaksi');
+        $this->db->join('koperasi', 'log_transaksi.id_koperasi = koperasi.id', 'left');
+        $this->db->join('anggota', 'anggota.id = log_transaksi.id_admin', 'left');
+
+        $i = 0;
+        foreach ($this->column_search_transaksi_inkopkar as $item) // loop column 
+        {
+            if ($_POST['search']['value']) // if datatable send POST for search
+            {
+
+                if ($i === 0) // first loop
+                {
+                    $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
+                    $this->db->like($item, $_POST['search']['value']);
+                } else {
+                    $this->db->or_like($item, $_POST['search']['value']);
+                }
+
+                if (count($this->column_search) - 1 == $i) //last loop
+                    $this->db->group_end(); //close bracket
+            }
+            $i++;
+        }
+
+        if (isset($_POST['order'])) // here order processing
+        {
+            $this->db->order_by($this->column_order_transaksi_inkopkar[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+        } else if (isset($this->order_transaksi_inkopkar)) {
+            $order = $this->order_transaksi_inkopkar;
+            $this->db->order_by(key($order), $order[key($order)]);
+        }
+    }
+
+    function get_datatables_transaksi_inkopkar()
+    {
+        $this->_get_datatables_query_transaksi_inkopkar();
+        if ($_POST['length'] != -1)
+            $this->db->limit($_POST['length'], $_POST['start']);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function count_filtered_transaksi_inkopkar()
+    {
+        $this->_get_datatables_query_transaksi_inkopkar();
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    function count_all_transaksi_inkopkar()
+    {
+
+        $this->_get_datatables_query_transaksi_inkopkar();
+        $query = $this->db->get();
+
+        return $this->db->count_all_results();
+    }
+
+    function get_total_transaksi_inkopkar()
+    {
+
+        $this->db->select_sum('nominal');
+        $this->db->from('log_transaksi');
+        return $this->db->get()->row();
     }
 }
