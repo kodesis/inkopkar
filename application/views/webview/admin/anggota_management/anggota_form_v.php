@@ -143,7 +143,7 @@
                                                 <div class="col-12">
                                                     <div class="form-group">
                                                         <label for="text">Role</label>
-                                                        <select class="form-control" name="role" id="kasir_add">
+                                                        <select class="form-select" name="role" id="kasir_add">
                                                             <option disabled selected>-- Pilih Role --</option>
                                                             <option value="1">Admin Inkopkar</option>
                                                             <option value="2">User Koperasi</option>
