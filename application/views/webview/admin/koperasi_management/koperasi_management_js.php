@@ -438,7 +438,7 @@
                             // location.reload();
                             setTimeout(function() {
                                 console.log('Redirecting to Koperasi_Management...');
-                                location.href = '<?= base_url('Koperasi_Management') ?>';
+                                // location.href = '<?= base_url('Koperasi_Management') ?>';
                             }, 1500); // Delay for smooth transition
                         }
                     },

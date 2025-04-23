@@ -60,8 +60,18 @@
                         <tr>
                             <td style="width: 20%;">Usage Kredit</td>
                             <td>:</td>
+                            <?php
+                            $this->db->select_sum('nominal_kredit');
+                            $this->db->from('nota');
+                            $this->db->join('anggota', 'anggota.id = nota.id_anggota');
+                            $this->db->where('id_anggota', $Anggota->id);
+                            $this->db->where('status', '1');
+                            $query = $this->db->get();
+                            $result = $query->row();
+                            $usage_kredit = $result->nominal_kredit;
+                            ?>
                             <td><?= number_format(
-                                    $Anggota->usage_kredit,
+                                    $usage_kredit ?? 0,
                                     0,
                                     ',',
                                     '.'

@@ -60,8 +60,21 @@ class Anggota_Management extends CI_Controller
                 '.'
             ) . '</div>';
             // $row[] = $cat->usage_kredit;
+            $this->db->select_sum('nominal_kredit');
+            $this->db->from('nota');
+            $this->db->where('id_anggota', $cat->id);
+            $this->db->where('status', '1');
+            $query = $this->db->get();
+            $result = $query->row();
+
+            // $row[] = '<div style="text-align: right;">' . number_format(
+            //     $cat->usage_kredit,
+            //     0,
+            //     ',',
+            //     '.'
+            // ) . '</div>';
             $row[] = '<div style="text-align: right;">' . number_format(
-                $cat->usage_kredit,
+                $result->nominal_kredit ?? 0,
                 0,
                 ',',
                 '.'

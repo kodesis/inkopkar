@@ -129,8 +129,17 @@ class Nota_Management extends CI_Controller
         } else {
             $new_number = "000001"; // Start from 000001 if no previous entry
         }
+        $this->db->select_sum('nominal_kredit');
+        $this->db->from('nota');
+        $this->db->join('anggota', 'anggota.id = nota.id_anggota');
+        $this->db->where('id_anggota', $id_anggota);
+        $this->db->where('status', '1');
 
-        $usage_now = $anggota->usage_kredit + $nominal_kredit;
+        $query = $this->db->get();
+        $result = $query->row();
+        $usage_now = $result->nominal_kredit;
+
+        // $usage_now = $anggota->usage_kredit + $nominal_kredit;
         if ($usage_now >= $anggota->kredit_limit) {
             $cash = $usage_now - $anggota->kredit_limit;
             $kredit = $nominal_kredit - $cash;
@@ -164,7 +173,7 @@ class Nota_Management extends CI_Controller
         // Update anggota's usage_kredit
         // $usage_kredit = $anggota->usage_kredit + $nominal_kredit;
 
-        // $this->anggota_management->update_data(['usage_kredit' => $usage_kredit], ['id' => $id_anggota]);
+        $this->anggota_management->update_data(['usage_kredit' => $usage_now], ['id' => $id_anggota]);
         $msg = "Kode verifikasi Anda adalah: " . $token . " \n Gunakan kode ini untuk melengkapi proses verifikasi nota anda.";
         $response = $this->api_whatsapp->wa_notif($msg, $anggota->no_telp);
 
@@ -194,7 +203,17 @@ class Nota_Management extends CI_Controller
             ];
 
             $anggota = $this->anggota_management->get_id_edit($nota->id_anggota);
-            $usage_kredit = $anggota->usage_kredit + $nota->nominal_kredit;
+            // $usage_kredit = $anggota->usage_kredit + $nota->nominal_kredit;
+            $this->db->select_sum('nominal_kredit');
+            $this->db->from('nota');
+            $this->db->join('anggota', 'anggota.id = nota.id_anggota');
+            $this->db->where('id_anggota', $nota->id_anggota);
+            $this->db->where('status', '1');
+
+            $query = $this->db->get();
+            $result = $query->row();
+            // $total_kredit = $result->usage_kredit;
+            $usage_kredit = $result->nominal_kredit;
 
             $this->anggota_management->update_data(['usage_kredit' => $usage_kredit], ['id' => $nota->id_anggota]);
 
@@ -234,15 +253,6 @@ class Nota_Management extends CI_Controller
         if ($nota->status != '0') {
             echo json_encode(array("status" => FALSE));
         }
-        $anggota = $this->anggota_management->get_id_edit($nota->id_anggota);
-
-        $usage_kredit = $anggota->usage_kredit - $nota->nominal_kredit;
-        // Prepare data array
-        $data_update = [
-            'usage_kredit' => $usage_kredit,
-        ];
-
-        $this->anggota_management->update_data($data_update, array('id' => $nota->id_anggota));
 
         $this->nota_management->delete(array('id' => $id));
 
@@ -258,7 +268,8 @@ class Nota_Management extends CI_Controller
     public function cari_detail_user($id)
     {
         $anggota = $this->anggota_management->get_id_edit($id);
-        echo json_encode(array("status" => TRUE, 'nama' => $anggota->nama, 'nomor_anggota' => $anggota->nomor_anggota, 'kredit_limit' => $anggota->kredit_limit, 'usage_kredit' => $anggota->usage_kredit));
+        $total_kredit = $this->anggota_management->total_kredit_anggota($id);
+        echo json_encode(array("status" => TRUE, 'nama' => $anggota->nama, 'nomor_anggota' => $anggota->nomor_anggota, 'kredit_limit' => $anggota->kredit_limit, 'usage_kredit' => $total_kredit));
     }
 
     public function add_pembayaran()
@@ -292,9 +303,16 @@ class Nota_Management extends CI_Controller
             $new_number = "000001"; // Start from 000001 if no previous entry
         }
 
-        $usage_now = $anggota->usage_kredit - $nominal_bayar;
+        $this->db->select_sum('nominal_kredit');
+        $this->db->from('nota');
+        $this->db->join('anggota', 'anggota.id = nota.id_anggota');
+        $this->db->where('id_anggota', $id_anggota);
+        $this->db->where('status', '1');
 
-        // Create the new ID
+        $query = $this->db->get();
+        $result = $query->row();
+        $usage_now = $result->nominal_kredit;
+
         $new_id = $new_number . $current_year;
 
         // Save the new data

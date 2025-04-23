@@ -5,8 +5,8 @@ class Riwayat_Kasir_m extends CI_Model
     var $table = 'nota';
     // var $column_order = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable orderable
     // var $column_search = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable searchable 
-    var $column_order = array('id', 'tanggal_jam', 'nominal_kredit', 'nominal_cash', 'koperasi.nama_koperasi', 'nama', 'nota.status'); //set column field database for datatable orderable
-    var $column_search = array('id', 'tanggal_jam', 'nominal_kredit', 'nominal_cash', 'koperasi.nama_koperasi', 'nama', 'nota.status'); //set column field database for datatable searchable 
+    var $column_order = array('nota.id', 'tanggal_jam', 'nominal_kredit', 'nominal_cash', 'koperasi.nama_koperasi', 'nama', 'nota.status'); //set column field database for datatable orderable
+    var $column_search = array('nota.id', 'tanggal_jam', 'nominal_kredit', 'nominal_cash', 'koperasi.nama_koperasi', 'nama', 'nota.status'); //set column field database for datatable searchable 
 
     var $order = array('nota.id' => 'DESC'); // default order 
 
@@ -141,15 +141,15 @@ class Riwayat_Kasir_m extends CI_Model
     var $table_pembayaran = 'nota_pembayaran';
     // var $column_order = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable orderable
     // var $column_search = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable searchable 
-    var $column_order_pembayaran = array('nota_pembayaran.id', 'nama_anggota', 'nama_koperasi', 'tanggal_jam', 'nominal', 'status'); //set column field database for datatable orderable
-    var $column_search_pembayaran = array('nota_pembayaran.id', 'nama_anggota', 'nama_koperasi', 'tanggal_jam', 'nominal', 'status'); //set column field database for datatable searchable 
+    var $column_order_pembayaran = array('nota_pembayaran.id', 'anggota.nama', 'nama_koperasi', 'tanggal_jam', 'nominal', 'status'); //set column field database for datatable orderable
+    var $column_search_pembayaran = array('nota_pembayaran.id', 'anggota.nama', 'nama_koperasi', 'tanggal_jam', 'nominal', 'status'); //set column field database for datatable searchable 
 
     var $order_pembayaran = array('nota_pembayaran.id' => 'DESC'); // default order 
 
     function _get_datatables_query_pembayaran()
     {
 
-        $this->db->select('nota_pembayaran.*, koperasi.nama_koperasi as nama_koperasi, anggota.nama as nama_anggota');
+        $this->db->select('nota_pembayaran.*, koperasi.nama_koperasi as nama_koperasi, anggota.nama');
         $this->db->from('nota_pembayaran');
         // $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
         $this->db->join('anggota', 'anggota.id = nota_pembayaran.id_anggota', 'left');
@@ -223,7 +223,7 @@ class Riwayat_Kasir_m extends CI_Model
 
         $this->db->select_sum('nominal');
         $this->db->from('nota_pembayaran');
-        $this->db->join('toko', 'nota_pembayaran.id_toko = toko.id', 'left');
+        // $this->db->join('toko', 'nota_pembayaran.id_toko = toko.id', 'left');
         // $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
         $this->db->join('anggota', 'anggota.id = nota_pembayaran.id_anggota', 'left');
         if ($this->session->userdata('role') == "Kasir") {
@@ -240,15 +240,15 @@ class Riwayat_Kasir_m extends CI_Model
     var $table_transaksi_inkopkar = 'log_transaksi';
     // var $column_order = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable orderable
     // var $column_search = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable searchable 
-    var $column_order_transaksi_inkopkar = array('log_transaksi.id', 'nama_admin', 'nama_koperasi', 'post_date', 'sebelum', 'nominal', 'sesudah'); //set column field database for datatable orderable
-    var $column_search_transaksi_inkopkar = array('log_transaksi.id', 'nama_admin', 'nama_koperasi', 'post_date', 'sebelum', 'nominal', 'sesudah'); //set column field database for datatable searchable 
+    var $column_order_transaksi_inkopkar = array('log_transaksi.id', 'anggota.nama', 'nama_koperasi', 'post_date', 'sebelum', 'nominal', 'sesudah'); //set column field database for datatable orderable
+    var $column_search_transaksi_inkopkar = array('log_transaksi.id', 'anggota.nama', 'nama_koperasi', 'post_date', 'sebelum', 'nominal', 'sesudah'); //set column field database for datatable searchable 
 
     var $order_transaksi_inkopkar = array('log_transaksi.id' => 'DESC'); // default order 
 
     function _get_datatables_query_transaksi_inkopkar()
     {
 
-        $this->db->select('log_transaksi.*, koperasi.nama_koperasi as nama_koperasi, anggota.nama as nama_admin');
+        $this->db->select('log_transaksi.*, koperasi.nama_koperasi as nama_koperasi, anggota.nama');
         $this->db->from('log_transaksi');
         $this->db->join('koperasi', 'log_transaksi.id_koperasi = koperasi.id', 'left');
         $this->db->join('anggota', 'anggota.id = log_transaksi.id_admin', 'left');

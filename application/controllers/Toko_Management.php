@@ -48,14 +48,6 @@ class Toko_Management extends CI_Controller
             $row[] = $cat->alamat;
             $row[] = $cat->pic;
 
-            $this->db->select_sum('usage_kredit');
-            $this->db->from('anggota');
-            $this->db->join('toko', 'toko.id = anggota.id_toko');
-            $this->db->where('id_koperasi', $cat->id);
-            $query = $this->db->get();
-            $result = $query->row();
-            $total_usage_kredit = $result->usage_kredit ?? 0;
-
             $row[] = '<center> <div class="list-icons d-inline-flex">
                 <a title="Update User" href="' . base_url('Toko_Management/update/' . $cat->id) . '" class="btn btn-warning"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit">
                                                         <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>

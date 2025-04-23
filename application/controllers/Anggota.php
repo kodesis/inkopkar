@@ -136,7 +136,7 @@ class Anggota extends CI_Controller
         $username = $this->input->post('username');
         $password = $this->input->post('password');
         $kredit_limit = $this->input->post('kredit_limit');
-        $usage_kredit = $this->input->post('usage_kredit');
+        // $usage_kredit = $this->input->post('usage_kredit');
         $id_koperasi = $this->input->post('id_koperasi');
 
         // Prepare data array
@@ -169,7 +169,7 @@ class Anggota extends CI_Controller
         $username = $this->input->post('username');
         $password = $this->input->post('password');
         $kredit_limit = $this->input->post('kredit_limit');
-        $usage_kredit = $this->input->post('usage_kredit');
+        // $usage_kredit = $this->input->post('usage_kredit');
         $id_koperasi = $this->input->post('id_koperasi');
 
         // Prepare data array
@@ -182,7 +182,7 @@ class Anggota extends CI_Controller
             'username' => $username,
             // 'password' => password_hash($password, PASSWORD_BCRYPT), // Hash the password
             'kredit_limit' => $kredit_limit,
-            'usage_kredit' => $usage_kredit,
+            // 'usage_kredit' => $usage_kredit,
             'id_koperasi' => $id_koperasi
         ];
 

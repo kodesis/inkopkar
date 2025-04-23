@@ -5,8 +5,8 @@ class Anggota_Management_m extends CI_Model
     var $table = 'anggota';
     // var $column_order = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable orderable
     // var $column_search = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable searchable 
-    var $column_order = array('id', 'nomor_anggota', 'nama', 'tempat_lahir', 'tanggal_lahir', 'no_telp', 'username', 'kredit_limit', 'usage_kredit', 'nama_koperasi', 'role'); //set column field database for datatable orderable
-    var $column_search = array('id', 'nomor_anggota', 'nama', 'tempat_lahir', 'tanggal_lahir', 'no_telp', 'username', 'kredit_limit', 'usage_kredit', 'nama_koperasi', 'role'); //set column field database for datatable searchable 
+    var $column_order = array('anggota.id', 'nomor_anggota', 'nama', 'tempat_lahir', 'tanggal_lahir', 'no_telp', 'username', 'kredit_limit', 'usage_kredit', 'nama_koperasi', 'role'); //set column field database for datatable orderable
+    var $column_search = array('anggota.id', 'nomor_anggota', 'nama', 'tempat_lahir', 'tanggal_lahir', 'no_telp', 'username', 'kredit_limit', 'usage_kredit', 'nama_koperasi', 'role'); //set column field database for datatable searchable 
 
     var $order = array('anggota.id' => 'DESC'); // default order 
 
@@ -99,6 +99,7 @@ class Anggota_Management_m extends CI_Model
 
         return $query->row();
     }
+
     public function update_data($data, $where)
     {
         $this->db->update('anggota', $data, $where);
@@ -124,5 +125,17 @@ class Anggota_Management_m extends CI_Model
             $this->db->where('koperasi.id', $this->session->userdata('id_koperasi'));
         }
         return $this->db->get()->result();
+    }
+
+    public function total_kredit_anggota($id)
+    {
+        $this->db->select_sum('nominal_kredit');
+        $this->db->from('nota');
+        $this->db->where('id_anggota', $id);
+        $this->db->where('status', '1');
+        $query = $this->db->get();
+        $result = $query->row();
+
+        return $result->nominal_kredit;
     }
 }

@@ -101,23 +101,66 @@ class Koperasi_Management_m extends CI_Model
         return $this->db->get()->result();
     }
 
-    public function total_saldo_koperasi()
+    public function total_saldo_koperasi_tagihan()
     {
-        $this->db->select_sum('saldo_tagihan');
-        $this->db->select_sum('saldo_rekening');
-        $this->db->from('koperasi');
-        return $this->db->get()->row();
+        // $this->db->select_sum('saldo_tagihan');
+        // $this->db->select_sum('saldo_rekening');
+        // $this->db->from('koperasi');
+        $this->db->select_sum('nominal');
+        $this->db->from('nota_pembayaran');
+        $this->db->where('status', '1');
+        $query = $this->db->get();
+        $result = $query->row();
+        $saldo_tagihan = $result->nominal ?? 0;
+
+        return $saldo_tagihan;
+    }
+    public function total_saldo_koperasi_rekening()
+    {
+        // $this->db->select_sum('saldo_tagihan');
+        // $this->db->select_sum('saldo_rekening');
+        // $this->db->from('koperasi');
+
+        $this->db->select_sum('nominal');
+        $this->db->from('nota_pembayaran');
+        $this->db->where('status', '2');
+        $query = $this->db->get();
+        $result = $query->row();
+        $saldo_rekening = $result->nominal ?? 0;
+
+        return $saldo_rekening;
     }
     public function total_saldo_usage_anggota()
     {
-        $this->db->select_sum('usage_kredit');
-        $this->db->from('anggota');
-        return $this->db->get()->row();
+        // $this->db->select_sum('usage_kredit');
+        // $this->db->from('anggota');
+
+        $this->db->select_sum('nominal_kredit');
+        $this->db->from('nota');
+        $this->db->where('status', '1');
+
+        $query = $this->db->get();
+        $semua_kredit = $query->row();
+        $total_semua_kredit = $semua_kredit->nominal_kredit;
+        // return $this->db->get()->row();
+        return $total_semua_kredit;
     }
 
     public function save_log_transaksi($data)
     {
         $this->db->insert('log_transaksi', $data);
         return $this->db->insert_id();
+    }
+    public function update_nota_pembayaran($id)
+    {
+        // Step 1: Get the records
+        $this->db->from('nota_pembayaran');
+        $this->db->join('anggota', 'anggota.id = nota_pembayaran.id_anggota');
+        $this->db->where('anggota.id_koperasi', $id);
+        $this->db->where('status', '1');
+        $notas = $this->db->get()->result();
+        return $notas;
+        // Step 2: Loop through and update status
+
     }
 }

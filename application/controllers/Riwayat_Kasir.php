@@ -129,7 +129,7 @@ class Riwayat_Kasir extends CI_Controller
             $no++;
             $row = array();
             $row[] = $cat->id;
-            $row[] = $cat->nama_anggota;
+            $row[] = $cat->nama;
             $row[] = $cat->nama_koperasi;
             $date = new DateTime($cat->tanggal_jam);
             $row[] = $date->format('d F Y, H:i:s');
