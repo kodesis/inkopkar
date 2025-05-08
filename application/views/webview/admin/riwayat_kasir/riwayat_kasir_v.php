@@ -30,6 +30,7 @@
                     <h5 class="card-title">
                         <!-- Minimal jQuery Datatable -->
                         <!-- <a href="<?= base_url('Riwayat_Kasir/add') ?>" class="btn btn-primary">Create Riwayat Kasir</a> -->
+                        <a href="<?= base_url('Riwayat_Kasir/detail_penjualan') ?>" class="btn btn-primary">Semua Penjualan</a>
                     </h5>
                 </div>
                 <div class="card-body">

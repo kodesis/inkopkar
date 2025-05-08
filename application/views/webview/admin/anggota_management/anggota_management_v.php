@@ -39,7 +39,18 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nomor Anggota</th>
+                                    <?php
+                                    if ($this->session->userdata('role') == "Puskopkar") {
+                                    ?>
+                                        <th>Nomor Koperasi</th>
+
+                                    <?php
+                                    } else {
+                                    ?>
+                                        <th>Nomor Anggota</th>
+                                    <?php
+                                    }
+                                    ?>
                                     <th>Nama</th>
                                     <th>Tempat Lahir</th>
                                     <th>Tanggal Lahir</th>
@@ -47,6 +58,7 @@
                                     <th>Username</th>
                                     <th>Kredit Limit</th>
                                     <th>Usage Kredit</th>
+                                    <th>Saldo Simpanan</th>
                                     <th>Koperasi</th>
                                     <th>Role</th>
                                     <th>#</th>

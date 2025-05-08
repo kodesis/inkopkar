@@ -40,6 +40,7 @@
                                     <th>No</th>
                                     <th>Nama</th>
                                     <th>Koperasi</th>
+                                    <th>Tujuan</th>
                                     <th>Tanggal</th>
                                     <th>Sebelum</th>
                                     <th>Nominal</th>
@@ -47,7 +48,7 @@
                                     <!-- <th>#</th> -->
                                 </tr>
                             </thead>
-                            <tfoot>
+                            <!-- <tfoot>
                                 <tr>
                                     <th colspan="5">
                                         Total
@@ -63,7 +64,7 @@
                                         </div>
                                     </th>
                                 </tr>
-                            </tfoot>
+                            </tfoot> -->
                         </table>
                     </div>
                 </div>

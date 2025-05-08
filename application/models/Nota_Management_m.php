@@ -172,9 +172,30 @@ class Nota_Management_m extends CI_Model
         $notas = $this->db->get()->result();
 
         // Step 2: Loop through and update status
+        $id_nota = [];
         foreach ($notas as $nota) {
             $this->db->where('id', $nota->id); // assuming 'id' is the primary key
             $this->db->update('nota', ['status' => '2']);
+            $id_nota[] = $nota->sub_id; // collect updated IDs
+
         }
+        return $id_nota;
+    }
+
+    public function get_anggota_saldo_simpanan()
+    {
+        $this->db->select('anggota.*, koperasi.nama_koperasi');
+        $this->db->from('anggota');
+        $this->db->join('toko', 'anggota.id_toko = toko.id', 'left');
+        $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
+        if ($this->session->userdata('role') == "Koperasi") {
+            $this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
+            $this->db->where('role >', '3');
+        } else if ($this->session->userdata('role') == "Puskopkar") {
+            $this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
+            $this->db->where('role', '2');
+        }
+
+        return $this->db->get()->result();
     }
 }

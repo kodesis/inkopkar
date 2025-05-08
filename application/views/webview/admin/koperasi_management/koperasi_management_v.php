@@ -30,6 +30,7 @@
                     <h5 class="card-title">
                         <!-- Minimal jQuery Datatable -->
                         <a href="<?= base_url('Koperasi_Management/add') ?>" class="btn btn-primary">Create Koperasi</a>
+                        <a href="<?= base_url('Koperasi_Management/transaksi') ?>" class="btn btn-primary">Transaksi</a>
 
                     </h5>
                 </div>
@@ -42,13 +43,11 @@
                                     <th>Nama Koperasi</th>
                                     <th>Alamat</th>
                                     <th>Telpon</th>
-                                    <th>Saldo Kredit</th>
-                                    <th>Saldo Internal</th>
                                     <th>Saldo Inkopkar</th>
                                     <th>#</th>
                                 </tr>
                             </thead>
-                            <thead>
+                            <!-- <thead>
                                 <tr>
                                     <th colspan="4">No</th>
                                     <th>
@@ -63,7 +62,7 @@
                                     </th>
                                     <th>#</th>
                                 </tr>
-                            </thead>
+                            </thead> -->
                         </table>
                     </div>
                 </div>

@@ -19,12 +19,12 @@
 
         // Load data for the table's content from an Ajax source
         ajax: {
-            url: "<?php echo site_url('Koperasi_Management/ajax_list') ?> ",
+            url: "<?php echo site_url('Koperasi_Management/ajax_list1') ?> ",
             type: "POST",
             data: function(data) {}
         },
         columnDefs: [{
-            targets: [4, 5], // The 8th column (0-indexed)
+            targets: [5], // The 8th column (0-indexed)
             orderable: false // Disable sorting
         }]
     })
@@ -435,11 +435,11 @@
                                 title: 'Berhasil Men-Transfer Saldo ke Inkopkar',
                                 timer: 1500
                             });
-                            // location.reload();
-                            setTimeout(function() {
-                                console.log('Redirecting to Koperasi_Management...');
-                                // location.href = '<?= base_url('Koperasi_Management') ?>';
-                            }, 1500); // Delay for smooth transition
+                            location.reload();
+                            // setTimeout(function() {
+                            //     console.log('Redirecting to Koperasi_Management...');
+                            //     // location.href = '<?= base_url('Koperasi_Management') ?>';
+                            // }, 1500); // Delay for smooth transition
                         }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {

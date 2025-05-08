@@ -74,7 +74,7 @@
                             title: 'Username Dan Password Salah',
                             timer: 1500
                         });
-                    } else {
+                    } else if (data.status == 'Success') {
                         // document.getElementById('rumahadat').reset();
                         // $('#add_modal').modal('hide');
                         (JSON.stringify(data));
@@ -97,6 +97,14 @@
 
                         // location.reload();
 
+                    } else {
+                        swal.fire({
+                            customClass: 'slow-animation',
+                            icon: 'error',
+                            showConfirmButton: false,
+                            title: 'Gagal Login',
+                            timer: 1500
+                        });
                     }
                 },
                 error: function(jqXHR, textStatus, errorThrown) {

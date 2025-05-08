@@ -116,6 +116,8 @@ class Auth extends CI_Controller
 				$role = 'Kasir';
 			} else if ($user->role == 4) {
 				$role = 'Anggota';
+			} else if ($user->role == 5) {
+				$role = 'Puskopkar';
 			}
 			$this->session->set_userdata([
 				'user_user_id'   => $user->id,

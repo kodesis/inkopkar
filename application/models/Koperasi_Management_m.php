@@ -8,7 +8,7 @@ class Koperasi_Management_m extends CI_Model
     var $column_order = array('id', 'nama_koperasi', 'alamat', 'telp'); //set column field database for datatable orderable
     var $column_search = array('id', 'nama_koperasi', 'alamat', 'telp'); //set column field database for datatable searchable 
 
-    var $order = array('koperasi.id' => 'DESC'); // default order 
+    var $order = array('koperasi.saldo_rekening' => 'DESC'); // default order 
 
     function _get_datatables_query()
     {
@@ -162,5 +162,12 @@ class Koperasi_Management_m extends CI_Model
         return $notas;
         // Step 2: Loop through and update status
 
+    }
+
+    public function get_puskopkar()
+    {
+        $this->db->from('anggota');
+        $this->db->where('role', '5');
+        return $this->db->get()->row();
     }
 }

@@ -26,9 +26,9 @@ class Auth_m extends CI_Model
     public function user_kasir_login($username, $password)
     {
 
-        $this->db->select('u.*, toko.id_koperasi');
+        $this->db->select('u.*');
         $this->db->from('anggota u');
-        $this->db->join('toko', 'u.id_toko = toko.id', 'left');
+        // $this->db->join('toko', 'u.id_toko = toko.id', 'left');
         $where = '(username = "' . $username . '")';
         // $this->db->join('mast_regional m', 'u.id_regional=m.id', 'left');
 

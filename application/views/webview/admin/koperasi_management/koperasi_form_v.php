@@ -40,7 +40,21 @@
                                 <div class="card-body">
                                     <form class="form" id="add_Koperasi">
                                         <div class="row">
-
+                                            <!-- <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="text">Puskopkar</label>
+                                                    <select class="choices form-control" name="id_toko" id="id_toko_edit">
+                                                        <option disabled>-- Pilih Puskopkar --</option>
+                                                        <?php
+                                                        foreach ($puskopkar as $c) {
+                                                        ?>
+                                                            <option value="<?= $c->id ?>"><?= $c->id . ' - ' . $c->nomor_anggota . ' - ' . $c->nama ?></option>
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                            </div> -->
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="email-id-vertical">Nama Koperasi</label>
@@ -79,6 +93,21 @@
                                     <form class="form" id="update_Koperasi">
                                         <div class="row">
                                             <input type="hidden" name="id_edit" value="<?= $Koperasi->id ?>">
+                                            <!-- <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="text">Puskopkar</label>
+                                                    <select class="choices form-control" name="id_toko" id="id_toko_edit">
+                                                        <option disabled>-- Pilih Puskopkar --</option>
+                                                        <?php
+                                                        foreach ($puskopkar as $c) {
+                                                        ?>
+                                                            <option <?php if ($Anggota->id_toko == $c->id) echo "selected" ?> value="<?= $c->id ?>"><?= $c->id . ' - ' . $c->nama_koperasi . ' - ' . $c->nama_toko ?></option>
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                            </div> -->
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="email-id-vertical">Nama Koperasi</label>

@@ -119,13 +119,19 @@
                             </a>
 
                             <ul class="submenu">
-                                <li class="submenu-item <?php if ($url_now == 'Riwayat_Kasir/detail') {
-                                                            echo 'active ';
-                                                        } ?>">
-                                    <a href="<?= base_url('Riwayat_Kasir/detail') ?>" class="submenu-link">Penjualan Kredit</a>
+                                <?php
+                                if ($this->session->userdata('role') != "Puskopkar") {
+                                ?>
+                                    <li class="submenu-item <?php if ($url_now == 'Riwayat_Kasir/detail') {
+                                                                echo 'active ';
+                                                            } ?>">
+                                        <a href="<?= base_url('Riwayat_Kasir/detail') ?>" class="submenu-link">Penjualan Kredit</a>
 
-                                </li>
+                                    </li>
 
+                                <?php
+                                }
+                                ?>
                                 <?php
                                 if ($this->session->userdata('role') == "Admin" || $this->session->userdata('role') == "Koperasi") {
                                 ?>
@@ -133,6 +139,18 @@
                                                                 echo 'active ';
                                                             } ?>">
                                         <a href="<?= base_url('Riwayat_Kasir/detail_pembayaran') ?>" class="submenu-link">Riwayat Pembayaran</a>
+
+                                    </li>
+                                <?php
+                                }
+                                ?>
+                                <?php
+                                if ($this->session->userdata('role') == "Admin" || $this->session->userdata('role') == "Koperasi" || $this->session->userdata('role') == "Puskopkar" || $this->session->userdata('role') == "Anggota") {
+                                ?>
+                                    <li class="submenu-item <?php if ($url_now == 'Riwayat_Kasir/detail_saldo_simpanan') {
+                                                                echo 'active ';
+                                                            } ?>">
+                                        <a href="<?= base_url('Riwayat_Kasir/detail_saldo_simpanan') ?>" class="submenu-link">Riwayat Saldo Simpanan</a>
 
                                     </li>
                                 <?php
@@ -153,7 +171,7 @@
                             </ul>
                         </li>
                         <?php
-                        if ($this->session->userdata('role') == "Admin" || $this->session->userdata('role') == "Koperasi") {
+                        if ($this->session->userdata('role') == "Admin" || $this->session->userdata('role') == "Koperasi" || $this->session->userdata('role') == "Puskopkar") {
                         ?>
                             </li>
                             <li
@@ -199,7 +217,21 @@
                         <?php
                         }
                         ?>
-
+                        <?php
+                        if ($this->session->userdata('role') == "Puskopkar" || $this->session->userdata('role') == "Koperasi" || $this->session->userdata('role') == "Admin") {
+                        ?>
+                            <li
+                                class="sidebar-item <?php if ($url_now == 'Saldo_Simpanan/add_simpanan') {
+                                                        echo 'active ';
+                                                    } ?>">
+                                <a href="<?= base_url('Saldo_Simpanan/add_simpanan') ?>" class='sidebar-link'>
+                                    <i class="bi bi-grid-fill"></i>
+                                    <span>Tambah Saldo Simpanan</span>
+                                </a>
+                            </li>
+                        <?php
+                        }
+                        ?>
                         <?php
                         if ($this->session->userdata('role') == "Admin") {
                         ?>
@@ -244,7 +276,17 @@
                         }
                         ?>
                         <li class="sidebar-title">Account</li>
+                        <li
+                            class="sidebar-item <?php if ($url_now == 'profile') {
+                                                    echo 'active ';
+                                                } ?>">
+                            <a href="<?= base_url('Profile') ?>" class='sidebar-link'>
+                                <i class="bi bi-person-square"></i>
+                                <span>Profile</span>
+                            </a>
 
+
+                        </li>
                         <li
                             class="sidebar-item <?php if ($url_now == 'logout') {
                                                     echo 'active ';

@@ -34,7 +34,7 @@
                         if ($this->uri->segment(3) == null) {
                         ?>
                             <div class="card-header">
-                                <h4 class="card-title">Tambah Anggota</h4>
+                                <h4 class="card-title">Tambah Anggota </h4>
                             </div>
                             <div class="card-content">
                                 <div class="card-body">
@@ -103,7 +103,7 @@
                                                     <input type="number" class="form-control" id="usage_kredit_add" name="usage_kredit" placeholder="Usage Kredit">
                                                 </div>
                                             </div> -->
-                                            <div class="col-12">
+                                            <!-- <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="text">Toko Koperasi</label>
                                                     <?php
@@ -136,7 +136,7 @@
                                                     }
                                                     ?>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <?php
                                             if ($this->session->userdata('role') == "Admin") {
                                             ?>
@@ -146,10 +146,57 @@
                                                         <select class="form-select" name="role" id="kasir_add">
                                                             <option disabled selected>-- Pilih Role --</option>
                                                             <option value="1">Admin Inkopkar</option>
+                                                            <option value="5">User Puskopkar</option>
                                                             <option value="2">User Koperasi</option>
                                                             <option value="3">User Kasir</option>
                                                             <option value="4">User Anggota</option>
                                                         </select>
+                                                    </div>
+                                                </div>
+
+                                                <div id="puskopkar-field-add" style="display: none;">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="text">Puskopkar</label>
+                                                            <select class="choices form-control" name="id_puskopkar" id="id_puskopkar_edit">
+                                                                <option disabled selected>-- Pilih Puskopkar --</option>
+                                                                <?php foreach ($puskopkar as $c) { ?>
+                                                                    <option value="<?= $c->id ?>"><?= $c->id . ' - ' . $c->nomor_anggota . ' - ' . $c->nama ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-12" id="id_toko_koperasi_div" style="display: none;">
+                                                    <div class="form-group">
+                                                        <label for="text" id="title_toko" style="display: none;">Toko Koperasi</label>
+                                                        <label for="text" id="title_koperasi" style="display: none;">Koperasi</label>
+                                                        <div id="koperasi-field-add" style="display: none;">
+                                                            <select class="choices form-control" name="id_koperasi" id="id_koperasi_add">
+                                                                <option disabled selected>-- Pilih Koperasi --</option>
+                                                                <?php
+                                                                foreach ($koperasi as $c) {
+                                                                ?>
+                                                                    <option value="<?= $c->id ?>"><?= $c->id . ' - ' . $c->nama_koperasi ?></option>
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                        <div id="toko-field-add" style="display: none;">
+                                                            <select class="choices form-control" name="id_toko" id="id_toko_add">
+                                                                <option disabled selected>-- Pilih Toko Koperasi --</option>
+                                                                <?php
+                                                                foreach ($toko as $c) {
+                                                                ?>
+                                                                    <option value="<?= $c->id ?>"><?= $c->id . ' - ' . $c->nama_koperasi . ' - ' . $c->nama_toko ?></option>
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+
                                                     </div>
                                                 </div>
                                             <?php
@@ -163,9 +210,42 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                <div class="col-12" id="id_toko_koperasi_div" style="display: none;">
+                                                    <div class="form-group">
+                                                        <label for="text" id="title_toko" style="display: none;">Toko Koperasi</label>
+                                                        <label for="text" id="title_koperasi" style="display: none;">Koperasi</label>
+                                                        <div id="koperasi-field-add" style="display: none;">
+                                                            <select class="choices form-control" name="id_koperasi" id="id_koperasi_add">
+                                                                <option disabled selected>-- Pilih Koperasi --</option>
+                                                                <?php
+                                                                foreach ($koperasi as $c) {
+                                                                ?>
+                                                                    <option value="<?= $c->id ?>"><?= $c->id . ' - ' . $c->nama_koperasi ?></option>
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                        <div id="toko-field-add" style="display: none;">
+                                                            <select class="choices form-control" name="id_toko" id="id_toko_add">
+                                                                <option disabled selected>-- Pilih Toko Koperasi --</option>
+                                                                <?php
+                                                                foreach ($toko as $c) {
+                                                                ?>
+                                                                    <option value="<?= $c->id ?>"><?= $c->id . ' - ' . $c->nama_koperasi . ' - ' . $c->nama_toko ?></option>
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
                                             <?php
                                             }
                                             ?>
+
                                         </div>
                                     </form>
                                     <div class="col-12 d-flex justify-content-end">
@@ -249,7 +329,7 @@
                                                     <input type="number" class="form-control" id="usage_kredit_edit" name="usage_kredit" placeholder="Usage Kredit" value="<?= $Anggota->usage_kredit ?>">
                                                 </div>
                                             </div> -->
-                                            <div class="col-12">
+                                            <!-- <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="text">Toko Koperasi</label>
                                                     <select class="choices form-control" name="id_toko" id="id_toko_edit">
@@ -263,7 +343,7 @@
                                                         ?>
                                                     </select>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <?php
                                             if ($this->session->userdata('role') == "Admin") {
                                             ?>
@@ -280,7 +360,53 @@
                                                                 value="3">User Kasir</option>
                                                             <option <?= $Anggota->role == 4 ? 'selected' : '' ?>
                                                                 value="4">User Anggota</option>
+                                                            <option <?= $Anggota->role == 5 ? 'selected' : '' ?>
+                                                                value="5">Puskopkar</option>
                                                         </select>
+                                                    </div>
+                                                </div>
+                                                <div id="puskopkar-field-edit" style="display: none;">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="text">Puskopkar</label>
+                                                            <select class="choices form-control" name="id_puskopkar" id="id_puskopkar_edit">
+                                                                <option disabled>-- Pilih Puskopkar --</option>
+                                                                <?php foreach ($puskopkar as $c) { ?>
+                                                                    <option <?php if ($Anggota->id_puskopkar == $c->id) echo "selected" ?> value="<?= $c->id ?>"><?= $c->id . ' - ' . $c->nomor_anggota . ' - ' . $c->nama ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12" id="id_toko_koperasi_div" style="display: none;">
+                                                    <div class="form-group">
+                                                        <label for="text" id="title_toko" style="display: none;">Toko Koperasi</label>
+                                                        <label for="text" id="title_koperasi" style="display: none;">Koperasi</label>
+                                                        <div id="koperasi-field-edit" style="display: none;">
+                                                            <select class="choices form-control" name="id_koperasi" id="id_koperasi_add">
+                                                                <option disabled selected>-- Pilih Koperasi --</option>
+                                                                <?php
+                                                                foreach ($koperasi as $c) {
+                                                                ?>
+                                                                    <option <?php if ($Anggota->id_koperasi == $c->id) echo "selected" ?> value="<?= $c->id ?>"><?= $c->id . ' - ' . $c->nama_koperasi ?></option>
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                        <div id="toko-field-edit" style="display: none;">
+                                                            <select class="choices form-control" name="id_toko" id="id_toko_add">
+                                                                <option disabled selected>-- Pilih Toko Koperasi --</option>
+                                                                <?php
+                                                                foreach ($toko as $c) {
+                                                                ?>
+                                                                    <option <?php if ($Anggota->id_toko == $c->id) echo "selected" ?> value="<?= $c->id ?>"><?= $c->id . ' - ' . $c->nama_koperasi . ' - ' . $c->nama_toko ?></option>
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+
                                                     </div>
                                                 </div>
                                             <?php
@@ -294,9 +420,41 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="col-12" id="id_toko_koperasi_div" style="display: none;">
+                                                    <div class="form-group">
+                                                        <label for="text" id="title_toko" style="display: none;">Toko Koperasi</label>
+                                                        <label for="text" id="title_koperasi" style="display: none;">Koperasi</label>
+                                                        <div id="koperasi-field-edit" style="display: none;">
+                                                            <select class="choices form-control" name="id_koperasi" id="id_koperasi_add">
+                                                                <option disabled selected>-- Pilih Koperasi --</option>
+                                                                <?php
+                                                                foreach ($koperasi as $c) {
+                                                                ?>
+                                                                    <option <?php if ($Anggota->id_koperasi == $c->id) echo "selected" ?> value="<?= $c->id ?>"><?= $c->id . ' - ' . $c->nama_koperasi ?></option>
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                        <div id="toko-field-edit" style="display: none;">
+                                                            <select class="choices form-control" name="id_toko" id="id_toko_add">
+                                                                <option disabled selected>-- Pilih Toko Koperasi --</option>
+                                                                <?php
+                                                                foreach ($toko as $c) {
+                                                                ?>
+                                                                    <option <?php if ($Anggota->id_toko == $c->id) echo "selected" ?> value="<?= $c->id ?>"><?= $c->id . ' - ' . $c->nama_koperasi . ' - ' . $c->nama_toko ?></option>
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
                                             <?php
                                             }
                                             ?>
+
                                         </div>
                                     </form>
                                     <div class="col-12 d-flex justify-content-end">

@@ -29,7 +29,7 @@
 
         // Load data for the table's content from an Ajax source
         ajax: {
-            url: "<?php echo site_url('Riwayat_Kasir/ajax_list/' . $this->uri->segment(3)) ?> ",
+            url: "<?php echo site_url('Riwayat_Kasir/ajax_list/detail') ?> ",
             type: "POST",
             data: function(data) {}
         },

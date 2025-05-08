@@ -18,6 +18,159 @@
 
 
 <script>
+    $(document).ready(function() {
+        function togglePuskopkarField_edit() {
+            if ($('#kasir_edit').val() == '2') {
+                $('#puskopkar-field-edit').show();
+            } else {
+                $('#puskopkar-field-edit').hide();
+            }
+        }
+
+        function togglePuskopkarField_add() {
+            if ($('#kasir_add').val() == '2') {
+                $('#puskopkar-field-add').show();
+            } else {
+                $('#puskopkar-field-add').hide();
+            }
+        }
+
+        // Run on page load
+        togglePuskopkarField_edit();
+        togglePuskopkarField_add();
+
+        // Run when dropdown changes
+        $('#kasir_edit').change(function() {
+            togglePuskopkarField_edit();
+        });
+        $('#kasir_add').change(function() {
+            togglePuskopkarField_add();
+        });
+
+
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Elements for both adding and editing roles
+        const kasirAddSelect = document.getElementById("kasir_add"); // ID for adding
+        const kasirEditSelect = document.getElementById("kasir_edit"); // ID for editing
+
+        const koperasiFieldAdd = document.getElementById("koperasi-field-add");
+        const tokoFieldAdd = document.getElementById("toko-field-add");
+        const koperasiFieldEdit = document.getElementById("koperasi-field-edit");
+        const tokoFieldEdit = document.getElementById("toko-field-edit");
+
+        const div = document.getElementById("id_toko_koperasi_div");
+        const toko = document.getElementById("title_toko");
+        const koperasi = document.getElementById("title_koperasi");
+
+        // Function to toggle fields based on the selected role
+        function toggleFields(roleSelect, koperasiField, tokoField) {
+            koperasiField.style.display = "none";
+            tokoField.style.display = "none";
+            div.style.display = "none";
+            toko.style.display = "none";
+            koperasi.style.display = "none";
+
+            const role = parseInt(roleSelect.value);
+
+            if (role === 2 || role === 5 || role === 4) {
+                koperasi.style.display = "block";
+                koperasiField.style.display = "block";
+                div.style.display = "block";
+            } else if (role === 3) {
+                toko.style.display = "block";
+                tokoField.style.display = "block";
+                div.style.display = "block";
+            }
+        }
+
+        // Event listener for adding role
+        if (kasirAddSelect) {
+            kasirAddSelect.addEventListener("change", function() {
+                toggleFields(kasirAddSelect, koperasiFieldAdd, tokoFieldAdd);
+            });
+            // Initial call to set the fields on page load for adding
+            toggleFields(kasirAddSelect, koperasiFieldAdd, tokoFieldAdd);
+        }
+
+        // Event listener for editing role
+        if (kasirEditSelect) {
+            kasirEditSelect.addEventListener("change", function() {
+                toggleFields(kasirEditSelect, koperasiFieldEdit, tokoFieldEdit);
+            });
+            // Initial call to set the fields on page load for editing
+            toggleFields(kasirEditSelect, koperasiFieldEdit, tokoFieldEdit);
+        }
+    });
+
+
+
+    // document.addEventListener("DOMContentLoaded", function() {
+    //     const roleSelect = document.getElementById("kasir_add");
+    //     const koperasiField = document.getElementById("koperasi-field-add");
+    //     const tokoField = document.getElementById("toko-field-add");
+    //     const div = document.getElementById("id_toko_koperasi_div");
+    //     const toko = document.getElementById("title_toko");
+    //     const koperasi = document.getElementById("title_koperasi");
+    //     roleSelect.addEventListener("change", function() {
+    //         const role = parseInt(this.value);
+
+    //         koperasiField.style.display = "none";
+    //         tokoField.style.display = "none";
+    //         div.style.display = "none";
+    //         toko.style.display = "none";
+    //         koperasi.style.display = "none";
+
+    //         if (role === 2 || role === 5) {
+    //             koperasi.style.display = "block";
+    //             koperasiField.style.display = "block";
+    //             div.style.display = "block";
+
+    //         } else if (role === 3 || role === 4) {
+    //             toko.style.display = "block";
+    //             tokoField.style.display = "block";
+    //             div.style.display = "block";
+
+    //         } else {
+    //             koperasiField.style.display = "none";
+    //             tokoField.style.display = "none";
+    //             div.style.display = "none";
+    //         }
+    //     });
+    // });
+
+    // document.addEventListener("DOMContentLoaded", function() {
+    //     const roleSelect = document.getElementById("kasir_edit");
+    //     const koperasiField = document.getElementById("koperasi-field-edit");
+    //     const tokoField = document.getElementById("toko-field-edit");
+    //     const div = document.getElementById("id_toko_koperasi_div");
+    //     const toko = document.getElementById("title_toko");
+    //     const koperasi = document.getElementById("title_koperasi");
+    //     roleSelect.addEventListener("change", function() {
+    //         const role = parseInt(this.value);
+
+    //         koperasiField.style.display = "none";
+    //         tokoField.style.display = "none";
+
+    //         if (role === 2 || role === 5) {
+    //             koperasi.style.display = "block";
+    //             koperasiField.style.display = "block";
+    //             div.style.display = "block";
+
+    //         } else if (role === 3 || role === 4) {
+    //             toko.style.display = "block";
+    //             tokoField.style.display = "block";
+    //             div.style.display = "block";
+
+    //         } else {
+    //             koperasiField.style.display = "none";
+    //             tokoField.style.display = "none";
+    //             div.style.display = "none";
+    //         }
+    //     });
+    // });
+
     // let selects1 = $('#id_toko_add').select2({
     //     placeholder: "-- Pilih Toko Koperasi --",
     //     allowClear: true,
@@ -64,7 +217,7 @@
             data: function(data) {}
         },
         columnDefs: [{
-            targets: 11, // The 8th column (0-indexed)
+            targets: [11, 12], // The 8th column (0-indexed)
             orderable: false // Disable sorting
         }]
     })
@@ -430,33 +583,6 @@
 
 
     }
-
-
-    function uploadImage(file, editor, welEditable) {
-        const formData = new FormData();
-        formData.append("file", file);
-
-        $.ajax({
-            url: "<?php echo site_url('Anggota_Management/upload_summernote') ?>",
-            type: "POST",
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function(response) {
-                const result = JSON.parse(response);
-                console.log(result); // Add this to check the response
-                if (result.success) {
-                    $("#summernote1").summernote("insertImage", result.url);
-                    // $('#summernote1').summernote('editor.insertImage', result.url);
-                } else {
-                    alert(result.error || "File upload failed.");
-                }
-            },
-            error: function() {
-                alert("Error occurred during file upload.");
-            },
-        });
-    }
 </script>
 <!-- Include jQuery (required by Summernote) -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -488,4 +614,7 @@
             },
         },
     })
+</script>
+<script>
+
 </script>

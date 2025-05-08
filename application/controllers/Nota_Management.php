@@ -315,6 +315,9 @@ class Nota_Management extends CI_Controller
 
         $new_id = $new_number . $current_year;
 
+        $Pergantian_status = $this->nota_management->get_nota_kredit_by_anggota_id($id_anggota);
+        // echo json_encode(["status" => False, "ID_nota" => $Pergantian_status]);
+        // exit;
         // Save the new data
         $sub_id = $this->nota_management->save_pembayaran([
             'id'             => $new_id, // New generated ID
@@ -324,10 +327,11 @@ class Nota_Management extends CI_Controller
             'token'          => $token,
             'id_kasir'       => $this->session->userdata('user_user_id'),
             'id_toko'        => $this->session->userdata('id_toko'),
-            'status'         => 1
+            'id_koperasi'        => $this->session->userdata('id_koperasi'),
+            'status'         => 1,
+            'id_nota_kredit' => json_encode($Pergantian_status) // <--- encode array
         ]);
 
-        $Pergantian_status = $this->nota_management->get_nota_kredit_by_anggota_id($id_anggota);
         // $task_name = $get_task_detail['task_name'];
         // $nama_member = $get_user["nama"];
         // $comment = $this->input->post("commentt");

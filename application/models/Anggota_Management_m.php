@@ -5,8 +5,8 @@ class Anggota_Management_m extends CI_Model
     var $table = 'anggota';
     // var $column_order = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable orderable
     // var $column_search = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable searchable 
-    var $column_order = array('anggota.id', 'nomor_anggota', 'nama', 'tempat_lahir', 'tanggal_lahir', 'no_telp', 'username', 'kredit_limit', 'usage_kredit', 'nama_koperasi', 'role'); //set column field database for datatable orderable
-    var $column_search = array('anggota.id', 'nomor_anggota', 'nama', 'tempat_lahir', 'tanggal_lahir', 'no_telp', 'username', 'kredit_limit', 'usage_kredit', 'nama_koperasi', 'role'); //set column field database for datatable searchable 
+    var $column_order = array('anggota.id', 'nomor_anggota', 'nama', 'tempat_lahir', 'tanggal_lahir', 'no_telp', 'username', 'kredit_limit', 'usage_kredit', 'saldo_simpanan', 'nama_koperasi', 'role'); //set column field database for datatable orderable
+    var $column_search = array('anggota.id', 'nomor_anggota', 'nama', 'tempat_lahir', 'tanggal_lahir', 'no_telp', 'username', 'kredit_limit', 'usage_kredit', 'saldo_simpanan', 'nama_koperasi', 'role'); //set column field database for datatable searchable 
 
     var $order = array('anggota.id' => 'DESC'); // default order 
 
@@ -26,6 +26,9 @@ class Anggota_Management_m extends CI_Model
         } else if ($this->session->userdata('role') == "Kasir") {
             $this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
             $this->db->where('role', '4');
+        } else if ($this->session->userdata('role') == "Puskopkar") {
+            $this->db->where('id_puskopkar', $this->session->userdata('user_user_id'));
+            $this->db->where('role', '2');
         }
         // if ($this->session->userdata('role') == "Kasir") {
         //     $this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
@@ -116,7 +119,7 @@ class Anggota_Management_m extends CI_Model
         $this->db->from('anggota');
         return $this->db->get()->result();
     }
-    public function get_koperasi()
+    public function get_toko_koperasi()
     {
         $this->db->select('toko.*, koperasi.nama_koperasi');
         $this->db->from('toko');
@@ -124,6 +127,12 @@ class Anggota_Management_m extends CI_Model
         if ($this->session->userdata('role') == "Koperasi") {
             $this->db->where('koperasi.id', $this->session->userdata('id_koperasi'));
         }
+        return $this->db->get()->result();
+    }
+
+    public function get_koperasi()
+    {
+        $this->db->from('koperasi');
         return $this->db->get()->result();
     }
 
@@ -137,5 +146,25 @@ class Anggota_Management_m extends CI_Model
         $result = $query->row();
 
         return $result->nominal_kredit;
+    }
+    public function get_id_saldo_simpanan($id)
+    {
+        $this->db->select_sum('nominal');
+        $this->db->from('saldo_simpanan');
+        $this->db->where('id_anggota', $id);
+        $this->db->where('status', '1');
+        $query = $this->db->get()->row();
+
+        return $query->nominal;
+    }
+    public function get_puskopkar()
+    {
+        $this->db->from('anggota');
+        $this->db->where('role', '5');
+        return $this->db->get()->result();
+    }
+    public function update_profile($data, $where)
+    {
+        $this->db->update('anggota', $data, $where);
     }
 }
