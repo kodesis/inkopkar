@@ -33,7 +33,7 @@
                 <div class="row">
                     <div id="memo" class="col-70 order-0 order-lg-2">
                         <div class="services__details-thumb">
-                            <img src="assets/img/services/services_details01.jpg" alt="">
+                            <img src="assets/img/produk/e-memo.png" alt="">
                         </div>
                         <div class="services__details-content">
                             <h2 class="title">E-MEMO</h2>
@@ -76,7 +76,7 @@
                                 <div class="row gutter-24 align-items-center">
                                     <div class="col-44">
                                         <div class="services__details-inner-img">
-                                            <img src="assets/img/services/services_details_inner01.jpg" alt="">
+                                            <img src="assets/img/produk/e-memo2.jpg" alt="">
                                             <!-- <a href="https://www.youtube.com/watch?v=6mkoGSqTqFI" class="play-btn popup-video"><i class="fas fa-play"></i></a> -->
                                         </div>
                                     </div>
@@ -153,7 +153,7 @@
                     </div>
                     <div id="tello" class="col-70 order-0 order-lg-2">
                         <div class="services__details-thumb">
-                            <img src="assets/img/services/services_details01.jpg" alt="">
+                            <img src="assets/img/produk/e-hr.jpg" alt="">
                         </div>
                         <div class="services__details-content">
                             <h2 class="title">TELO/TASK </h2>
@@ -198,7 +198,7 @@
                                 <div class="row gutter-24 align-items-center">
                                     <div class="col-44">
                                         <div class="services__details-inner-img">
-                                            <img src="assets/img/services/services_details_inner01.jpg" alt="">
+                                            <img src="assets/img/produk/tello.jpg" alt="">
                                             <!-- <a href="https://www.youtube.com/watch?v=6mkoGSqTqFI" class="play-btn popup-video"><i class="fas fa-play"></i></a> -->
                                         </div>
                                     </div>
@@ -221,7 +221,7 @@
                                 <div class="row gutter-24 align-items-center">
                                     <div class="col-44">
                                         <div class="services__details-inner-img">
-                                            <img src="assets/img/services/services_details_inner01.jpg" alt="">
+                                            <img src="assets/img/produk/tello2.jpg" alt="">
                                             <!-- <a href="https://www.youtube.com/watch?v=6mkoGSqTqFI" class="play-btn popup-video"><i class="fas fa-play"></i></a> -->
                                         </div>
                                     </div>
@@ -243,7 +243,7 @@
                     </div>
                     <div id="cuti" class="col-70 order-0 order-lg-2">
                         <div class="services__details-thumb">
-                            <img src="assets/img/services/services_details01.jpg" alt="">
+                            <img src="assets/img/produk/cuti-online1.png" alt="">
                         </div>
                         <div class="services__details-content">
                             <h2 class="title">CUTI ONLINE</h2>
@@ -284,7 +284,7 @@
                             <div class="row gutter-24 align-items-center">
                                 <div class="col-44">
                                     <div class="services__details-inner-img">
-                                        <img src="assets/img/services/services_details_inner01.jpg" alt="">
+                                        <img src="assets/img/produk/e-asset.jpg" alt="">
                                         <!-- <a href="https://www.youtube.com/watch?v=6mkoGSqTqFI" class="play-btn popup-video"><i class="fas fa-play"></i></a> -->
                                     </div>
                                 </div>
@@ -319,7 +319,7 @@
                             <div class="row gutter-24 align-items-center">
                                 <div class="col-44">
                                     <div class="services__details-inner-img">
-                                        <img src="assets/img/services/services_details_inner01.jpg" alt="">
+                                        <img src="assets/img/produk/e-journal.jpg" alt="">
                                         <!-- <a href="https://www.youtube.com/watch?v=6mkoGSqTqFI" class="play-btn popup-video"><i class="fas fa-play"></i></a> -->
                                     </div>
                                 </div>
@@ -392,7 +392,7 @@
                             <div class="row gutter-24 align-items-center">
                                 <div class="col-44">
                                     <div class="services__details-inner-img">
-                                        <img src="assets/img/services/services_details_inner01.jpg" alt="">
+                                        <img src="assets/img/produk/absensi-online1.jpg" alt="">
                                         <!-- <a href="https://www.youtube.com/watch?v=6mkoGSqTqFI" class="play-btn popup-video"><i class="fas fa-play"></i></a> -->
                                     </div>
                                 </div>
@@ -441,7 +441,7 @@
                             <div class="row gutter-24 align-items-center">
                                 <div class="col-44">
                                     <div class="services__details-inner-img">
-                                        <img src="assets/img/services/services_details_inner01.jpg" alt="">
+                                        <img src="assets/img/produk/lettering.jpg" alt="">
                                         <!-- <a href="https://www.youtube.com/watch?v=6mkoGSqTqFI" class="play-btn popup-video"><i class="fas fa-play"></i></a> -->
                                     </div>
                                 </div>
@@ -478,7 +478,7 @@
                             <div class="row gutter-24 align-items-center">
                                 <div class="col-44">
                                     <div class="services__details-inner-img">
-                                        <img src="assets/img/services/services_details_inner01.jpg" alt="">
+                                        <img src="assets/img/produk/enterprise.jpg" alt="">
                                         <!-- <a href="https://www.youtube.com/watch?v=6mkoGSqTqFI" class="play-btn popup-video"><i class="fas fa-play"></i></a> -->
                                     </div>
                                 </div>
