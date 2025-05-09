@@ -414,7 +414,7 @@
                         </div>
                         <div class="services__details-content">
                             <h4>Fitur Umum Absensi Digital</h4>
-                            <div class="about__list-box">
+                            <div class="about__list-box mb-5">
                                 <ul class="list-wrap">
                                     <li><i class="flaticon-arrow-button"></i> Check-in & Check-out online (berbasis lokasi/GPS atau jaringan)
                                     </li>
@@ -424,7 +424,6 @@
                                     <li><i class="flaticon-arrow-button"></i>Laporan kehadiran yang mudah diakses dan diunduh</li>
                                 </ul>
                             </div>
-                            <br>
                             <h4>Manfaat Absensi Digital</h4>
                             <div class="about__list-box">
                                 <ul class="list-wrap">
@@ -464,12 +463,12 @@
                             <h4>Manfaat Lettering Digital</h4>
                             <div class="about__list-box">
                                 <ul class="list-wrap">
-                                    <li><i class="flaticon-arrow-button"></i><strong>Pengarsipan otomatis:</strong> Semua surat masuk dan keluar tersimpan secara sistematis dan mudah dicari.</li>
-                                    <li><i class="flaticon-arrow-button"></i><strong>Penomoran surat otomatis:</strong> Mencegah duplikasi nomor dan mempercepat pembuatan surat baru.</li>
-                                    <li><i class="flaticon-arrow-button"></i><strong>Disposisi digital:</strong> Surat dapat
+                                    <li><i class="flaticon-arrow-button"></i>Pengarsipan otomatis : Semua surat masuk dan keluar tersimpan secara sistematis dan mudah dicari.</li>
+                                    <li><i class="flaticon-arrow-button"></i>Penomoran surat otomatis : Mencegah duplikasi nomor dan mempercepat pembuatan surat baru.</li>
+                                    <li><i class="flaticon-arrow-button"></i>Disposisi digital : Surat dapat
                                         didisposisikan secara langsung oleh pimpinan tanpa harus hadir di kantor.</li>
-                                    <li><i class="flaticon-arrow-button"></i><strong>Akses jarak jauh:</strong> Surat dapat dibuat, dibaca, dan ditindaklanjuti dari mana saja selama terhubung ke internet.</li>
-                                    <li><i class="flaticon-arrow-button"></i><strong>Keamanan data:</strong> Dokumen penting tersimpan secara aman dalam sistem yang terproteksi.</li>
+                                    <li><i class="flaticon-arrow-button"></i>Akses jarak jauh : Surat dapat dibuat, dibaca, dan ditindaklanjuti dari mana saja selama terhubung ke internet.</li>
+                                    <li><i class="flaticon-arrow-button"></i>Keamanan data : Dokumen penting tersimpan secara aman dalam sistem yang terproteksi.</li>
                                 </ul>
                             </div>
                         </div>
