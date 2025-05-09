@@ -68,8 +68,9 @@
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="text">Anggota</label>
-                                                <select class="choices form-select" name="id_anggota" id="id_anggota_add" onchange="get_detail_user_pembayaran(); ">
-                                                    <option disabled selected>-- Pilih Anggota --</option>
+                                                <!-- <select class="choices form-select multiple-remove" multiple="multiple" name="id_anggota" id="id_anggota_add" onchange="get_detail_user_pembayaran(); "> -->
+                                                <select class="choices form-select" name=" id_anggota" id="id_anggota_add" onchange="get_detail_user_pembayaran(); ">
+                                                    <option disabled>-- Pilih Anggota --</option>
                                                     <?php
                                                     foreach ($anggota as $c) {
                                                     ?>

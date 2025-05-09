@@ -214,12 +214,12 @@ class Riwayat_Kasir extends CI_Controller
             $this->db->from('koperasi');
             $this->db->where('id', $cat->id_koperasi_awal);
             $awal = $this->db->get()->row();
-            $row[] = $awal->nama_koperasi;
+            $row[] = $awal->nama_koperasi ?? '-';
 
             $this->db->from('koperasi');
             $this->db->where('id', $cat->id_koperasi_tujuan);
             $tujuan = $this->db->get()->row();
-            $row[] = $tujuan->nama_koperasi;
+            $row[] = $tujuan?->nama_koperasi ?? '-';
 
             $date = new DateTime($cat->post_date);
             $row[] = $date->format('d F Y, H:i:s');

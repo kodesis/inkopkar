@@ -194,21 +194,19 @@ class Anggota_Management extends CI_Controller
         } else {
             $role = 2; // Kalo Puskopkar Auto Create Koperasi
         }
-        if ($role == '2' || $role == '5') {
+        if ($role == '2' || $role == '5' || $role == '4') {
             $id_toko = null;
             $id_koperasi = $this->input->post('id_koperasi');
-        } else if ($role == '3' || $role == '4') {
+        } else if ($role == '3') {
+            $id_toko = $this->input->post('id_toko');
+
             $this->db->from('toko');
-            $this->db->where('id', $this->input->post('id_toko'));
+            $this->db->where('id', $id_toko);
             $toko = $this->db->get()->row();
             if ($toko) {
                 $id_koperasi = $toko->id_koperasi;
             } else {
                 $id_koperasi = $this->session->userdata('id_koperasi');
-            }
-
-            if ($role == 4) {
-                $id_toko = null;
             }
         } else {
             $id_toko = null;

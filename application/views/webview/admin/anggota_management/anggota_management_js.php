@@ -54,6 +54,7 @@
         // Elements for both adding and editing roles
         const kasirAddSelect = document.getElementById("kasir_add"); // ID for adding
         const kasirEditSelect = document.getElementById("kasir_edit"); // ID for editing
+        const kasirCheckbox = document.getElementById("kasir_add"); // checkbox
 
         const koperasiFieldAdd = document.getElementById("koperasi-field-add");
         const tokoFieldAdd = document.getElementById("toko-field-add");
@@ -65,46 +66,72 @@
         const koperasi = document.getElementById("title_koperasi");
 
         // Function to toggle fields based on the selected role
-        function toggleFields(roleSelect, koperasiField, tokoField) {
-            koperasiField.style.display = "none";
-            tokoField.style.display = "none";
-            div.style.display = "none";
-            toko.style.display = "none";
-            koperasi.style.display = "none";
+        <?php
+        if ($this->session->userdata('role') == 'Admin') {
+        ?>
 
-            const role = parseInt(roleSelect.value);
+            function toggleFields(roleSelect, koperasiField, tokoField) {
+                koperasiField.style.display = "none";
+                tokoField.style.display = "none";
+                div.style.display = "none";
+                toko.style.display = "none";
+                koperasi.style.display = "none";
 
-            if (role === 2 || role === 5 || role === 4) {
-                koperasi.style.display = "block";
-                koperasiField.style.display = "block";
-                div.style.display = "block";
-            } else if (role === 3) {
+                const role = parseInt(roleSelect.value);
+
+                if (role === 2 || role === 5 || role === 4) {
+                    koperasi.style.display = "block";
+                    koperasiField.style.display = "block";
+                    div.style.display = "block";
+                } else if (role === 3) {
+                    toko.style.display = "block";
+                    tokoField.style.display = "block";
+                    div.style.display = "block";
+                }
+            }
+
+            // Event listener for adding role
+            if (kasirAddSelect) {
+                kasirAddSelect.addEventListener("change", function() {
+                    toggleFields(kasirAddSelect, koperasiFieldAdd, tokoFieldAdd);
+                });
+                // Initial call to set the fields on page load for adding
+                toggleFields(kasirAddSelect, koperasiFieldAdd, tokoFieldAdd);
+            }
+
+            // Event listener for editing role
+            if (kasirEditSelect) {
+                kasirEditSelect.addEventListener("change", function() {
+                    toggleFields(kasirEditSelect, koperasiFieldEdit, tokoFieldEdit);
+                });
+                // Initial call to set the fields on page load for editing
+                toggleFields(kasirEditSelect, koperasiFieldEdit, tokoFieldEdit);
+            }
+        <?php
+        }
+        ?>
+
+        function toggleFieldsByCheckbox() {
+            if (kasirCheckbox.checked) {
+                koperasiFieldAdd.style.display = "none";
+                tokoFieldAdd.style.display = "block";
+                koperasi.style.display = "none";
                 toko.style.display = "block";
-                tokoField.style.display = "block";
-                div.style.display = "block";
+            } else {
+                koperasiFieldAdd.style.display = "block";
+                tokoFieldAdd.style.display = "none";
+                koperasi.style.display = "block";
+                toko.style.display = "none";
             }
         }
 
-        // Event listener for adding role
-        if (kasirAddSelect) {
-            kasirAddSelect.addEventListener("change", function() {
-                toggleFields(kasirAddSelect, koperasiFieldAdd, tokoFieldAdd);
-            });
-            // Initial call to set the fields on page load for adding
-            toggleFields(kasirAddSelect, koperasiFieldAdd, tokoFieldAdd);
-        }
 
-        // Event listener for editing role
-        if (kasirEditSelect) {
-            kasirEditSelect.addEventListener("change", function() {
-                toggleFields(kasirEditSelect, koperasiFieldEdit, tokoFieldEdit);
-            });
-            // Initial call to set the fields on page load for editing
-            toggleFields(kasirEditSelect, koperasiFieldEdit, tokoFieldEdit);
+
+        if (kasirCheckbox) {
+            kasirCheckbox.addEventListener("change", toggleFieldsByCheckbox);
+            toggleFieldsByCheckbox(); // Panggil saat halaman pertama kali load
         }
     });
-
-
 
     // document.addEventListener("DOMContentLoaded", function() {
     //     const roleSelect = document.getElementById("kasir_add");

@@ -211,36 +211,35 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-12" id="id_toko_koperasi_div" style="display: none;">
-                                                    <div class="form-group">
-                                                        <label for="text" id="title_toko" style="display: none;">Toko Koperasi</label>
-                                                        <label for="text" id="title_koperasi" style="display: none;">Koperasi</label>
-                                                        <div id="koperasi-field-add" style="display: none;">
-                                                            <select class="choices form-control" name="id_koperasi" id="id_koperasi_add">
-                                                                <option disabled selected>-- Pilih Koperasi --</option>
-                                                                <?php
-                                                                foreach ($koperasi as $c) {
-                                                                ?>
-                                                                    <option value="<?= $c->id ?>"><?= $c->id . ' - ' . $c->nama_koperasi ?></option>
-                                                                <?php
-                                                                }
-                                                                ?>
-                                                            </select>
-                                                        </div>
-                                                        <div id="toko-field-add" style="display: none;">
-                                                            <select class="choices form-control" name="id_toko" id="id_toko_add">
-                                                                <option disabled selected>-- Pilih Toko Koperasi --</option>
-                                                                <?php
-                                                                foreach ($toko as $c) {
-                                                                ?>
-                                                                    <option value="<?= $c->id ?>"><?= $c->id . ' - ' . $c->nama_koperasi . ' - ' . $c->nama_toko ?></option>
-                                                                <?php
-                                                                }
-                                                                ?>
-                                                            </select>
-                                                        </div>
+                                                <div class="form-group">
+                                                    <label for="text" id="title_koperasi">Koperasi</label>
+                                                    <label for="text" id="title_toko" style="display: none;">Toko Koperasi</label>
 
+                                                    <div id="koperasi-field-add">
+                                                        <select class="choices form-control" name="id_koperasi" id="id_koperasi_add">
+                                                            <option disabled selected>-- Pilih Koperasi --</option>
+                                                            <?php
+                                                            foreach ($koperasi as $c) {
+                                                            ?>
+                                                                <option value="<?= $c->id ?>"><?= $c->id . ' - ' . $c->nama_koperasi ?></option>
+                                                            <?php
+                                                            }
+                                                            ?>
+                                                        </select>
                                                     </div>
+                                                    <div id="toko-field-add" style="display: none;">
+                                                        <select class="choices form-control" name="id_toko" id="id_toko_add">
+                                                            <option disabled selected>-- Pilih Toko Koperasi --</option>
+                                                            <?php
+                                                            foreach ($toko as $c) {
+                                                            ?>
+                                                                <option value="<?= $c->id ?>"><?= $c->id . ' - ' . $c->nama_koperasi . ' - ' . $c->nama_toko ?></option>
+                                                            <?php
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                    </div>
+
                                                 </div>
                                             <?php
                                             }
