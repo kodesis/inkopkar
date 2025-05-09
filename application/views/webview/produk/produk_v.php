@@ -388,7 +388,7 @@
                         </div>
                     </div>
                     <div id="absensi" class="col-70 order-0 order-lg-2">
-                        <div class="services__details-inner">
+                        <div class="services__details-inner mb-5">
                             <div class="row gutter-24 align-items-center">
                                 <div class="col-44">
                                     <div class="services__details-inner-img">
@@ -437,7 +437,7 @@
                         </div>
                     </div>
                     <div id="lettering" class="col-70 order-0 order-lg-2">
-                        <div class="services__details-inner">
+                        <div class="services__details-inner mb-5">
                             <div class="row gutter-24 align-items-center">
                                 <div class="col-44">
                                     <div class="services__details-inner-img">
@@ -474,7 +474,7 @@
                         </div>
                     </div>
                     <div id="enterprise" class="col-70 order-0 order-lg-2">
-                        <div class="services__details-inner">
+                        <div class="services__details-inner mb-5">
                             <div class="row gutter-24 align-items-center">
                                 <div class="col-44">
                                     <div class="services__details-inner-img">
@@ -500,7 +500,7 @@
                         </div>
                         <div class="services__details-content">
                             <h4>Tujuan Enterprise Solutions</h4>
-                            <div class="about__list-box">
+                            <div class="about__list-box mb-5">
                                 <ul class="list-wrap">
                                     <li><i class="flaticon-arrow-button"></i> Meningkatkan efisiensi operasional dengan mengotomatisasi proses bisnis.
                                     </li>
@@ -509,7 +509,6 @@
                                     <li><i class="flaticon-arrow-button"></i>Menekan biaya operasional jangka panjang dengan sistem yang terstruktur.</li>
                                 </ul>
                             </div>
-                            <br>
                             <h4>Contoh Sistem dalam Enterprise Solutions</h4>
                             <div class="about__list-box">
                                 <ul class="list-wrap">
