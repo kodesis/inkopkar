@@ -387,6 +387,142 @@
                             </div>
                         </div>
                     </div>
+                    <div id="absensi" class="col-70 order-0 order-lg-2">
+                        <div class="services__details-inner">
+                            <div class="row gutter-24 align-items-center">
+                                <div class="col-44">
+                                    <div class="services__details-inner-img">
+                                        <img src="assets/img/services/services_details_inner01.jpg" alt="">
+                                        <!-- <a href="https://www.youtube.com/watch?v=6mkoGSqTqFI" class="play-btn popup-video"><i class="fas fa-play"></i></a> -->
+                                    </div>
+                                </div>
+                                <div class="col-56">
+                                    <div class="services__details-inner-content">
+                                        <h2 class="title">Apa itu Absensi Digital ?</h2>
+                                        <p><strong> Absensi Digital </strong>adalah sistem pencatatan
+                                            kehadiran karyawan secara elektronik menggunakan perangkat
+                                            digital seperti komputer, smartphone, atau tablet. Sistem ini
+                                            menggantikan metode absensi manual seperti tanda tangan di
+                                            kertas atau mesin ceklok (fingerprint/manual clocking), dan
+                                            biasanya terhubung dengan jaringan internet agar data
+                                            tersimpan secara real-time di server.
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="services__details-content">
+                            <h4>Fitur Umum Absensi Digital</h4>
+                            <div class="about__list-box">
+                                <ul class="list-wrap">
+                                    <li><i class="flaticon-arrow-button"></i> Check-in & Check-out online (berbasis lokasi/GPS atau jaringan)
+                                    </li>
+                                    <li><i class="flaticon-arrow-button"></i>Rekaman waktu secara otomatis</li>
+                                    <li><i class="flaticon-arrow-button"></i>Notifikasi keterlambatan atau ketidakhadiran</li>
+                                    <li><i class="flaticon-arrow-button"></i>Integrasi dengan sistem cuti dan payroll</li>
+                                    <li><i class="flaticon-arrow-button"></i>Laporan kehadiran yang mudah diakses dan diunduh</li>
+                                </ul>
+                            </div>
+                            <br>
+                            <h4>Manfaat Absensi Digital</h4>
+                            <div class="about__list-box">
+                                <ul class="list-wrap">
+                                    <li><i class="flaticon-arrow-button"></i>Efisiensi waktu dan biaya</li>
+                                    <li><i class="flaticon-arrow-button"></i>Mengurangi kecurangan (manipulasi data kehadiran)</li>
+                                    <li><i class="flaticon-arrow-button"></i>Memudahkan HR dan manajemen dalam memantau kehadiran karyawan secara real-time</li>
+                                    <li><i class="flaticon-arrow-button"></i> Bisa digunakan dari mana saja selama ada koneksi internet
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="lettering" class="col-70 order-0 order-lg-2">
+                        <div class="services__details-inner">
+                            <div class="row gutter-24 align-items-center">
+                                <div class="col-44">
+                                    <div class="services__details-inner-img">
+                                        <img src="assets/img/services/services_details_inner01.jpg" alt="">
+                                        <!-- <a href="https://www.youtube.com/watch?v=6mkoGSqTqFI" class="play-btn popup-video"><i class="fas fa-play"></i></a> -->
+                                    </div>
+                                </div>
+                                <div class="col-56">
+                                    <div class="services__details-inner-content">
+                                        <h4 class="title">Apa itu Lettering Digital ?</h4>
+                                        <p> <strong>Lettering Digital </strong>adalah sistem
+                                            surat-menyurat elektronik yang dirancang untuk mempermudah
+                                            proses pengelolaan dokumen resmi dalam sebuah organisasi atau
+                                            perusahaan. Sistem ini menggantikan proses manual seperti
+                                            pencatatan, pencetakan, dan pengarsipan fisik surat dengan
+                                            proses digital yang lebih efisien, cepat, dan terstruktur.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="services__details-content">
+                            <h4>Manfaat Lettering Digital</h4>
+                            <div class="about__list-box">
+                                <ul class="list-wrap">
+                                    <li><i class="flaticon-arrow-button"></i><strong>Pengarsipan otomatis:</strong> Semua surat masuk dan keluar tersimpan secara sistematis dan mudah dicari.</li>
+                                    <li><i class="flaticon-arrow-button"></i><strong>Penomoran surat otomatis:</strong> Mencegah duplikasi nomor dan mempercepat pembuatan surat baru.</li>
+                                    <li><i class="flaticon-arrow-button"></i><strong>Disposisi digital:</strong> Surat dapat
+                                        didisposisikan secara langsung oleh pimpinan tanpa harus hadir di kantor.</li>
+                                    <li><i class="flaticon-arrow-button"></i><strong>Akses jarak jauh:</strong> Surat dapat dibuat, dibaca, dan ditindaklanjuti dari mana saja selama terhubung ke internet.</li>
+                                    <li><i class="flaticon-arrow-button"></i><strong>Keamanan data:</strong> Dokumen penting tersimpan secara aman dalam sistem yang terproteksi.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="enterprise" class="col-70 order-0 order-lg-2">
+                        <div class="services__details-inner">
+                            <div class="row gutter-24 align-items-center">
+                                <div class="col-44">
+                                    <div class="services__details-inner-img">
+                                        <img src="assets/img/services/services_details_inner01.jpg" alt="">
+                                        <!-- <a href="https://www.youtube.com/watch?v=6mkoGSqTqFI" class="play-btn popup-video"><i class="fas fa-play"></i></a> -->
+                                    </div>
+                                </div>
+                                <div class="col-56">
+                                    <div class="services__details-inner-content">
+                                        <h4 class="title">Apa itu Enterprise Solutions ?</h4>
+                                        <p><strong>Enterprise Solutions </strong>
+                                            adalah sekumpulan sistem, aplikasi, atau layanan teknologi
+                                            yang dirancang untuk memenuhi kebutuhan operasional dan
+                                            manajerial sebuah organisasi atau perusahaan secara
+                                            menyeluruh. Solusi ini biasanya mencakup integrasi berbagai
+                                            fungsi bisnis seperti keuangan, sumber daya manusia, logistik,
+                                            produksi, dan lainnya ke dalam satu sistem terpusat.
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="services__details-content">
+                            <h4>Tujuan Enterprise Solutions</h4>
+                            <div class="about__list-box">
+                                <ul class="list-wrap">
+                                    <li><i class="flaticon-arrow-button"></i> Meningkatkan efisiensi operasional dengan mengotomatisasi proses bisnis.
+                                    </li>
+                                    <li><i class="flaticon-arrow-button"></i>Memudahkan koordinasi antar departemen melalui integrasi data.</li>
+                                    <li><i class="flaticon-arrow-button"></i>Meningkatkan akurasi data dan pengambilan keputusan berbasis data real-time.</li>
+                                    <li><i class="flaticon-arrow-button"></i>Menekan biaya operasional jangka panjang dengan sistem yang terstruktur.</li>
+                                </ul>
+                            </div>
+                            <br>
+                            <h4>Contoh Sistem dalam Enterprise Solutions</h4>
+                            <div class="about__list-box">
+                                <ul class="list-wrap">
+                                    <li><i class="flaticon-arrow-button"></i>ERP (Enterprise Resource Planning)</li>
+                                    <li><i class="flaticon-arrow-button"></i>CRM (Customer Relationship Management)</li>
+                                    <li><i class="flaticon-arrow-button"></i>HRIS (Human Resource Information System)</li>
+                                    <li><i class="flaticon-arrow-button"></i>SCM (Supply Chain Management)</li>
+                                    <li><i class="flaticon-arrow-button"></i>BI (Business Intelligence)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-30">
                         <aside class="services__sidebar">
                             <div class="sidebar__widget sidebar__widget-two">
@@ -398,6 +534,9 @@
                                         <li><a href="#cuti" class="show-section">Cuti Digital <i class="flaticon-arrow-button"></i></a></li>
                                         <li><a href="#asset" class="show-section">Asset Management <i class="flaticon-arrow-button"></i></a></li>
                                         <li><a href="#jurnal" class="show-section">Jurnal <i class="flaticon-arrow-button"></i></a></li>
+                                        <li><a href="#absensi" class="show-section">Absensi <i class="flaticon-arrow-button"></i></a></li>
+                                        <li><a href="#lettering" class="show-section">Lettering <i class="flaticon-arrow-button"></i></a></li>
+                                        <li><a href="#enterprise" class="show-section">Enterprise <i class="flaticon-arrow-button"></i></a></li>
                                         <!-- <li><a href="#enterprise" class="show-section">Enterprise <i class="flaticon-arrow-button"></i></a></li> -->
                                     </ul>
                                 </div>
@@ -421,7 +560,7 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const sections = ["memo", "tello", "cuti", "asset", "jurnal", "enterprise"]; // Add more IDs as needed
+        const sections = ["memo", "tello", "cuti", "asset", "jurnal", "absensi", "lettering", "enterprise"]; // Add more IDs as needed
         const links = document.querySelectorAll("a.show-section");
 
         links.forEach(link => {
