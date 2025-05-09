@@ -33,8 +33,8 @@
                                     <img src="<?= base_url('/assets/admin/compiled/jpg/') ?>2.jpg" alt="Avatar">
                                 </div>
 
-                                <h3 class="mt-3">John Doe</h3>
-                                <p class="text-small">Junior Software Engineer</p>
+                                <h3 class="mt-3"><?= $detail->nama ?></h3>
+                                <p class="text-small"><?= $detail->nomor_anggota ?></p>
                             </div>
                         </div>
                     </div>
