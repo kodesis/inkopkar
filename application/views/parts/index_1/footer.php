@@ -113,7 +113,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="copyright-text-two">
-                            <!-- <p>Copyright © <a href="index.html">Apexa</a> | All Right Reserved</p> -->
+                            <p>Copyright 2025 © Kodesis.id | All Rights Reserved</p>
                         </div>
                     </div>
                 </div>
