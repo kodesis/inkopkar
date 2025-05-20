@@ -60,17 +60,28 @@ class Dashboard extends CI_Controller
 			// 	$this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
 			// }
 			// $this->db->where('status', '2');
-			$this->db->select_sum('nominal_kredit');
-			$this->db->from('nota');
-			$this->db->join('toko', 'toko.id = nota.id_toko');
-			if ($this->session->userdata('role') == "Kasir" || $this->session->userdata('role') == "Koperasi") {
-				$this->db->where('toko.id_koperasi', $this->session->userdata('id_koperasi'));
+			if ($this->session->userdata('role') == "Admin") {
+				$this->db->select_sum('nominal');
+				$this->db->from('log_transaksi');
+
+				$query = $this->db->get();
+				$result = $query->row();
+				// $saldo_rekening = $result->nominal ?? 0;
+				$saldo_rekening = $result->nominal ?? 0;
+			} else {
+				$this->db->select_sum('nominal_kredit');
+				$this->db->from('nota');
+				$this->db->join('toko', 'toko.id = nota.id_toko');
+				if ($this->session->userdata('role') == "Kasir" || $this->session->userdata('role') == "Koperasi") {
+					$this->db->where('toko.id_koperasi', $this->session->userdata('id_koperasi'));
+				}
+				$this->db->where('status', '3');
+
+				$query = $this->db->get();
+				$result = $query->row();
+				// $saldo_rekening = $result->nominal ?? 0;
+				$saldo_rekening = $result->nominal_kredit ?? 0;
 			}
-			$this->db->where('status', '3');
-			$query = $this->db->get();
-			$result = $query->row();
-			// $saldo_rekening = $result->nominal ?? 0;
-			$saldo_rekening = $result->nominal_kredit ?? 0;
 			$data['saldo_rekening'] = $saldo_rekening;
 		} else {
 			$this->db->select('kredit_limit');
