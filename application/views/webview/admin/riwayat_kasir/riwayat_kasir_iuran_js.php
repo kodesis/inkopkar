@@ -38,6 +38,79 @@
             orderable: false // Disable sorting
         }]
     })
+
+    function confirmVerifikasi(id) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                InputEvent: 'form-control',
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Ingin Memverifikasi Pencairan?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, Verifikasi',
+            cancelButtonText: 'Tidak',
+            reverseButtons: true
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+
+                var url;
+                var formData;
+                url = "<?php echo site_url('Nota_Management/proses_verifikasi_pencairan/') ?>" + id;
+
+                // window.location = url_base;
+                var formData = new FormData($("#add_Nota")[0]);
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    contentType: false,
+                    processData: false,
+                    dataType: "JSON",
+                    beforeSend: function() {
+                        swal.fire({
+                            icon: 'info',
+                            timer: 3000,
+                            showConfirmButton: false,
+                            title: 'Loading...'
+
+                        });
+                    },
+                    success: function(data) {
+                        /* if(!data.status)alert("ho"); */
+                        if (!data.status) swal.fire('Verifikasi Gagal', 'error : ' + data.Pesan);
+                        else {
+                            (JSON.stringify(data));
+                            swal.fire({
+                                customClass: 'slow-animation',
+                                icon: 'success',
+                                showConfirmButton: false,
+                                title: 'Berhasil Verifikasi Pencairan',
+                                timer: 1500
+                            }).then(jquery_datatable.ajax.reload());
+                            // location.reload();
+
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        swal.fire('Operation Failed!', errorThrown, 'error');
+                    },
+                    complete: function() {
+                        console.log('Editing job done');
+                    }
+                });
+
+
+            }
+
+        })
+
+    }
 </script>
 <!-- Include jQuery (required by Summernote) -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

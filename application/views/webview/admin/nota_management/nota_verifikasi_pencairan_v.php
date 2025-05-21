@@ -10,14 +10,14 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Form Verifikasi</h3>
+                    <h3>Form Verifikasi Pencairan</h3>
                     <!-- <p class="text-subtitle text-muted">Multiple form layouts, you can use.</p> -->
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="<?= base_url('dashboard') ?>">Dashboard</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Form Verifikasi</li>
+                            <li class="breadcrumb-item active" aria-current="page">Form Verifikasi Pencairan</li>
                         </ol>
                     </nav>
                 </div>
@@ -30,7 +30,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Form Verifikasi</h4>
+                            <h4 class="card-title">Form Verifikasi Pencairan</h4>
                         </div>
                         <div class="card-content">
                             <div class="card-body">

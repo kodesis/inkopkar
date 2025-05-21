@@ -336,11 +336,10 @@ class Riwayat_Kasir extends CI_Controller
             $row[] = $date->format('d F Y, H:i:s');
             // $row[] = "Rp. " . $cat->nominal_kredit;
 
-            $button = base_url('Nota_Management/verifikasi_pencairan/' . $cat->sub_id);
 
             if ($cat->status == 0) {
                 $row[] = '<center> <div class="list-icons d-inline-flex">
-                                                <a title="Delete User" href="' . $button . '" class="btn btn-danger">Belum Verifikasi</a>
+                                                <button title="Delete User" class="btn btn-danger" onclick="confirmVerifikasi(' . $cat->sub_id . ')">Belum Verifikasi</button>
             </div>
     </center>';
             } else if ($cat->status == "1") {

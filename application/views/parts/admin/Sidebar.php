@@ -153,6 +153,12 @@
                                         <a href="<?= base_url('Riwayat_Kasir/detail_transaksi_inkopkar') ?>" class="submenu-link">Riwayat Transaksi Inkopkar</a>
 
                                     </li>
+                                <?php
+                                }
+                                ?>
+                                <?php
+                                if ($this->session->userdata('role') == "Admin" || $this->session->userdata('role') == "Koperasi") {
+                                ?>
                                     <li class="submenu-item <?php if ($url_now == 'Riwayat_Kasir/detail_iuran') {
                                                                 echo 'active ';
                                                             } ?>">

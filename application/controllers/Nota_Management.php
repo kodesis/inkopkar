@@ -451,12 +451,28 @@ class Nota_Management extends CI_Controller
 
         // echo json_encode(["status" => TRUE, "sub_id" => $sub_id]);
     }
-    public function verifikasi_pencairan()
+    public function proses_verifikasi_pencairan($id)
     {
-        // $data['Nota'] = $this->nota_management->get_id_edit($id);
-        // $data['anggota'] = $this->nota_management->get_anggota();
-        $data['content']     = 'webview/admin/nota_management/nota_verifikasi_pencairan';
-        $data['content_js'] = 'webview/admin/nota_management/nota_iuran_management_js';
-        $this->load->view('parts/admin/Wrapper', $data);
+        $date = new DateTime('now', new DateTimeZone('Asia/Jakarta'));
+        $pencairan = $this->nota_management->get_id_edit_pencairan($id);
+        $data_update = [
+            'token'            => null,
+            'status'            => 1,
+        ];
+
+        $koperasi = $this->koperasi_management->get_id_edit($pencairan->id_koperasi);
+        // $usage_kredit = $anggota->usage_kredit + $nota->nominal_kredit;
+
+        $nominal = $pencairan->nominal;
+        $sisa_rekening = $koperasi->saldo_rekening - $nominal;
+
+        $total_iuran = $koperasi->saldo_iuran + $nominal;
+
+        $cek = $this->koperasi_management->update_data(['saldo_iuran' => $total_iuran, 'saldo_rekening' => $sisa_rekening], ['id' => $pencairan->id_koperasi]);
+
+        $this->nota_management->update_data_pencairan($data_update, array('sub_id' => $pencairan->sub_id));
+        // echo json_encode(array("status" => TRUE, "title" => $title));
+        // $this->nota_management->update_data($data_update, array('Id' => $id_edit));
+        echo json_encode(array("status" => TRUE, "id_anggota" => $pencairan->sub_id));
     }
 }

@@ -189,6 +189,8 @@ class Dashboard extends CI_Controller
 		// $data['saldo_rekening'] = $saldo_rekening;
 		$data['total_saldo_iuran'] = $total_saldo_iuran;
 
+		$data['total_saldo'] = $saldo_rekening;
+
 		// echo $total_semua_kredit;
 		// echo  $total_kredit;
 		// $data['total_kredit'] = $result->nominal_kredit;

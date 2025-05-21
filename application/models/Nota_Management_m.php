@@ -204,4 +204,18 @@ class Nota_Management_m extends CI_Model
         $this->db->insert('iuran', $data);
         return $this->db->insert_id();
     }
+    public function get_id_edit_pencairan($id)
+    {
+        $this->db->select('*');
+        $this->db->from('iuran');
+        $this->db->where('sub_id', $id);
+        $query = $this->db->get();
+
+        return $query->row();
+    }
+
+    public function update_data_pencairan($data, $where)
+    {
+        $this->db->update('iuran', $data, $where);
+    }
 }
