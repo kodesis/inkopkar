@@ -10,11 +10,14 @@ class Koperasi_Management_m extends CI_Model
 
     var $order = array('koperasi.saldo_rekening' => 'DESC'); // default order 
 
-    function _get_datatables_query()
+    function _get_datatables_query($url = null)
     {
 
         $this->db->select('koperasi.*');
         $this->db->from('koperasi');
+        if (!empty($url)) {
+            $this->db->where('saldo_tagihan >', 0);
+        }
         $i = 0;
         foreach ($this->column_search as $item) // loop column 
         {
@@ -44,26 +47,26 @@ class Koperasi_Management_m extends CI_Model
         }
     }
 
-    function get_datatables()
+    function get_datatables($url = null)
     {
-        $this->_get_datatables_query();
+        $this->_get_datatables_query($url);
         if ($_POST['length'] != -1)
             $this->db->limit($_POST['length'], $_POST['start']);
         $query = $this->db->get();
         return $query->result();
     }
 
-    function count_filtered()
+    function count_filtered($url = null)
     {
-        $this->_get_datatables_query();
+        $this->_get_datatables_query($url);
         $query = $this->db->get();
         return $query->num_rows();
     }
 
-    function count_all()
+    function count_all($url = null)
     {
 
-        $this->_get_datatables_query();
+        $this->_get_datatables_query($url);
         $query = $this->db->get();
 
         return $this->db->count_all_results();

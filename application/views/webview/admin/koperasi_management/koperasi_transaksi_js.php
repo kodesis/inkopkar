@@ -19,7 +19,7 @@
 
         // Load data for the table's content from an Ajax source
         ajax: {
-            url: "<?php echo site_url('Koperasi_Management/ajax_list') ?> ",
+            url: "<?php echo site_url('Koperasi_Management/ajax_list/transaksi') ?> ",
             type: "POST",
             data: function(data) {}
         },

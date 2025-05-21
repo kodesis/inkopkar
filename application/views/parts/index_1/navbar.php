@@ -2,6 +2,12 @@
     .logo_cust {
         height: 100px;
     }
+
+    @media (max-width: 960px) {
+        .login-nav {
+            display: block !important;
+        }
+    }
 </style>
 
 <body>
@@ -88,6 +94,7 @@
                                             <li class="<?php if ($url_now == 'contact') {
                                                             echo 'active ';
                                                         } ?> menu-item"><a href="<?= base_url('contact') ?>">Kontak Kami</a></li>
+                                            <li class="menu-item login-nav" style="display:none"><a href="<?= base_url('auth') ?>">Login <i class="fas fa-sign-in-alt"></i></a></li>
                                         </ul>
                                     </div>
                                     <div class="tgmenu__action tgmenu__action-two d-none d-md-block">

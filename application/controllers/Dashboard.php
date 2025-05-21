@@ -82,7 +82,6 @@ class Dashboard extends CI_Controller
 				// $saldo_rekening = $result->nominal ?? 0;
 				$saldo_rekening = $result->nominal_kredit ?? 0;
 			}
-			$data['saldo_rekening'] = $saldo_rekening;
 		} else {
 			$this->db->select('kredit_limit');
 			$this->db->from('anggota');
@@ -171,6 +170,25 @@ class Dashboard extends CI_Controller
 		$data['total_semua_kredit'] = $total_semua_kredit;
 
 		$data['total_kredit'] = $total_kredit;
+
+		$this->db->select_sum('saldo_iuran');
+		$this->db->from('koperasi');
+		if ($this->session->userdata('role') == "Koperasi") {
+			$this->db->where('id', $this->session->userdata('id_koperasi'));
+		}
+		// $this->db->where('status', '1');
+
+		$query = $this->db->get();
+		$result = $query->row();
+		$total_saldo_iuran = $result->saldo_iuran;
+		if ($this->session->userdata('role') == "Koperasi") {
+			$data['saldo_rekening'] = $saldo_rekening - $total_saldo_iuran;
+		} else {
+			$data['saldo_rekening'] = $saldo_rekening;
+		}
+		// $data['saldo_rekening'] = $saldo_rekening;
+		$data['total_saldo_iuran'] = $total_saldo_iuran;
+
 		// echo $total_semua_kredit;
 		// echo  $total_kredit;
 		// $data['total_kredit'] = $result->nominal_kredit;

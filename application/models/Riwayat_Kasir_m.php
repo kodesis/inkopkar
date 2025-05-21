@@ -239,17 +239,19 @@ class Riwayat_Kasir_m extends CI_Model
     var $table_transaksi_inkopkar = 'log_transaksi';
     // var $column_order = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable orderable
     // var $column_search = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable searchable 
-    var $column_order_transaksi_inkopkar = array('log_transaksi.id', 'anggota.nama', 'id_koperasi_awal', 'id_koperasi_tujuan', 'post_date', 'sebelum', 'nominal', 'sesudah'); //set column field database for datatable orderable
-    var $column_search_transaksi_inkopkar = array('log_transaksi.id', 'anggota.nama', 'id_koperasi_awal', 'id_koperasi_tujuan', 'post_date', 'sebelum', 'nominal', 'sesudah'); //set column field database for datatable searchable 
+    var $column_order_transaksi_inkopkar = array('log_transaksi.id', 'anggota.nama', 'a.nama_koperasi', 'b.nama_koperasi', 'post_date', 'sebelum', 'nominal', 'sesudah'); //set column field database for datatable orderable
+    var $column_search_transaksi_inkopkar = array('log_transaksi.id', 'anggota.nama', 'a.nama_koperasi', 'b.nama_koperasi', 'post_date', 'sebelum', 'nominal', 'sesudah');
 
     var $order_transaksi_inkopkar = array('log_transaksi.id' => 'DESC'); // default order 
 
     function _get_datatables_query_transaksi_inkopkar()
     {
 
-        $this->db->select('log_transaksi.*, anggota.nama');
+        $this->db->select('log_transaksi.*, anggota.nama, a.nama_koperasi as koperasi_awal, b.nama_koperasi as koperasi_tujuan');
         $this->db->from('log_transaksi');
         $this->db->join('anggota', 'anggota.id = log_transaksi.id_admin', 'left');
+        $this->db->join('koperasi a', 'a.id = log_transaksi.id_koperasi_awal', 'left');
+        $this->db->join('koperasi b', 'b.id = log_transaksi.id_koperasi_tujuan', 'left');
 
         $i = 0;
         foreach ($this->column_search_transaksi_inkopkar as $item) // loop column 
@@ -408,5 +410,78 @@ class Riwayat_Kasir_m extends CI_Model
             $this->db->where('anggota.id_puskopkar', $this->session->userdata('user_user_id'));
         }
         return $this->db->get()->row();
+    }
+
+    var $table_iuran = 'nota';
+    // var $column_order = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable orderable
+    // var $column_search = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable searchable 
+    var $column_order_iuran = array('iuran.id', 'koperasi.nama_koperasi', 'nominal', 'tanggal_jam', 'iuran.status'); //set column field database for datatable orderable
+    var $column_search_iuran = array('iuran.id', 'koperasi.nama_koperasi', 'nominal', 'tanggal_jam', 'iuran.status'); //set column field database for datatable searchable 
+
+    var $order_iuran = array('iuran.tanggal_jam' => 'DESC', 'iuran.status' => 'ASC'); // default order 
+
+    function _get_datatables_query_iuran()
+    {
+
+        $this->db->select('iuran.*, koperasi.nama_koperasi');
+        $this->db->from('iuran');
+        $this->db->join('koperasi', 'iuran.id_koperasi = koperasi.id', 'left');
+        if ($this->session->userdata('role') == "Koperasi") {
+            $this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
+        }
+        // $this->db->where('status', '1');
+
+        $i = 0;
+        foreach ($this->column_search_iuran as $item) // loop column 
+        {
+            if ($_POST['search']['value']) // if datatable send POST for search
+            {
+
+                if ($i === 0) // first loop
+                {
+                    $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
+                    $this->db->like($item, $_POST['search']['value']);
+                } else {
+                    $this->db->or_like($item, $_POST['search']['value']);
+                }
+
+                if (count($this->column_search_iuran) - 1 == $i) //last loop
+                    $this->db->group_end(); //close bracket
+            }
+            $i++;
+        }
+
+        if (isset($_POST['order'])) // here order processing
+        {
+            $this->db->order_by($this->column_order_iuran[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+        } else if (isset($this->order_iuran)) {
+            $order = $this->order_iuran;
+            $this->db->order_by(key($order), $order[key($order)]);
+        }
+    }
+
+    function get_datatables_iuran()
+    {
+        $this->_get_datatables_query_iuran();
+        if ($_POST['length'] != -1)
+            $this->db->limit($_POST['length'], $_POST['start']);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function count_filtered_iuran()
+    {
+        $this->_get_datatables_query_iuran();
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    function count_all_iuran()
+    {
+
+        $this->_get_datatables_query_iuran();
+        $query = $this->db->get();
+
+        return $this->db->count_all_results();
     }
 }

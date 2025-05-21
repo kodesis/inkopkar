@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Nota_Management extends CI_Controller
+class Iuran_Management extends CI_Controller
 {
 
     /**
@@ -365,98 +365,5 @@ class Nota_Management extends CI_Controller
         echo json_encode(["status" => TRUE, "sub_id" => $sub_id, "Telp" => $anggota->no_telp]);
 
         // echo json_encode(["status" => TRUE, "sub_id" => $sub_id]);
-    }
-
-    public function add_iuran()
-    {
-        $data['koperasi'] = $this->koperasi_management->get_all();
-        $data['content']     = 'webview/admin/nota_management/nota_iuran_form_v';
-        $data['content_js'] = 'webview/admin/nota_management/nota_iuran_management_js';
-        $this->load->view('parts/admin/Wrapper', $data);
-    }
-
-    public function cari_detail_koperasi($id)
-    {
-        $koperasi = $this->koperasi_management->get_id_edit($id);
-        echo json_encode(array(
-            "status" => TRUE,
-            'nama' => $koperasi->nama_koperasi,
-            'saldo_rekening' => $koperasi->saldo_rekening,
-            'saldo_iuran' => $koperasi->saldo_iuran
-        ));
-    }
-
-    public function save_iuran()
-    {
-        $date = (new DateTime('now', new DateTimeZone('Asia/Jakarta')))->format('Y-m-d H:i:s');
-        // $id_koperasi = $this->input->post('id_koperasi');
-        $id_koperasi = $this->session->userdata('id_koperasi');
-
-        $koperasi = $this->koperasi_management->get_id_edit($id_koperasi);
-
-        $nominal_bayar = (int) str_replace('.', '', $this->input->post('nominal_kredit'));
-
-        $sisa_rekening = $koperasi->saldo_rekening - $nominal_bayar;
-
-        $total_iuran = $koperasi->saldo_iuran + $nominal_bayar;
-
-
-        $nominal_bayar = (int) str_replace('.', '', $this->input->post('nominal_kredit'));
-        $token = random_int(100000, 999999); // Generate a secure random number
-
-        // Get the current year
-        $current_year = date('Y');
-
-        // Get the latest ID from the database for the current year
-        $latest_entry = $this->nota_management->get_latest_entry_pembayaran($current_year);
-
-        if ($latest_entry) {
-            // Extract only the first 6 digits of the latest ID (numeric part)
-            $latest_number = (int) substr($latest_entry->id, 0, 6);
-            $new_number = str_pad($latest_number + 1, 6, '0', STR_PAD_LEFT);
-        } else {
-            $new_number = "000001"; // Start from 000001 if no previous entry
-        }
-
-
-        $new_id = $new_number . $current_year;
-
-
-        $sub_id = $this->nota_management->save_pencairan([
-            'id'             => $new_id, // New generated ID
-            'tanggal_jam'    => $date,
-            'rekening_awal' => $koperasi->saldo_rekening,
-            'id_anggota'     => $this->session->userdata('user_user_id'),
-            'nominal' => $nominal_bayar,
-            'rekening_akhir' => $sisa_rekening,
-            'token'          => $token,
-            'id_kasir'       => $this->session->userdata('user_user_id'),
-            'id_koperasi'        => $this->session->userdata('id_koperasi'),
-            'status'         => 0,
-        ]);
-
-        // $cek = $this->koperasi_management->update_data(['saldo_iuran' => $total_iuran, 'saldo_rekening' => $sisa_rekening], ['id' => $id_koperasi]);
-
-        if (!$sub_id) {
-            echo json_encode(["status" => FALSE, "error" => "Failed to send WhatsApp message"]);
-            exit;
-        } elseif (isset($response['error'])) {
-            echo json_encode(["status" => FALSE, "error" => $response['error']]);
-            exit;
-        }
-
-
-        // If successful
-        echo json_encode(["status" => TRUE, "id_koperasi" => $id_koperasi, "nominal_bayar" => $nominal_bayar, "saldo_rekening" => $koperasi->saldo_rekening, "sisa_rekening" => $sisa_rekening]);
-
-        // echo json_encode(["status" => TRUE, "sub_id" => $sub_id]);
-    }
-    public function verifikasi_pencairan()
-    {
-        // $data['Nota'] = $this->nota_management->get_id_edit($id);
-        // $data['anggota'] = $this->nota_management->get_anggota();
-        $data['content']     = 'webview/admin/nota_management/nota_verifikasi_pencairan';
-        $data['content_js'] = 'webview/admin/nota_management/nota_iuran_management_js';
-        $this->load->view('parts/admin/Wrapper', $data);
     }
 }

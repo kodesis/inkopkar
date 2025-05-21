@@ -30,15 +30,19 @@ class Koperasi_Management extends CI_Controller
             redirect('auth'); // Redirect to the 'autentic' page
         }
     }
-    public function ajax_list()
+    public function ajax_list($url)
     {
-        $list = $this->koperasi_management->get_datatables();
+        $list = $this->koperasi_management->get_datatables($url);
         $data = array();
         $crs = "";
         $no = $_POST['start'];
 
         foreach ($list as $cat) {
             // $path = base_url() . 'uploads/blog/' . $cat->thumbnail;
+            // echo '<pre>';
+            // var_dump($cat->saldo_tagihan);
+            // echo '</pre>';
+
 
             $no++;
             $row = array();
@@ -46,6 +50,7 @@ class Koperasi_Management extends CI_Controller
             $row[] = $cat->nama_koperasi;
             $row[] = $cat->alamat;
             $row[] = $cat->telp;
+            // $row[] = $saldo_tagihan;
 
 
             // $this->db->select_sum('usage_kredit');
@@ -107,10 +112,11 @@ class Koperasi_Management extends CI_Controller
             $query = $this->db->get();
             $result = $query->row();
             $saldo_tagihan = $result->nominal ?? 0;
+            // echo 'Saldo Tagihan : ' . $saldo_tagihan;
+            // echo 'Saldo Tagihan Cat : ' . $cat->$saldo_tagihan;
+            // echo $saldo_tagihan;
 
-            if ($saldo_tagihan <= 0) {
-                continue;
-            }
+
             $row[] = '<div style="text-align: right;">Rp. ' . number_format(
                 $saldo_tagihan ?? 0,
                 0,
@@ -198,8 +204,8 @@ class Koperasi_Management extends CI_Controller
 
         $output = array(
             "draw" => $_POST['draw'],
-            "recordsTotal" => $this->koperasi_management->count_all(),
-            "recordsFiltered" => $this->koperasi_management->count_filtered(),
+            "recordsTotal" => $this->koperasi_management->count_all($url),
+            "recordsFiltered" => $this->koperasi_management->count_filtered($url),
             "data" => $data,
         );
         echo json_encode($output);
@@ -432,6 +438,7 @@ class Koperasi_Management extends CI_Controller
             // Update status
             $this->db->where('nota_pembayaran.sub_id', $nota->sub_id);
             $this->db->update('nota_pembayaran', ['status' => '2']);
+            // $this->db->update('nota_pembayaran', ['status' => '1']);
 
             // Decode id_nota_kredit jika dalam format JSON
             $decoded_ids = json_decode($nota->id_nota_kredit, true);
@@ -440,18 +447,22 @@ class Koperasi_Management extends CI_Controller
             if (is_array($decoded_ids)) {
                 $id_nota_kredit = array_merge($id_nota_kredit, $decoded_ids);
             }
+            // echo json_encode(array("Progress" => 'koperasi as nota', "decoded_ids" => $decoded_ids));
         }
-        // var_dump($id_nota_kredit);
 
         $koperasi_totals = [];
-
+        // var_dump($id_nota_kredit);
         foreach ($id_nota_kredit as $kredit) {
+            // echo "Sebelum Query: $kredit<br>";
+
             // Get nota details
             $this->db->select('*');
             $this->db->from('nota');
             $this->db->join('toko', 'toko.id = nota.id_toko');
             $this->db->where('nota.sub_id', $kredit);
             $nota = $this->db->get()->row();
+            // echo "Sesudah Query: $kredit<br>";
+            // var_dump($nota);
 
             if (!$nota) continue;
 
@@ -467,25 +478,30 @@ class Koperasi_Management extends CI_Controller
             $koperasi_totals[$nota->id_koperasi]['total_nominal_kredit'] += $nota->nominal_kredit;
             $koperasi_totals[$nota->id_koperasi]['sub_ids'][] = $nota->sub_id;
             $koperasi_totals[$nota->id_koperasi]['notas'][] = $nota;
+
+            // echo json_encode(array("Progress" => 'id_nota_kredit', 'koperasi_totals' => $koperasi_totals));
         }
 
+        // var_dump($koperasi_totals);
         // Now process each koperasi once
         foreach ($koperasi_totals as $id_koperasi => $data) {
             // Get existing saldo
+            // echo 'Masuk pak eko';
             $this->db->select_sum('nominal_kredit');
             $this->db->from('nota');
             $this->db->join('toko', 'toko.id = nota.id_toko');
-            $this->db->where('id_koperasi', $id_koperasi);
+            $this->db->where('toko.id_koperasi', $id_koperasi);
             $this->db->where('status', '3');
             $nominal_rekening = $this->db->get()->row();
 
+            // echo $nominal_rekening;
             $existing = $nominal_rekening->nominal_kredit ?? 0;
             $new_saldo_rekening = $existing + $data['total_nominal_kredit'];
 
             // Update koperasi saldo
             $this->koperasi_management->update_data(['saldo_rekening' => $new_saldo_rekening], ['id' => $id_koperasi]);
 
-            $this->koperasi_management->save_log_transaksi([
+            $cek = $this->koperasi_management->save_log_transaksi([
                 'id_koperasi_awal'   => $id_edit,
                 'id_koperasi_tujuan' => $id_koperasi,
                 'id_admin'           => $this->session->userdata('user_user_id'),
@@ -495,12 +511,12 @@ class Koperasi_Management extends CI_Controller
                 'nominal'            => $data['total_nominal_kredit'],
                 'sesudah'            => $new_saldo_rekening,
             ]);
-
             foreach ($data['notas'] as $nota) {
                 // Update nota status
                 $this->db->where('sub_id', $nota->sub_id);
                 $this->db->update('nota', ['status' => '3']);
             }
+            // echo json_encode(array("Progress" => 'koperasi_totals', 'notas' => $data['notas']));
         }
 
 
@@ -518,6 +534,6 @@ class Koperasi_Management extends CI_Controller
 
         // echo json_encode(array("status" => TRUE, "title" => $title));
         // $this->koperasi_management->update_data($data_update, array('Id' => $id_edit));
-        echo json_encode(array("status" => TRUE));
+        // echo json_encode(array("status" => TRUE));
     }
 }

@@ -198,4 +198,10 @@ class Nota_Management_m extends CI_Model
 
         return $this->db->get()->result();
     }
+
+    public function save_pencairan($data)
+    {
+        $this->db->insert('iuran', $data);
+        return $this->db->insert_id();
+    }
 }

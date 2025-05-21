@@ -145,6 +145,24 @@
                                 }
                                 ?>
                                 <?php
+                                if ($this->session->userdata('role') == "Admin") {
+                                ?>
+                                    <li class="submenu-item <?php if ($url_now == 'Riwayat_Kasir/detail_transaksi_inkopkar') {
+                                                                echo 'active ';
+                                                            } ?>">
+                                        <a href="<?= base_url('Riwayat_Kasir/detail_transaksi_inkopkar') ?>" class="submenu-link">Riwayat Transaksi Inkopkar</a>
+
+                                    </li>
+                                    <li class="submenu-item <?php if ($url_now == 'Riwayat_Kasir/detail_iuran') {
+                                                                echo 'active ';
+                                                            } ?>">
+                                        <a href="<?= base_url('Riwayat_Kasir/detail_iuran') ?>" class="submenu-link">Riwayat Iuran</a>
+
+                                    </li>
+                                <?php
+                                }
+                                ?>
+                                <?php
                                 if ($this->session->userdata('role') == "Admin" || $this->session->userdata('role') == "Koperasi" || $this->session->userdata('role') == "Puskopkar" || $this->session->userdata('role') == "Anggota") {
                                 ?>
                                     <li class="submenu-item <?php if ($url_now == 'Riwayat_Kasir/detail_saldo_simpanan') {
@@ -156,18 +174,7 @@
                                 <?php
                                 }
                                 ?>
-                                <?php
-                                if ($this->session->userdata('role') == "Admin") {
-                                ?>
-                                    <li class="submenu-item <?php if ($url_now == 'Riwayat_Kasir/detail_transaksi_inkopkar') {
-                                                                echo 'active ';
-                                                            } ?>">
-                                        <a href="<?= base_url('Riwayat_Kasir/detail_transaksi_inkopkar') ?>" class="submenu-link">Riwayat Transaksi Inkopkar</a>
 
-                                    </li>
-                                <?php
-                                }
-                                ?>
                             </ul>
                         </li>
                         <?php
@@ -212,6 +219,20 @@
                                 <a href="<?= base_url('Nota_Management/add_pembayaran') ?>" class='sidebar-link'>
                                     <i class="bi bi-grid-fill"></i>
                                     <span>Nota Pembayaran</span>
+                                </a>
+                            </li>
+
+                        <?php
+                        }
+                        if ($this->session->userdata('role') == "Koperasi") {
+                        ?>
+                            <li
+                                class="sidebar-item <?php if ($url_now == 'Nota_Management/add_iuran') {
+                                                        echo 'active ';
+                                                    } ?>">
+                                <a href="<?= base_url('Nota_Management/add_iuran') ?>" class='sidebar-link'>
+                                    <i class="bi bi-grid-fill"></i>
+                                    <span>Nota Iuran</span>
                                 </a>
                             </li>
                         <?php
