@@ -5,8 +5,8 @@ class Koperasi_Management_m extends CI_Model
     var $table = 'koperasi';
     // var $column_order = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable orderable
     // var $column_search = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable searchable 
-    var $column_order = array('id', 'nama_koperasi', 'alamat', 'telp'); //set column field database for datatable orderable
-    var $column_search = array('id', 'nama_koperasi', 'alamat', 'telp'); //set column field database for datatable searchable 
+    var $column_order = array('id', 'nama_koperasi', 'alamat', 'telp', 'saldo_rekening'); //set column field database for datatable orderable
+    var $column_search = array('id', 'nama_koperasi', 'alamat', 'telp', 'saldo_rekening'); //set column field database for datatable searchable 
 
     var $order = array('koperasi.saldo_rekening' => 'DESC'); // default order 
 

@@ -221,18 +221,22 @@ class Koperasi_Management extends CI_Controller
             $row[] = $cat->alamat;
             $row[] = $cat->telp;
 
-            $this->db->select_sum('nominal_kredit');
-            $this->db->from('nota');
-            $this->db->join('anggota', 'anggota.id = nota.id_anggota');
-            $this->db->join('toko', 'toko.id = nota.id_toko');
-            // if ($this->session->userdata('role') == "Kasir" || $this->session->userdata('role') == "Koperasi") {
-            //     $this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
-            // }
-            $this->db->where('status', '3');
-            $this->db->where('toko.id_koperasi', $cat->id);
+            $this->db->select_sum('nominal');
+            $this->db->from('log_transaksi');
+            $this->db->where('id_koperasi_tujuan', $cat->id);
             $query = $this->db->get();
             $result = $query->row();
-            $saldo_rekening = $result->nominal_kredit ?? 0;
+            $saldo_rekening = $result->nominal;
+
+            // $this->db->select_sum('nominal_kredit');
+            // $this->db->from('nota');
+            // $this->db->join('anggota', 'anggota.id = nota.id_anggota');
+            // $this->db->join('toko', 'toko.id = nota.id_toko');
+            // $this->db->where('status', '3');
+            // $this->db->where('toko.id_koperasi', $cat->id);
+            // $query = $this->db->get();
+            // $result = $query->row();
+            // $saldo_rekening = $result->nominal_kredit ?? 0;
             $row[] = '<div style="text-align: right;">Rp. ' . number_format(
                 $saldo_rekening ?? 0,
                 0,
