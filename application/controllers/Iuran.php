@@ -62,7 +62,7 @@ class Iuran extends CI_Controller
                 ',',
                 '.'
             ) . '</div>';
-            $row[] = $cat->post_date;
+            $row[] = $cat->tanggal_bayar;
 
             $data[] = $row;
         }
