@@ -159,10 +159,10 @@
                                 <?php
                                 if ($this->session->userdata('role') == "Admin" || $this->session->userdata('role') == "Koperasi") {
                                 ?>
-                                    <li class="submenu-item <?php if ($url_now == 'Riwayat_Kasir/detail_iuran') {
+                                    <li class="submenu-item <?php if ($url_now == 'Riwayat_Kasir/detail_pencairan') {
                                                                 echo 'active ';
                                                             } ?>">
-                                        <a href="<?= base_url('Riwayat_Kasir/detail_iuran') ?>" class="submenu-link">Riwayat Iuran</a>
+                                        <a href="<?= base_url('Riwayat_Kasir/detail_pencairan') ?>" class="submenu-link">Riwayat Pencairan</a>
 
                                     </li>
                                 <?php
@@ -238,14 +238,30 @@
                                                     } ?>">
                                 <a href="<?= base_url('Nota_Management/add_iuran') ?>" class='sidebar-link'>
                                     <i class="bi bi-grid-fill"></i>
-                                    <span>Nota Iuran</span>
+                                    <span>Pencairan</span>
                                 </a>
                             </li>
                         <?php
                         }
                         ?>
                         <?php
-                        if ($this->session->userdata('role') == "Puskopkar" || $this->session->userdata('role') == "Koperasi" || $this->session->userdata('role') == "Admin") {
+                        if ($this->session->userdata('role') == "Puskopkar") {
+                        ?>
+                            <li class="sidebar-item <?php if ($url_now == 'iuran/') {
+                                                        echo 'active ';
+                                                    } ?>">
+                                <a href="<?= base_url('iuran/') ?>" class="sidebar-link">
+                                    <i class="bi bi-grid-fill"></i>
+                                    <span>Iuran</span>
+                                </a>
+
+                            </li>
+                        <?php
+                        }
+                        ?>
+                        <?php
+                        // if ($this->session->userdata('role') == "Puskopkar" || $this->session->userdata('role') == "Koperasi" || $this->session->userdata('role') == "Admin") {
+                        if ($this->session->userdata('role') == "Admin") {
                         ?>
                             <li
                                 class="sidebar-item <?php if ($url_now == 'Saldo_Simpanan/add_simpanan') {

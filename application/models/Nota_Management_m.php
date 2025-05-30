@@ -156,7 +156,17 @@ class Nota_Management_m extends CI_Model
         $query = $this->db->get();
         return $query->row(); // Return the latest row
     }
+    public function get_latest_entry_pencairan($year)
+    {
+        $this->db->select('id');
+        $this->db->from('pencairan'); // Change to your actual table name
+        $this->db->where("RIGHT(id, 4) =", $year); // Fix the SQL syntax
+        $this->db->order_by("id", "DESC");
+        $this->db->limit(1);
 
+        $query = $this->db->get();
+        return $query->row(); // Return the latest row
+    }
     public function save_pembayaran($data)
     {
         $this->db->insert('nota_pembayaran', $data);

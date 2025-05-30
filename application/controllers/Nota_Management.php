@@ -311,7 +311,8 @@ class Nota_Management extends CI_Controller
 
         $query = $this->db->get();
         $result = $query->row();
-        $usage_now = $result->nominal_kredit;
+        // $usage_now = $result->nominal_kredit;
+        // $usage_now = $result->nominal_kredit;
 
         $new_id = $new_number . $current_year;
 
@@ -344,7 +345,7 @@ class Nota_Management extends CI_Controller
         // $this->anggota_management->update_data(['usage_kredit' => $usage_kredit], ['id' => $id_anggota]);
         $anggota = $this->anggota_management->get_id_edit($id_anggota);
 
-        $update = $this->anggota_management->update_data(['usage_kredit' => $usage_now], ['id' => $id_anggota]);
+        $update = $this->anggota_management->update_data(['usage_kredit' => 0], ['id' => $id_anggota]);
 
 
         // $toko = $this->toko_management->get_id_edit($anggota->id_toko);
@@ -386,7 +387,7 @@ class Nota_Management extends CI_Controller
         ));
     }
 
-    public function save_iuran()
+    public function save_pencairan()
     {
         $date = (new DateTime('now', new DateTimeZone('Asia/Jakarta')))->format('Y-m-d H:i:s');
         // $id_koperasi = $this->input->post('id_koperasi');
@@ -408,7 +409,7 @@ class Nota_Management extends CI_Controller
         $current_year = date('Y');
 
         // Get the latest ID from the database for the current year
-        $latest_entry = $this->nota_management->get_latest_entry_pembayaran($current_year);
+        $latest_entry = $this->nota_management->get_latest_entry_iuran($current_year);
 
         if ($latest_entry) {
             // Extract only the first 6 digits of the latest ID (numeric part)
@@ -438,7 +439,7 @@ class Nota_Management extends CI_Controller
         // $cek = $this->koperasi_management->update_data(['saldo_iuran' => $total_iuran, 'saldo_rekening' => $sisa_rekening], ['id' => $id_koperasi]);
 
         if (!$sub_id) {
-            echo json_encode(["status" => FALSE, "error" => "Failed to send WhatsApp message"]);
+            echo json_encode(["status" => FALSE, "error" => "Failed to send"]);
             exit;
         } elseif (isset($response['error'])) {
             echo json_encode(["status" => FALSE, "error" => $response['error']]);
@@ -447,7 +448,7 @@ class Nota_Management extends CI_Controller
 
 
         // If successful
-        echo json_encode(["status" => TRUE, "id_koperasi" => $id_koperasi, "nominal_bayar" => $nominal_bayar, "saldo_rekening" => $koperasi->saldo_rekening, "sisa_rekening" => $sisa_rekening]);
+        // echo json_encode(["status" => TRUE, "id_koperasi" => $id_koperasi, "nominal_bayar" => $nominal_bayar, "saldo_rekening" => $koperasi->saldo_rekening, "sisa_rekening" => $sisa_rekening]);
 
         // echo json_encode(["status" => TRUE, "sub_id" => $sub_id]);
     }
@@ -466,9 +467,9 @@ class Nota_Management extends CI_Controller
         $nominal = $pencairan->nominal;
         $sisa_rekening = $koperasi->saldo_rekening - $nominal;
 
-        $total_iuran = $koperasi->saldo_iuran + $nominal;
-
-        $cek = $this->koperasi_management->update_data(['saldo_iuran' => $total_iuran, 'saldo_rekening' => $sisa_rekening], ['id' => $pencairan->id_koperasi]);
+        // $total_iuran = $koperasi->saldo_iuran + $nominal;
+        // $cek = $this->koperasi_management->update_data(['saldo_iuran' => $total_iuran, 'saldo_rekening' => $sisa_rekening], ['id' => $pencairan->id_koperasi]);
+        $cek = $this->koperasi_management->update_data(['saldo_rekening' => $sisa_rekening], ['id' => $pencairan->id_koperasi]);
 
         $this->nota_management->update_data_pencairan($data_update, array('sub_id' => $pencairan->sub_id));
         // echo json_encode(array("status" => TRUE, "title" => $title));

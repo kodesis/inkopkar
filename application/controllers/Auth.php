@@ -99,7 +99,7 @@ class Auth extends CI_Controller
 		$active     = 1;
 
 
-		$user = $this->login->user_kasir_login($username, $password, $active);
+		$user = $this->login->user_kasir_login($username, $password);
 
 		if (!empty($user)) {
 

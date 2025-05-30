@@ -80,17 +80,6 @@
                                                     <textarea class="form-control" name="alamat" id="alamat_add"></textarea>
                                                 </div>
                                             </div>
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label for="text">Puskopkar</label>
-                                                    <select class="choices form-control" name="id_puskopkar" id="id_puskopkar_add">
-                                                        <option selected disabled>-- Pilih Puskopkar --</option>
-                                                        <?php foreach ($puskopkar as $c) { ?>
-                                                            <option value="<?= $c->id ?>"><?= $c->id . ' - ' . $c->nomor_anggota . ' - ' . $c->nama ?></option>
-                                                        <?php } ?>
-                                                    </select>
-                                                </div>
-                                            </div>
                                         </div>
                                     </form>
                                     <div class="col-12 d-flex justify-content-end">

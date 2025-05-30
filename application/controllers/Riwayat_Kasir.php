@@ -303,10 +303,10 @@ class Riwayat_Kasir extends CI_Controller
         echo json_encode($output);
     }
 
-    public function detail_iuran()
+    public function detail_pencairan()
     {
-        $data['content']     = 'webview/admin/riwayat_kasir/riwayat_kasir_iuran_v';
-        $data['content_js'] = 'webview/admin/riwayat_kasir/riwayat_kasir_iuran_js';
+        $data['content']     = 'webview/admin/riwayat_kasir/riwayat_kasir_pencairan_v';
+        $data['content_js'] = 'webview/admin/riwayat_kasir/riwayat_kasir_pencairan_js';
         $this->load->view('parts/admin/Wrapper', $data);
     }
     public function ajax_list_iuran($detail = null)

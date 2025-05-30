@@ -25,35 +25,33 @@ class Dashboard extends CI_Controller
 			redirect('auth');
 		}
 		if ($this->session->userdata('role') != "Anggota") {
-			$this->db->select_sum('saldo_tagihan');
-			$this->db->select_sum('saldo_rekening');
-			$this->db->from('koperasi');
-			if ($this->session->userdata('role') == "Kasir" || $this->session->userdata('role') == "Koperasi") {
-				$this->db->where('id', $this->session->userdata('id_koperasi'));
-			} else if ($this->session->userdata('role') == "Puskopkar") {
-				$this->db->where('id_puskopkar', $this->session->userdata('user_user_id'));
-			}
-			$query = $this->db->get();
-			$result = $query->row();
-
-			$saldo_tagihan = $result->saldo_tagihan ?? 0;
-			$saldo_rekening = $result->saldo_rekening ?? 0;
-
-			$data['saldo_tagihan'] = $saldo_tagihan;
-			$data['saldo_rekening'] = $saldo_rekening;
-
-			// $this->db->select_sum('nominal');
-			// $this->db->from('nota_pembayaran');
-			// $this->db->join('anggota', 'anggota.id = nota_pembayaran.id_anggota');
+			// $this->db->select_sum('saldo_tagihan');
+			// $this->db->select_sum('saldo_rekening');
+			// $this->db->from('koperasi');
 			// if ($this->session->userdata('role') == "Kasir" || $this->session->userdata('role') == "Koperasi") {
-			// 	$this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
+			// 	$this->db->where('id', $this->session->userdata('id_koperasi'));
 			// }
-			// $this->db->where('status', '1');
 			// $query = $this->db->get();
 			// $result = $query->row();
-			// $saldo_tagihan = $result->nominal ?? 0;
+
+			// $saldo_tagihan = $result->saldo_tagihan ?? 0;
+			// $saldo_rekening = $result->saldo_rekening ?? 0;
 
 			// $data['saldo_tagihan'] = $saldo_tagihan;
+			// $data['saldo_rekening'] = $saldo_rekening;
+
+			$this->db->select_sum('nominal');
+			$this->db->from('nota_pembayaran');
+			$this->db->join('anggota', 'anggota.id = nota_pembayaran.id_anggota');
+			if ($this->session->userdata('role') == "Kasir" || $this->session->userdata('role') == "Koperasi") {
+				$this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
+			}
+			$this->db->where('status', '1');
+			$query = $this->db->get();
+			$result = $query->row();
+			$saldo_tagihan = $result->nominal ?? 0;
+
+			$data['saldo_tagihan'] = $saldo_tagihan;
 
 			// $this->db->select_sum('nominal');
 			// $this->db->from('nota_pembayaran');
@@ -63,29 +61,26 @@ class Dashboard extends CI_Controller
 			// }
 			// $this->db->where('status', '2');
 			if ($this->session->userdata('role') == "Admin") {
-
-				// $this->db->select_sum('nominal');
-				// $this->db->from('log_transaksi');
-				$this->db->select_sum('saldo_rekening');
-				$this->db->from('koperasi');
+				$this->db->select_sum('nominal');
+				$this->db->from('log_transaksi');
 
 				$query = $this->db->get();
 				$result = $query->row();
 				// $saldo_rekening = $result->nominal ?? 0;
-				$saldo_rekening = $result->saldo_rekening ?? 0;
+				$saldo_rekening = $result->nominal ?? 0;
 			} else {
-				// $this->db->select_sum('nominal_kredit');
-				// $this->db->from('nota');
-				// $this->db->join('toko', 'toko.id = nota.id_toko');
-				// if ($this->session->userdata('role') == "Kasir" || $this->session->userdata('role') == "Koperasi") {
-				// 	$this->db->where('toko.id_koperasi', $this->session->userdata('id_koperasi'));
-				// }
-				// $this->db->where('status', '3');
+				$this->db->select_sum('nominal_kredit');
+				$this->db->from('nota');
+				$this->db->join('toko', 'toko.id = nota.id_toko');
+				if ($this->session->userdata('role') == "Kasir" || $this->session->userdata('role') == "Koperasi") {
+					$this->db->where('toko.id_koperasi', $this->session->userdata('id_koperasi'));
+				}
+				$this->db->where('status', '3');
 
-				// $query = $this->db->get();
-				// $result = $query->row();
+				$query = $this->db->get();
+				$result = $query->row();
 				// $saldo_rekening = $result->nominal ?? 0;
-				// $saldo_rekening = $result->nominal_kredit ?? 0;
+				$saldo_rekening = $result->nominal_kredit ?? 0;
 			}
 		} else {
 			$this->db->select('kredit_limit');
@@ -176,42 +171,25 @@ class Dashboard extends CI_Controller
 
 		$data['total_kredit'] = $total_kredit;
 
-		// $this->db->select_sum('saldo_iuran');
-		// $this->db->from('koperasi');
-		// if ($this->session->userdata('role') == "Koperasi") {
-		// 	$this->db->where('id', $this->session->userdata('id_koperasi'));
-		// } else if ($this->session->userdata('role') == "Puskopkar") {
-		// 	$this->db->where('id_puskopkar', $this->session->userdata('user_user_id'));
-		// }
-		// $this->db->where('status', '1');
-
-		// $query = $this->db->get();
-		// $result = $query->row();
-		// $total_saldo_iuran = $result->saldo_iuran;
-
-		$this->db->select_sum('nominal');
-		$this->db->from('iuran');
-		$this->db->join('koperasi', 'koperasi.id = iuran.id_koperasi');
+		$this->db->select_sum('saldo_iuran');
+		$this->db->from('koperasi');
 		if ($this->session->userdata('role') == "Koperasi") {
-			$this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
-		} else if ($this->session->userdata('role') == "Puskopkar") {
-			$this->db->where('id_puskopkar', $this->session->userdata('user_user_id'));
+			$this->db->where('id', $this->session->userdata('id_koperasi'));
 		}
+		// $this->db->where('status', '1');
 
 		$query = $this->db->get();
 		$result = $query->row();
-		$total_saldo_iuran = $result->nominal;
-		if ($this->session->userdata('role') == "Koperasi" || $this->session->userdata('role') == "Puskopkar") {
-			// $data['saldo_rekening'] = $saldo_rekening - $total_saldo_iuran;
-			// $data['saldo_rekening'] = $saldo_rekening;
+		$total_saldo_iuran = $result->saldo_iuran;
+		if ($this->session->userdata('role') == "Koperasi") {
+			$data['saldo_rekening'] = $saldo_rekening - $total_saldo_iuran;
 		} else {
-			$data['saldo_rekening'] = $saldo_rekening + $total_saldo_iuran;
+			$data['saldo_rekening'] = $saldo_rekening;
 		}
 		// $data['saldo_rekening'] = $saldo_rekening;
 		$data['total_saldo_iuran'] = $total_saldo_iuran;
 
-		$data['total_saldo'] = $saldo_rekening + $total_saldo_iuran;
-		// $data['total_saldo'] = $saldo_rekening;
+		$data['total_saldo'] = $saldo_rekening;
 
 		// echo $total_semua_kredit;
 		// echo  $total_kredit;

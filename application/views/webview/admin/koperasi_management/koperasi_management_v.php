@@ -40,6 +40,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
+                                    <th>Nomor Induk Koperasi</th>
                                     <th>Nama Koperasi</th>
                                     <th>Alamat</th>
                                     <th>Telpon</th>

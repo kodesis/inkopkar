@@ -24,7 +24,6 @@ class Koperasi_Management extends CI_Controller
         // require_once APPPATH . 'third_party/PhpSpreadsheet/src/Bootstrap.php';
         parent::__construct();
         $this->load->model('koperasi_Management_m', 'koperasi_management');
-        $this->load->model('Anggota_Management_m', 'anggota_management');
         $this->load->helper(array('form', 'url'));
         $this->load->library('upload');
         if (!$this->session->userdata('user_logged_in')) {
@@ -224,7 +223,6 @@ class Koperasi_Management extends CI_Controller
             $no++;
             $row = array();
             $row[] = $no;
-            $row[] = $cat->no_induk;
             $row[] = $cat->nama_koperasi;
             $row[] = $cat->alamat;
             $row[] = $cat->telp;
@@ -326,7 +324,7 @@ class Koperasi_Management extends CI_Controller
     public function add()
     {
 
-        $data['puskopkar'] = $this->anggota_management->get_puskopkar();
+        $data['puskopkar'] = $this->koperasi_management->get_puskopkar();
         $data['content']     = 'webview/admin/koperasi_management/koperasi_form_v';
         $data['content_js'] = 'webview/admin/koperasi_management/koperasi_management_js';
         $this->load->view('parts/admin/Wrapper', $data);
@@ -344,16 +342,12 @@ class Koperasi_Management extends CI_Controller
         $nama_koperasi = $this->input->post('nama_koperasi');
         $alamat = $this->input->post('alamat');
         $telp = $this->input->post('telp');
-        $no_induk = $this->input->post('no_induk');
-        $id_puskopkar = $this->input->post('id_puskopkar');
 
         $this->koperasi_management->save_file(
             array(
                 'nama_koperasi'            => $nama_koperasi,
                 'alamat'            => $alamat,
                 'telp'             => $telp,
-                'no_induk'             => $no_induk,
-                'id_puskopkar'             => $id_puskopkar,
             ),
         );
         echo json_encode(array("status" => TRUE));

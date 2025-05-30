@@ -17,7 +17,7 @@
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="<?= base_url('dashboard') ?>">Dashboard</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Tambah Nota Iuran</li>
+                            <li class="breadcrumb-item active" aria-current="page">Tambah Pencairan</li>
                         </ol>
                     </nav>
                 </div>
@@ -31,32 +31,11 @@
                     <div class="card">
 
                         <div class="card-header">
-                            <h4 class="card-title">Tambah Nota Iuran</h4>
+                            <h4 class="card-title">Tambah Pencairan</h4>
                         </div>
 
                         <div class="card-content">
                             <div class="card-body">
-                                <div id="detail_user" style="display:none">
-                                    <table class="table">
-                                        <tr>
-                                            <td style="width:20%"><b>Nama Koperasi</b></td>
-                                            <td colspan="2">:</td>
-                                            <td style="text-align: right;" id="detail_nama"></td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width:20%"><b>Saldo Rekening</b></td>
-                                            <td>:</td>
-                                            <td style="width: 70%; text-align:right;">Rp.</td>
-                                            <td style="text-align: right;" id="detail_rekening"></td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width:20%"><b>Saldo Iuran</b></td>
-                                            <td>:</td>
-                                            <td style="width: 70%; text-align:right;">Rp.</td>
-                                            <td style="text-align: right;" id="detail_iuran"></td>
-                                        </tr>
-                                    </table>
-                                </div>
                                 <form class="form" id="add_Nota">
                                     <div class="row">
                                         <input type="hidden" name="id_koperasi" id="id_koperasi_add" value="<?= $this->session->userdata('id_koperasi') ?>">
