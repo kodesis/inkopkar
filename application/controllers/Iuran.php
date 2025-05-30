@@ -3,7 +3,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Iuran extends CI_Controller
 {
-
+    // https://inkopkar.coop/Riwayat_Kasir/detail_saldo_simpananI 
+    // https://www.inkopkar.coop/Riwayat_Kasir/detail_saldo_simpanan
     /**
      * Index Page for this controller.
      *

@@ -27,7 +27,7 @@ class Anggota_Management_m extends CI_Model
             $this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
             $this->db->where('role', '4');
         } else if ($this->session->userdata('role') == "Puskopkar") {
-            $this->db->where('id_puskopkar', $this->session->userdata('user_user_id'));
+            $this->db->where('anggota.id_puskopkar', $this->session->userdata('user_user_id'));
             $this->db->where('role', '2');
         }
         // if ($this->session->userdata('role') == "Kasir") {
