@@ -187,15 +187,34 @@
                         if ($this->session->userdata('role') == "Admin" || $this->session->userdata('role') == "Koperasi" || $this->session->userdata('role') == "Puskopkar") {
                         ?>
                             </li>
-                            <li
-                                class="sidebar-item <?php if ($url_now == 'Anggota_Management') {
-                                                        echo 'active ';
-                                                    } ?>">
-                                <a href="<?= base_url('Anggota_Management') ?>" class='sidebar-link'>
-                                    <i class="bi bi-grid-fill"></i>
-                                    <span>Anggota Management</span>
-                                </a>
-                            </li>
+
+                            <?php
+                            if ($this->session->userdata('role') == "Puskopkar") {
+                            ?>
+                                <li
+                                    class="sidebar-item <?php if ($url_now == 'Anggota_Management') {
+                                                            echo 'active ';
+                                                        } ?>">
+                                    <a href="<?= base_url('Koperasi_Management') ?>" class='sidebar-link'>
+                                        <i class="bi bi-grid-fill"></i>
+                                        <span>Anggota Management</span>
+                                    </a>
+                                </li>
+                            <?php
+                            } else {
+                            ?>
+                                <li
+                                    class="sidebar-item <?php if ($url_now == 'Anggota_Management') {
+                                                            echo 'active ';
+                                                        } ?>">
+                                    <a href="<?= base_url('Anggota_Management') ?>" class='sidebar-link'>
+                                        <i class="bi bi-grid-fill"></i>
+                                        <span>Anggota Management</span>
+                                    </a>
+                                </li>
+                            <?php
+                            }
+                            ?>
                         <?php
                         }
                         ?>

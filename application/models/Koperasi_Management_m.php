@@ -18,6 +18,10 @@ class Koperasi_Management_m extends CI_Model
         if (!empty($url)) {
             $this->db->where('saldo_tagihan >', 0);
         }
+
+        if ($this->session->userdata('role') == "Puskopkar") {
+            $this->db->where('id_puskopkar', $this->session->userdata('user_user_id'));
+        }
         $i = 0;
         foreach ($this->column_search as $item) // loop column 
         {
