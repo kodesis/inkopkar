@@ -28,7 +28,7 @@ class Iuran extends CI_Controller
         $this->load->model('anggota_Management_m', 'anggota_management');
         $this->load->model('toko_Management_m', 'toko_management');
         $this->load->model('koperasi_Management_m', 'koperasi_management');
-        $this->load->model('riwayat_kasir_m', 'riwayat_kasir');
+        $this->load->model('riwayat_Kasir_m', 'riwayat_kasir');
         $this->load->model('Iuran_m', 'iuran');
 
         $this->load->helper(array('form', 'url'));
