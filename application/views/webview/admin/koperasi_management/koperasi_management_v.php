@@ -49,7 +49,14 @@
                                     <th>Nama Koperasi</th>
                                     <th>Alamat</th>
                                     <th>Telpon</th>
-                                    <th>Saldo Inkopkar</th>
+                                    <th>Saldo Iuran</th>
+                                    <?php
+                                    if ($this->session->userdata('role') != "Puskopkar") {
+                                    ?>
+                                        <th>Saldo Inkopkar</th>
+                                    <?php
+                                    }
+                                    ?>
                                     <th>#</th>
                                 </tr>
                             </thead>
