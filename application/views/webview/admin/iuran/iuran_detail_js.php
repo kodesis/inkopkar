@@ -29,14 +29,14 @@
 
         // Load data for the table's content from an Ajax source
         ajax: {
-            // url: "<?php echo site_url('iuran/ajax_list/') ?> ",
-            url: "<?php echo site_url('iuran/ajax_list1/') ?> ",
+            url: "<?php echo site_url('iuran/ajax_list/' . $this->uri->segment(3)) ?> ",
+            // url: "<?php echo site_url('iuran/ajax_list1/') ?> ",
             type: "POST",
             data: function(data) {}
         },
         columnDefs: [{
-            targets: -1, // The 8th column (0-indexed)
-            orderable: false // Disable sorting
+            // targets: -1, // The 8th column (0-indexed)
+            // orderable: false // Disable sorting
         }]
     })
 

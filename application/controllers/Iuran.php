@@ -40,9 +40,9 @@ class Iuran extends CI_Controller
             redirect('auth'); // Redirect to the 'autentic' page
         }
     }
-    public function ajax_list()
+    public function ajax_list($uid = null)
     {
-        $list = $this->iuran->get_datatables();
+        $list = $this->iuran->get_datatables($uid);
         $data = array();
         $crs = "";
         $no = $_POST['start'];
@@ -69,8 +69,8 @@ class Iuran extends CI_Controller
 
         $output = array(
             "draw" => $_POST['draw'],
-            "recordsTotal" => $this->iuran->count_all(),
-            "recordsFiltered" => $this->iuran->count_filtered(),
+            "recordsTotal" => $this->iuran->count_all($uid),
+            "recordsFiltered" => $this->iuran->count_filtered($uid),
             "data" => $data,
         );
 
@@ -86,9 +86,11 @@ class Iuran extends CI_Controller
 
     public function detail()
     {
-        $data['total']     = $this->riwayat_kasir->get_total_transaksi_inkopkar();
-        $data['content']     = 'webview/admin/riwayat_kasir/riwayat_kasir_transaksi_inkopkar_v';
-        $data['content_js'] = 'webview/admin/riwayat_kasir/riwayat_kasir_transaksi_inkopkar_js';
+
+        $data['content']     = 'webview/admin/iuran/iuran_detail_v';
+        $data['content_js'] = 'webview/admin/iuran/iuran_detail_js';
+        // $data['content']     = 'webview/admin/riwayat_kasir/riwayat_kasir_transaksi_inkopkar_v';
+        // $data['content_js'] = 'webview/admin/riwayat_kasir/riwayat_kasir_transaksi_inkopkar_js';
         $this->load->view('parts/admin/Wrapper', $data);
     }
 
@@ -429,5 +431,46 @@ class Iuran extends CI_Controller
         } finally {
             if (file_exists($file_path)) unlink($file_path);
         }
+    }
+
+    public function ajax_list1()
+    {
+        $list = $this->iuran->get_datatables_1();
+        $data = array();
+        $crs = "";
+        $no = $_POST['start'];
+
+        // var_dump($list);
+        foreach ($list as $cat) {
+            // $path = base_url() . 'uploads/blog/' . $cat->thumbnail;
+
+            $no++;
+            $row = array();
+            $row[] = $no;
+            // $row[] = $cat->id;
+            $row[] = $cat->no_induk;
+            $row[] = $cat->nama_koperasi;
+            $row[] = '<div style="text-align: right;">Rp. ' . number_format(
+                $cat->saldo_iuran ?? 0,
+                0,
+                ',',
+                '.'
+            ) . '</div>';
+
+
+            $row[] = '<a title="Detail Iuran Koperasi" href="' . base_url('iuran/detail/' . $cat->id) . '" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#ffffff" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg></a>';
+
+
+            $data[] = $row;
+        }
+
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $this->iuran->count_all_1(),
+            "recordsFiltered" => $this->iuran->count_filtered_1(),
+            "data" => $data,
+        );
+
+        echo json_encode($output);
     }
 }

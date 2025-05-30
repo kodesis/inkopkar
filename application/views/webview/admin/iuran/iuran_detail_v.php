@@ -49,12 +49,12 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nomor Induk</th>
+                                    <!-- <th>Nomor Induk</th> -->
                                     <th>Nama Koperasi</th>
                                     <th>Saldo Iuran</th>
-                                    <!-- <th>Tanggal</th> -->
+                                    <th>Tanggal</th>
                                     <!-- <th>Status</th> -->
-                                    <th>#</th>
+                                    <!-- <th>#</th> -->
                                 </tr>
                             </thead>
 
