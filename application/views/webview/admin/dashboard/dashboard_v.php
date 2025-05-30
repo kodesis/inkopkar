@@ -265,7 +265,7 @@
                     if ($this->session->userdata('role') == "Koperasi" || $this->session->userdata('role') == "Puskopkar") {
                     ?>
                         <div class="col-6 col-lg-3 col-md-6">
-                            <a href="<?= base_url('iuran/detail') ?>">
+                            <a href="<?= base_url('iuran') ?>">
                                 <div class="card">
                                     <div class="card-body px-4 py-4-5">
                                         <div class="row">
