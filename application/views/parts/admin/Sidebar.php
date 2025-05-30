@@ -192,7 +192,7 @@
                             if ($this->session->userdata('role') == "Puskopkar") {
                             ?>
                                 <li
-                                    class="sidebar-item <?php if ($url_now == 'Anggota_Management') {
+                                    class="sidebar-item <?php if ($url_now == 'Koperasi_Management') {
                                                             echo 'active ';
                                                         } ?>">
                                     <a href="<?= base_url('Koperasi_Management') ?>" class='sidebar-link'>

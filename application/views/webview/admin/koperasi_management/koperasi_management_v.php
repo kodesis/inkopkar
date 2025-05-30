@@ -29,9 +29,14 @@
                 <div class="card-header">
                     <h5 class="card-title">
                         <!-- Minimal jQuery Datatable -->
-                        <a href="<?= base_url('Koperasi_Management/add') ?>" class="btn btn-primary">Create Koperasi</a>
-                        <a href="<?= base_url('Koperasi_Management/transaksi') ?>" class="btn btn-primary">Transaksi</a>
-
+                        <?php
+                        if ($this->session->userdata('role') != "Puskopkar") {
+                        ?>
+                            <a href="<?= base_url('Koperasi_Management/add') ?>" class="btn btn-primary">Create Koperasi</a>
+                            <a href="<?= base_url('Koperasi_Management/transaksi') ?>" class="btn btn-primary">Transaksi</a>
+                        <?php
+                        }
+                        ?>
                     </h5>
                 </div>
                 <div class="card-body">
