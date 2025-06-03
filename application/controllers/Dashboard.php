@@ -204,18 +204,47 @@ class Dashboard extends CI_Controller
 		if ($this->session->userdata('role') == "Koperasi" || $this->session->userdata('role') == "Puskopkar") {
 			// $data['saldo_rekening'] = $saldo_rekening - $total_saldo_iuran;
 			// $data['saldo_rekening'] = $saldo_rekening;
-		} else {
 			$data['saldo_rekening'] = $saldo_rekening + $total_saldo_iuran;
+			$data['total_saldo'] = $saldo_rekening + $total_saldo_iuran;
+		} else if ($this->session->userdata('role') != "Anggota") {
+			$data['total_saldo'] = $saldo_rekening + $total_saldo_iuran;
 		}
 		// $data['saldo_rekening'] = $saldo_rekening;
 		$data['total_saldo_iuran'] = $total_saldo_iuran;
 
-		$data['total_saldo'] = $saldo_rekening + $total_saldo_iuran;
 		// $data['total_saldo'] = $saldo_rekening;
 
 		// echo $total_semua_kredit;
 		// echo  $total_kredit;
 		// $data['total_kredit'] = $result->nominal_kredit;
+
+		$this->db->select_sum('nominal');
+		$this->db->from('saldo_simpanan');
+		$this->db->join('anggota', 'anggota.id = saldo_simpanan.id_anggota');
+		if ($this->session->userdata('role') == "Koperasi") {
+			$this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
+		} else if ($this->session->userdata('role') == "Anggota") {
+			$this->db->where('id_anggota', $this->session->userdata('user_user_id'));
+		}
+
+		$query = $this->db->get();
+		$result = $query->row();
+		$total_saldo_simpanan = $result->nominal;
+		$data['total_saldo_simpanan'] = $total_saldo_simpanan;
+
+		$this->db->select_sum('nominal');
+		$this->db->from('saldo_pinjaman');
+		$this->db->join('anggota', 'anggota.id = saldo_pinjaman.id_anggota');
+		if ($this->session->userdata('role') == "Koperasi") {
+			$this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
+		} else if ($this->session->userdata('role') == "Anggota") {
+			$this->db->where('id_anggota', $this->session->userdata('user_user_id'));
+		}
+
+		$query = $this->db->get();
+		$result = $query->row();
+		$total_saldo_pinjaman = $result->nominal;
+		$data['total_saldo_pinjaman'] = $total_saldo_pinjaman;
 
 		$data['content']  = 'webview/admin/dashboard/dashboard_v';
 		// $data['content_js'] = 'webview/admin/dashboard/dashboard_js';

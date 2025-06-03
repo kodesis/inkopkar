@@ -46,7 +46,7 @@
 
         // Load data for the table's content from an Ajax source
         ajax: {
-            url: "<?php echo site_url('Saldo_Simpanan/ajax_list') ?> ",
+            url: "<?php echo site_url('Saldo_Pinjaman/ajax_list') ?> ",
             type: "POST",
             data: function(data) {}
         },
@@ -106,7 +106,7 @@
 
                     var url;
                     var formData;
-                    url = "<?php echo site_url('Saldo_Simpanan/save') ?>";
+                    url = "<?php echo site_url('Saldo_Pinjaman/save') ?>";
 
                     // window.location = url_base;
                     var formData = new FormData($("#add_Nota")[0]);
@@ -180,7 +180,7 @@
         if (selectedOption.val()) {
             var url;
             var formData;
-            url = "<?php echo site_url('Saldo_Simpanan/cari_detail_user/') ?>" + ttltitleValue;
+            url = "<?php echo site_url('Saldo_Pinjaman/cari_detail_user/') ?>" + ttltitleValue;
 
             // window.location = url_base;
             // var formData = new FormData($("#add_Nota")[0]);
@@ -299,7 +299,7 @@
             var formData = new FormData(this);
 
             $.ajax({
-                url: "<?php echo site_url('Saldo_Simpanan/process_insert_excel/') ?>",
+                url: "<?php echo site_url('Saldo_Pinjaman/process_insert_excel/') ?>",
                 type: 'POST',
                 data: formData,
                 contentType: false, // important for file upload
@@ -308,8 +308,7 @@
                     // Optional: show loading spinner or disable button
                 },
                 success: function(response) {
-                    // Do something when upload success
-                    console.log(response);
+                    // If response is a string, parse it
                     if (typeof response === 'string') {
                         response = JSON.parse(response);
                     }

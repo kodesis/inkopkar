@@ -209,6 +209,23 @@ class Nota_Management_m extends CI_Model
         return $this->db->get()->result();
     }
 
+    public function get_anggota_saldo_pinjaman()
+    {
+        $this->db->select('anggota.*, koperasi.nama_koperasi');
+        $this->db->from('anggota');
+        $this->db->join('toko', 'anggota.id_toko = toko.id', 'left');
+        $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
+        if ($this->session->userdata('role') == "Koperasi") {
+            $this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
+            $this->db->where('role >', '3');
+        } else if ($this->session->userdata('role') == "Puskopkar") {
+            $this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
+            $this->db->where('role', '2');
+        }
+
+        return $this->db->get()->result();
+    }
+
     public function save_pencairan($data)
     {
         $this->db->insert('iuran', $data);

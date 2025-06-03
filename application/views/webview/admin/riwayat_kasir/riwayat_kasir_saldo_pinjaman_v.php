@@ -9,14 +9,14 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Table Riwayat Pencairan</h3>
+                    <h3>Table Riwayat Kasir Pinjaman</h3>
                     <!-- <p class="text-subtitle text-muted">Powerful interactive tables with datatables (jQuery required).</p> -->
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="<?= base_url('dashboard') ?>">Dashboard</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Riwayat Kasir Management</li>
+                            <li class="breadcrumb-item active" aria-current="page">Riwayat Kasir Pinjaman Management</li>
                         </ol>
                     </nav>
                 </div>
@@ -30,7 +30,6 @@
                     <h5 class="card-title">
                         <!-- Minimal jQuery Datatable -->
                         <!-- <a href="<?= base_url('Riwayat_Kasir/add') ?>" class="btn btn-primary">Create Riwayat Kasir</a> -->
-                        <!-- <a href="<?= base_url('Riwayat_Kasir/detail_penjualan') ?>" class="btn btn-primary">Semua Pencairan</a> -->
                     </h5>
                 </div>
                 <div class="card-body">
@@ -39,14 +38,25 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Koperasi</th>
-                                    <th>Nominal </th>
+                                    <th>Nama</th>
+                                    <th>Koperasi</th>
                                     <th>Tanggal</th>
-                                    <th>Status</th>
+                                    <th>Nominal</th>
+                                    <!-- <th>Status</th> -->
                                     <!-- <th>#</th> -->
                                 </tr>
                             </thead>
-
+                            <tfoot>
+                                <tr>
+                                    <th colspan="4">
+                                        Total
+                                    </th>
+                                    <th>
+                                        <div style="text-align: right;">Rp. <?= number_format($total->nominal ?? 0, 0, ',', '.') ?>
+                                        </div>
+                                    </th>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>

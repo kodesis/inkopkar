@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Saldo_Simpanan extends CI_Controller
+class Saldo_Pinjaman extends CI_Controller
 {
 
     /**
@@ -29,6 +29,7 @@ class Saldo_Simpanan extends CI_Controller
         $this->load->model('toko_Management_m', 'toko_management');
         $this->load->model('koperasi_Management_m', 'koperasi_management');
         $this->load->model('Saldo_Simpanan_m', 'saldo_simpanan');
+        $this->load->model('Saldo_Pinjaman_m', 'saldo_pinjaman');
 
         $this->load->helper(array('form', 'url'));
         $this->load->library(array('upload', 'Api_Whatsapp'));
@@ -84,12 +85,12 @@ class Saldo_Simpanan extends CI_Controller
         $data['content_js'] = 'webview/admin/nota_management/nota_management_js';
         $this->load->view('parts/admin/Wrapper', $data);
     }
-    public function add_simpanan()
+    public function add_pinjaman()
     {
 
-        $data['anggota'] = $this->nota_management->get_anggota_saldo_simpanan();
-        $data['content']     = 'webview/admin/Saldo_Simpanan/saldo_simpanan_form_v';
-        $data['content_js'] = 'webview/admin/Saldo_Simpanan/saldo_simpanan_js';
+        $data['anggota'] = $this->nota_management->get_anggota_saldo_pinjaman();
+        $data['content']     = 'webview/admin/Saldo_Pinjaman/saldo_pinjaman_form_v';
+        $data['content_js'] = 'webview/admin/Saldo_Pinjaman/saldo_pinjaman_js';
         $this->load->view('parts/admin/Wrapper', $data);
     }
     public function update($id)
@@ -121,7 +122,7 @@ class Saldo_Simpanan extends CI_Controller
         $current_year = date('Y');
 
         // Get the latest ID from the database for the current year
-        $latest_entry = $this->saldo_simpanan->get_latest_entry($current_year);
+        $latest_entry = $this->saldo_pinjaman->get_latest_entry($current_year);
 
         if ($latest_entry) {
             // Extract only the first 6 digits of the latest ID (numeric part)
@@ -134,7 +135,7 @@ class Saldo_Simpanan extends CI_Controller
         $new_id = $new_number . $current_year;
 
         // Save the new data
-        $sub_id = $this->saldo_simpanan->save_file([
+        $sub_id = $this->saldo_pinjaman->save_file([
             'id'             => $new_id, // New generated ID
             'tanggal_jam'    => $date,
             'id_anggota'     => $id_anggota,
@@ -154,8 +155,8 @@ class Saldo_Simpanan extends CI_Controller
         // $usage_kredit = $anggota->usage_kredit + $nominal_kredit;
 
         $this->db->select_sum('nominal');
-        $this->db->from('saldo_simpanan');
-        $this->db->join('anggota', 'anggota.id = saldo_simpanan.id_anggota');
+        $this->db->from('saldo_pinjaman');
+        $this->db->join('anggota', 'anggota.id = saldo_pinjaman.id_anggota');
         $this->db->where('id_anggota', $id_anggota);
         $this->db->where('status', '1');
 
@@ -163,7 +164,7 @@ class Saldo_Simpanan extends CI_Controller
         $result = $query->row();
         $usage_now = $result->nominal;
 
-        $this->anggota_management->update_data(['saldo_simpanan' => $usage_now], ['id' => $id_anggota]);
+        $this->anggota_management->update_data(['saldo_pinjaman' => $usage_now], ['id' => $id_anggota]);
 
         // if (!$response) {
         //     echo json_encode(["status" => FALSE, "error" => "Failed to send WhatsApp message"]);
@@ -182,8 +183,8 @@ class Saldo_Simpanan extends CI_Controller
     public function cari_detail_user($id)
     {
         $anggota = $this->anggota_management->get_id_edit($id);
-        $saldo_simpanan = $this->saldo_simpanan->total_saldo_simpanan_anggota($id);
-        echo json_encode(array("status" => TRUE, 'nama' => $anggota->nama, 'nomor_anggota' => $anggota->nomor_anggota, 'kredit_limit' => $anggota->kredit_limit, 'saldo_simpanan' => $saldo_simpanan));
+        $saldo_pinjaman = $this->saldo_pinjaman->total_saldo_pinjaman_anggota($id);
+        echo json_encode(array("status" => TRUE, 'nama' => $anggota->nama, 'nomor_anggota' => $anggota->nomor_anggota, 'kredit_limit' => $anggota->kredit_limit, 'saldo_pinjaman' => $saldo_pinjaman));
     }
 
     public function process_insert_excel()
@@ -192,7 +193,7 @@ class Saldo_Simpanan extends CI_Controller
         require APPPATH . 'third_party/autoload.php';
         require APPPATH . 'third_party/psr/simple-cache/src/CacheInterface.php';
 
-        $config['upload_path'] = FCPATH . 'uploads/saldo_simpanan';
+        $config['upload_path'] = FCPATH . 'uploads/saldo_pinjaman';
         $config['allowed_types'] = 'xls|xlsx|csv';
         $this->upload->initialize($config);
 
@@ -215,7 +216,7 @@ class Saldo_Simpanan extends CI_Controller
 
             // === Start your ID generator ===
             $current_year = date('Y');
-            $latest_entry = $this->saldo_simpanan->get_latest_entry($current_year);
+            $latest_entry = $this->saldo_pinjaman->get_latest_entry($current_year);
 
             if ($latest_entry) {
                 $latest_number = (int) substr($latest_entry->id, 0, 6);
@@ -243,7 +244,7 @@ class Saldo_Simpanan extends CI_Controller
 
                 $nomor_anggota = isset($rowData[0]) ? $rowData[0] : null;
 
-                echo $nomor_anggota;
+                // echo $nomor_anggota;
                 // Find id_anggota from database
                 $anggota = $this->db->get_where('anggota', ['nomor_anggota' => $nomor_anggota])->row();
                 $id_anggota = $anggota->id;
@@ -273,7 +274,7 @@ class Saldo_Simpanan extends CI_Controller
             }
 
             if (!empty($dataInsert)) {
-                $this->db->insert_batch('saldo_simpanan', $dataInsert); // Bulk insert
+                $this->db->insert_batch('saldo_pinjaman', $dataInsert); // Bulk insert
 
                 $updateAnggota = [];
 
@@ -283,11 +284,11 @@ class Saldo_Simpanan extends CI_Controller
                     // Hitung total nominal terbaru dari tabel iuran
                     $this->db->select_sum('nominal');
                     $this->db->where('id_anggota', $id_anggota);
-                    $total = $this->db->get('saldo_simpanan')->row();
+                    $total = $this->db->get('saldo_pinjaman')->row();
 
                     $updateAnggota[] = [
                         'id' => $id_anggota,
-                        'saldo_simpanan' => $total->nominal ?? 0,
+                        'saldo_pinjaman' => $total->nominal ?? 0,
                     ];
                 }
 

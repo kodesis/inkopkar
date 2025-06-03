@@ -159,12 +159,12 @@
                                 <?php
                                 if ($this->session->userdata('role') == "Admin" || $this->session->userdata('role') == "Koperasi") {
                                 ?>
-                                    <li class="submenu-item <?php if ($url_now == 'Riwayat_Kasir/detail_pencairan') {
-                                                                echo 'active ';
-                                                            } ?>">
+                                    <!-- <li class="submenu-item <?php if ($url_now == 'Riwayat_Kasir/detail_pencairan') {
+                                                                        echo 'active ';
+                                                                    } ?>">
                                         <a href="<?= base_url('Riwayat_Kasir/detail_pencairan') ?>" class="submenu-link">Riwayat Pencairan</a>
 
-                                    </li>
+                                    </li> -->
                                 <?php
                                 }
                                 ?>
@@ -175,6 +175,12 @@
                                                                 echo 'active ';
                                                             } ?>">
                                         <a href="<?= base_url('Riwayat_Kasir/detail_saldo_simpanan') ?>" class="submenu-link">Riwayat Saldo Simpanan</a>
+
+                                    </li>
+                                    <li class="submenu-item <?php if ($url_now == 'Riwayat_Kasir/detail_saldo_pinjaman') {
+                                                                echo 'active ';
+                                                            } ?>">
+                                        <a href="<?= base_url('Riwayat_Kasir/detail_saldo_pinjaman') ?>" class="submenu-link">Riwayat Saldo Pinjaman</a>
 
                                     </li>
                                 <?php
@@ -251,7 +257,7 @@
                         }
                         if ($this->session->userdata('role') == "Koperasi") {
                         ?>
-                            <li
+                            <!-- <li
                                 class="sidebar-item <?php if ($url_now == 'Nota_Management/add_iuran') {
                                                         echo 'active ';
                                                     } ?>">
@@ -259,7 +265,7 @@
                                     <i class="bi bi-grid-fill"></i>
                                     <span>Pencairan</span>
                                 </a>
-                            </li>
+                            </li> -->
                         <?php
                         }
                         ?>
@@ -280,7 +286,7 @@
                         ?>
                         <?php
                         // if ($this->session->userdata('role') == "Puskopkar" || $this->session->userdata('role') == "Koperasi" || $this->session->userdata('role') == "Admin") {
-                        if ($this->session->userdata('role') == "Admin") {
+                        if ($this->session->userdata('role') == "Admin" || $this->session->userdata('role') == "Koperasi") {
                         ?>
                             <li
                                 class="sidebar-item <?php if ($url_now == 'Saldo_Simpanan/add_simpanan') {
@@ -289,6 +295,15 @@
                                 <a href="<?= base_url('Saldo_Simpanan/add_simpanan') ?>" class='sidebar-link'>
                                     <i class="bi bi-grid-fill"></i>
                                     <span>Tambah Saldo Simpanan</span>
+                                </a>
+                            </li>
+                            <li
+                                class="sidebar-item <?php if ($url_now == 'Saldo_Pinjaman/add_pinjaman') {
+                                                        echo 'active ';
+                                                    } ?>">
+                                <a href="<?= base_url('Saldo_Pinjaman/add_pinjaman') ?>" class='sidebar-link'>
+                                    <i class="bi bi-grid-fill"></i>
+                                    <span>Tambah Saldo Pinjaman</span>
                                 </a>
                             </li>
                         <?php
