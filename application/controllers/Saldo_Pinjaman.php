@@ -89,8 +89,8 @@ class Saldo_Pinjaman extends CI_Controller
     {
 
         $data['anggota'] = $this->nota_management->get_anggota_saldo_pinjaman();
-        $data['content']     = 'webview/admin/Saldo_Pinjaman/saldo_pinjaman_form_v';
-        $data['content_js'] = 'webview/admin/Saldo_Pinjaman/saldo_pinjaman_js';
+        $data['content']     = 'webview/admin/saldo_pinjaman/saldo_pinjaman_form_v';
+        $data['content_js'] = 'webview/admin/saldo_pinjaman/saldo_pinjaman_js';
         $this->load->view('parts/admin/Wrapper', $data);
     }
     public function update($id)
