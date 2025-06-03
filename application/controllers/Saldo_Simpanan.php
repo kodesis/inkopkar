@@ -88,8 +88,8 @@ class Saldo_Simpanan extends CI_Controller
     {
 
         $data['anggota'] = $this->nota_management->get_anggota_saldo_simpanan();
-        $data['content']     = 'webview/admin/Saldo_Simpanan/saldo_simpanan_form_v';
-        $data['content_js'] = 'webview/admin/Saldo_Simpanan/saldo_simpanan_js';
+        $data['content']     = 'webview/admin/saldo_simpanan/saldo_simpanan_form_v';
+        $data['content_js'] = 'webview/admin/saldo_simpanan/saldo_simpanan_js';
         $this->load->view('parts/admin/Wrapper', $data);
     }
     public function update($id)
