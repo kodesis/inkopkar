@@ -60,22 +60,24 @@
                                     <th>#</th>
                                 </tr>
                             </thead>
-                            <!-- <thead>
+                            <tfoot>
                                 <tr>
-                                    <th colspan="4">No</th>
-                                    <th>
-                                        <div style="text-align: right;">Rp. Rp. <?= number_format($total_usage ?? 0, 0, ',', '.') ?></div>
+                                    <th colspan="5" style="text-align: right;">Total </th>
+                                    <th id="total_saldo_iuran" style="text-align: right;">
+                                        <!-- <div style="text-align: right;">Rp. Rp. <?= number_format($total_usage ?? 0, 0, ',', '.') ?></div> -->
                                     </th>
-                                    <th>
-                                        <div style="text-align: right;">Rp. <?= number_format($total_saldo_tagihan ?? 0, 0, ',', '.') ?></div>
-                                    </th>
-                                    <th>
-                                        <div style="text-align: right;">Rp. <?= number_format($total_saldo_rekening ?? 0, 0, ',', '.') ?>
-                                        </div>
-                                    </th>
+                                    <?php
+                                    if ($this->session->userdata('role') != "Puskopkar") {
+                                    ?>
+                                        <th id="total_saldo_inkopkar" style="text-align: right;">
+                                            <!-- <div style="text-align: right;">Rp. <?= number_format($total_saldo_tagihan ?? 0, 0, ',', '.') ?></div> -->
+                                        </th>
+                                    <?php
+                                    }
+                                    ?>
                                     <th>#</th>
                                 </tr>
-                            </thead> -->
+                            </tfoot>
                         </table>
                     </div>
                 </div>

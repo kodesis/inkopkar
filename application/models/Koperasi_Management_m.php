@@ -75,6 +75,29 @@ class Koperasi_Management_m extends CI_Model
 
         return $this->db->count_all_results();
     }
+    public function get_total_saldo_filtered_saldo_tagihan($url = null)
+    {
+        $this->_get_datatables_query($url);
+        $this->db->select_sum('saldo_tagihan');
+        $query = $this->db->get();
+        return $query->row()->saldo_rekening;
+    }
+
+    public function get_total_saldo_filtered_saldo_iuran($url = null)
+    {
+        $this->_get_datatables_query($url);
+        $this->db->select_sum('saldo_iuran');
+        $query = $this->db->get();
+        return $query->row()->saldo_iuran;
+    }
+
+    public function get_total_saldo_filtered_saldo_inkopkar($url = null)
+    {
+        $this->_get_datatables_query($url);
+        $this->db->select_sum('saldo_rekening');
+        $query = $this->db->get();
+        return $query->row()->saldo_rekening;
+    }
 
     public function save_file($data)
     {

@@ -21,7 +21,24 @@
         ajax: {
             url: "<?php echo site_url('Koperasi_Management/ajax_list/transaksi') ?> ",
             type: "POST",
-            data: function(data) {}
+            dataSrc: function(json) {
+                // Update footer
+                $('#total_saldo_tagihan').html(
+                    new Intl.NumberFormat('id-ID', {
+                        style: 'currency',
+                        currency: 'IDR',
+                        minimumFractionDigits: 0
+                    }).format(json.total_saldo_tagihan)
+                );
+                $('#total_saldo_rekening').html(
+                    new Intl.NumberFormat('id-ID', {
+                        style: 'currency',
+                        currency: 'IDR',
+                        minimumFractionDigits: 0
+                    }).format(json.total_saldo_inkopkar)
+                );
+                return json.data;
+            }
         },
         columnDefs: [{
             targets: [4, 5, 6], // The 8th column (0-indexed)

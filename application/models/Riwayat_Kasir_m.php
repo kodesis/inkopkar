@@ -90,6 +90,21 @@ class Riwayat_Kasir_m extends CI_Model
         return $this->db->count_all_results();
     }
 
+    public function get_total_saldo_filtered_kredit()
+    {
+        $this->_get_datatables_query(); // same filter logic as your table
+        $this->db->select_sum('nominal_kredit');
+        $query = $this->db->get();
+        return $query->row()->nominal_kredit;
+    }
+    public function get_total_saldo_filtered_cash()
+    {
+        $this->_get_datatables_query(); // same filter logic as your table
+        $this->db->select_sum('nominal_cash');
+        $query = $this->db->get();
+        return $query->row()->nominal_cash;
+    }
+
     public function save_file($data)
     {
         $this->db->insert('nota', $data);
@@ -217,6 +232,14 @@ class Riwayat_Kasir_m extends CI_Model
         return $this->db->count_all_results();
     }
 
+    public function get_total_saldo_filtered_pembayaran()
+    {
+        $this->_get_datatables_query_pembayaran(); // same filter logic as your table
+        $this->db->select_sum('nominal');
+        $query = $this->db->get();
+        return $query->row()->nominal;
+    }
+
     function get_total_pembayaran()
     {
 
@@ -306,6 +329,13 @@ class Riwayat_Kasir_m extends CI_Model
 
         return $this->db->count_all_results();
     }
+    public function get_total_saldo_filtered_transaksi_inkopkar()
+    {
+        $this->_get_datatables_query_transaksi_inkopkar(); // same filter logic as your table
+        $this->db->select_sum('nominal');
+        $query = $this->db->get();
+        return $query->row()->nominal;
+    }
 
     function get_total_transaksi_inkopkar()
     {
@@ -355,7 +385,7 @@ class Riwayat_Kasir_m extends CI_Model
                     $this->db->or_like($item, $_POST['search']['value']);
                 }
 
-                if (count($this->column_search_simpanan) - 1 == $i) //last loop
+                if (count($this->column_search_saldo_simpanan) - 1 == $i) //last loop
                     $this->db->group_end(); //close bracket
             }
             $i++;
@@ -393,6 +423,14 @@ class Riwayat_Kasir_m extends CI_Model
         $query = $this->db->get();
 
         return $this->db->count_all_results();
+    }
+
+    public function get_total_saldo_filtered_simpanan()
+    {
+        $this->_get_datatables_query_saldo_simpanan(); // same filter logic as your table
+        $this->db->select_sum('nominal');
+        $query = $this->db->get();
+        return $query->row()->nominal;
     }
 
     function get_total_saldo_simpanan()
@@ -484,6 +522,13 @@ class Riwayat_Kasir_m extends CI_Model
 
         return $this->db->count_all_results();
     }
+    public function get_total_saldo_filtered_iuran()
+    {
+        $this->_get_datatables_query_iuran(); // same filter logic as your table
+        $this->db->select_sum('nominal');
+        $query = $this->db->get();
+        return $query->row()->nominal;
+    }
 
     var $table_saldo_pinjaman = 'saldo_pinjaman';
     // var $column_order = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable orderable
@@ -525,7 +570,7 @@ class Riwayat_Kasir_m extends CI_Model
                     $this->db->or_like($item, $_POST['search']['value']);
                 }
 
-                if (count($this->column_search_pinjaman) - 1 == $i) //last loop
+                if (count($this->column_search_saldo_pinjaman) - 1 == $i) //last loop
                     $this->db->group_end(); //close bracket
             }
             $i++;
@@ -563,6 +608,14 @@ class Riwayat_Kasir_m extends CI_Model
         $query = $this->db->get();
 
         return $this->db->count_all_results();
+    }
+
+    public function get_total_saldo_filtered_pinjaman()
+    {
+        $this->_get_datatables_query_saldo_pinjaman(); // same filter logic as your table
+        $this->db->select_sum('nominal');
+        $query = $this->db->get();
+        return $query->row()->nominal;
     }
 
     function get_total_saldo_pinjaman()

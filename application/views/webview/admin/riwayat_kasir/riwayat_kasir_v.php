@@ -48,7 +48,19 @@
                                     <!-- <th>#</th> -->
                                 </tr>
                             </thead>
-
+                            <tfoot>
+                                <tr>
+                                    <th colspan="3" style="text-align:right">
+                                        Total
+                                    </th>
+                                    <th id="total_saldo_kredit" style="text-align: right;">
+                                        <!-- Rp. <?= number_format($total->nominal ?? 0, 0, ',', '.') ?> -->
+                                    </th>
+                                    <th id="total_saldo_cash" style="text-align: right;">
+                                        <!-- Rp. <?= number_format($total->nominal ?? 0, 0, ',', '.') ?> -->
+                                    </th>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>

@@ -57,23 +57,22 @@
                                     <!-- <th>#</th> -->
                                 </tr>
                             </thead>
-                            <!-- <tfoot>
+                            <tfoot>
                                 <tr>
-                                    <th colspan="5">
+                                    <th colspan="6">
                                         Total
                                     </th>
-                                    <th>
-                                        <div style="text-align: right;">Rp.
-                                            <?= number_format(
-                                                $total->nominal ?? 0,
-                                                0,
-                                                ',',
-                                                '.'
-                                            ) ?>
-                                        </div>
+                                    <th id="total_saldo" style="text-align: right;">
+                                        <!-- Rp.
+                                        <?= number_format(
+                                            $total->nominal ?? 0,
+                                            0,
+                                            ',',
+                                            '.'
+                                        ) ?> -->
                                     </th>
                                 </tr>
-                            </tfoot> -->
+                            </tfoot>
                         </table>
                     </div>
                 </div>

@@ -21,7 +21,24 @@
         ajax: {
             url: "<?php echo site_url('Koperasi_Management/ajax_list1') ?> ",
             type: "POST",
-            data: function(data) {}
+            dataSrc: function(json) {
+                // Update footer
+                $('#total_saldo_iuran').html(
+                    new Intl.NumberFormat('id-ID', {
+                        style: 'currency',
+                        currency: 'IDR',
+                        minimumFractionDigits: 0
+                    }).format(json.total_saldo_iuran)
+                );
+                $('#total_saldo_inkopkar').html(
+                    new Intl.NumberFormat('id-ID', {
+                        style: 'currency',
+                        currency: 'IDR',
+                        minimumFractionDigits: 0
+                    }).format(json.total_saldo_inkopkar)
+                );
+                return json.data;
+            }
         },
         columnDefs: [{
             targets: [-1], // The 8th column (0-indexed)

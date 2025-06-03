@@ -108,12 +108,16 @@ class Riwayat_Kasir extends CI_Controller
 
             $data[] = $row;
         }
+        $total_saldo_kredit = $this->riwayat_kasir->get_total_saldo_filtered_kredit();
+        $total_saldo_cash = $this->riwayat_kasir->get_total_saldo_filtered_cash();
 
         $output = array(
             "draw" => $_POST['draw'],
             "recordsTotal" => $this->riwayat_kasir->count_all(),
             "recordsFiltered" => $this->riwayat_kasir->count_filtered(),
             "data" => $data,
+            "total_saldo_kredit" => $total_saldo_kredit,
+            "total_saldo_cash" => $total_saldo_cash,
         );
         echo json_encode($output);
     }
@@ -181,12 +185,14 @@ class Riwayat_Kasir extends CI_Controller
 
             $data[] = $row;
         }
+        $total_saldo = $this->riwayat_kasir->get_total_saldo_filtered_pembayaran();
 
         $output = array(
             "draw" => $_POST['draw'],
             "recordsTotal" => $this->riwayat_kasir->count_all_pembayaran(),
             "recordsFiltered" => $this->riwayat_kasir->count_filtered_pembayaran(),
             "data" => $data,
+            "total_saldo" => $total_saldo
         );
         echo json_encode($output);
     }
@@ -249,12 +255,14 @@ class Riwayat_Kasir extends CI_Controller
 
             $data[] = $row;
         }
+        $total_saldo = $this->riwayat_kasir->get_total_saldo_filtered_transaksi_inkopkar();
 
         $output = array(
             "draw" => $_POST['draw'],
             "recordsTotal" => $this->riwayat_kasir->count_all_transaksi_inkopkar(),
             "recordsFiltered" => $this->riwayat_kasir->count_filtered_transaksi_inkopkar(),
             "data" => $data,
+            "total_saldo" => $total_saldo
         );
         echo json_encode($output);
     }
@@ -293,12 +301,14 @@ class Riwayat_Kasir extends CI_Controller
 
             $data[] = $row;
         }
+        $total_saldo = $this->riwayat_kasir->get_total_saldo_filtered_simpanan();
 
         $output = array(
             "draw" => $_POST['draw'],
             "recordsTotal" => $this->riwayat_kasir->count_all_saldo_simpanan(),
             "recordsFiltered" => $this->riwayat_kasir->count_filtered_saldo_simpanan(),
             "data" => $data,
+            "total_saldo" => $total_saldo
         );
         echo json_encode($output);
     }
@@ -355,12 +365,15 @@ class Riwayat_Kasir extends CI_Controller
 
             $data[] = $row;
         }
+        // Get total saldo of all filtered results (not just current page)
+        $total_saldo = $this->riwayat_kasir->get_total_saldo_filtered_iuran();
 
         $output = array(
             "draw" => $_POST['draw'],
             "recordsTotal" => $this->riwayat_kasir->count_all_iuran(),
             "recordsFiltered" => $this->riwayat_kasir->count_filtered_iuran(),
             "data" => $data,
+            "total_saldo" => $total_saldo
         );
         echo json_encode($output);
     }
@@ -372,16 +385,52 @@ class Riwayat_Kasir extends CI_Controller
         $data['content_js'] = 'webview/admin/riwayat_kasir/riwayat_kasir_saldo_pinjaman_js';
         $this->load->view('parts/admin/Wrapper', $data);
     }
+    // public function ajax_list_saldo_pinjaman()
+    // {
+    //     $list = $this->riwayat_kasir->get_datatables_saldo_pinjaman();
+    //     $data = array();
+    //     $crs = "";
+    //     $no = $_POST['start'];
+
+    //     foreach ($list as $cat) {
+    //         // $path = base_url() . 'uploads/blog/' . $cat->thumbnail;
+
+    //         $no++;
+    //         $row = array();
+    //         $row[] = $cat->id;
+    //         $row[] = $cat->nama;
+    //         $row[] = $cat->nama_koperasi;
+    //         $date = new DateTime($cat->tanggal_jam);
+    //         $row[] = $date->format('d F Y, H:i:s');
+    //         // $row[] = "Rp. " . $cat->nominal_kredit;
+    //         $row[] = '<div style="text-align: right;">' . number_format(
+    //             $cat->nominal,
+    //             0,
+    //             ',',
+    //             '.'
+    //         ) . '</div>';
+
+
+    //         $data[] = $row;
+    //     }
+
+    //     $output = array(
+    //         "draw" => $_POST['draw'],
+    //         "recordsTotal" => $this->riwayat_kasir->count_all_saldo_pinjaman(),
+    //         "recordsFiltered" => $this->riwayat_kasir->count_filtered_saldo_pinjaman(),
+    //         "data" => $data,
+    //     );
+    //     echo json_encode($output);
+    // }
+
     public function ajax_list_saldo_pinjaman()
     {
         $list = $this->riwayat_kasir->get_datatables_saldo_pinjaman();
         $data = array();
-        $crs = "";
+        $total_saldo = 0;
         $no = $_POST['start'];
 
         foreach ($list as $cat) {
-            // $path = base_url() . 'uploads/blog/' . $cat->thumbnail;
-
             $no++;
             $row = array();
             $row[] = $cat->id;
@@ -389,23 +438,23 @@ class Riwayat_Kasir extends CI_Controller
             $row[] = $cat->nama_koperasi;
             $date = new DateTime($cat->tanggal_jam);
             $row[] = $date->format('d F Y, H:i:s');
-            // $row[] = "Rp. " . $cat->nominal_kredit;
-            $row[] = '<div style="text-align: right;">' . number_format(
-                $cat->nominal,
-                0,
-                ',',
-                '.'
-            ) . '</div>';
+            $row[] = '<div style="text-align: right;">' . number_format($cat->nominal, 0, ',', '.') . '</div>';
 
+            // $total_saldo += $cat->nominal;
 
             $data[] = $row;
         }
+
+
+        // Get total saldo of all filtered results (not just current page)
+        $total_saldo = $this->riwayat_kasir->get_total_saldo_filtered_pinjaman();
 
         $output = array(
             "draw" => $_POST['draw'],
             "recordsTotal" => $this->riwayat_kasir->count_all_saldo_pinjaman(),
             "recordsFiltered" => $this->riwayat_kasir->count_filtered_saldo_pinjaman(),
             "data" => $data,
+            "total_saldo" => $total_saldo
         );
         echo json_encode($output);
     }

@@ -48,22 +48,21 @@
                                     <th>#</th>
                                 </tr>
                             </thead>
-                            <!-- <thead>
+                            <tfoot>
                                 <tr>
-                                    <th colspan="4">No</th>
-                                    <th>
-                                        <div style="text-align: right;">Rp. Rp. <?= number_format($total_usage ?? 0, 0, ',', '.') ?></div>
+                                    <th colspan="5" style="text-align: right;">Total</th>
+                                    <!-- <th style="text-align: right;" id="total_saldo_kredit">
+                                    </th> -->
+                                    <th style="text-align: right;" id="total_saldo_tagihan">
+                                        <!-- <div style="text-align: right;">Rp. <?= number_format($total_saldo_tagihan ?? 0, 0, ',', '.') ?></div> -->
                                     </th>
-                                    <th>
-                                        <div style="text-align: right;">Rp. <?= number_format($total_saldo_tagihan ?? 0, 0, ',', '.') ?></div>
-                                    </th>
-                                    <th>
-                                        <div style="text-align: right;">Rp. <?= number_format($total_saldo_rekening ?? 0, 0, ',', '.') ?>
-                                        </div>
+                                    <th style="text-align: right;" id="total_saldo_rekening">
+                                        <!-- <div style="text-align: right;">Rp. <?= number_format($total_saldo_rekening ?? 0, 0, ',', '.') ?>
+                                        </div> -->
                                     </th>
                                     <th>#</th>
                                 </tr>
-                            </thead> -->
+                            </tfoot>
                         </table>
                     </div>
                 </div>

@@ -203,11 +203,18 @@ class Koperasi_Management extends CI_Controller
             $data[] = $row;
         }
 
+        $total_saldo_tagihan = $this->koperasi_management->get_total_saldo_filtered_saldo_tagihan();
+        $total_saldo_inkopkar = $this->koperasi_management->get_total_saldo_filtered_saldo_inkopkar();
+
+
         $output = array(
             "draw" => $_POST['draw'],
             "recordsTotal" => $this->koperasi_management->count_all($url),
             "recordsFiltered" => $this->koperasi_management->count_filtered($url),
             "data" => $data,
+
+            "total_saldo_tagihan" => $total_saldo_tagihan,
+            "total_saldo_inkopkar" => $total_saldo_inkopkar,
         );
         echo json_encode($output);
     }
@@ -316,12 +323,16 @@ class Koperasi_Management extends CI_Controller
 
             $data[] = $row;
         }
+        $total_saldo_iuran = $this->koperasi_management->get_total_saldo_filtered_saldo_iuran();
+        $total_saldo_inkopkar = $this->koperasi_management->get_total_saldo_filtered_saldo_inkopkar();
 
         $output = array(
             "draw" => $_POST['draw'],
             "recordsTotal" => $this->koperasi_management->count_all(),
             "recordsFiltered" => $this->koperasi_management->count_filtered(),
             "data" => $data,
+            "total_saldo_iuran" => $total_saldo_iuran,
+            "total_saldo_inkopkar" => $total_saldo_inkopkar,
         );
         echo json_encode($output);
     }

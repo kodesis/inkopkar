@@ -31,7 +31,17 @@
         ajax: {
             url: "<?php echo site_url('Riwayat_Kasir/ajax_list_saldo_simpanan/' . $this->uri->segment(3)) ?> ",
             type: "POST",
-            data: function(data) {}
+            dataSrc: function(json) {
+                // Update footer
+                $('#total_saldo').html(
+                    new Intl.NumberFormat('id-ID', {
+                        style: 'currency',
+                        currency: 'IDR',
+                        minimumFractionDigits: 0
+                    }).format(json.total_saldo)
+                );
+                return json.data;
+            }
         },
         columnDefs: [{
             // targets: 5, // The 8th column (0-indexed)

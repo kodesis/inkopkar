@@ -48,12 +48,11 @@
                             </thead>
                             <tfoot>
                                 <tr>
-                                    <th colspan="4">
+                                    <th colspan="4" style="text-align:right">
                                         Total
                                     </th>
-                                    <th>
-                                        <div style="text-align: right;">Rp. <?= number_format($total->nominal ?? 0, 0, ',', '.') ?>
-                                        </div>
+                                    <th id="total_saldo" style="text-align: right;">
+                                        Rp. <?= number_format($total->nominal ?? 0, 0, ',', '.') ?>
                                     </th>
                                 </tr>
                             </tfoot>
