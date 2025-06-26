@@ -75,6 +75,34 @@
                         </li> -->
 
                         <?php
+                        if ($this->session->userdata('role') == "Anggota") {
+                        ?>
+                            <li
+                                class="sidebar-item <?php if ($url_now == 'kebutuhan') {
+                                                        echo 'active ';
+                                                    } ?>">
+                                <a href="<?= base_url('kebutuhan') ?>" class='sidebar-link'>
+                                    <i class="bi bi-grid-fill"></i>
+                                    <span>Kebutuhan</span>
+                                </a>
+                            </li>
+                        <?php
+                        } else if ($this->session->userdata('role') == "Koperasi") {
+                        ?>
+                            <li
+                                class="sidebar-item <?php if ($url_now == 'kebutuhan') {
+                                                        echo 'active ';
+                                                    } ?>">
+                                <a href="<?= base_url('kebutuhan/list') ?>" class='sidebar-link'>
+                                    <i class="bi bi-grid-fill"></i>
+                                    <span>Kebutuhan</span>
+                                </a>
+                            </li>
+                        <?php
+                        }
+                        ?>
+
+                        <?php
                         if ($this->session->userdata('role') == "Admin") {
                         ?>
                             <li
