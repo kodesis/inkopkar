@@ -16,8 +16,13 @@ class Kebutuhan extends CI_Controller
 
     public function index()
     {
-        // Menampilkan halaman form
-        // $this->load->view('v_form_kebutuhan');
+        // Asumsi ID anggota yang login disimpan di session
+        $id_anggota = $this->session->userdata('user_user_id');
+
+        // Ambil data kebutuhan yang sudah ada untuk anggota ini dari model
+        $data['detail_kebutuhan'] = $this->Kebutuhan_m->get_kebutuhan_by_anggota_id($id_anggota);
+
+        // PINDAHKAN DEFINISI KE SINI
         $data['kebutuhan_list'] = [
             'Beras'  => [
                 'unit' => 'kg',
@@ -33,58 +38,69 @@ class Kebutuhan extends CI_Controller
             'Telur'  => ['unit' => 'kg', 'has_type' => false],
         ];
 
-        $data['content']     = 'webview/admin/kebutuhan/kebutuhan_v';
+        $data['content']    = 'webview/admin/kebutuhan/kebutuhan_v';
         $data['content_js'] = 'webview/admin/kebutuhan/kebutuhan_js';
         $this->load->view('parts/admin/Wrapper', $data);
     }
 
     public function simpan()
     {
-        $this->form_validation->set_rules('nama_anggota', 'Nama Anggota', 'required');
+        $id_anggota = $this->session->userdata('user_user_id');
+        $items_from_form = $this->input->post('items');
 
-        if ($this->form_validation->run() == FALSE) {
-            $this->load->view('v_form_kebutuhan');
-        } else {
-            $nama_anggota = $this->input->post('nama_anggota');
-            $items = $this->input->post('items'); // Ambil semua data item sebagai array
+        $data_to_insert = [];
+        $data_to_update = [];
+        $submitted_ids = [];
 
-            $data_to_insert = [];
+        // 1. PISAHKAN DATA UNTUK INSERT & UPDATE
+        if (!empty($items_from_form)) {
+            foreach ($items_from_form as $item) {
+                // Pastikan item & jumlah valid
+                if (empty($item['name']) || empty($item['quantity']) || $item['quantity'] <= 0) {
+                    continue; // Lewati baris yang tidak valid
+                }
 
-            // Cek jika ada item yang dikirim
-            if (!empty($items)) {
-                foreach ($items as $item) {
-                    // Pastikan item dipilih dan jumlahnya diisi
-                    if (!empty($item['name']) && !empty($item['quantity']) && $item['quantity'] > 0) {
+                $satuan = ($item['name'] == 'Minyak') ? 'liter' : 'kg';
 
-                        // Definisikan satuan berdasarkan nama item
-                        $satuan = '';
-                        if ($item['name'] == 'Minyak') {
-                            $satuan = 'liter';
-                        } else {
-                            $satuan = 'kg';
-                        }
+                $prepared_data = [
+                    'id_anggota'     => $id_anggota,
+                    'nama_kebutuhan' => $item['name'],
+                    'tipe_kebutuhan' => isset($item['type']) ? $item['type'] : NULL,
+                    'jumlah'         => $item['quantity'],
+                    'satuan'         => $satuan
+                ];
 
-                        $data_to_insert[] = [
-                            'id_anggota' => $this->session->userdata('user_user_id'),
-                            'nama_kebutuhan' => $item['name'],
-                            // Cek jika tipe ada, jika tidak, isi NULL
-                            'tipe_kebutuhan' => isset($item['type']) ? $item['type'] : NULL,
-                            'jumlah'         => $item['quantity'],
-                            'satuan'         => $satuan
-                        ];
-                    }
+                // Jika ada 'id', berarti ini data untuk di-UPDATE
+                if (isset($item['id']) && !empty($item['id'])) {
+                    $prepared_data['id'] = $item['id'];
+                    $data_to_update[] = $prepared_data;
+                    $submitted_ids[] = $item['id'];
+                } else {
+                    // Jika tidak ada 'id', berarti ini data baru untuk di-INSERT
+                    $data_to_insert[] = $prepared_data;
                 }
             }
-
-            if (!empty($data_to_insert)) {
-                $this->db->insert_batch('kebutuhan', $data_to_insert);
-                $this->session->set_flashdata('success', 'Data kebutuhan berhasil disimpan!');
-            } else {
-                $this->session->set_flashdata('error', 'Gagal menyimpan. Pastikan Anda memilih item dan mengisi jumlahnya.');
-            }
-
-            redirect('kebutuhan');
         }
+
+        // 2. LOGIKA UNTUK MENGHAPUS DATA
+        // Ambil semua ID yang ada di DB untuk user ini
+        $existing_ids_in_db = $this->Kebutuhan_m->get_all_ids_by_anggota($id_anggota);
+        // Cari ID yang ada di DB tapi tidak ada di form yang disubmit (artinya dihapus oleh user)
+        $ids_to_delete = array_diff($existing_ids_in_db, $submitted_ids);
+
+        // 3. EKSEKUSI QUERY KE DATABASE
+        if (!empty($data_to_insert)) {
+            $this->db->insert_batch('kebutuhan', $data_to_insert);
+        }
+        if (!empty($data_to_update)) {
+            $this->db->update_batch('kebutuhan', $data_to_update, 'id');
+        }
+        if (!empty($ids_to_delete)) {
+            $this->Kebutuhan_m->delete_by_ids($ids_to_delete);
+        }
+
+        $this->session->set_flashdata('success', 'Data kebutuhan berhasil diperbarui!');
+        redirect('kebutuhan');
     }
 
     public function list()
@@ -151,5 +167,68 @@ class Kebutuhan extends CI_Controller
         // Kirim data sebagai JSON
         header('Content-Type: application/json');
         echo json_encode($summary_data);
+    }
+
+    public function laporan()
+    {
+        // Ambil filter bulan dari URL (jika ada) atau default ke bulan ini
+        $filter_bulan = $this->input->get('filter_bulan') ? $this->input->get('filter_bulan') : date('Y-m');
+
+        // 1. Ambil header kolom (tetap sama)
+        $item_headers_raw = $this->Kebutuhan_m->get_unique_items_by_month($filter_bulan);
+        $data['item_headers'] = [];
+        foreach ($item_headers_raw as $header) {
+            $header_name = $header['nama_kebutuhan'];
+            if ($header['tipe_kebutuhan']) {
+                $header_name .= ' Tipe ' . strtoupper($header['tipe_kebutuhan']);
+            }
+            $data['item_headers'][] = $header_name;
+        }
+        $data['item_headers'] = array_unique($data['item_headers']);
+        sort($data['item_headers']);
+
+        // 2. Ambil data detail (tetap sama)
+        $detail_kebutuhan = $this->Kebutuhan_m->get_all_detail_by_month($filter_bulan);
+
+        // 3. Proses Pivot dan HITUNG TOTAL SECARA BERSAMAAN
+        $pivoted_data = [];
+        $column_totals = []; // Inisialisasi array untuk menampung total per kolom
+
+        foreach ($detail_kebutuhan as $row) {
+            $nama_anggota = $row['nama'];
+
+            $nama_kebutuhan_key = $row['nama_kebutuhan'];
+            if ($row['tipe_kebutuhan']) {
+                $nama_kebutuhan_key .= ' Tipe ' . strtoupper($row['tipe_kebutuhan']);
+            }
+
+            $jumlah = (float) $row['jumlah'];
+            $satuan = $row['satuan'];
+            $jumlah_satuan = $jumlah . ' ' . $satuan;
+
+            // Proses pivot (tetap sama)
+            $pivoted_data[$nama_anggota][$nama_kebutuhan_key] = $jumlah_satuan;
+
+            // --- LOGIKA BARU UNTUK MENGHITUNG TOTAL ---
+            // Jika item ini belum ada di array total, inisialisasi dulu
+            if (!isset($column_totals[$nama_kebutuhan_key])) {
+                $column_totals[$nama_kebutuhan_key] = [
+                    'total' => 0,
+                    'satuan' => $satuan
+                ];
+            }
+            // Tambahkan jumlah saat ini ke total kolom
+            $column_totals[$nama_kebutuhan_key]['total'] += $jumlah;
+            // --- END LOGIKA BARU ---
+        }
+
+        $data['pivoted_data'] = $pivoted_data;
+        $data['column_totals'] = $column_totals; // Kirim data total ke view
+        $data['filter_bulan'] = $filter_bulan;
+        $data['title'] = "Laporan Pivot Kebutuhan";
+
+        $data['content']    = 'webview/admin/kebutuhan/kebutuhan_laporan_v';
+        $data['content_js']    = 'webview/admin/kebutuhan/kebutuhan_laporan_js';
+        $this->load->view('parts/admin/Wrapper', $data);
     }
 }

@@ -19,8 +19,17 @@ class Dashboard extends CI_Controller
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/userguide3/general/urls.html
 	 */
+
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->database(); // Load library database
+		$this->load->model('Kebutuhan_m', 'Kebutuhan_m');
+	}
+
 	public function index()
 	{
+
 		if ($this->session->userdata('user_logged_in') == false) {
 			redirect('auth');
 		}
@@ -246,10 +255,21 @@ class Dashboard extends CI_Controller
 		$total_saldo_pinjaman = $result->nominal;
 		$data['total_saldo_pinjaman'] = $total_saldo_pinjaman;
 
+		// UNTUK KEBUTUHAN
+
 		$data['content']  = 'webview/admin/dashboard/dashboard_v';
-		// $data['content_js'] = 'webview/admin/dashboard/dashboard_js';
+		$data['content_js'] = 'webview/admin/dashboard/dashboard_js';
 
 
 		$this->load->view('parts/admin/Wrapper', $data);
+	}
+
+	public function rekap_kebutuhan()
+	{
+		$summary_data = $this->Kebutuhan_m->get_rekap();
+
+		// Kirim data sebagai JSON
+		header('Content-Type: application/json');
+		echo json_encode($summary_data);
 	}
 }

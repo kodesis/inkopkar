@@ -16,6 +16,8 @@ class Kebutuhan_m extends CI_Model
         $this->db->select('kebutuhan.*, anggota.nama');
         $this->db->from('kebutuhan');
         $this->db->join('anggota', 'anggota.id = kebutuhan.id_anggota', 'left');
+        $this->db->join('koperasi', 'koperasi.id = anggota.id_koperasi', 'left');
+        $this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
 
         // --- LOGIKA FILTER BARU ---
         if (!empty($detail['filter_bulan'])) {
@@ -121,6 +123,9 @@ class Kebutuhan_m extends CI_Model
     {
         $this->db->select('nama_kebutuhan, tipe_kebutuhan, satuan, SUM(jumlah) as total_jumlah');
         $this->db->from('kebutuhan'); // Pastikan nama tabel benar
+        $this->db->join('anggota', 'anggota.id = kebutuhan.id_anggota', 'left');
+        $this->db->join('koperasi', 'koperasi.id = anggota.id_koperasi', 'left');
+        $this->db->where('koperasi.id', $this->session->userdata('id_koperasi'));
 
         // Filter berdasarkan bulan jika disediakan
         if (!empty($bulan_tahun)) {
@@ -132,6 +137,90 @@ class Kebutuhan_m extends CI_Model
             // Jika tidak ada bulan dipilih, kembalikan array kosong agar tidak menjumlahkan semua data
             return [];
         }
+
+        $this->db->group_by(['nama_kebutuhan', 'tipe_kebutuhan', 'satuan']);
+        $this->db->order_by('nama_kebutuhan', 'ASC');
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function get_kebutuhan_by_anggota_id($id_anggota)
+    {
+        $this->db->from('kebutuhan');
+        $this->db->where('id_anggota', $id_anggota);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function get_all_ids_by_anggota($id_anggota)
+    {
+        $this->db->select('id');
+        $this->db->from('kebutuhan');
+        $this->db->where('id_anggota', $id_anggota);
+        $query = $this->db->get();
+        return array_column($query->result_array(), 'id');
+    }
+
+    public function delete_by_ids($ids)
+    {
+        if (!empty($ids)) {
+            $this->db->where_in('id', $ids);
+            $this->db->delete('kebutuhan');
+        }
+    }
+
+    public function get_all_detail_by_month($bulan_tahun)
+    {
+        $this->db->select('anggota.nama, kebutuhan.nama_kebutuhan, kebutuhan.tipe_kebutuhan, kebutuhan.jumlah, kebutuhan.satuan');
+        $this->db->from('kebutuhan');
+        $this->db->join('anggota', 'anggota.id = kebutuhan.id_anggota', 'left');
+        $this->db->join('koperasi', 'koperasi.id = anggota.id_koperasi', 'left');
+        $this->db->where('koperasi.id', $this->session->userdata('id_koperasi'));
+
+        if (!empty($bulan_tahun)) {
+            $tahun = date('Y', strtotime($bulan_tahun));
+            $bulan = date('m', strtotime($bulan_tahun));
+            $this->db->where('YEAR(kebutuhan.tanggal_pilih)', $tahun);
+            $this->db->where('MONTH(kebutuhan.tanggal_pilih)', $bulan);
+        }
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    /**
+     * Mengambil semua jenis kebutuhan unik (untuk header tabel) pada bulan tertentu
+     */
+    public function get_unique_items_by_month($bulan_tahun)
+    {
+        $this->db->distinct();
+        $this->db->select('nama_kebutuhan, tipe_kebutuhan');
+        $this->db->from('kebutuhan');
+        $this->db->join('anggota', 'anggota.id = kebutuhan.id_anggota', 'left');
+        $this->db->join('koperasi', 'koperasi.id = anggota.id_koperasi', 'left');
+        $this->db->where('koperasi.id', $this->session->userdata('id_koperasi'));
+
+        if (!empty($bulan_tahun)) {
+            $tahun = date('Y', strtotime($bulan_tahun));
+            $bulan = date('m', strtotime($bulan_tahun));
+            $this->db->where('YEAR(kebutuhan.tanggal_pilih)', $tahun);
+            $this->db->where('MONTH(kebutuhan.tanggal_pilih)', $bulan);
+        }
+
+        $this->db->order_by('nama_kebutuhan', 'ASC');
+        $this->db->order_by('tipe_kebutuhan', 'ASC');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function get_rekap()
+    {
+        $this->db->select('nama_kebutuhan, tipe_kebutuhan, satuan, SUM(jumlah) as total_jumlah');
+        $this->db->from('kebutuhan');
+        $this->db->join('anggota', 'anggota.id = kebutuhan.id_anggota', 'left');
+        $this->db->join('koperasi', 'koperasi.id = anggota.id_koperasi', 'left');
+        $this->db->where('koperasi.id', $this->session->userdata('id_koperasi'));
 
         $this->db->group_by(['nama_kebutuhan', 'tipe_kebutuhan', 'satuan']);
         $this->db->order_by('nama_kebutuhan', 'ASC');

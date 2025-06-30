@@ -616,4 +616,15 @@
                 </div>
             </div> -->
         </section>
+        <section class="section">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Rekapitulasi Total Kebutuhan</h5>
+                </div>
+                <div class="card-body" id="summary_container">
+                    <!-- <p class="text-muted">Silakan pilih bulan dan klik Filter untuk melihat rekapitulasi.</p> -->
+                    <p class="text-muted">Tidak ada data untuk rekapitulasi.</p>
+                </div>
+            </div>
+        </section>
     </div>
