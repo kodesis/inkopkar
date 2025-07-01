@@ -219,9 +219,12 @@ class Kebutuhan_m extends CI_Model
         $this->db->select('nama_kebutuhan, tipe_kebutuhan, satuan, SUM(jumlah) as total_jumlah');
         $this->db->from('kebutuhan');
         $this->db->join('anggota', 'anggota.id = kebutuhan.id_anggota', 'left');
-        $this->db->join('koperasi', 'koperasi.id = anggota.id_koperasi', 'left');
-        $this->db->where('koperasi.id', $this->session->userdata('id_koperasi'));
-
+        if ($this->session->userdata('role') == "Koperasi") {
+            $this->db->join('koperasi', 'koperasi.id = anggota.id_koperasi', 'left');
+            $this->db->where('koperasi.id', $this->session->userdata('id_koperasi'));
+        } else if ($this->session->userdata('role') == "Anggota") {
+            $this->db->where('id_anggota', $this->session->userdata('user_user_id'));
+        }
         $this->db->group_by(['nama_kebutuhan', 'tipe_kebutuhan', 'satuan']);
         $this->db->order_by('nama_kebutuhan', 'ASC');
 

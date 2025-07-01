@@ -255,6 +255,8 @@ class Dashboard extends CI_Controller
 		$total_saldo_pinjaman = $result->nominal;
 		$data['total_saldo_pinjaman'] = $total_saldo_pinjaman;
 
+
+
 		// UNTUK KEBUTUHAN
 
 		$data['content']  = 'webview/admin/dashboard/dashboard_v';
