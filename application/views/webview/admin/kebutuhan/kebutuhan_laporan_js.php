@@ -12,7 +12,7 @@
 <script>
     // Inisialisasi untuk tabel yang datanya sudah dirender oleh PHP
     $(document).ready(function() {
-        $('#table_laporan').DataTable({
+        $('#table_laporans').DataTable({
             responsive: true,
             // Tidak ada 'serverSide: true'
             // Tidak ada 'ajax: { ... }'

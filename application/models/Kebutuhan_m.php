@@ -170,20 +170,13 @@ class Kebutuhan_m extends CI_Model
         }
     }
 
-    public function get_all_detail_by_month($bulan_tahun)
+    public function get_all_detail_by_month()
     {
         $this->db->select('anggota.nama, kebutuhan.nama_kebutuhan, kebutuhan.tipe_kebutuhan, kebutuhan.jumlah, kebutuhan.satuan');
         $this->db->from('kebutuhan');
         $this->db->join('anggota', 'anggota.id = kebutuhan.id_anggota', 'left');
         $this->db->join('koperasi', 'koperasi.id = anggota.id_koperasi', 'left');
         $this->db->where('koperasi.id', $this->session->userdata('id_koperasi'));
-
-        if (!empty($bulan_tahun)) {
-            $tahun = date('Y', strtotime($bulan_tahun));
-            $bulan = date('m', strtotime($bulan_tahun));
-            $this->db->where('YEAR(kebutuhan.tanggal_pilih)', $tahun);
-            $this->db->where('MONTH(kebutuhan.tanggal_pilih)', $bulan);
-        }
 
         $query = $this->db->get();
         return $query->result_array();
@@ -201,13 +194,6 @@ class Kebutuhan_m extends CI_Model
         $this->db->join('koperasi', 'koperasi.id = anggota.id_koperasi', 'left');
         $this->db->where('koperasi.id', $this->session->userdata('id_koperasi'));
 
-        if (!empty($bulan_tahun)) {
-            $tahun = date('Y', strtotime($bulan_tahun));
-            $bulan = date('m', strtotime($bulan_tahun));
-            $this->db->where('YEAR(kebutuhan.tanggal_pilih)', $tahun);
-            $this->db->where('MONTH(kebutuhan.tanggal_pilih)', $bulan);
-        }
-
         $this->db->order_by('nama_kebutuhan', 'ASC');
         $this->db->order_by('tipe_kebutuhan', 'ASC');
         $query = $this->db->get();
@@ -220,11 +206,13 @@ class Kebutuhan_m extends CI_Model
         $this->db->from('kebutuhan');
         $this->db->join('anggota', 'anggota.id = kebutuhan.id_anggota', 'left');
         if ($this->session->userdata('role') == "Koperasi") {
+
             $this->db->join('koperasi', 'koperasi.id = anggota.id_koperasi', 'left');
             $this->db->where('koperasi.id', $this->session->userdata('id_koperasi'));
         } else if ($this->session->userdata('role') == "Anggota") {
             $this->db->where('id_anggota', $this->session->userdata('user_user_id'));
         }
+
         $this->db->group_by(['nama_kebutuhan', 'tipe_kebutuhan', 'satuan']);
         $this->db->order_by('nama_kebutuhan', 'ASC');
 
