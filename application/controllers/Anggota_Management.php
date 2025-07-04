@@ -163,6 +163,7 @@ class Anggota_Management extends CI_Controller
         $data['koperasi'] = $this->anggota_management->get_koperasi();
         $data['toko'] = $this->anggota_management->get_toko_koperasi();
         $data['puskopkar'] = $this->anggota_management->get_puskopkar();
+        $data['kelurahan'] = $this->anggota_management->get_kelurahan();
         $data['content']     = 'webview/admin/anggota_management/anggota_form_v';
         $data['content_js'] = 'webview/admin/anggota_management/anggota_management_js';
         $this->load->view('parts/admin/Wrapper', $data);
@@ -173,6 +174,7 @@ class Anggota_Management extends CI_Controller
         $data['koperasi'] = $this->anggota_management->get_koperasi();
         $data['toko'] = $this->anggota_management->get_toko_koperasi();
         $data['puskopkar'] = $this->anggota_management->get_puskopkar();
+        $data['kelurahan'] = $this->anggota_management->get_kelurahan();
         $data['content']     = 'webview/admin/anggota_management/anggota_form_v';
         $data['content_js'] = 'webview/admin/anggota_management/anggota_management_js';
         $this->load->view('parts/admin/Wrapper', $data);
@@ -184,34 +186,55 @@ class Anggota_Management extends CI_Controller
         $tempat_lahir = $this->input->post('tempat_lahir');
         $tanggal_lahir = $this->input->post('tanggal_lahir');
         $no_telp = $this->input->post('no_telp');
+        $kelurahan = $this->input->post('kelurahan');
         $username = $this->input->post('username');
         $password = $this->input->post('password');
         $kredit_limit = (int) str_replace('.', '', $this->input->post('kredit_limit'));
 
         // $usage_kredit = $this->input->post('usage_kredit');
-        if ($this->session->userdata('role') != "Puskopkar") {
+        if ($this->session->userdata('role') == "Admin") {
             $role = $this->input->post('role') ? $this->input->post('role') : 4; // 1 if checked, 0 if unchecked
-        } else {
-            $role = 2; // Kalo Puskopkar Auto Create Koperasi
-        }
-        if ($role == '2' || $role == '5' || $role == '4') {
-            $id_toko = null;
             $id_koperasi = $this->input->post('id_koperasi');
-        } else if ($role == '3') {
-            $id_toko = $this->input->post('id_toko');
-
-            $this->db->from('toko');
-            $this->db->where('id', $id_toko);
-            $toko = $this->db->get()->row();
-            if ($toko) {
-                $id_koperasi = $toko->id_koperasi;
-            } else {
+            $id_toko = $this->input->post('id_toko') ? $this->input->post('id_toko') : 0;
+        } else if ($this->session->userdata('role') == "Koperasi") {
+            $role = $this->input->post('role') ? $this->input->post('role') : 4; // 1 if checked, 0 if unchecked
+            if ($role == 3) {
                 $id_koperasi = $this->session->userdata('id_koperasi');
+            } else {
+                $id_koperasi = $this->input->post('id_koperasi');
             }
-        } else {
-            $id_toko = null;
-            $id_koperasi = null;
+            // $id_koperasi = $this->session->userdata('id_koperasi');
+            $id_toko = $this->input->post('id_toko') ? $this->input->post('id_toko') : 0;
+        } else if ($this->session->userdata('role') == "Kasir") {
+            $role = 4; // 1 if checked, 0 if unchecked
+            // $id_koperasi = $this->session->userdata('id_koperasi');
+            $id_koperasi = $this->input->post('id_koperasi');
+            $id_toko =  0;
         }
+        // if ($this->session->userdata('role') != "Puskopkar") {
+        //     $role = $this->input->post('role') ? $this->input->post('role') : 4; // 1 if checked, 0 if unchecked
+        // } else {
+        //     $role = 2; // Kalo Puskopkar Auto Create Koperasi
+        // }
+
+        // if ($role == '2' || $role == '5' || $role == '4') {
+        //     $id_toko = null;
+        //     $id_koperasi = $this->input->post('id_koperasi');
+        // } else if ($role == '3') {
+        //     $id_toko = $this->input->post('id_toko');
+
+        //     $this->db->from('toko');
+        //     $this->db->where('id', $id_toko);
+        //     $toko = $this->db->get()->row();
+        //     if ($toko) {
+        //         $id_koperasi = $toko->id_koperasi;
+        //     } else {
+        //         $id_koperasi = $this->session->userdata('id_koperasi');
+        //     }
+        // } else {
+        //     $id_toko = null;
+        //     $id_koperasi = null;
+        // }
 
         // Prepare data array
         $data = array(
@@ -220,6 +243,7 @@ class Anggota_Management extends CI_Controller
             'tempat_lahir' => $tempat_lahir,
             'tanggal_lahir' => $tanggal_lahir,
             'no_telp' => $no_telp,
+            'kelurahan' => $kelurahan,
             'username' => $username,
             'password' => password_hash($password, PASSWORD_BCRYPT), // Hash the password
             'kredit_limit' => $kredit_limit,
@@ -249,6 +273,7 @@ class Anggota_Management extends CI_Controller
         $tempat_lahir = $this->input->post('tempat_lahir');
         $tanggal_lahir = $this->input->post('tanggal_lahir');
         $no_telp = $this->input->post('no_telp');
+        $kelurahan = $this->input->post('kelurahan');
         $username = $this->input->post('username');
         $password = $this->input->post('password');
         $kredit_limit = (int) str_replace('.', '', $this->input->post('kredit_limit'));
@@ -270,11 +295,12 @@ class Anggota_Management extends CI_Controller
             'tempat_lahir' => $tempat_lahir,
             'tanggal_lahir' => $tanggal_lahir,
             'no_telp' => $no_telp,
+            'kelurahan' => $kelurahan,
             'username' => $username,
             // 'password' => password_hash($password, PASSWORD_BCRYPT), // Hash the password
             'kredit_limit' => $kredit_limit,
             // 'usage_kredit' => $usage_kredit,
-            'id_toko' => $id_toko,
+            'id_koperasi' => $id_koperasi,
             'id_toko' => $id_toko,
             // 'id_creator' => $this->session->userdata('user_user_id'),
             'role' => $role // Add the checkbox value to the array
@@ -338,5 +364,54 @@ class Anggota_Management extends CI_Controller
                 'error' => $this->upload->display_errors(),
             ]);
         }
+    }
+    public function getTokoByKoperasi()
+    {
+        // if (!$this->input->is_ajax_request()) {
+        //     show_404();
+        // }
+        $koperasi_id = $this->input->get('id_koperasi');
+
+        if ($koperasi_id) {
+            $toko_data = $this->anggota_management->get_toko_by_koperasi($koperasi_id);
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($toko_data));
+        } else {
+            // Handle case where id_koperasi is not provided
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['error' => 'id_koperasi is required']));
+        }
+    }
+    public function getKelurahanData()
+    {
+        $this->output->set_content_type('application/json');
+        $search_query = $this->input->get('search'); // Get search term from query parameter
+        $limit = 20; // Limit results for performance
+
+        $this->db->select('id, kelurahan, kecamatan, kota_administrasi');
+        $this->db->from('kelurahan'); // Replace 'kelurahan_table' with your actual table name
+
+        if (!empty($search_query)) {
+            $this->db->like('kelurahan', $search_query);
+            $this->db->or_like('kecamatan', $search_query);
+            $this->db->or_like('kota_administrasi', $search_query);
+        }
+
+        $this->db->limit($limit); // Apply limit
+        $query = $this->db->get();
+        $result = $query->result_array(); // Get results as an array of objects
+
+        // Format data to match Choices.js expectation {value: 'id', label: 'text to display'}
+        $formatted_data = [];
+        foreach ($result as $row) {
+            $formatted_data[] = [
+                'value' => $row['kelurahan'],
+                'label' => $row['kelurahan'] . ' - ' . $row['kecamatan'] . ' - ' . $row['kota_administrasi']
+            ];
+        }
+
+        echo json_encode($formatted_data);
     }
 }

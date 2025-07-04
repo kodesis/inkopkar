@@ -167,4 +167,15 @@ class Anggota_Management_m extends CI_Model
     {
         $this->db->update('anggota', $data, $where);
     }
+    public function get_kelurahan()
+    {
+        $this->db->from('kelurahan');
+        return $this->db->get()->result();
+    }
+    public function get_toko_by_koperasi($koperasi_id)
+    {
+        $this->db->where('id_koperasi', $koperasi_id);
+        $query = $this->db->get('toko'); // Assuming your table name is 'toko'
+        return $query->result(); // Returns an array of objects
+    }
 }
