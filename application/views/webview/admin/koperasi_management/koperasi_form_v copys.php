@@ -118,7 +118,7 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="email-id-vertical">Nomor Induk Koperasi</label>
-                                                    <input type="text" class="form-control" id="nomor_induk_edit" name="nomor_induk" placeholder="Nomor Induk Koperasi" value="<?= $Koperasi->nomor_induk ?>">
+                                                    <input type="text" class="form-control" id="no_induk" name="no_induk" placeholder="Nomor Induk Koperasi" value="<?= $Koperasi->no_induk ?>" disabled>
                                                 </div>
                                             </div>
                                             <div class="col-12">
