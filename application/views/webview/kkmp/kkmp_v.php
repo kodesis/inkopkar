@@ -38,7 +38,7 @@
 <!-- main-area -->
 <main class="fix">
     <!-- breadcrumb-area -->
-    <section class="breadcrumb__area breadcrumb__bg" data-background="<?= base_url() ?>/assets/img/inkopkar/kkmp.png">
+    <section class="breadcrumb__area breadcrumb__bg" data-background="<?= base_url() ?>/assets/img/inkopkar/kkmp1.png">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
@@ -161,16 +161,15 @@
     </section> -->
     <!-- team-area-end -->
     <!-- team-area -->
-    <section class="team-area pt-120 pb-90">
+    <!-- <section class="team-area pt-120 pb-90">
         <div class="container">
             <div class="team-item-wrap">
                 <div class="row justify-content-center">
                     <img src="<?= base_url() ?>/assets/img/inkopkar/prabowo.jpeg" alt="">
-                    <!-- <img src="<?= base_url() ?>/assets/img/inkopkar/Struktur_Inkopkar1.png" alt=""> -->
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- team-area-end -->
     <!-- team-area -->
     <section class="team-area pt-120 pb-90" data-background="<?= base_url() ?>assets/img/bg/h3_services_bg_red.png">
