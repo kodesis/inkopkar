@@ -252,7 +252,7 @@ class Saldo_Simpanan extends CI_Controller
                 // Find id_anggota from database
                 $anggota = $this->db->get_where('anggota', ['nomor_anggota' => $nomor_anggota])->row();
                 $id_anggota = $anggota->id;
-                $tanggal_excel = isset($rowData[2]) ? $rowData[2] : null;
+                $tanggal_excel = isset($rowData[3]) ? $rowData[3] : null;
 
                 $tanggal_bayar = null;
                 if (is_numeric($tanggal_excel)) {
@@ -273,11 +273,12 @@ class Saldo_Simpanan extends CI_Controller
                     'id'          => $new_id, // **USE GENERATED ID**
                     'id_anggota'  => $id_anggota,
                     'nominal'     => isset($rowData[1]) ? (float)str_replace(',', '', $rowData[1]) : 0,
-                    'keterangan'     => isset($rowData[2]) ? (float)str_replace(',', '', $rowData[2]) : "IURAN BULAN " . strtoupper($bulan_nama) . " " . $tahun,
+                    'keterangan'     => isset($rowData[2]) ? $rowData[2] : "IURAN BULAN " . strtoupper($bulan_nama) . " " . $tahun,
                     'tanggal_jam'   => $tanggal_bayar,
                     'status' => 1,
                     'id_kasir' => $this->session->userdata('user_user_id'),
                     'id_toko' => $this->session->userdata('id_toko'),
+                    'id_koperasi' => $this->session->userdata('id_koperasi'),
                     // 'id_koperasi' => $this->session->userdata('id_koperasi'),
                 ];
             }

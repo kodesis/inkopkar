@@ -287,7 +287,8 @@ class Riwayat_Kasir extends CI_Controller
             $row = array();
             $row[] = $cat->id;
             $row[] = $cat->nama;
-            $row[] = $cat->nama_koperasi;
+            // $row[] = $cat->nama_koperasi;
+            $row[] = $cat->keterangan;
             $date = new DateTime($cat->tanggal_jam);
             $row[] = $date->format('d F Y, H:i:s');
             // $row[] = "Rp. " . $cat->nominal_kredit;

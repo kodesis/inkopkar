@@ -8,6 +8,10 @@
             display: block !important;
         }
     }
+
+    .red-text>a {
+        color: #e74c3c !important;
+    }
 </style>
 
 <body>
@@ -88,12 +92,15 @@
                                             <li class="<?php if ($url_now == 'gallery') {
                                                             echo 'active ';
                                                         } ?> menu-item"><a href="<?= base_url('gallery') ?>">Gallery</a></li>
-                                            <li class="<?php if ($url_now == 'artikel') {
-                                                            echo 'active ';
-                                                        } ?> menu-item"><a href="<?= base_url('artikel') ?>">Artikel</a></li>
+                                            <!-- <li class="<?php if ($url_now == 'artikel') {
+                                                                echo 'active ';
+                                                            } ?> menu-item"><a href="<?= base_url('artikel') ?>">Artikel</a></li> -->
                                             <li class="<?php if ($url_now == 'contact') {
                                                             echo 'active ';
                                                         } ?> menu-item"><a href="<?= base_url('contact') ?>">Kontak Kami</a></li>
+                                            <li class="<?php if ($url_now == 'kkmp') {
+                                                            echo 'active ';
+                                                        } ?> menu-item red-text"><a href="<?= base_url('kkmp') ?>">KKMP Jakarta</a></li>
                                             <li class="menu-item login-nav" style="display:none"><a href="<?= base_url('auth') ?>">Login <i class="fas fa-sign-in-alt"></i></a></li>
                                         </ul>
                                     </div>

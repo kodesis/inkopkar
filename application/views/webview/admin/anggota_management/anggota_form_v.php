@@ -312,7 +312,7 @@
                                                     <label for="text">Kelurahan</label>
                                                     <select class="choices form-select" name="kelurahan" id="kelurahan_edit">
                                                         <?php foreach ($kelurahan as $c) { ?>
-                                                            <option <?= ($Anggota->id_koperasi == $c->id) ? "selected" : "" ?> value="<?= $c->kota_administrasi ?>"><?= $c->kecamatan . ' - ' . $c->kelurahan ?></option>
+                                                            <option <?= $Anggota->kelurahan == $c->id ? 'selected' : '' ?> value="<?= $c->id ?>"><?= $c->kecamatan . ' - ' . $c->kelurahan ?></option>
                                                         <?php } ?>
                                                     </select>
                                                 </div>

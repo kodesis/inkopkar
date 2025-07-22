@@ -39,7 +39,8 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama</th>
-                                    <th>Koperasi</th>
+                                    <!-- <th>Koperasi</th> -->
+                                    <th>keterangan</th>
                                     <th>Tanggal</th>
                                     <th>Nominal</th>
                                     <!-- <th>Status</th> -->
