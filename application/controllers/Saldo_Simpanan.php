@@ -112,6 +112,7 @@ class Saldo_Simpanan extends CI_Controller
     {
         $date = (new DateTime('now', new DateTimeZone('Asia/Jakarta')))->format('Y-m-d H:i:s');
         $id_anggota = $this->input->post('id_anggota');
+        $keterangan = $this->input->post('ket$keterangan');
         $anggota = $this->anggota_management->get_id_edit($id_anggota);
 
         $nominal_kredit = (int) str_replace('.', '', $this->input->post('nominal_kredit'));
@@ -119,6 +120,8 @@ class Saldo_Simpanan extends CI_Controller
 
         // Get the current year
         $current_year = date('Y');
+
+        $current_month = date('F');
 
         // Get the latest ID from the database for the current year
         $latest_entry = $this->saldo_simpanan->get_latest_entry($current_year);
@@ -139,6 +142,7 @@ class Saldo_Simpanan extends CI_Controller
             'tanggal_jam'    => $date,
             'id_anggota'     => $id_anggota,
             'nominal' => $nominal_kredit,
+            'keterangan' => $keterangan ? $keterangan : "IURAN BULAN " . $current_month,
             'id_kasir'       => $this->session->userdata('user_user_id'),
             'id_toko'        => $this->session->userdata('id_toko'),
             'status'         => '1'
@@ -191,7 +195,7 @@ class Saldo_Simpanan extends CI_Controller
         $this->load->library('upload');
         require APPPATH . 'third_party/autoload.php';
         require APPPATH . 'third_party/psr/simple-cache/src/CacheInterface.php';
-
+        set_time_limit(300); // 300 seconds = 5 minutes
         $config['upload_path'] = FCPATH . 'uploads/saldo_simpanan';
         $config['allowed_types'] = 'xls|xlsx|csv';
         $this->upload->initialize($config);
@@ -233,7 +237,8 @@ class Saldo_Simpanan extends CI_Controller
 
                 $rowData = [];
                 foreach ($cellIterator as $cell) {
-                    $rowData[] = $cell->getValue();
+                    // $rowData[] = $cell->getValue();
+                    $rowData[] = $cell->getCalculatedValue(); // <-- Use this for formula results
                 }
 
                 // Generate next ID
@@ -257,13 +262,18 @@ class Saldo_Simpanan extends CI_Controller
                     // Already a valid date string
                     $tanggal_bayar = date('Y-m-d', strtotime($tanggal_excel));
                 }
+                $date = new DateTime($tanggal_bayar);
 
+                $bulan = $date->format('M');
+                $bulan_nama = $date->format('F');
+                $tahun = $date->format('Y');
 
                 // Now map Excel columns to database fields
                 $dataInsert[] = [
                     'id'          => $new_id, // **USE GENERATED ID**
                     'id_anggota'  => $id_anggota,
                     'nominal'     => isset($rowData[1]) ? (float)str_replace(',', '', $rowData[1]) : 0,
+                    'keterangan'     => isset($rowData[2]) ? (float)str_replace(',', '', $rowData[2]) : "IURAN BULAN " . strtoupper($bulan_nama) . " " . $tahun,
                     'tanggal_jam'   => $tanggal_bayar,
                     'status' => 1,
                     'id_kasir' => $this->session->userdata('user_user_id'),

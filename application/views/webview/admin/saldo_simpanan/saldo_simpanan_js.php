@@ -305,10 +305,20 @@
                 contentType: false, // important for file upload
                 processData: false, // important for file upload
                 beforeSend: function() {
-                    // Optional: show loading spinner or disable button
+                    Swal.fire({
+                        title: 'Uploading...',
+                        // text: 'Please wait while your file is being processed.',
+                        text: 'Mohon tunggu selagi berkas Anda sedang diproses.',
+                        allowOutsideClick: false, // Prevent closing by clicking outside
+                        allowEscapeKey: false, // Prevent closing by pressing Esc key
+                        didOpen: () => {
+                            Swal.showLoading(); // Show the loading spinner
+                        }
+                    });
                 },
                 success: function(response) {
                     // Do something when upload success
+                    Swal.close();
                     console.log(response);
                     if (typeof response === 'string') {
                         response = JSON.parse(response);

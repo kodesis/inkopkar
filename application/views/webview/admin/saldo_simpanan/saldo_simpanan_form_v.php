@@ -101,6 +101,15 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="email-id-vertical">Keterangan</label>
+                                                <!-- <input type="number" class="form-control" id="nominal_kredit_add" name="nominal_kredit" onchange="cek_nominal()" placeholder="Nominal"> -->
+                                                <div class="form-group position-relative has-icon-left">
+                                                    <input type="text" class="form-control" id="keterangan_add" name="keterangan" value="IURAN BULAN <?= strtoupper(date('F'))  ?>">
+                                                </div>
+                                            </div>
+                                        </div>
                                         <!-- <div class="col-6">
                                             <div class="form-group">
                                                 <label for="text">Nominal Kredit</label>
