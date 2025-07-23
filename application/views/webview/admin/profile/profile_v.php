@@ -65,7 +65,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="birthday" class="form-label">Nomor Telpon</label>
-                                        <input type="text" name="no_telp" id="no_telp" class="form-control" placeholder="Your Phone Number" value="<?= $detail->no_telp ?>">
+                                        <input type="text" name="no_telp" id="no_telp" class="form-control" placeholder="Your Phone Number" value="<?= $detail->no_telp ?>" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label for="gender" class="form-label">Password</label>
