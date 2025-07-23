@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class kkmp extends CI_Controller
+class Kkmp extends CI_Controller
 {
 
 	/**
