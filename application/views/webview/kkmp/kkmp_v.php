@@ -177,51 +177,56 @@
             <div class="team-item-wrap">
                 <div class="row justify-content-center">
                     <h4 style="color:#ffffff; text-align:center; margin-bottom: 30px;">KOPERASI DESA / KELURAHAN</h4>
-                    <?php
-                    foreach ($kelurahan as $k) {
-                        $this->db->from('anggota');
-                        $this->db->where('kelurahan', $k->id);
-                        $user = $this->db->get()->num_rows();
-                        if ($user > 0) {
-                    ?>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8">
+                    <div class="col-12 mb-4">
+                        <input type="text" id="kelurahanSearchInput" class="form-control" placeholder="Cari Kelurahan atau Kecamatan..." style="border-radius: 20px; padding: 10px 15px;">
+                    </div>
+                    <div id="kelurahanListContainer" class="row justify-content-center">
 
-                                <!-- <div class="team-item" style="background-color:#e74c3c"> -->
-                                <a href="<?= base_url('auth') ?>">
-                                    <div class="team-item">
-                                        <div class="team-content">
-                                            <h4 class="title" style="color: #ffffff;">Kel. <?= $k->kelurahan ?>
-                                            </h4>
-                                            <span style="color: #ffffff;">Kec. <?= $k->kecamatan ?></span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
                         <?php
-                        } else {
+                        foreach ($kelurahan as $k) {
+                            $this->db->from('anggota');
+                            $this->db->where('kelurahan', $k->id);
+                            $user = $this->db->get()->num_rows();
+                            if ($user > 0) {
                         ?>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8">
+                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8 kelurahan-item">
 
-                                <!-- <div class="team-item" style="background-color:#e74c3c"> -->
-                                <!-- <a onclick="noUser(<?= $k->kelurahan ?>)"> -->
-                                <a onclick="noUser('<?= $k->kelurahan ?>')">
-                                    <div class="team-item bg-lightgray">
-                                        <div class="team-content">
-                                            <h4 class="title" style="color: #fff;">Kel. <?= $k->kelurahan ?>
-                                            </h4>
-                                            <span style="color: #fff;">Kec. <?= $k->kecamatan ?></span>
+                                    <!-- <div class="team-item" style="background-color:#e74c3c"> -->
+                                    <a href="<?= base_url('auth') ?>">
+                                        <div class="team-item">
+                                            <div class="team-content">
+                                                <h4 class="title" style="color: #ffffff;">Kel. <?= $k->kelurahan ?>
+                                                </h4>
+                                                <span style="color: #ffffff;">Kec. <?= $k->kecamatan ?></span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </a>
-                            </div>
+                                    </a>
+                                </div>
+                            <?php
+                            } else {
+                            ?>
+                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8 kelurahan-item">
 
-                    <?php
+                                    <!-- <div class="team-item" style="background-color:#e74c3c"> -->
+                                    <!-- <a onclick="noUser(<?= $k->kelurahan ?>)"> -->
+                                    <a onclick="noUser('<?= $k->kelurahan ?>')">
+                                        <div class="team-item bg-lightgray">
+                                            <div class="team-content">
+                                                <h4 class="title" style="color: #fff;">Kel. <?= $k->kelurahan ?>
+                                                </h4>
+                                                <span style="color: #fff;">Kec. <?= $k->kecamatan ?></span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                        <?php
+                            }
                         }
-                    }
-                    ?>
+                        ?>
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
     </section>
     <!-- team-area-end -->
