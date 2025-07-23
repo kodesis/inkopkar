@@ -182,7 +182,7 @@
                                                 <?php
                                                 } else if ($this->session->userdata('role') == "Anggota") {
                                                 ?>
-                                                    <h6 class="text-muted font-semibold">Limit Kredit</h6>
+                                                    <h6 class="text-muted font-semibold">Limit Belanja</h6>
                                                 <?php
                                                 } else {
                                                 ?>
@@ -336,7 +336,7 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="col-6 col-lg-3 col-md-6">
+                        <!-- <div class="col-6 col-lg-3 col-md-6">
                             <a href="<?= base_url('Riwayat_Kasir/detail_saldo_simpanan') ?>">
                                 <div class="card">
                                     <div class="card-body px-4 py-4-5">
@@ -356,7 +356,7 @@
                                     </div>
                                 </div>
                             </a>
-                        </div>
+                        </div> -->
                         <!-- <div class="col-6 col-lg-3 col-md-6">
                             <a href="<?= base_url('Koperasi_Management') ?> ">
                                 <div class="card">
