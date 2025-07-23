@@ -75,8 +75,9 @@
                                 showConfirmButton: false,
                                 title: 'Berhasil Mengubah Data',
                                 timer: 1500
-                            });
-                            location.reload();
+                            }).then((result) =>
+                                location.reload()
+                            );
                         }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
