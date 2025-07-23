@@ -33,4 +33,14 @@
 			// $data['content_js'] = 'webview/home/home_js';
 			$this->load->view('parts/index_2/wrapper', $data);
 		}
+
+		public function kkmp()
+		{
+			$this->db->from('kelurahan');
+			$kelurahan = $this->db->get()->result();
+			$data['kelurahan'] = $kelurahan;
+			$data['content'] = 'webview/kkmp/kkmp_v';
+			$data['content_js'] = 'webview/kkmp/kkmp_js';
+			$this->load->view('parts/index_1/wrapper', $data);
+		}
 	}

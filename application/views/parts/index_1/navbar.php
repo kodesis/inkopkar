@@ -98,9 +98,9 @@
                                             <li class="<?php if ($url_now == 'contact') {
                                                             echo 'active ';
                                                         } ?> menu-item"><a href="<?= base_url('contact') ?>">Kontak Kami</a></li>
-                                            <li class="<?php if ($url_now == 'kkmp') {
+                                            <li class="<?php if ($url_now == 'home/kkmp') {
                                                             echo 'active ';
-                                                        } ?> menu-item red-text"><a href="<?= base_url('kkmp') ?>">KKMP Jakarta</a></li>
+                                                        } ?> menu-item red-text"><a href="<?= base_url('home/kkmp') ?>">KKMP Jakarta</a></li>
                                             <li class="menu-item login-nav" style="display:none"><a href="<?= base_url('auth') ?>">Login <i class="fas fa-sign-in-alt"></i></a></li>
                                         </ul>
                                     </div>
