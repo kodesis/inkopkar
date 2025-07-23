@@ -99,7 +99,31 @@ class Auth extends CI_Controller
 		$active     = 1;
 
 
+		// $this->db->select('u.*');
+		// $this->db->from('anggota u');
+		// // $this->db->join('toko', 'u.id_toko = toko.id', 'left');
+		// $where = '(username = "' . $username . '")';
+		// // $this->db->join('mast_regional m', 'u.id_regional=m.id', 'left');
+
+		// $this->db->where($where);
+
+		// // $this->db->where('u.kasir', 1);
+		// $this->db->limit(1);
+		// $query = $this->db->get();
+		// $users = $query->row();
+		// if (!empty($user) && password_verify($password, $users->password)) {
+		// 	// return $user;
+		// }
+		// echo "user :";
+		// var_dump($users);
+		// echo "Password :";
+		// var_dump($password);
+		// echo "Password Verify :";
+		// var_dump(password_verify($password, $users->password));
 		$user = $this->login->user_kasir_login($username, $password);
+
+		// echo "user :";
+		// var_dump($user);
 
 		if (!empty($user)) {
 

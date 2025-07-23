@@ -38,6 +38,7 @@ class Auth_m extends CI_Model
         $this->db->limit(1);
         $query = $this->db->get();
         $user = $query->row();
+        // return password_verify($password, $user->password);
         if (!empty($user) && password_verify($password, $user->password)) {
             return $user;
         } else {

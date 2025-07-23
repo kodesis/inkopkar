@@ -56,7 +56,7 @@ class Profile extends CI_Controller
         ];
 
         if ($this->input->post('password') != null) {
-            $enc_password = password_hash($this->input->post('password1'), PASSWORD_DEFAULT);
+            $enc_password = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
 
             $data_update['password'] = $enc_password;
         }
