@@ -205,12 +205,12 @@
                                         <a href="<?= base_url('Riwayat_Kasir/detail_saldo_simpanan') ?>" class="submenu-link">Riwayat Saldo Simpanan</a>
 
                                     </li>
-                                    <li class="submenu-item <?php if ($url_now == 'Riwayat_Kasir/detail_saldo_pinjaman') {
-                                                                echo 'active ';
-                                                            } ?>">
+                                    <!-- <li class="submenu-item <?php if ($url_now == 'Riwayat_Kasir/detail_saldo_pinjaman') {
+                                                                        echo 'active ';
+                                                                    } ?>">
                                         <a href="<?= base_url('Riwayat_Kasir/detail_saldo_pinjaman') ?>" class="submenu-link">Riwayat Saldo Pinjaman</a>
 
-                                    </li>
+                                    </li> -->
                                 <?php
                                 }
                                 ?>
