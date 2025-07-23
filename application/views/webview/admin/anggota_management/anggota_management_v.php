@@ -29,7 +29,7 @@
                 <div class="card-header">
                     <h5 class="card-title">
                         <!-- Minimal jQuery Datatable -->
-                        <a href="<?= base_url('Anggota_Management/add') ?>" class="btn btn-primary">Create Anggota</a>
+                        <a href="<?= base_url('Anggota_Management/add') ?>" class="btn btn-primary">Tambah Anggota</a>
 
                     </h5>
                 </div>

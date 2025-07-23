@@ -32,7 +32,7 @@
                         <?php
                         if ($this->session->userdata('role') != "Puskopkar") {
                         ?>
-                            <a href="<?= base_url('Koperasi_Management/add') ?>" class="btn btn-primary">Create Koperasi</a>
+                            <a href="<?= base_url('Koperasi_Management/add') ?>" class="btn btn-primary">Tambah Koperasi</a>
                             <a href="<?= base_url('Koperasi_Management/transaksi') ?>" class="btn btn-primary">Transaksi</a>
                         <?php
                         }

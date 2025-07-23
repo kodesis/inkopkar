@@ -29,7 +29,7 @@
                 <div class="card-header">
                     <h5 class="card-title">
                         <!-- Minimal jQuery Datatable -->
-                        <a href="<?= base_url('Toko_Management/add') ?>" class="btn btn-primary">Create Toko</a>
+                        <a href="<?= base_url('Toko_Management/add') ?>" class="btn btn-primary">Tambah Toko</a>
 
                     </h5>
                 </div>

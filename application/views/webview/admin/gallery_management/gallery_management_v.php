@@ -29,7 +29,7 @@
                 <div class="card-header">
                     <h5 class="card-title">
                         <!-- Minimal jQuery Datatable -->
-                        <a href="<?= base_url('Gallery_Management/add') ?>" class="btn btn-primary">Create Gallery</a>
+                        <a href="<?= base_url('Gallery_Management/add') ?>" class="btn btn-primary">Tambah Gallery</a>
 
                     </h5>
                 </div>
