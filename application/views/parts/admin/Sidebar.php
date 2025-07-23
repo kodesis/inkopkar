@@ -118,14 +118,14 @@
                                     <li class="submenu-item <?php if ($url_now == 'Koperasi_Management') {
                                                                 echo 'active ';
                                                             } ?>">
-                                        <a href="<?= base_url('Koperasi_Management') ?>" class="submenu-link">Koperasi Management</a>
+                                        <a href="<?= base_url('Koperasi_Management') ?>" class="submenu-link">Manajemen Koperasi</a>
 
                                     </li>
 
                                     <li class="submenu-item <?php if ($url_now == 'Toko_Management') {
                                                                 echo 'active ';
                                                             } ?>">
-                                        <a href="<?= base_url('Toko_Management') ?>" class="submenu-link">Toko Management</a>
+                                        <a href="<?= base_url('Toko_Management') ?>" class="submenu-link">Manajemen Toko</a>
 
                                     </li>
 
@@ -231,7 +231,7 @@
                                                         } ?>">
                                     <a href="<?= base_url('Koperasi_Management') ?>" class='sidebar-link'>
                                         <i class="bi bi-grid-fill"></i>
-                                        <span>Anggota Management</span>
+                                        <span>Manajemen Anggota</span>
                                     </a>
                                 </li>
                             <?php
@@ -243,7 +243,7 @@
                                                         } ?>">
                                     <a href="<?= base_url('Anggota_Management') ?>" class='sidebar-link'>
                                         <i class="bi bi-grid-fill"></i>
-                                        <span>Anggota Management</span>
+                                        <span>Manajemen Anggota</span>
                                     </a>
                                 </li>
                             <?php
@@ -261,7 +261,7 @@
                                                     } ?>">
                                 <a href="<?= base_url('Nota_Management/add') ?>" class='sidebar-link'>
                                     <i class="bi bi-grid-fill"></i>
-                                    <span>Nota Kredit</span>
+                                    <span>Belanja Kredit</span>
                                 </a>
                             </li>
                         <?php
@@ -277,7 +277,7 @@
                                                     } ?>">
                                 <a href="<?= base_url('Nota_Management/add_pembayaran') ?>" class='sidebar-link'>
                                     <i class="bi bi-grid-fill"></i>
-                                    <span>Nota Pembayaran</span>
+                                    <span>Pembayaran Belanja</span>
                                 </a>
                             </li>
 
@@ -325,7 +325,7 @@
                                     <span>Tambah Saldo Simpanan</span>
                                 </a>
                             </li>
-                            <li
+                            <!-- <li
                                 class="sidebar-item <?php if ($url_now == 'Saldo_Pinjaman/add_pinjaman') {
                                                         echo 'active ';
                                                     } ?>">
@@ -333,14 +333,14 @@
                                     <i class="bi bi-grid-fill"></i>
                                     <span>Tambah Saldo Pinjaman</span>
                                 </a>
-                            </li>
+                            </li> -->
                         <?php
                         }
                         ?>
                         <?php
                         if ($this->session->userdata('role') == "Admin") {
                         ?>
-                            <li class="sidebar-title">Page Management</li>
+                            <li class="sidebar-title">Manajemen Halaman</li>
 
                             <li
                                 class="sidebar-item <?php if ($url_now == 'Gallery_Management') {
@@ -348,7 +348,7 @@
                                                     } ?>">
                                 <a href="<?= base_url('Gallery_Management') ?>" class='sidebar-link'>
                                     <i class="bi bi-grid-fill"></i>
-                                    <span>Gallery Management</span>
+                                    <span>Manajemen Galeri</span>
                                 </a>
 
 
@@ -359,7 +359,7 @@
                                                     } ?>">
                                 <a href="<?= base_url('Artikel_Management') ?>" class='sidebar-link'>
                                     <i class="bi bi-grid-fill"></i>
-                                    <span>Artikel Management</span>
+                                    <span>Manajemen Artikel</span>
                                 </a>
 
 

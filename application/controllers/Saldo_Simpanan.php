@@ -112,7 +112,7 @@ class Saldo_Simpanan extends CI_Controller
     {
         $date = (new DateTime('now', new DateTimeZone('Asia/Jakarta')))->format('Y-m-d H:i:s');
         $id_anggota = $this->input->post('id_anggota');
-        $keterangan = $this->input->post('ket$keterangan');
+        $keterangan = $this->input->post('keterangan');
         $anggota = $this->anggota_management->get_id_edit($id_anggota);
 
         $nominal_kredit = (int) str_replace('.', '', $this->input->post('nominal_kredit'));

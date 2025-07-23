@@ -17,7 +17,7 @@
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="<?= base_url('dashboard') ?>">Dashboard</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Tambah Nota Pembayaran</li>
+                            <li class="breadcrumb-item active" aria-current="page">Tambah Nota Pembayaran Belanja</li>
                         </ol>
                     </nav>
                 </div>
@@ -31,7 +31,7 @@
                     <div class="card">
 
                         <div class="card-header">
-                            <h4 class="card-title">Tambah Nota Pembayaran</h4>
+                            <h4 class="card-title">Tambah Nota Pembayaran Belanja</h4>
                         </div>
 
                         <div class="card-content">
