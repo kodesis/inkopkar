@@ -233,6 +233,7 @@ class Koperasi_Management extends CI_Controller
             $row[] = $no;
             $row[] = $cat->no_induk;
             $row[] = $cat->nama_koperasi;
+            $row[] = $cat->nama_kelurahan;
             $row[] = $cat->alamat;
             $row[] = $cat->telp;
 
@@ -361,6 +362,7 @@ class Koperasi_Management extends CI_Controller
     {
 
         $data['puskopkar'] = $this->anggota_management->get_puskopkar();
+        $data['kelurahan'] = $this->anggota_management->get_kelurahan();
         $data['content']     = 'webview/admin/koperasi_management/koperasi_form_v';
         $data['content_js'] = 'webview/admin/koperasi_management/koperasi_management_js';
         $this->load->view('parts/admin/Wrapper', $data);
@@ -369,6 +371,7 @@ class Koperasi_Management extends CI_Controller
     {
         $data['Koperasi'] = $this->koperasi_management->get_id_edit($id);
         // $data['category'] = $this->koperasi_management->get_category();
+        $data['kelurahan'] = $this->anggota_management->get_kelurahan();
         $data['content']     = 'webview/admin/koperasi_management/koperasi_form_v';
         $data['content_js'] = 'webview/admin/koperasi_management/koperasi_management_js';
         $this->load->view('parts/admin/Wrapper', $data);
@@ -376,6 +379,7 @@ class Koperasi_Management extends CI_Controller
     public function save()
     {
         $nama_koperasi = $this->input->post('nama_koperasi');
+        $kelurahan = $this->input->post('kelurahan');
         $alamat = $this->input->post('alamat');
         $telp = $this->input->post('telp');
         $no_induk = $this->input->post('no_induk');
@@ -385,6 +389,7 @@ class Koperasi_Management extends CI_Controller
             array(
                 'nama_koperasi'            => $nama_koperasi,
                 'alamat'            => $alamat,
+                'kelurahan'             => $kelurahan,
                 'telp'             => $telp,
                 'no_induk'             => $no_induk,
                 'id_puskopkar'             => $id_puskopkar,
@@ -397,6 +402,7 @@ class Koperasi_Management extends CI_Controller
         $date = new DateTime('now', new DateTimeZone('Asia/Jakarta'));
         $id_edit = $this->input->post('id_edit');
         $nama_koperasi = $this->input->post('nama_koperasi');
+        $kelurahan = $this->input->post('kelurahan');
         $alamat = $this->input->post('alamat');
         $telp = $this->input->post('telp');
 
@@ -404,6 +410,7 @@ class Koperasi_Management extends CI_Controller
             'nama_koperasi'             => $nama_koperasi,
             'alamat'              => $alamat,
             'telp'              => $telp,
+            'kelurahan'              => $kelurahan,
         ];
 
 

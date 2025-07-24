@@ -184,7 +184,7 @@
 
                         <?php
                         foreach ($kelurahan as $k) {
-                            $this->db->from('anggota');
+                            $this->db->from('koperasi');
                             $this->db->where('kelurahan', $k->id);
                             $user = $this->db->get()->num_rows();
                             if ($user > 0) {

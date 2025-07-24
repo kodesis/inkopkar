@@ -76,6 +76,16 @@
                                             </div>
                                             <div class="col-12">
                                                 <div class="form-group">
+                                                    <label for="text">Kelurahan</label>
+                                                    <select class="choices form-select" name="kelurahan" id="kelurahan_edit">
+                                                        <?php foreach ($kelurahan as $c) { ?>
+                                                            <option value="<?= $c->id ?>"><?= $c->kecamatan . ' - ' . $c->kelurahan ?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
                                                     <label for="text">Alamat</label>
                                                     <textarea class="form-control" name="alamat" id="alamat_add"></textarea>
                                                 </div>
@@ -142,6 +152,16 @@
                                                 <div class="form-group">
                                                     <label for="email-id-vertical">Nomor Telpon</label>
                                                     <input type="number" class="form-control" id="telp_edit" name="telp" placeholder="Nomor Telpon" value="<?= $Koperasi->telp ?>">
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="text">Kelurahan</label>
+                                                    <select class="choices form-select" name="kelurahan" id="kelurahan_edit">
+                                                        <?php foreach ($kelurahan as $c) { ?>
+                                                            <option <?= $Koperasi->kelurahan == $c->id ? 'selected' : '' ?> value="<?= $c->id ?>"><?= $c->kecamatan . ' - ' . $c->kelurahan ?></option>
+                                                        <?php } ?>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-12">

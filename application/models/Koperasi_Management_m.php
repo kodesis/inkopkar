@@ -5,16 +5,17 @@ class Koperasi_Management_m extends CI_Model
     var $table = 'koperasi';
     // var $column_order = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable orderable
     // var $column_search = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable searchable 
-    var $column_order = array('id', 'no_induk', 'nama_koperasi', 'alamat', 'telp', 'saldo_iuran', 'saldo_rekening'); //set column field database for datatable orderable
-    var $column_search = array('id', 'no_induk', 'nama_koperasi', 'alamat', 'telp', 'saldo_iuran', 'saldo_rekening'); //set column field database for datatable searchable 
+    var $column_order = array('id', 'no_induk', 'nama_koperasi', 'kelurahan.kelurahan', 'alamat', 'telp', 'saldo_iuran', 'saldo_rekening'); //set column field database for datatable orderable
+    var $column_search = array('id', 'no_induk', 'nama_koperasi', 'kelurahan.kelurahan', 'alamat', 'telp', 'saldo_iuran', 'saldo_rekening'); //set column field database for datatable searchable 
 
     var $order = array('koperasi.saldo_rekening' => 'DESC'); // default order 
 
     function _get_datatables_query($url = null)
     {
 
-        $this->db->select('koperasi.*');
+        $this->db->select('koperasi.*, kelurahan.kelurahan as nama_kelurahan');
         $this->db->from('koperasi');
+        $this->db->join('kelurahan', 'koperasi.kelurahan = kelurahan.id', 'left');
         if (!empty($url)) {
             $this->db->where('saldo_tagihan >', 0);
         }
@@ -22,6 +23,7 @@ class Koperasi_Management_m extends CI_Model
         if ($this->session->userdata('role') == "Puskopkar") {
             $this->db->where('id_puskopkar', $this->session->userdata('user_user_id'));
         }
+
         $i = 0;
         foreach ($this->column_search as $item) // loop column 
         {

@@ -71,13 +71,13 @@
                                                     <input type="number" class="form-control" id="no_telp_add" name="no_telp" placeholder="Nomor Telpon">
                                                 </div>
                                             </div>
-                                            <div class="col-12">
+                                            <!-- <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="text">Kelurahan</label>
                                                     <select class="form-select" name="kelurahan" id="kelurahan_add">
                                                     </select>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <div class="col-6">
                                                 <div class="form-group">
                                                     <label for="email-id-vertical">Username</label>
@@ -174,7 +174,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
                                                 <div id="id_toko_koperasi_div" style="display: none;">
                                                     <div class="col-12">
                                                         <div class="form-group">
@@ -305,16 +304,6 @@
                                                 <div class="form-group">
                                                     <label for="email-id-vertical">Nomor Telpon (WA Wajib Aktif)</label>
                                                     <input type="number" class="form-control" id="no_telp_edit" name="no_telp" placeholder="Nomor Telpon" value="<?= $Anggota->no_telp ?>">
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label for="text">Kelurahan</label>
-                                                    <select class="choices form-select" name="kelurahan" id="kelurahan_edit">
-                                                        <?php foreach ($kelurahan as $c) { ?>
-                                                            <option <?= $Anggota->kelurahan == $c->id ? 'selected' : '' ?> value="<?= $c->id ?>"><?= $c->kecamatan . ' - ' . $c->kelurahan ?></option>
-                                                        <?php } ?>
-                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-6">
