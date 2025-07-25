@@ -50,7 +50,7 @@
                 <div class="col-lg-6">
                     <div class="breadcrumb__content">
                         <!-- <h2 class="title">Our Team Members</h2> -->
-                        <h2 class="title text-merah">Koperasi Kelurahan Merah Putih</h2>
+                        <h2 class="title text-merah">Koperasi Kelurahan Merah Putih Jakarta</h2>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="<?= base_url() ?>">Home</a></li>
@@ -182,7 +182,7 @@
         <div class="container">
             <div class="team-item-wrap">
                 <div class="row justify-content-center">
-                    <h4 style="color:#ffffff; text-align:center; margin-bottom: 30px;">KOPERASI KELURAHAN WILAYAH JAKARTA</h4>
+                    <!-- <h4 style="color:#ffffff; text-align:center; margin-bottom: 30px;">KOPERASI KELURAHAN WILAYAH JAKARTA</h4> -->
                     <div class="col-12 mb-4">
                         <input type="text" id="kelurahanSearchInput" class="form-control" placeholder="Cari Kelurahan atau Kecamatan..." style="border-radius: 20px; padding: 10px 15px;">
                     </div>
