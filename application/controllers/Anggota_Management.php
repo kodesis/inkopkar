@@ -101,6 +101,8 @@ class Anggota_Management extends CI_Controller
                 $row[] = 'Koperasi';
             } else if ($cat->role == '3') {
                 $row[] = 'Kasir';
+            } else if ($cat->role == '5') {
+                $row[] = 'Puskopkar';
             } else {
                 $row[] = 'Anggota';
             }
@@ -279,6 +281,7 @@ class Anggota_Management extends CI_Controller
         $kredit_limit = (int) str_replace('.', '', $this->input->post('kredit_limit'));
         // $usage_kredit = $this->input->post('usage_kredit');
         $id_toko = $this->input->post('id_toko');
+        $id_koperasi = $this->input->post('id_koperasi');
         $role = $this->input->post('role') ? $this->input->post('role') : 4; // 1 if checked, 0 if unchecked
 
         $this->db->from('toko');
@@ -288,6 +291,7 @@ class Anggota_Management extends CI_Controller
         if ($role == 4) {
             $id_toko = null;
         }
+
         // Prepare data array
         $data_update = [
             'nomor_anggota' => $nomor_anggota,
