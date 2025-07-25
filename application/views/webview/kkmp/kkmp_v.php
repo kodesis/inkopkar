@@ -32,7 +32,13 @@
     }
 
     .bg-lightgray {
-        background-color: #bdc3c7;
+        /* background-color: #bdc3c7; */
+        background-color: #7d8184;
+    }
+
+    .bg-yellow {
+        /* background-color: #bdc3c7; */
+        background-color: #fe9e07;
     }
 </style>
 <!-- main-area -->
@@ -193,7 +199,7 @@
 
                                     <!-- <div class="team-item" style="background-color:#e74c3c"> -->
                                     <a href="<?= base_url('auth') ?>">
-                                        <div class="team-item">
+                                        <div class="team-item bg-yellow">
                                             <div class="team-content">
                                                 <h4 class="title" style="color: #ffffff;">Kel. <?= $k->kelurahan ?>
                                                 </h4>
