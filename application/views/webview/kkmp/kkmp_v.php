@@ -50,7 +50,7 @@
                 <div class="col-lg-6">
                     <div class="breadcrumb__content">
                         <!-- <h2 class="title">Our Team Members</h2> -->
-                        <h2 class="title text-merah">Koperasi Kelurahan Merah Putih Jakarta</h2>
+                        <h2 class="title text-merah">Koperasi Kelurahan <br> Merah Putih Jakarta</h2>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="<?= base_url() ?>">Home</a></li>
