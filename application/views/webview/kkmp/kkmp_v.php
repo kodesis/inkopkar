@@ -40,6 +40,26 @@
         /* background-color: #bdc3c7; */
         background-color: #fe9e07;
     }
+
+    .white-text {
+        color: #ffffff;
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .white-text:hover {
+        color: #fe9e07;
+    }
+
+    .white-text:focus {
+        color: #fe9e07;
+    }
+
+    .white-text.active {
+        text-decoration: underline;
+        /* color: #fe9e07; */
+
+    }
 </style>
 <!-- main-area -->
 <main class="fix">
@@ -180,58 +200,95 @@
     <!-- team-area -->
     <section class="team-area pt-120 pb-90" data-background="<?= base_url() ?>assets/img/bg/h3_services_bg_red.png">
         <div class="container">
-            <div class="team-item-wrap">
-                <div class="row justify-content-center">
-                    <h4 style="color:#ffffff; text-align:center; margin-bottom: 30px;">KKMP WILAYAH JAKARTA</h4>
-                    <div class="col-12 mb-4">
-                        <input type="text" id="kelurahanSearchInput" class="form-control" placeholder="Cari Kelurahan atau Kecamatan..." style="border-radius: 20px; padding: 10px 15px;">
-                    </div>
-                    <div id="kelurahanListContainer" class="row justify-content-center">
+            <!-- <div class="row justify-content-center">
+                <nav class="sub-navbar mb-4">
+                    <ul class="nav justify-content-center" id="kkmpTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link white-text active" id="kkmp-tab" data-bs-toggle="tab" data-bs-target="#tab-kkmp" type="button" role="tab" aria-controls="tab-kkmp" aria-selected="true">Koperasi Merah Putih</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link white-text" id="registrasi-kkmp-tab" data-bs-toggle="tab" data-bs-target="#tab-registrasi-kkmp" type="button" role="tab" aria-controls="tab-registrasi-kkmp" aria-selected="false">Cara Registrasi KKMP</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link white-text" id="registrasi-anggota-kkmp-tab" data-bs-toggle="tab" data-bs-target="#tab-registrasi-anggota-kkmp" type="button" role="tab" aria-controls="tab-registrasi-anggota-kkmp" aria-selected="false">Cara Registrasi Anggota KKMP</button>
+                        </li>
+                    </ul>
+                </nav>
+            </div> -->
+            <div class="tab-content" id="kkmpTabContent">
+                <div class="team-item-wrap tab-pane fade show active" id="tab-kkmp" role="tabpanel" aria-labelledby="kkmp-tab">
+                    <div class="row justify-content-center">
+                        <h4 style="color:#ffffff; text-align:center; margin-bottom: 30px;">KKMP WILAYAH JAKARTA</h4>
+                        <div class="col-12 mb-4">
+                            <input type="text" id="kelurahanSearchInput" class="form-control" placeholder="Cari Kelurahan atau Kecamatan..." style="border-radius: 20px; padding: 10px 15px;">
+                        </div>
+                        <div id="kelurahanListContainer" class="row justify-content-center">
 
-                        <?php
-                        foreach ($kelurahan as $k) {
-                            $this->db->from('koperasi');
-                            $this->db->where('kelurahan', $k->id);
-                            $user = $this->db->get()->num_rows();
-                            if ($user > 0) {
-                        ?>
-                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8 kelurahan-item">
-
-                                    <!-- <div class="team-item" style="background-color:#e74c3c"> -->
-                                    <a href="<?= base_url('auth') ?>">
-                                        <div class="team-item bg-yellow">
-                                            <div class="team-content">
-                                                <h4 class="title" style="color: #ffffff;">Kel. <?= $k->kelurahan ?>
-                                                </h4>
-                                                <span style="color: #ffffff;">Kec. <?= $k->kecamatan ?></span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
                             <?php
-                            } else {
+                            foreach ($kelurahan as $k) {
+                                $this->db->from('koperasi');
+                                $this->db->where('kelurahan', $k->id);
+                                $user = $this->db->get()->num_rows();
+                                if ($user > 0) {
                             ?>
-                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8 kelurahan-item">
+                                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8 kelurahan-item">
 
-                                    <!-- <div class="team-item" style="background-color:#e74c3c"> -->
-                                    <!-- <a onclick="noUser(<?= $k->kelurahan ?>)"> -->
-                                    <a onclick="noUser('<?= $k->kelurahan ?>')">
-                                        <div class="team-item bg-lightgray">
-                                            <div class="team-content">
-                                                <h4 class="title" style="color: #fff;">Kel. <?= $k->kelurahan ?>
-                                                </h4>
-                                                <span style="color: #fff;">Kec. <?= $k->kecamatan ?></span>
+                                        <!-- <div class="team-item" style="background-color:#e74c3c"> -->
+                                        <a href="<?= base_url('auth') ?>">
+                                            <div class="team-item bg-yellow">
+                                                <div class="team-content">
+                                                    <h4 class="title" style="color: #ffffff;">Kel. <?= $k->kelurahan ?>
+                                                    </h4>
+                                                    <span style="color: #ffffff;">Kec. <?= $k->kecamatan ?></span>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </a>
-                                </div>
+                                        </a>
+                                    </div>
+                                <?php
+                                } else {
+                                ?>
+                                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8 kelurahan-item">
 
-                        <?php
+                                        <!-- <div class="team-item" style="background-color:#e74c3c"> -->
+                                        <!-- <a onclick="noUser(<?= $k->kelurahan ?>)"> -->
+                                        <a onclick="noUser('<?= $k->kelurahan ?>')">
+                                            <div class="team-item bg-lightgray">
+                                                <div class="team-content">
+                                                    <h4 class="title" style="color: #fff;">Kel. <?= $k->kelurahan ?>
+                                                    </h4>
+                                                    <span style="color: #fff;">Kec. <?= $k->kecamatan ?></span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                            <?php
+                                }
                             }
-                        }
-                        ?>
+                            ?>
+                        </div>
                     </div>
                 </div>
+                <!-- <div class="team-item-wrap tab-pane fade" id="tab-registrasi-kkmp" role="tabpanel" aria-labelledby="registrasi-kkmp-tab">
+                    <div class="row justify-content-center">
+                        <h4 style="color:#ffffff; text-align:center; margin-bottom: 30px;">Cara Registrasi Koperasi Merah Putih</h4>
+                        <div class="services__item-four shine-animate-item">
+                            <div class="services__content-four">
+                                <h2 class="title">Cara Registrasi Koperasi Merah Putih</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- <div class="team-item-wrap tab-pane fade" id="tab-registrasi-anggota-kkmp" role="tabpanel" aria-labelledby="registrasi-anggota-kkmp-tab">
+                    <div class="row justify-content-center">
+                        <h4 style="color:#ffffff; text-align:center; margin-bottom: 30px;">Cara Registrasi Anggota Koperasi Merah Putih</h4>
+                        <div class="services__item-four shine-animate-item">
+                            <div class="services__content-four">
+                                <h2 class="title">Cara Registrasi Anggota Koperasi Merah Putih</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
             </div>
         </div>
     </section>

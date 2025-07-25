@@ -880,6 +880,72 @@
 
 
     }
+
+    $(document).ready(function() {
+        $('#upload_excel_form').submit(function(e) {
+            e.preventDefault(); // stop normal form submit
+
+            var formData = new FormData(this);
+
+            $.ajax({
+                url: "<?php echo site_url('Anggota_Management/process_insert_excel/') ?>",
+                type: 'POST',
+                data: formData,
+                contentType: false, // important for file upload
+                processData: false, // important for file upload
+                beforeSend: function() {
+                    Swal.fire({
+                        title: 'Uploading...',
+                        // text: 'Please wait while your file is being processed.',
+                        text: 'Mohon tunggu selagi berkas Anda sedang diproses.',
+                        allowOutsideClick: false, // Prevent closing by clicking outside
+                        allowEscapeKey: false, // Prevent closing by pressing Esc key
+                        didOpen: () => {
+                            Swal.showLoading(); // Show the loading spinner
+                        }
+                    });
+                },
+                success: function(response) {
+                    // Do something when upload success
+                    Swal.close();
+                    console.log(response);
+                    if (typeof response === 'string') {
+                        response = JSON.parse(response);
+                    }
+
+                    console.log(response);
+
+                    if (!response.status) {
+                        console.log('Upload Gagal', 'error : ' + response.message);
+                        Swal.fire({
+                            customClass: 'slow-animation',
+                            icon: 'error',
+                            showConfirmButton: false,
+                            title: 'Upload Gagal',
+                            text: response.message,
+                            timer: 3000
+                        });
+                    } else {
+                        $('#uploadModal').modal('hide');
+                        Swal.fire({
+                            customClass: 'slow-animation',
+                            icon: 'success',
+                            showConfirmButton: false,
+                            title: 'Berhasil Menambahkan Anggota',
+                            timer: 3000
+                        }).then((result) => {
+                            jquery_datatable.ajax.reload()
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Handle error
+                    console.error(error);
+                    alert('Upload failed. Please try again.');
+                }
+            });
+        });
+    });
 </script>
 <!-- Include jQuery (required by Summernote) -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

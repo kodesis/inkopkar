@@ -36,7 +36,11 @@
 
 		public function kkmp()
 		{
+			$this->db->select('kelurahan.*, COUNT(koperasi.id) as user_count'); // Select all kelurahan columns and count users
 			$this->db->from('kelurahan');
+			$this->db->join('koperasi', 'koperasi.kelurahan = kelurahan.id', 'left'); // LEFT JOIN to include all kelurahan, even those without users
+			$this->db->group_by('kelurahan.id'); // Group by kelurahan ID to count users for each
+			$this->db->order_by('user_count', 'DESC'); // Order by the user count in descending order
 			$kelurahan = $this->db->get()->result();
 			$data['kelurahan'] = $kelurahan;
 			$data['content'] = 'webview/kkmp/kkmp_v';

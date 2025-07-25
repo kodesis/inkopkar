@@ -418,4 +418,124 @@ class Anggota_Management extends CI_Controller
 
         echo json_encode($formatted_data);
     }
+
+    public function process_insert_excel()
+    {
+        $this->load->library('upload');
+        require APPPATH . 'third_party/autoload.php';
+        require APPPATH . 'third_party/psr/simple-cache/src/CacheInterface.php';
+        set_time_limit(300); // 300 seconds = 5 minutes
+        $config['upload_path'] = FCPATH . 'uploads/anggota_management';
+        $config['allowed_types'] = 'xls|xlsx|csv';
+        $this->upload->initialize($config);
+
+        if (!$this->upload->do_upload('file_excel')) {
+            $error = $this->upload->display_errors();
+            echo json_encode(['status' => false, 'message' => $error]);
+            return;
+        }
+
+        $file_data = $this->upload->data();
+        $file_path = $file_data['full_path'];
+
+        try {
+            $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file_path);
+            $worksheet = $spreadsheet->getActiveSheet();
+
+            $this->db->trans_begin(); // Start transaction
+
+            $dataInsert = [];
+
+            foreach ($worksheet->getRowIterator() as $rowIndex => $row) {
+                // Skip header
+                if ($rowIndex == 1 || $rowIndex == 2) continue;
+
+                $cellIterator = $row->getCellIterator();
+                $cellIterator->setIterateOnlyExistingCells(false);
+
+                $rowData = [];
+                foreach ($cellIterator as $cell) {
+                    // $rowData[] = $cell->getValue();
+                    $rowData[] = $cell->getCalculatedValue(); // <-- Use this for formula results
+                }
+
+                $nomor_anggota = isset($rowData[0]) ? $rowData[0] : null;
+                $cek_anggota = $this->db->get_where('anggota', ['nomor_anggota' => $nomor_anggota])->num_rows();
+
+                if ($cek_anggota != 0) {
+                    // Collect the error instead of returning
+                    $validationErrors[] = 'Baris ' . $rowIndex . ': Nomor Anggota "' . $nomor_anggota . '" sudah digunakan.';
+                    continue; // Skip this row and continue processing others
+                }
+
+                $tanggal_excel = isset($rowData[3]) ? $rowData[3] : null;
+                if (is_numeric($tanggal_excel)) {
+                    // Excel date serial to Y-m-d
+                    $tanggal_lahir = date('Y-m-d', \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimestamp($tanggal_excel));
+                } elseif (!empty($tanggal_excel)) {
+                    // Already a valid date string
+                    $tanggal_lahir = date('Y-m-d', strtotime($tanggal_excel));
+                }
+                $date = new DateTime($tanggal_lahir);
+
+
+                $no_telp = $rowData[4];
+                $cek_no_telp = $this->db->get_where('anggota', ['no_telp' => $no_telp])->num_rows();
+
+                // echo $no_telp;
+
+                if ($cek_no_telp != 0) {
+                    // Collect the error instead of returning
+                    $validationErrors[] = 'Baris ' . $rowIndex . ': Nomor Telepon "' . $no_telp . '" sudah digunakan.';
+                    continue; // Skip this row and continue processing others
+                }
+
+                $enc_password = password_hash('password123', PASSWORD_DEFAULT);
+
+                // Now map Excel columns to database fields
+                $dataInsert[] = [
+                    // 'id'          => $new_id, // **USE GENERATED ID**
+                    'nomor_anggota'  => $nomor_anggota,
+                    'nama'     => isset($rowData[1]) ? $rowData[1] : null,
+                    'tempat_lahir'     => isset($rowData[2]) ? $rowData[2] : null,
+                    'tanggal_lahir'   => $tanggal_lahir,
+                    'no_telp' => $no_telp,
+                    'username' => $no_telp,
+                    'password' => $enc_password,
+                    'id_creator' => $this->session->userdata('user_user_id'),
+                    // 'id_toko' => $this->session->userdata('id_toko'),
+                    'id_koperasi' => $this->session->userdata('id_koperasi'),
+                ];
+            }
+
+            if (!empty($validationErrors)) {
+                // If there are any validation errors, don't proceed with insert
+                echo json_encode(['status' => false, 'message' => 'Validasi Gagal: ' . implode('<br>', $validationErrors)]);
+                // Important: No transaction started yet, so no need for rollback
+                return;
+            }
+
+            // If no validation errors, proceed with database transaction and insert
+            if (empty($dataInsert)) {
+                echo json_encode(['status' => false, 'message' => 'Tidak ada data valid yang ditemukan untuk diimpor.']);
+                return;
+            }
+
+            $this->db->trans_start(); // Start the transaction
+            $this->db->insert_batch('anggota', $dataInsert); // Bulk insert
+            $this->db->trans_complete(); // This will either commit or rollback based on previous operations
+
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                echo json_encode(['status' => false, 'message' => 'Database error while inserting data']);
+            } else {
+                $this->db->trans_commit();
+                echo json_encode(['status' => true, 'message' => 'Excel data inserted successfully']);
+            }
+        } catch (Exception $e) {
+            echo json_encode(['status' => false, 'message' => $e->getMessage()]);
+        } finally {
+            if (file_exists($file_path)) unlink($file_path);
+        }
+    }
 }
