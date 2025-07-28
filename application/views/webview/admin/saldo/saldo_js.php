@@ -40,16 +40,34 @@
     function add_saldo(event) {
         event.preventDefault(); // Prevent the default form submission
 
+        const keterangan_simpanan_add = $('#keterangan_simpanan_add').val();
         const tglsaldo_simpanan_akhir = $('#saldo_simpanan_akhir_add').val();
+        const keterangan_pinjaman_add = $('#keterangan_pinjaman_add').val();
         const tglsaldo_pinjaman_akhir = $('#saldo_pinjaman_akhir_add').val();
         const tglDataValue = $('#tanggal_data_add').val();
 
-        if (!tglsaldo_simpanan_akhir) {
+        if (!keterangan_simpanan_add) {
+            swal.fire({
+                customClass: 'slow-animation',
+                icon: 'error',
+                showConfirmButton: false,
+                title: 'Kolom Keterangan Simpanan Tidak Boleh Kosong',
+                timer: 1500
+            });
+        } else if (!tglsaldo_simpanan_akhir) {
             swal.fire({
                 customClass: 'slow-animation',
                 icon: 'error',
                 showConfirmButton: false,
                 title: 'Kolom Saldo Simpanan Akhir Tidak Boleh Kosong',
+                timer: 1500
+            });
+        } else if (!keterangan_pinjaman_add) {
+            swal.fire({
+                customClass: 'slow-animation',
+                icon: 'error',
+                showConfirmButton: false,
+                title: 'Kolom Keterangan Pinjaman Tidak Boleh Kosong',
                 timer: 1500
             });
         } else if (!tglsaldo_pinjaman_akhir) {
@@ -189,7 +207,9 @@
 
                 $('#id_anggota_edit').val(data.id_anggota);
                 $('#id_edit').val(data.id);
+                $('#keterangan_simpanan_edit').val(data.keterangan_simpanan);
                 $('#saldo_simpanan_akhir_edit').val(data.saldo_simpanan_akhir);
+                $('#keterangan_pinjaman_edit').val(data.keterangan_pinjaman);
                 $('#saldo_pinjaman_akhir_edit').val(data.saldo_pinjaman_akhir);
                 $('#tanggal_data_edit').val(data.tanggal_data);
 
@@ -207,28 +227,9 @@
 
     function update_saldo(event) {
         event.preventDefault(); // Prevent the default form submission
-
-        const tglsaldo_simpanan_akhir = $('#saldo_simpanan_akhir_edit').val();
-        const tglsaldo_pinjaman_akhir = $('#saldo_pinjaman_akhir_edit').val();
         const tglDataValue = $('#tanggal_data_edit').val();
 
-        if (!tglsaldo_simpanan_akhir) {
-            swal.fire({
-                customClass: 'slow-animation',
-                icon: 'error',
-                showConfirmButton: false,
-                title: 'Kolom Saldo Simpanan Akhir Tidak Boleh Kosong',
-                timer: 1500
-            });
-        } else if (!tglsaldo_pinjaman_akhir) {
-            swal.fire({
-                customClass: 'slow-animation',
-                icon: 'error',
-                showConfirmButton: false,
-                title: 'Kolom Saldo Pinjaman Akhir Tidak Boleh Kosong',
-                timer: 1500
-            });
-        } else if (!tglDataValue) {
+        if (!tglDataValue) {
             swal.fire({
                 customClass: 'slow-animation',
                 icon: 'error',
@@ -525,6 +526,13 @@
                 // Add month and year filters to the AJAX data
                 data.filter_month = $('#filter_month').val();
                 data.filter_year = $('#filter_year').val();
+            },
+            dataSrc: function(json) {
+                // Store the sums in a global or accessible variable
+                // or directly update the footer if it's simpler
+                $('#total-saldo-simpanan').text(json.sum_saldo_simpanan); // Update a specific span/div
+                $('#total-saldo-pinjaman').text(json.sum_saldo_pinjaman); // Update another specific span/div
+                return json.data; // Return the actual table data
             }
         },
         columnDefs: [{

@@ -27,23 +27,29 @@
         <section class="section">
             <div class="card">
                 <div class="card-header">
-                    <div class="row">
-                        <div class="col-6">
-                            <h5 class="card-title">
-                                <!-- Minimal jQuery Datatable -->
-                                <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#tambahModal">Tambah Saldo</button>
-                            </h5>
-                        </div>
-                        <div class="col-6 d-flex justify-content-end">
-                            <div class="card-title">
-                                <a href="<?= base_url('assets/template/Contoh_Format_Saldo.xlsx') ?>" class="btn btn-secondary" download target="_blank">Download Template</a>
-                                <button type="button" class="btn btn-success ms-2" data-bs-toggle="modal" data-bs-target="#uploadModal">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                                        <path fill="#ffffff" d="M64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-288-128 0c-17.7 0-32-14.3-32-32L224 0 64 0zM256 0l0 128 128 0L256 0zM155.7 250.2L192 302.1l36.3-51.9c7.6-10.9 22.6-13.5 33.4-5.9s13.5 22.6 5.9 33.4L221.3 344l46.4 66.2c7.6 10.9 5 25.8-5.9 33.4s-25.8 5-33.4-5.9L192 385.8l-36.3 51.9c-7.6 10.9-22.6 13.5-33.4 5.9s-13.5-22.6-5.9-33.4L162.7 344l-46.4-66.2c-7.6-10.9-5-25.8 5.9-33.4s25.8-5 33.4 5.9z" />
-                                    </svg> Upload Excel</button>
+                    <?php
+                    if ($this->session->userdata('role') == "Koperasi" || $this->session->userdata('role') == "Admin") {
+                    ?>
+                        <div class="row">
+                            <div class="col-6">
+                                <h5 class="card-title">
+                                    <!-- Minimal jQuery Datatable -->
+                                    <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#tambahModal">Tambah Saldo Akhir</button>
+                                </h5>
+                            </div>
+                            <div class="col-6 d-flex justify-content-end">
+                                <div class="card-title">
+                                    <a href="<?= base_url('assets/template/Contoh_Format_Saldo.xlsx') ?>" class="btn btn-secondary" download target="_blank">Download Template</a>
+                                    <button type="button" class="btn btn-success ms-2" data-bs-toggle="modal" data-bs-target="#uploadModal">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                                            <path fill="#ffffff" d="M64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-288-128 0c-17.7 0-32-14.3-32-32L224 0 64 0zM256 0l0 128 128 0L256 0zM155.7 250.2L192 302.1l36.3-51.9c7.6-10.9 22.6-13.5 33.4-5.9s13.5 22.6 5.9 33.4L221.3 344l46.4 66.2c7.6 10.9 5 25.8-5.9 33.4s-25.8 5-33.4-5.9L192 385.8l-36.3 51.9c-7.6 10.9-22.6 13.5-33.4 5.9s-13.5-22.6-5.9-33.4L162.7 344l-46.4-66.2c-7.6-10.9-5-25.8 5.9-33.4s25.8-5 33.4 5.9z" />
+                                        </svg> Upload Excel</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    <?php
+                    }
+                    ?>
                 </div>
                 <div class="card-body">
                     <div class="row mb-3">
@@ -87,13 +93,22 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama</th>
-                                    <th>Saldo Simpanan Akhir</th>
-                                    <th>Saldo Pinjaman Akhir</th>
+                                    <th>Keterangan</th>
+                                    <th>Saldo Simpanan</th>
+                                    <th>Keterangan</th>
+                                    <th>Saldo Pinjaman</th>
                                     <th>Tanggal Data</th>
                                     <th>#</th>
                                 </tr>
                             </thead>
-
+                            <tfoot>
+                                <tr>
+                                    <th colspan="3">Total</th>
+                                    <th id="total-saldo-simpanan">0</th>
+                                    <th id="total-saldo-pinjaman">0</th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
@@ -133,21 +148,33 @@
                         </div>
                         <div class="form-group">
                             <label for="">Saldo Simpanan Akhir</label>
-                            <input type="number" min="0" class="form-control" name="saldo_simpanan_akhir" id="saldo_simpanan_akhir_add">
+                            <div class="form-group">
+                                <label for="">Keterangan</label>
+                                <input type="text" class="form-control" name="keterangan_simpanan" id="keterangan_simpanan_add" value="IURAN BULAN JUNI 2025">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Nominal</label>
+                                <input type="number" min="0" class="form-control" name="saldo_simpanan_akhir" id="saldo_simpanan_akhir_add" value="0">
+                            </div>
                         </div>
+                        <hr>
                         <div class="form-group">
-                            <label for="">Saldo Pinjaman Akhir</label>
-                            <input type="number" min="0" class="form-control" name="saldo_pinjaman_akhir" id="saldo_pinjaman_akhir_add">
+                            <label for="">Saldo Simpanan Akhir</label>
+                            <div class="form-group">
+                                <label for="">Keterangan</label>
+                                <input type="text" class="form-control" name="keterangan_pinjaman" id="keterangan_pinjaman_add" value="IURAN BULAN JUNI 2025">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Nominal</label>
+                                <input type="number" min="0" class="form-control" name="saldo_pinjaman_akhir" id="saldo_pinjaman_akhir_add" value="0">
+                            </div>
                         </div>
                     </div>
-
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary" onclick="add_saldo()">Tambah</button>
                     </div>
                 </form>
-
-
             </div>
         </div>
     </div>
@@ -160,7 +187,7 @@
                         <h5 class="modal-title" id="ideditModalLabel">Tambah Saldo</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class=" modal-body">
+                    <div class="modal-body">
                         <input type="hidden" name="id_edit" id="id_edit">
                         <div class="form-group">
                             <label for="text">Anggota</label>
@@ -180,23 +207,43 @@
                                 <input id="tanggal_data_edit" name="tanggal" type="date" class="form-control">
                             </div>
                         </div>
+                        <!-- <div class="form-group">
+                        <label for="">Saldo Simpanan Akhir</label>
+                        <input type="number" min="0" class="form-control" name="saldo_simpanan_akhir" id="saldo_simpanan_akhir_edit">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Saldo Pinjaman Akhir</label>
+                        <input type="number" min="0" class="form-control" name="saldo_pinjaman_akhir" id="saldo_pinjaman_akhir_edit">
+                    </div> -->
                         <div class="form-group">
                             <label for="">Saldo Simpanan Akhir</label>
-                            <input type="number" min="0" class="form-control" name="saldo_simpanan_akhir" id="saldo_simpanan_akhir_edit">
+                            <div class="form-group">
+                                <label for="">Keterangan</label>
+                                <input type="text" class="form-control" name="keterangan_simpanan" id="keterangan_simpanan_edit">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Nominal</label>
+                                <input type="number" min="0" class="form-control" name="saldo_simpanan_akhir" id="saldo_simpanan_akhir_edit" value="0">
+                            </div>
                         </div>
+                        <hr>
                         <div class="form-group">
-                            <label for="">Saldo Pinjaman Akhir</label>
-                            <input type="number" min="0" class="form-control" name="saldo_pinjaman_akhir" id="saldo_pinjaman_akhir_edit">
+                            <label for="">Saldo Simpanan Akhir</label>
+                            <div class="form-group">
+                                <label for="">Keterangan</label>
+                                <input type="text" class="form-control" name="keterangan_pinjaman" id="keterangan_pinjaman_edit">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Nominal</label>
+                                <input type="number" min="0" class="form-control" name="saldo_pinjaman_akhir" id="saldo_pinjaman_akhir_edit" value="0">
+                            </div>
                         </div>
                     </div>
-
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary" onclick="update_saldo()">Tambah</button>
                     </div>
                 </form>
-
-
             </div>
         </div>
     </div>
@@ -227,8 +274,6 @@
                         <button type="submit" class="btn btn-primary" onclick="upload_user()">Tambah</button>
                     </div>
                 </form>
-
-
             </div>
         </div>
     </div>

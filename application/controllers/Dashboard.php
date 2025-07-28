@@ -231,55 +231,137 @@ class Dashboard extends CI_Controller
 		// $this->db->from('saldo_simpanan');
 		// $this->db->join('anggota', 'anggota.id = saldo_simpanan.id_anggota');
 
-		$this->db->select_sum('saldo_simpanan_akhir');
+		// $this->db->select_sum('saldo_simpanan_akhir');
+		// $this->db->from('saldo');
+		// $this->db->join('anggota', 'anggota.id = saldo.id_anggota');
+		// if ($this->session->userdata('role') == "Koperasi") {
+		// 	$this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
+		// } else if ($this->session->userdata('role') == "Anggota") {
+		// 	$this->db->where('id_anggota', $this->session->userdata('user_user_id'));
+		// }
+		// $tanggal = date('Y-m');
+		// $month = date('m', strtotime($tanggal)); // Get the month
+		// $year = date('Y', strtotime($tanggal));  // Get the year
+		// $this->db->where(
+		// 	'MONTH(tanggal_data)',
+		// 	$month
+		// ); // Filter by month
+		// $this->db->where('YEAR(tanggal_data)', $year);   // Filter by year
+
+		// $query = $this->db->get();
+		// $result = $query->row();
+		// // $total_saldo_simpanan = $result->nominal;
+		// $total_saldo_simpanan = $result->saldo_simpanan_akhir;
+		// $data['total_saldo_simpanan'] = $total_saldo_simpanan;
+
+		// // $this->db->select_sum('nominal');
+		// // $this->db->from('saldo_pinjaman');
+		// // $this->db->join('anggota', 'anggota.id = saldo_pinjaman.id_anggota');
+		// $this->db->select_sum('saldo_pinjaman_akhir');
+		// $this->db->from('saldo');
+		// $this->db->join('anggota', 'anggota.id = saldo.id_anggota');
+		// if ($this->session->userdata('role') == "Koperasi") {
+		// 	$this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
+		// } else if ($this->session->userdata('role') == "Anggota") {
+		// 	$this->db->where('id_anggota', $this->session->userdata('user_user_id'));
+		// }
+		// $tanggal = date('Y-m');
+		// $month = date('m', strtotime($tanggal)); // Get the month
+		// $year = date('Y', strtotime($tanggal));  // Get the year
+		// $this->db->where(
+		// 	'MONTH(tanggal_data)',
+		// 	$month
+		// ); // Filter by month
+		// $this->db->where('YEAR(tanggal_data)', $year);   // Filter by year
+
+		// $query = $this->db->get();
+		// $result = $query->row();
+		// // $total_saldo_pinjaman = $result->nominal;
+		// $total_saldo_pinjaman = $result->saldo_pinjaman_akhir;
+		// $data['total_saldo_pinjaman'] = $total_saldo_pinjaman;
+
+
+
+		$CI = &get_instance(); // Get the CodeIgniter super object
+
+		// Create an isolated database object for compiling the subquery
+		$subquery_db = $CI->load->database('', TRUE);
+
+		$subquery_db->select('s_inner.id_anggota, MAX(s_inner.tanggal_data) as max_tanggal_data')
+			->from('saldo s_inner')
+			->join('anggota a_inner', 's_inner.id_anggota = a_inner.id');
+
+		// Apply role-based filtering to the subquery
+		if ($this->session->userdata('role') == "Koperasi") {
+			$subquery_db->where('a_inner.id_koperasi', $this->session->userdata('id_koperasi'));
+		} else if ($this->session->userdata('role') == "Anggota") {
+			$subquery_db->where('s_inner.id_anggota', $this->session->userdata('user_user_id'));
+		}
+		$subquery_db->group_by('s_inner.id_anggota');
+
+		// Compile the subquery into an SQL string
+		$latest_saldos_subquery_sql = $subquery_db->get_compiled_select();
+		$subquery_db->close(); // Close the temporary DB connection
+
+
+		// --- Calculate total saldo simpanan from the latest inserted data for each anggota ---
+		$this->db->select_sum('saldo.saldo_simpanan_akhir', 'total_saldo_simpanan'); // Alias for the sum result
 		$this->db->from('saldo');
 		$this->db->join('anggota', 'anggota.id = saldo.id_anggota');
+
+		// Apply role-based filtering to the main sum query
 		if ($this->session->userdata('role') == "Koperasi") {
 			$this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
 		} else if ($this->session->userdata('role') == "Anggota") {
-			$this->db->where('id_anggota', $this->session->userdata('user_user_id'));
+			$this->db->where('saldo.id_anggota', $this->session->userdata('user_user_id'));
 		}
-		$tanggal = date('Y-m');
-		$month = date('m', strtotime($tanggal)); // Get the month
-		$year = date('Y', strtotime($tanggal));  // Get the year
-		$this->db->where(
-			'MONTH(tanggal_data)',
-			$month
-		); // Filter by month
-		$this->db->where('YEAR(tanggal_data)', $year);   // Filter by year
 
-		$query = $this->db->get();
-		$result = $query->row();
-		// $total_saldo_simpanan = $result->nominal;
-		$total_saldo_simpanan = $result->saldo_simpanan_akhir;
+		// Join with the derived table to get only the latest records for each anggota
+		$this->db->join(
+			"($latest_saldos_subquery_sql) latest_saldos",
+			'saldo.id_anggota = latest_saldos.id_anggota AND saldo.tanggal_data = latest_saldos.max_tanggal_data',
+			'inner'
+		);
+
+		$query_simpanan = $this->db->get();
+		$result_simpanan = $query_simpanan->row();
+
+		$total_saldo_simpanan = 0; // Initialize with 0
+		if ($result_simpanan && isset($result_simpanan->total_saldo_simpanan)) {
+			$total_saldo_simpanan = $result_simpanan->total_saldo_simpanan;
+		}
 		$data['total_saldo_simpanan'] = $total_saldo_simpanan;
 
-		// $this->db->select_sum('nominal');
-		// $this->db->from('saldo_pinjaman');
-		// $this->db->join('anggota', 'anggota.id = saldo_pinjaman.id_anggota');
-		$this->db->select_sum('saldo_pinjaman_akhir');
+
+		// --- Calculate total saldo pinjaman from the latest inserted data for each anggota ---
+		$this->db->reset_query(); // IMPORTANT: Reset query builder state for the next query
+
+		$this->db->select_sum('saldo.saldo_pinjaman_akhir', 'total_saldo_pinjaman'); // Alias for the sum result
 		$this->db->from('saldo');
 		$this->db->join('anggota', 'anggota.id = saldo.id_anggota');
+
+		// Apply role-based filtering to the main sum query
 		if ($this->session->userdata('role') == "Koperasi") {
 			$this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
 		} else if ($this->session->userdata('role') == "Anggota") {
-			$this->db->where('id_anggota', $this->session->userdata('user_user_id'));
+			$this->db->where('saldo.id_anggota', $this->session->userdata('user_user_id'));
 		}
-		$tanggal = date('Y-m');
-		$month = date('m', strtotime($tanggal)); // Get the month
-		$year = date('Y', strtotime($tanggal));  // Get the year
-		$this->db->where(
-			'MONTH(tanggal_data)',
-			$month
-		); // Filter by month
-		$this->db->where('YEAR(tanggal_data)', $year);   // Filter by year
 
-		$query = $this->db->get();
-		$result = $query->row();
-		// $total_saldo_pinjaman = $result->nominal;
-		$total_saldo_pinjaman = $result->saldo_pinjaman_akhir;
+		// Join with the derived table to get only the latest records for each anggota
+		$this->db->join(
+			"($latest_saldos_subquery_sql) latest_saldos",
+			'saldo.id_anggota = latest_saldos.id_anggota AND saldo.tanggal_data = latest_saldos.max_tanggal_data',
+			'inner'
+		);
+
+		$query_pinjaman = $this->db->get();
+		$result_pinjaman = $query_pinjaman->row();
+
+		$total_saldo_pinjaman = 0; // Initialize with 0
+		if ($result_pinjaman && isset($result_pinjaman->total_saldo_pinjaman)) {
+			$total_saldo_pinjaman = $result_pinjaman->total_saldo_pinjaman;
+		}
 		$data['total_saldo_pinjaman'] = $total_saldo_pinjaman;
-
 
 
 		// UNTUK KEBUTUHAN

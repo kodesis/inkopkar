@@ -52,9 +52,17 @@ class Saldo extends CI_Controller
 			$row = array();
 			$row[] = $no;
 			$row[] = $cat->nama;
+			$row[] = $cat->keterangan_simpanan;
 			$row[] = number_format(($cat->saldo_simpanan_akhir == null ? 0 : $cat->saldo_simpanan_akhir), 0, '.', ',');
+			$row[] = $cat->keterangan_pinjaman;
 			$row[] = number_format(($cat->saldo_pinjaman_akhir == null ? 0 : $cat->saldo_pinjaman_akhir), 0, '.', ',');
-			$row[] = $cat->tanggal_data;
+
+			$day = date('d', strtotime($cat->tanggal_data)); // Get the month
+			$month = date('F', strtotime($cat->tanggal_data)); // Get the month
+			$year = date('Y', strtotime($cat->tanggal_data));  // Get the year
+			$tanggal = $day . " " . $month . " " . $year;
+			// $row[] = $cat->tanggal_data;
+			$row[] = $tanggal;
 			$row[] = '<center> <div class="list-icons d-inline-flex">
                 <a title="Update User" onclick="onEdit(' . $cat->id . ')" class="btn btn-warning"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit">
                                             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
@@ -72,11 +80,16 @@ class Saldo extends CI_Controller
 			$data[] = $row;
 		}
 
+		$sums = $this->saldoakhir->get_sum_columns();
+
 		$output = array(
 			"draw" => $_POST['draw'],
 			"recordsTotal" => $this->saldoakhir->count_all(),
 			"recordsFiltered" => $this->saldoakhir->count_filtered(),
 			"data" => $data,
+			"sum_saldo_simpanan" => number_format(($sums->total_saldo_simpanan == null ? 0 : $sums->total_saldo_simpanan), 0, ',', '.'), // Send sum for col 3
+			"sum_saldo_pinjaman" => number_format(($sums->total_saldo_pinjaman == null ? 0 : $sums->total_saldo_pinjaman), 0, ',', '.'), // Send sum for col 5 (adjust name if needed)
+
 		);
 		echo json_encode($output);
 	}
@@ -92,7 +105,9 @@ class Saldo extends CI_Controller
 	{
 		$date = new DateTime('now', new DateTimeZone('Asia/Jakarta'));
 		$id_anggota = $this->input->post('id_anggota');
+		$keterangan_simpanan = $this->input->post('keterangan_simpanan');
 		$saldo_simpanan_akhir = $this->input->post('saldo_simpanan_akhir');
+		$keterangan_pinjaman = $this->input->post('keterangan_pinjaman');
 		$saldo_pinjaman_akhir = $this->input->post('saldo_pinjaman_akhir');
 
 		// Check if a result was found
@@ -118,7 +133,9 @@ class Saldo extends CI_Controller
 			$date = new DateTime('now', new DateTimeZone('Asia/Jakarta'));
 			$data_update = [
 				// 'updated'           => $date->format('Y-m-d H:i:s'),
+				'keterangan_simpanan' => $keterangan_simpanan,
 				'saldo_simpanan_akhir' => floatval(str_replace(',', '', $saldo_simpanan_akhir)),
+				'keterangan_pinjaman' => $keterangan_pinjaman,
 				'saldo_pinjaman_akhir' => floatval(str_replace(',', '', $saldo_pinjaman_akhir)),
 				'tanggal_data' => $this->input->post('tanggal'),
 			];
@@ -130,7 +147,9 @@ class Saldo extends CI_Controller
 		} else {
 			$this->db->insert('saldo', [
 				'id_anggota' => $id_anggota,
+				'keterangan_simpanan' => $keterangan_simpanan,
 				'saldo_simpanan_akhir' => floatval(str_replace(',', '', $saldo_simpanan_akhir)),
+				'keterangan_pinjaman' => $keterangan_pinjaman,
 				'saldo_pinjaman_akhir' => floatval(str_replace(',', '', $saldo_pinjaman_akhir)),
 				'tanggal_data' => $this->input->post('tanggal'),
 			]);
@@ -157,14 +176,18 @@ class Saldo extends CI_Controller
 	{
 		$date = new DateTime('now', new DateTimeZone('Asia/Jakarta'));
 		// $id_edit = $this->input->post('id');
+		$keterangan_simpanan = $this->input->post('keterangan_simpanan');
 		$saldo_simpanan_akhir = $this->input->post('saldo_simpanan_akhir');
+		$keterangan_pinjaman = $this->input->post('keterangan_pinjaman');
 		$saldo_pinjaman_akhir = $this->input->post('saldo_pinjaman_akhir');
 		$tanggal_data = $this->input->post('tanggal');
 
 		// Assuming $date is a DateTime object
 		$data_update = [
 			// 'updated'           => $date->format('Y-m-d H:i:s'),
+			'keterangan_simpanan' => $keterangan_simpanan,
 			'saldo_simpanan_akhir' => floatval(str_replace(',', '', $saldo_simpanan_akhir)),
+			'keterangan_pinjaman' => $keterangan_pinjaman,
 			'saldo_pinjaman_akhir' => floatval(str_replace(',', '', $saldo_pinjaman_akhir)),
 			'tanggal_data'     => $tanggal_data
 		];
@@ -288,8 +311,10 @@ class Saldo extends CI_Controller
 
 					// Assuming columns are: 'Nama' in column A, 'kd_peserta' in column B, etc.
 					$kd_peserta = isset($data[1]) ? $data[1] : null; // Column 
-					$saldo_simpanan_akhir = isset($data[2]) ? $data[2] : null; // Column 
-					$saldo_pinjaman_akhir = isset($data[3]) ? $data[3] : null; // Column 
+					$keterangan_simpanan = isset($data[2]) ? $data[2] : null; // Column 
+					$saldo_simpanan_akhir = isset($data[3]) ? $data[3] : null; // Column 
+					$keterangan_pinjaman = isset($data[4]) ? $data[4] : null; // Column 
+					$saldo_pinjaman_akhir = isset($data[5]) ? $data[5] : null; // Column 
 					// Cek Data di database
 					$tanggal = $this->input->post('tanggal');
 					// Extract the month and year from the input date
@@ -315,7 +340,9 @@ class Saldo extends CI_Controller
 					if ($cek_data) { // If data exists, update it
 						$this->db->where('id', $cek_data->id);
 						$this->db->update('saldo', [
+							'keterangan_simpanan' => $keterangan_simpanan,
 							'saldo_simpanan_akhir' => floatval(str_replace(',', '', $saldo_simpanan_akhir)),
+							'keterangan_pinjaman' => $keterangan_pinjaman,
 							'saldo_pinjaman_akhir' => floatval(str_replace(',', '', $saldo_pinjaman_akhir)),
 							'tanggal_data' => $this->input->post('tanggal'), // Keep the original date or update as needed
 						]);
@@ -323,7 +350,9 @@ class Saldo extends CI_Controller
 					} else { // If no data exists, insert new
 						$this->db->insert('saldo', [
 							'id_anggota' => $id,
+							'keterangan_simpanan' => $keterangan_simpanan,
 							'saldo_simpanan_akhir' => floatval(str_replace(',', '', $saldo_simpanan_akhir)),
+							'keterangan_pinjaman' => $keterangan_pinjaman,
 							'saldo_pinjaman_akhir' => floatval(str_replace(',', '', $saldo_pinjaman_akhir)),
 							'tanggal_data' => $this->input->post('tanggal'),
 						]);
