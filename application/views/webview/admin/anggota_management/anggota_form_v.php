@@ -144,6 +144,18 @@
                                                     ?>
                                                 </div>
                                             </div> -->
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="text">Jabatan</label>
+                                                    <select class="form-select" name="jabatan" id="jabatan_add">
+                                                        <option disabled selected>-- Pilih Jabatan --</option>
+                                                        <option value="Ketua">Ketua</option>
+                                                        <option value="Sekretaris">Sekretaris</option>
+                                                        <option value="Bendahara">Bendahara</option>
+                                                        <option value="Anggota">Anggota</option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                             <?php
                                             if ($this->session->userdata('role') == "Admin") {
                                             ?>
@@ -354,6 +366,18 @@
                                                     </select>
                                                 </div>
                                             </div> -->
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="text">Jabatan</label>
+                                                    <select class="form-select" name="jabatan" id="jabatan_edit">
+                                                        <option disabled selected>-- Pilih Jabatan --</option>
+                                                        <option <?= $Anggota->jabatan == "Ketua" ? 'selected' : '' ?> value="Ketua">Ketua</option>
+                                                        <option <?= $Anggota->jabatan == "Sekretaris" ? 'selected' : '' ?> value="Sekretaris">Sekretaris</option>
+                                                        <option <?= $Anggota->jabatan == "Bendahara" ? 'selected' : '' ?> value="Bendahara">Bendahara</option>
+                                                        <option <?= $Anggota->jabatan == "Anggota" ? 'selected' : '' ?> value="Anggota">Anggota</option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                             <?php
                                             if ($this->session->userdata('role') == "Admin") {
                                             ?>

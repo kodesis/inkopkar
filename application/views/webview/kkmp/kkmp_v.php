@@ -200,7 +200,7 @@
     <!-- team-area -->
     <section class="team-area pt-120 pb-90" data-background="<?= base_url() ?>assets/img/bg/h3_services_bg_red.png">
         <div class="container">
-            <!-- <div class="row justify-content-center">
+            <div class="row justify-content-center">
                 <nav class="sub-navbar mb-4">
                     <ul class="nav justify-content-center" id="kkmpTabs" role="tablist">
                         <li class="nav-item" role="presentation">
@@ -214,7 +214,7 @@
                         </li>
                     </ul>
                 </nav>
-            </div> -->
+            </div>
             <div class="tab-content" id="kkmpTabContent">
                 <div class="team-item-wrap tab-pane fade show active" id="tab-kkmp" role="tabpanel" aria-labelledby="kkmp-tab">
                     <div class="row justify-content-center">
@@ -269,26 +269,66 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="team-item-wrap tab-pane fade" id="tab-registrasi-kkmp" role="tabpanel" aria-labelledby="registrasi-kkmp-tab">
+                <div class="team-item-wrap tab-pane fade" id="tab-registrasi-kkmp" role="tabpanel" aria-labelledby="registrasi-kkmp-tab">
                     <div class="row justify-content-center">
-                        <h4 style="color:#ffffff; text-align:center; margin-bottom: 30px;">Cara Registrasi Koperasi Merah Putih</h4>
+                        <h4 style="color:#ffffff; text-align:center; margin-bottom: 30px;">Cara Registrasi Aplikasi Koperasi Untuk KKMP</h4>
                         <div class="services__item-four shine-animate-item">
                             <div class="services__content-four">
-                                <h2 class="title">Cara Registrasi Koperasi Merah Putih</h2>
+                                <h2 class="title">Cara Mudah Mendaftar Aplikasi Koperasi untuk KKMP Anda</h2>
+                                <p>Untuk memastikan Koperasi Merah Putih Anda dapat terdaftar dengan lancar dan mulai beroperasi secara optimal, siapkan beberapa dokumen dan data penting berikut:</p>
+                                <div class="about__list-box">
+                                    <ul class="list-wrap">
+                                        <li><i class="fas fa-check"></i>Dokumen Legalitas Koperasi: </li>
+                                        <p style="margin-left: 45px; font-size: 15px;">Ini termasuk akta pendirian koperasi, Anggaran Dasar (AD) dan Anggaran Rumah Tangga (ART) yang telah disahkan, serta dokumen perizinan lainnya yang diperlukan sesuai regulasi pemerintah. Kelengkapan legalitas ini menjadi fondasi utama bagi operasional koperasi yang sah dan terpercaya.</p>
+
+                                        <li><i class="fas fa-check"></i>Data-data Pengurus Koperasi: </li>
+                                        <p style="margin-left: 45px; font-size: 15px;">Siapkan data lengkap para pengurus koperasi, meliputi nama lengkap, nomor identitas (KTP), alamat, jabatan, dan informasi kontak yang valid. Data ini penting untuk memastikan transparansi manajemen dan memudahkan koordinasi dalam menjalankan kegiatan koperasi.</p>
+
+                                        <li><i class="fas fa-check"></i>Data-data Pengawas Koperasi: </li>
+                                        <p style="margin-left: 45px; font-size: 15px;"> Serupa dengan pengurus, data lengkap para pengawas koperasi juga sangat dibutuhkan. Ini mencakup nama lengkap, nomor identitas (KTP), alamat, serta informasi kontak mereka. Peran pengawas sangat krusial dalam menjaga akuntabilitas dan memastikan operasional koperasi berjalan sesuai ketentuan.</p>
+
+                                        <li><i class="fas fa-check"></i>Menghubungi Admin untuk Mendaftar: </li>
+                                        <p style="margin-left: 45px; font-size: 15px;">Setelah semua dokumen dan data di atas lengkap, langkah terakhir adalah menghubungi admin Koperasi Merah Putih. Tim kami akan memandu Anda melalui proses pendaftaran, membantu verifikasi dokumen, dan menjawab setiap pertanyaan yang Anda miliki. Kami berkomitmen untuk membuat proses ini semudah dan seefisien mungkin bagi Anda. </p>
+                                    </ul>
+                                </div>
+                                <p>Dengan memenuhi persyaratan di atas dan mengikuti panduan dari tim admin kami, Koperasi Merah Putih Anda akan segera terdaftar dan siap memberikan manfaat finansial yang optimal bagi seluruh anggotanya. Jangan tunda lagi, mari wujudkan potensi penuh koperasi Anda bersama kami!
+                                </p>
                             </div>
+
                         </div>
                     </div>
-                </div> -->
-                <!-- <div class="team-item-wrap tab-pane fade" id="tab-registrasi-anggota-kkmp" role="tabpanel" aria-labelledby="registrasi-anggota-kkmp-tab">
+                </div>
+                <div class="team-item-wrap tab-pane fade" id="tab-registrasi-anggota-kkmp" role="tabpanel" aria-labelledby="registrasi-anggota-kkmp-tab">
                     <div class="row justify-content-center">
                         <h4 style="color:#ffffff; text-align:center; margin-bottom: 30px;">Cara Registrasi Anggota Koperasi Merah Putih</h4>
                         <div class="services__item-four shine-animate-item">
                             <div class="services__content-four">
-                                <h2 class="title">Cara Registrasi Anggota Koperasi Merah Putih</h2>
+                                <h2 class="title">Langkah Mudah Registrasi Anggota Koperasi Merah Putih</h2>
+                                <p>Proses pendaftaran sebagai anggota Koperasi Merah Putih dirancang agar sederhana dan tidak merepotkan. Ikuti langkah-langkah singkat di bawah ini:</p>
+                                <div class="about__list-box">
+                                    <ul class="list-wrap">
+                                        <li><i class="fas fa-check"></i>Kunjungi atau Hubungi Koperasi Terdekat:</li>
+                                        <p style="margin-left: 45px; font-size: 15px;">Langkah pertama adalah mendatangi atau menghubungi kantor Koperasi Merah Putih yang berlokasi di sekitar Anda. Anda bisa mencari informasi kontak atau alamat kantor melalui situs web resmi Koperasi Merah Putih (jika tersedia) atau menanyakan kepada kerabat yang mungkin sudah menjadi anggota. Staf kami akan dengan senang hati membantu dan menjelaskan lebih lanjut mengenai prosedur pendaftaran.</p>
+
+                                        <li><i class="fas fa-check"></i>Siapkan Dokumen Penting Anda:</li>
+                                        <p style="margin-left: 45px; font-size: 15px;">Untuk mempercepat proses registrasi, pastikan Anda telah menyiapkan data dan dokumen pribadi yang diperlukan. Umumnya, dokumen yang diminta meliputi:
+                                        <ul class="list-wrap" style="margin-left: 45px; margin-bottom: 60px; ">
+                                            <li><i class="fas fa-arrow-right"></i>Kartu Tanda Penduduk (KTP)</li>
+                                            <li><i class="fas fa-arrow-right"></i>Kartu Keluarga (KK)</li>
+                                            <li><i class="fas fa-arrow-right"></i>Nomor Pokok Wajib Pajak (NPWP)</li>
+                                            <li><i class="fas fa-arrow-right"></i>Dokumen Pendukung Lainnya</li>
+                                        </ul>
+                                        </p>
+
+                                        <li><i class="fas fa-check"></i>Proses Verifikasi dan Anda Resmi Menjadi Anggota!</li>
+                                        <p style="margin-left: 45px; font-size: 15px;">Setelah semua data dan dokumen Anda lengkap, staf koperasi akan membantu Anda mengisi formulir pendaftaran dan memverifikasi kelengkapan berkas. Proses ini biasanya tidak memakan waktu lama. Setelah verifikasi selesai dan Anda memenuhi semua persyaratan, Anda akan resmi terdaftar sebagai anggota Koperasi Merah Putih.</p>
+                                    </ul>
+                                </div>
+
                             </div>
                         </div>
                     </div>
-                </div> -->
+                </div>
             </div>
         </div>
     </section>

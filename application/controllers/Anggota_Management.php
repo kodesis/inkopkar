@@ -191,6 +191,7 @@ class Anggota_Management extends CI_Controller
         $kelurahan = $this->input->post('kelurahan');
         $username = $this->input->post('username');
         $password = $this->input->post('password');
+        $jabatan = $this->input->post('jabatan');
         $kredit_limit = (int) str_replace('.', '', $this->input->post('kredit_limit'));
 
         // $usage_kredit = $this->input->post('usage_kredit');
@@ -251,6 +252,7 @@ class Anggota_Management extends CI_Controller
             'kredit_limit' => $kredit_limit,
             // 'usage_kredit' => $usage_kredit,
             'usage_kredit' => 0,
+            'jabatan' => $jabatan,
             'id_toko' => $id_toko,
             'id_koperasi' => $id_koperasi,
             'role' => $role, // Add the checkbox value to the array
@@ -278,6 +280,7 @@ class Anggota_Management extends CI_Controller
         $kelurahan = $this->input->post('kelurahan');
         $username = $this->input->post('username');
         $password = $this->input->post('password');
+        $jabatan = $this->input->post('jabatan');
         $kredit_limit = (int) str_replace('.', '', $this->input->post('kredit_limit'));
         // $usage_kredit = $this->input->post('usage_kredit');
         $id_toko = $this->input->post('id_toko');
@@ -304,6 +307,7 @@ class Anggota_Management extends CI_Controller
             // 'password' => password_hash($password, PASSWORD_BCRYPT), // Hash the password
             'kredit_limit' => $kredit_limit,
             // 'usage_kredit' => $usage_kredit,
+            'jabatan' => $jabatan,
             'id_koperasi' => $id_koperasi,
             'id_toko' => $id_toko,
             // 'id_creator' => $this->session->userdata('user_user_id'),
@@ -502,6 +506,8 @@ class Anggota_Management extends CI_Controller
                     'no_telp' => $no_telp,
                     'username' => $no_telp,
                     'password' => $enc_password,
+                    'jabatan' => "Anggota",
+                    'role' => 4,
                     'id_creator' => $this->session->userdata('user_user_id'),
                     // 'id_toko' => $this->session->userdata('id_toko'),
                     'id_koperasi' => $this->session->userdata('id_koperasi'),
