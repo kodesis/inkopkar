@@ -87,7 +87,7 @@
                                 </a>
                             </li>
                         <?php
-                        } else if ($this->session->userdata('role') == "Koperasi") {
+                        } else if ($this->session->userdata('role') == "Koperasi" || $this->session->userdata('role') == "Admin") {
                         ?>
                             <li
                                 class="sidebar-item <?php if ($url_now == 'kebutuhan') {
@@ -137,7 +137,7 @@
                         }
                         ?>
 
-                        <li
+                        <!-- <li
                             class="sidebar-item <?php if ($url_now == 'Riwayat_Kasir') {
                                                     echo 'active ';
                                                 } ?> has-sub">
@@ -187,12 +187,6 @@
                                 <?php
                                 if ($this->session->userdata('role') == "Admin" || $this->session->userdata('role') == "Koperasi") {
                                 ?>
-                                    <!-- <li class="submenu-item <?php if ($url_now == 'Riwayat_Kasir/detail_pencairan') {
-                                                                        echo 'active ';
-                                                                    } ?>">
-                                        <a href="<?= base_url('Riwayat_Kasir/detail_pencairan') ?>" class="submenu-link">Riwayat Pencairan</a>
-
-                                    </li> -->
                                 <?php
                                 }
                                 ?>
@@ -205,18 +199,29 @@
                                         <a href="<?= base_url('Riwayat_Kasir/detail_saldo_simpanan') ?>" class="submenu-link">Riwayat Saldo Simpanan</a>
 
                                     </li>
-                                    <!-- <li class="submenu-item <?php if ($url_now == 'Riwayat_Kasir/detail_saldo_pinjaman') {
-                                                                        echo 'active ';
-                                                                    } ?>">
-                                        <a href="<?= base_url('Riwayat_Kasir/detail_saldo_pinjaman') ?>" class="submenu-link">Riwayat Saldo Pinjaman</a>
-
-                                    </li> -->
                                 <?php
                                 }
                                 ?>
 
                             </ul>
-                        </li>
+                        </li> -->
+                        <?php
+                        if ($this->session->userdata('role') == "Admin" || $this->session->userdata('role') == "Koperasi" || $this->session->userdata('role') == "Anggota") {
+                        ?>
+                            </li>
+
+                            <li
+                                class="sidebar-item <?php if ($url_now == 'Saldo') {
+                                                        echo 'active ';
+                                                    } ?>">
+                                <a href="<?= base_url('Saldo') ?>" class='sidebar-link'>
+                                    <i class="bi bi-grid-fill"></i>
+                                    <span>Saldo</span>
+                                </a>
+                            </li>
+                        <?php
+                        }
+                        ?>
                         <?php
                         if ($this->session->userdata('role') == "Admin" || $this->session->userdata('role') == "Koperasi" || $this->session->userdata('role') == "Puskopkar") {
                         ?>
@@ -300,15 +305,15 @@
                         <?php
                         if ($this->session->userdata('role') == "Puskopkar") {
                         ?>
-                            <li class="sidebar-item <?php if ($url_now == 'iuran/') {
-                                                        echo 'active ';
-                                                    } ?>">
+                            <!-- <li class="sidebar-item <?php if ($url_now == 'iuran/') {
+                                                                echo 'active ';
+                                                            } ?>">
                                 <a href="<?= base_url('iuran/') ?>" class="sidebar-link">
                                     <i class="bi bi-grid-fill"></i>
                                     <span>Iuran</span>
                                 </a>
 
-                            </li>
+                            </li> -->
                         <?php
                         }
                         ?>
@@ -316,7 +321,7 @@
                         // if ($this->session->userdata('role') == "Puskopkar" || $this->session->userdata('role') == "Koperasi" || $this->session->userdata('role') == "Admin") {
                         if ($this->session->userdata('role') == "Admin" || $this->session->userdata('role') == "Koperasi") {
                         ?>
-                            <li
+                            <!-- <li
                                 class="sidebar-item <?php if ($url_now == 'Saldo_Simpanan/add_simpanan') {
                                                         echo 'active ';
                                                     } ?>">
@@ -324,7 +329,7 @@
                                     <i class="bi bi-grid-fill"></i>
                                     <span>Tambah Saldo Simpanan</span>
                                 </a>
-                            </li>
+                            </li> -->
                             <!-- <li
                                 class="sidebar-item <?php if ($url_now == 'Saldo_Pinjaman/add_pinjaman') {
                                                         echo 'active ';

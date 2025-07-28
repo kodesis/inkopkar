@@ -227,32 +227,57 @@ class Dashboard extends CI_Controller
 		// echo  $total_kredit;
 		// $data['total_kredit'] = $result->nominal_kredit;
 
-		$this->db->select_sum('nominal');
-		$this->db->from('saldo_simpanan');
-		$this->db->join('anggota', 'anggota.id = saldo_simpanan.id_anggota');
+		// $this->db->select_sum('nominal');
+		// $this->db->from('saldo_simpanan');
+		// $this->db->join('anggota', 'anggota.id = saldo_simpanan.id_anggota');
+
+		$this->db->select_sum('saldo_simpanan_akhir');
+		$this->db->from('saldo');
+		$this->db->join('anggota', 'anggota.id = saldo.id_anggota');
 		if ($this->session->userdata('role') == "Koperasi") {
 			$this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
 		} else if ($this->session->userdata('role') == "Anggota") {
 			$this->db->where('id_anggota', $this->session->userdata('user_user_id'));
 		}
+		$tanggal = date('Y-m');
+		$month = date('m', strtotime($tanggal)); // Get the month
+		$year = date('Y', strtotime($tanggal));  // Get the year
+		$this->db->where(
+			'MONTH(tanggal_data)',
+			$month
+		); // Filter by month
+		$this->db->where('YEAR(tanggal_data)', $year);   // Filter by year
 
 		$query = $this->db->get();
 		$result = $query->row();
-		$total_saldo_simpanan = $result->nominal;
+		// $total_saldo_simpanan = $result->nominal;
+		$total_saldo_simpanan = $result->saldo_simpanan_akhir;
 		$data['total_saldo_simpanan'] = $total_saldo_simpanan;
 
-		$this->db->select_sum('nominal');
-		$this->db->from('saldo_pinjaman');
-		$this->db->join('anggota', 'anggota.id = saldo_pinjaman.id_anggota');
+		// $this->db->select_sum('nominal');
+		// $this->db->from('saldo_pinjaman');
+		// $this->db->join('anggota', 'anggota.id = saldo_pinjaman.id_anggota');
+		$this->db->select_sum('saldo_pinjaman_akhir');
+		$this->db->from('saldo');
+		$this->db->join('anggota', 'anggota.id = saldo.id_anggota');
 		if ($this->session->userdata('role') == "Koperasi") {
 			$this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
 		} else if ($this->session->userdata('role') == "Anggota") {
 			$this->db->where('id_anggota', $this->session->userdata('user_user_id'));
 		}
+		$tanggal = date('Y-m');
+		$month = date('m', strtotime($tanggal)); // Get the month
+		$year = date('Y', strtotime($tanggal));  // Get the year
+		$this->db->where(
+			'MONTH(tanggal_data)',
+			$month
+		); // Filter by month
+		$this->db->where('YEAR(tanggal_data)', $year);   // Filter by year
 
 		$query = $this->db->get();
 		$result = $query->row();
-		$total_saldo_pinjaman = $result->nominal;
+		// $total_saldo_pinjaman = $result->nominal;
+		$total_saldo_pinjaman = $result->saldo_pinjaman_akhir;
 		$data['total_saldo_pinjaman'] = $total_saldo_pinjaman;
 
 
