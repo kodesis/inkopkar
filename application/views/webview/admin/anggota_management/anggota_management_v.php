@@ -77,7 +77,13 @@
                                     <!-- <th>Saldo Simpanan</th> -->
                                     <th>Koperasi</th>
                                     <th>Role</th>
-                                    <th>#</th>
+                                    <?php
+                                    if ($this->session->userdata('role') == "Koperasi" || $this->session->userdata('role') == "Admin") {
+                                    ?>
+                                        <th>#</th>
+                                    <?php
+                                    }
+                                    ?>
                                 </tr>
                             </thead>
 
