@@ -514,7 +514,7 @@
             data: function(data) {}
         },
         columnDefs: [{
-            targets: [11, 12], // The 8th column (0-indexed)
+            targets: [10, 11], // The 8th column (0-indexed)
             orderable: false // Disable sorting
         }]
     })

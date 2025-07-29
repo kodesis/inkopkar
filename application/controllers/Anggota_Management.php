@@ -86,12 +86,12 @@ class Anggota_Management extends CI_Controller
             $this->db->where('status', '1');
             $query = $this->db->get();
             $result = $query->row();
-            $row[] = '<div style="text-align: right;">Rp. ' . number_format(
-                $result->nominal ?? 0,
-                0,
-                ',',
-                '.'
-            ) . '</div>';
+            // $row[] = '<div style="text-align: right;">Rp. ' . number_format(
+            //     $result->nominal ?? 0,
+            //     0,
+            //     ',',
+            //     '.'
+            // ) . '</div>';
 
 
             $row[] = $cat->nama_koperasi;

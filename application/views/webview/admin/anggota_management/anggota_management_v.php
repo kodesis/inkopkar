@@ -74,7 +74,7 @@
                                     <th>Username</th>
                                     <th>Kredit Limit</th>
                                     <th>Usage Kredit</th>
-                                    <th>Saldo Simpanan</th>
+                                    <!-- <th>Saldo Simpanan</th> -->
                                     <th>Koperasi</th>
                                     <th>Role</th>
                                     <th>#</th>
