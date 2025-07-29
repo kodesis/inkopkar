@@ -74,7 +74,7 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="<?= base_url() ?>">Home</a></li>
-                                <li class="breadcrumb-item text-merah" aria-current="page">Anggota</li>
+                                <li class="breadcrumb-item text-merah" aria-current="page">KKMP Jakarta</li>
                             </ol>
                         </nav>
                     </div>
