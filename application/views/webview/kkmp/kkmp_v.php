@@ -45,6 +45,7 @@
         color: #ffffff;
         font-weight: bold;
         font-size: 18px;
+        margin: 5px;
     }
 
     .white-text:hover {
@@ -60,6 +61,24 @@
         /* color: #fe9e07; */
 
     }
+
+    .white-outline {
+        border: 2px solid #ffffff;
+        border-radius: 25px;
+    }
+
+    .white-outline:hover {
+        border: 2px solid #fe9e07;
+
+    }
+
+    .white-outline:focus {
+        border: 2px solid #fe9e07;
+    }
+
+    .white-outline.active {
+        /* border: 1px solid #fe9e07; */
+    }
 </style>
 <!-- main-area -->
 <main class="fix">
@@ -70,7 +89,7 @@
                 <div class="col-lg-6">
                     <div class="breadcrumb__content">
                         <!-- <h2 class="title">Our Team Members</h2> -->
-                        <h2 class="title text-merah">Koperasi Kelurahan <br> Merah Putih</h2>
+                        <h2 class="title text-merah">Koperasi Kelurahan <br>Merah Putih</h2>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="<?= base_url() ?>">Home</a></li>
@@ -204,13 +223,16 @@
                 <nav class="sub-navbar mb-4">
                     <ul class="nav justify-content-center" id="kkmpTabs" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link white-text active" id="kkmp-tab" data-bs-toggle="tab" data-bs-target="#tab-kkmp" type="button" role="tab" aria-controls="tab-kkmp" aria-selected="true">Koperasi Merah Putih</button>
+                            <button class="nav-link white-text white-outline active" id="kkmp-tab" data-bs-toggle="tab" data-bs-target="#tab-kkmp" type="button" role="tab" aria-controls="tab-kkmp" aria-selected="true">Koperasi Merah Putih</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link white-text" id="registrasi-kkmp-tab" data-bs-toggle="tab" data-bs-target="#tab-registrasi-kkmp" type="button" role="tab" aria-controls="tab-registrasi-kkmp" aria-selected="false">Cara Registrasi KKMP</button>
+                            <button class="nav-link white-text white-outline" id="registrasi-kkmp-tab" data-bs-toggle="tab" data-bs-target="#tab-registrasi-kkmp" type="button" role="tab" aria-controls="tab-registrasi-kkmp" aria-selected="false">Cara Registrasi KKMP</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link white-text" id="registrasi-anggota-kkmp-tab" data-bs-toggle="tab" data-bs-target="#tab-registrasi-anggota-kkmp" type="button" role="tab" aria-controls="tab-registrasi-anggota-kkmp" aria-selected="false">Cara Registrasi Anggota KKMP</button>
+                            <button class="nav-link white-text white-outline" id="registrasi-anggota-kkmp-tab" data-bs-toggle="tab" data-bs-target="#tab-registrasi-anggota-kkmp" type="button" role="tab" aria-controls="tab-registrasi-anggota-kkmp" aria-selected="false">Cara Registrasi Anggota KKMP</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link white-text white-outline" id="registrasi-contoh-proposal" data-bs-toggle="tab" data-bs-target="#tab-contoh-proposal" type="button" role="tab" aria-controls="tab-contoh-proposal" aria-selected="false">Contoh Proposal KKMP</button>
                         </li>
                     </ul>
                 </nav>
@@ -325,6 +347,52 @@
                                     </ul>
                                 </div>
 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-item-wrap tab-pane fade show active" id="tab-contoh-proposal" role="tabpanel" aria-labelledby="contoh-proposal-tab">
+                    <div class="row justify-content-center">
+                        <h4 style="color:#ffffff; text-align:center; margin-bottom: 30px;">Contoh Proposal KKMP</h4>
+                        <div id="kelurahanListContainer" class="row justify-content-center">
+                            <!-- <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8 kelurahan-item">
+                                <a href="<?= base_url('auth') ?>">
+                                    <div class="team-item bg-yellow">
+                                        <div class="team-content">
+                                            <h4 class="title" style="color: #ffffff;">Kel. <?= $k->kelurahan ?>
+                                            </h4>
+                                            <span style="color: #ffffff;">Kec. <?= $k->kecamatan ?></span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div> -->
+
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-8 kelurahan-item">
+                                <div class="team-item">
+                                    <div class="team-content">
+                                        <h4 class="title" style="color: #ffffff;">Proposal Koperasi Simpan Pinjam KKMP</h4>
+                                        <!-- <span style="color: #ffffff;">Kec. <?= $k->kecamatan ?></span> -->
+                                        <a class="btn btn-light" href="<?= base_url('assets/contoh-proposal/') ?>Koperasi_Simpan_Pinjam_KKMP.pptx" download target="_blank">Download File</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-8 kelurahan-item">
+                                <div class="team-item">
+                                    <div class="team-content">
+                                        <h4 class="title" style="color: #ffffff;">Proposal Pertanian KKMP</h4>
+                                        <!-- <span style="color: #ffffff;">Kec. <?= $k->kecamatan ?></span> -->
+                                        <a class="btn btn-light" href="<?= base_url('assets/contoh-proposal/') ?>Koperasi_Pertanian_KKMP.pptx" download target="_blank">Download File</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-8 kelurahan-item">
+                                <div class="team-item">
+                                    <div class="team-content">
+                                        <h4 class="title" style="color: #ffffff;">Proposal Sekolah KKMP</h4>
+                                        <!-- <span style="color: #ffffff;">Kec. <?= $k->kecamatan ?></span> -->
+                                        <a class="btn btn-light" href="<?= base_url('assets/contoh-proposal/') ?>Koperasi_Sekolah_KKMP.pptx" download target="_blank">Download File</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
