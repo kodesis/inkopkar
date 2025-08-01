@@ -95,19 +95,18 @@ class Anggota_Management extends CI_Controller
 
 
             $row[] = $cat->nama_koperasi;
-            if ($cat->role == '1') {
-                $row[] = 'Admin';
-            } else if ($cat->role == '2') {
-                $row[] = 'Koperasi';
-            } else if ($cat->role == '3') {
-                $row[] = 'Kasir';
-            } else if ($cat->role == '5') {
-                $row[] = 'Puskopkar';
-            } else {
-                $row[] = 'Anggota';
-            }
-            // $row[] = $cat->view_count;
-            // $row[] = $cat->halaman_page;
+            // if ($cat->role == '1') {
+            //     $row[] = 'Admin';
+            // } else if ($cat->role == '2') {
+            //     $row[] = 'Koperasi';
+            // } else if ($cat->role == '3') {
+            //     $row[] = 'Kasir';
+            // } else if ($cat->role == '5') {
+            //     $row[] = 'Puskopkar';
+            // } else {
+            //     $row[] = 'Anggota';
+            // }
+            $row[] = $cat->jabatan;
 
             // $row[] = $cat->nama_koperasi . " - " . $cat->nama_toko;
 

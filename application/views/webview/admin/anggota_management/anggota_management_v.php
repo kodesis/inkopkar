@@ -76,7 +76,8 @@
                                     <th>Usage Kredit</th>
                                     <!-- <th>Saldo Simpanan</th> -->
                                     <th>Koperasi</th>
-                                    <th>Role</th>
+                                    <!-- <th>Role</th> -->
+                                    <th>Jabatan</th>
                                     <?php
                                     if ($this->session->userdata('role') == "Koperasi" || $this->session->userdata('role') == "Admin") {
                                     ?>
