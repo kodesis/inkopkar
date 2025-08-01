@@ -108,7 +108,7 @@ class Saldo extends CI_Controller
 	{
 		$date = new DateTime('now', new DateTimeZone('Asia/Jakarta'));
 		$id_anggota = $this->input->post('id_anggota');
-		$keterangan_simpanan = $this->input->post('keterangan_simpanan');
+		$keterangan_simpanan = strtoupper($this->input->post('keterangan_simpanan'));
 		$saldo_simpanan_akhir = $this->input->post('saldo_simpanan_akhir');
 		$keterangan_pinjaman = $this->input->post('keterangan_pinjaman');
 		$saldo_pinjaman_akhir = $this->input->post('saldo_pinjaman_akhir');
@@ -179,7 +179,7 @@ class Saldo extends CI_Controller
 	{
 		$date = new DateTime('now', new DateTimeZone('Asia/Jakarta'));
 		// $id_edit = $this->input->post('id');
-		$keterangan_simpanan = $this->input->post('keterangan_simpanan');
+		$keterangan_simpanan = strtoupper($this->input->post('keterangan_simpanan'));
 		$saldo_simpanan_akhir = $this->input->post('saldo_simpanan_akhir');
 		$keterangan_pinjaman = $this->input->post('keterangan_pinjaman');
 		$saldo_pinjaman_akhir = $this->input->post('saldo_pinjaman_akhir');
