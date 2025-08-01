@@ -149,7 +149,10 @@
                                                     <label for="text">Jabatan</label>
                                                     <select class="form-select" name="jabatan" id="jabatan_add">
                                                         <option disabled selected>-- Pilih Jabatan --</option>
+                                                        <option value="Penasihat">Penasihat</option>
+                                                        <option value="Pengawas">Pengawas</option>
                                                         <option value="Ketua">Ketua</option>
+                                                        <option value="Wakil Ketua">Wakil Ketua</option>
                                                         <option value="Sekretaris">Sekretaris</option>
                                                         <option value="Bendahara">Bendahara</option>
                                                         <option value="Anggota">Anggota</option>
