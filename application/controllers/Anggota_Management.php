@@ -201,11 +201,11 @@ class Anggota_Management extends CI_Controller
             $id_toko = $this->input->post('id_toko') ? $this->input->post('id_toko') : 0;
         } else if ($this->session->userdata('role') == "Koperasi") {
             $role = $this->input->post('role') ? $this->input->post('role') : 4; // 1 if checked, 0 if unchecked
-            if ($role == 3) {
-                $id_koperasi = $this->session->userdata('id_koperasi');
-            } else {
-                $id_koperasi = $this->input->post('id_koperasi');
-            }
+            // if ($role == 3) {
+            $id_koperasi = $this->session->userdata('id_koperasi');
+            // } else {
+            // $id_koperasi = $this->input->post('id_koperasi');
+            // }
             // $id_koperasi = $this->session->userdata('id_koperasi');
             $id_toko = $this->input->post('id_toko') ? $this->input->post('id_toko') : 0;
         } else if ($this->session->userdata('role') == "Kasir") {

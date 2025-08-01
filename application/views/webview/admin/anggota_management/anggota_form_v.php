@@ -96,7 +96,7 @@
                                                     <!-- <input type="number" class="form-control" id="kredit_limit_add" name="kredit_limit" placeholder="Kredit Limit"> -->
                                                     <div class="form-group position-relative has-icon-left">
                                                         <input type="text" class="form-control" id="kredit_limit_add" name="kredit_limit"
-                                                            placeholder="Kredit Limit"
+                                                            placeholder="Kredit Limit" value="0"
                                                             onfocus="removeFormat(this)" oninput="validateAndFormat(this)" onblur="formatNumber(this)">
                                                         <div class="form-control-icon">
                                                             <p>Rp.</p>
@@ -228,7 +228,7 @@
                                                 </div>
 
                                                 <div id="id_toko_koperasi_div">
-                                                    <div class="col-12">
+                                                    <!-- <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="text" id="title_koperasi">Koperasi</label>
                                                             <div id="koperasi-field-add">
@@ -244,7 +244,7 @@
                                                                 </select>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="text" id="title_toko" style="display: none;">Toko Koperasi</label>
