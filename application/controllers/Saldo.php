@@ -54,7 +54,7 @@ class Saldo extends CI_Controller
 			$row[] = $cat->nama;
 			$row[] = $cat->keterangan_simpanan;
 			$row[] = number_format(($cat->saldo_simpanan_akhir == null ? 0 : $cat->saldo_simpanan_akhir), 0, '.', ',');
-			$row[] = $cat->keterangan_pinjaman;
+			// $row[] = $cat->keterangan_pinjaman;
 			$row[] = number_format(($cat->saldo_pinjaman_akhir == null ? 0 : $cat->saldo_pinjaman_akhir), 0, '.', ',');
 
 			$day = date('d', strtotime($cat->tanggal_data)); // Get the month

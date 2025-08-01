@@ -374,6 +374,8 @@
                                                     <label for="text">Jabatan</label>
                                                     <select class="form-select" name="jabatan" id="jabatan_edit">
                                                         <option disabled selected>-- Pilih Jabatan --</option>
+                                                        <option <?= $Anggota->jabatan == "Penasihat" ? 'selected' : '' ?> value="Penasihat">Penasihat</option>
+                                                        <option <?= $Anggota->jabatan == "Pengawas" ? 'selected' : '' ?> value="Pengawas">Pengawas</option>=
                                                         <option <?= $Anggota->jabatan == "Ketua" ? 'selected' : '' ?> value="Ketua">Ketua</option>
                                                         <option <?= $Anggota->jabatan == "Sekretaris" ? 'selected' : '' ?> value="Sekretaris">Sekretaris</option>
                                                         <option <?= $Anggota->jabatan == "Bendahara" ? 'selected' : '' ?> value="Bendahara">Bendahara</option>

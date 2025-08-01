@@ -95,7 +95,7 @@
                                     <th>Nama</th>
                                     <th>Keterangan</th>
                                     <th>Saldo Simpanan</th>
-                                    <th>Keterangan</th>
+                                    <!-- <th>Keterangan</th> -->
                                     <th>Saldo Pinjaman</th>
                                     <th>Tanggal Data</th>
                                     <th>#</th>

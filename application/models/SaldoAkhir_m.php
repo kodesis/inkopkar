@@ -3,8 +3,8 @@
 class SaldoAkhir_m extends CI_Model
 {
     var $table = 'saldo';
-    var $column_order = array('saldo.id', 'anggota.nama', 'keterangan_simpanan', 'saldo_simpanan_akhir', 'keterangan_pinjaman', 'saldo_pinjaman_akhir', 'tanggal_data'); //set column field database for datatable orderable
-    var $column_search = array('saldo.id', 'anggota.nama', 'keterangan_simpanan', 'saldo_simpanan_akhir', 'keterangan_pinjaman', 'saldo_pinjaman_akhir', 'tanggal_data'); //set column field database for datatable searchable 
+    var $column_order = array('saldo.id', 'anggota.nama', 'keterangan_simpanan', 'saldo_simpanan_akhir', 'saldo_pinjaman_akhir', 'tanggal_data'); //set column field database for datatable orderable
+    var $column_search = array('saldo.id', 'anggota.nama', 'keterangan_simpanan', 'saldo_simpanan_akhir', 'saldo_pinjaman_akhir', 'tanggal_data'); //set column field database for datatable searchable 
     var $order = array('saldo.id' => 'asc'); // default order 
 
     function get_category()
