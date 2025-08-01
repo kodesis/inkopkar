@@ -183,7 +183,7 @@ class Anggota_Management extends CI_Controller
     }
     public function save()
     {
-        $nomor_anggota = $this->input->post('nomor_anggota');
+        $nomor_anggota = strtoupper($this->input->post('nomor_anggota'));
         $nama = $this->input->post('nama');
         $tempat_lahir = $this->input->post('tempat_lahir');
         $tanggal_lahir = $this->input->post('tanggal_lahir');
