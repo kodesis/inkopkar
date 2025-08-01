@@ -65,19 +65,20 @@
                             </tbody>
 
                             <tfoot>
-                                <tr style="background-color: #f3f4f6; font-weight: bold;">
-                                    <td colspan="2" class="text-center">TOTAL KESELURUHAN</td>
+                                <tr style="background-color: #fff; font-weight: bold; ">
+                                    <td style="color: #000" colspan="2" class="text-center">TOTAL KESELURUHAN</td>
                                     <?php
                                     // Loop melalui header lagi untuk memastikan kolom total sejajar
                                     foreach ($item_headers as $header):
                                         // Cek jika ada total untuk header kolom ini
                                         if (isset($column_totals[$header])):
                                             $total_data = $column_totals[$header];
-                                            $total_formatted = number_format($total_data['total'], 2, ',', '.') . ' ' . $total_data['satuan'];
+                                            // $total_formatted = number_format($total_data['total'], 2, ',', '.') . ' ' . $total_data['satuan'];
+                                            $total_formatted = number_format($total_data['total']) . ' ' . $total_data['satuan'];
                                     ?>
-                                            <td class="text-center"><?= $total_formatted; ?></td>
+                                            <td style="color: #000" class="text-center"><?= $total_formatted; ?></td>
                                         <?php else: ?>
-                                            <td class="text-center">-</td>
+                                            <td style="color: #000" class="text-center">-</td>
                                         <?php endif; ?>
                                     <?php endforeach; ?>
                                 </tr>

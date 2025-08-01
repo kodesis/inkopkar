@@ -24,8 +24,8 @@
                             }
 
                             let total = parseFloat(item.total_jumlah).toLocaleString('id-ID', {
-                                minimumFractionDigits: 2,
-                                maximumFractionDigits: 2
+                                // minimumFractionDigits: 2,
+                                // maximumFractionDigits: 2
                             });
 
                             html += `<tr><td>${itemName}</td><td><strong>${total} ${item.satuan}</strong></td></tr>`;

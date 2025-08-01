@@ -137,7 +137,7 @@
                         }
                         ?>
 
-                        <!-- <li
+                        <li
                             class="sidebar-item <?php if ($url_now == 'Riwayat_Kasir') {
                                                     echo 'active ';
                                                 } ?> has-sub">
@@ -204,13 +204,11 @@
                                 ?>
 
                             </ul>
-                        </li> -->
+                        </li>
                         <?php
                         if ($this->session->userdata('role') == "Admin" || $this->session->userdata('role') == "Koperasi" || $this->session->userdata('role') == "Anggota") {
                         ?>
-                            </li>
-
-                            <li
+                            <!-- <li
                                 class="sidebar-item <?php if ($url_now == 'Saldo') {
                                                         echo 'active ';
                                                     } ?>">
@@ -218,7 +216,7 @@
                                     <i class="bi bi-grid-fill"></i>
                                     <span>Saldo</span>
                                 </a>
-                            </li>
+                            </li> -->
                         <?php
                         }
                         ?>
@@ -321,7 +319,7 @@
                         // if ($this->session->userdata('role') == "Puskopkar" || $this->session->userdata('role') == "Koperasi" || $this->session->userdata('role') == "Admin") {
                         if ($this->session->userdata('role') == "Admin" || $this->session->userdata('role') == "Koperasi") {
                         ?>
-                            <!-- <li
+                            <li
                                 class="sidebar-item <?php if ($url_now == 'Saldo_Simpanan/add_simpanan') {
                                                         echo 'active ';
                                                     } ?>">
@@ -329,7 +327,7 @@
                                     <i class="bi bi-grid-fill"></i>
                                     <span>Tambah Saldo Simpanan</span>
                                 </a>
-                            </li> -->
+                            </li>
                             <!-- <li
                                 class="sidebar-item <?php if ($url_now == 'Saldo_Pinjaman/add_pinjaman') {
                                                         echo 'active ';

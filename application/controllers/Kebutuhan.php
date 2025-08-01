@@ -202,6 +202,7 @@ class Kebutuhan extends CI_Controller
                 $nama_kebutuhan_key .= ' Tipe ' . strtoupper($row['tipe_kebutuhan']);
             }
 
+            // $jumlah = (float) $row['jumlah'];
             $jumlah = (float) $row['jumlah'];
             $satuan = $row['satuan'];
             $jumlah_satuan = $jumlah . ' ' . $satuan;
