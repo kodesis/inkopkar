@@ -159,7 +159,7 @@
                         </div>
                         <hr>
                         <div class="form-group">
-                            <label for="">Saldo Simpanan Akhir</label>
+                            <label for="">Saldo Pinjaman Akhir</label>
                             <div class="form-group">
                                 <label for="">Keterangan</label>
                                 <input type="text" class="form-control" name="keterangan_pinjaman" id="keterangan_pinjaman_add" value="IURAN BULAN JUNI 2025">
