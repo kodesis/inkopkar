@@ -22,7 +22,7 @@ class Anggota_Management_m extends CI_Model
             $this->db->where('usage_kredit >', '0');
         } else if ($this->session->userdata('role') == "Koperasi") {
             $this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
-            $this->db->where('role >', '2');
+            // $this->db->where('role >', '2');
         } else if ($this->session->userdata('role') == "Kasir") {
             $this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
             $this->db->where('role', '4');
