@@ -183,7 +183,7 @@ class Anggota_Management extends CI_Controller
     public function save()
     {
         $nomor_anggota = strtoupper($this->input->post('nomor_anggota'));
-        $nama = $this->input->post('nama');
+        $nama = strtoupper($this->input->post('nama'));
         $tempat_lahir = $this->input->post('tempat_lahir');
         $tanggal_lahir = $this->input->post('tanggal_lahir');
         $no_telp = $this->input->post('no_telp');
@@ -271,8 +271,8 @@ class Anggota_Management extends CI_Controller
     public function proses_update()
     {
         $id_edit = $this->input->post('id_edit');
-        $nomor_anggota = $this->input->post('nomor_anggota');
-        $nama = $this->input->post('nama');
+        $nomor_anggota = strtoupper($this->input->post('nomor_anggota'));
+        $nama = strtoupper($this->input->post('nama'));
         $tempat_lahir = $this->input->post('tempat_lahir');
         $tanggal_lahir = $this->input->post('tanggal_lahir');
         $no_telp = $this->input->post('no_telp');
@@ -283,7 +283,7 @@ class Anggota_Management extends CI_Controller
         $kredit_limit = (int) str_replace('.', '', $this->input->post('kredit_limit'));
         // $usage_kredit = $this->input->post('usage_kredit');
         $id_toko = $this->input->post('id_toko');
-        $id_koperasi = $this->input->post('id_koperasi');
+        // $id_koperasi = $this->input->post('id_koperasi');
         $role = $this->input->post('role') ? $this->input->post('role') : 4; // 1 if checked, 0 if unchecked
 
         $this->db->from('toko');
@@ -307,7 +307,7 @@ class Anggota_Management extends CI_Controller
             'kredit_limit' => $kredit_limit,
             // 'usage_kredit' => $usage_kredit,
             'jabatan' => $jabatan,
-            'id_koperasi' => $id_koperasi,
+            // 'id_koperasi' => $id_koperasi,
             'id_toko' => $id_toko,
             // 'id_creator' => $this->session->userdata('user_user_id'),
             'role' => $role // Add the checkbox value to the array

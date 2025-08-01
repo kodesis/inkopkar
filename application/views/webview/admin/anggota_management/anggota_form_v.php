@@ -482,7 +482,7 @@
                                                             <label for="text" id="title_toko" style="display: none;">Toko Koperasi</label>
                                                             <div id="toko-field-add" style="display: none;">
                                                                 <select class="form-control" name="id_toko" id="id_toko_add">
-                                                                    <option disabled selected>-- Pilih Koperasi --</option>
+                                                                    <option disabled selected>-- Pilih Toko Koperasi --</option>
                                                                     <?php
                                                                     foreach ($toko as $c) {
                                                                     ?>
