@@ -42,7 +42,7 @@
 
         const keterangan_simpanan_add = $('#keterangan_simpanan_add').val();
         const tglsaldo_simpanan_akhir = $('#saldo_simpanan_akhir_add').val();
-        const keterangan_pinjaman_add = $('#keterangan_pinjaman_add').val();
+        // const keterangan_pinjaman_add = $('#keterangan_pinjaman_add').val();
         const tglsaldo_pinjaman_akhir = $('#saldo_pinjaman_akhir_add').val();
         const tglDataValue = $('#tanggal_data_add').val();
 
@@ -62,14 +62,14 @@
                 title: 'Kolom Saldo Simpanan Akhir Tidak Boleh Kosong',
                 timer: 1500
             });
-        } else if (!keterangan_pinjaman_add) {
-            swal.fire({
-                customClass: 'slow-animation',
-                icon: 'error',
-                showConfirmButton: false,
-                title: 'Kolom Keterangan Pinjaman Tidak Boleh Kosong',
-                timer: 1500
-            });
+            // } else if (!keterangan_pinjaman_add) {
+            //     swal.fire({
+            //         customClass: 'slow-animation',
+            //         icon: 'error',
+            //         showConfirmButton: false,
+            //         title: 'Kolom Keterangan Pinjaman Tidak Boleh Kosong',
+            //         timer: 1500
+            //     });
         } else if (!tglsaldo_pinjaman_akhir) {
             swal.fire({
                 customClass: 'slow-animation',
