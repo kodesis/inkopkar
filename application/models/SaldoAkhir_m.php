@@ -298,4 +298,21 @@ class SaldoAkhir_m extends CI_Model
 
         return $query->row();
     }
+    public function get_anggota()
+    {
+        $this->db->select('anggota.*, koperasi.nama_koperasi');
+        $this->db->from('anggota');
+        // $this->db->join('toko', 'anggota.id_toko = toko.id', 'left');
+        $this->db->join('koperasi', 'anggota.id_koperasi = koperasi.id', 'left');
+        // if ($this->session->userdata('role') == "Koperasi") {
+        // $this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
+        // $this->db->where('role >', '1');
+        // } else if ($this->session->userdata('role') == "Kasir") {
+        $this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
+        // $this->db->where('role', '4');
+        // }
+        $this->db->where('role >', '3');
+
+        return $this->db->get()->result();
+    }
 }

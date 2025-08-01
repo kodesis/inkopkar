@@ -36,7 +36,7 @@ class Saldo extends CI_Controller
 
 	public function index()
 	{
-		$data['anggota'] = $this->nota_management->get_anggota();
+		$data['anggota'] = $this->saldoakhir->get_anggota();
 		$data['content']     = 'webview/admin/saldo/saldo_v';
 		$data['content_js'] = 'webview/admin/saldo/saldo_js';
 		$this->load->view('parts/admin/Wrapper', $data);
