@@ -150,7 +150,7 @@
                             <label for="">Saldo Simpanan Akhir</label>
                             <div class="form-group">
                                 <label for="">Keterangan</label>
-                                <input type="text" class="form-control" name="keterangan_simpanan" id="keterangan_simpanan_add" value="IURAN BULAN JUNI 2025">
+                                <input type="text" class="form-control" name="keterangan_simpanan" id="keterangan_simpanan_add" value="IURAN BULAN <?= date('F') ?> <?= date('y') ?>">
                             </div>
                             <div class="form-group">
                                 <label for="">Nominal</label>
@@ -160,10 +160,10 @@
                         <hr>
                         <div class="form-group">
                             <label for="">Saldo Pinjaman Akhir</label>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="">Keterangan</label>
                                 <input type="text" class="form-control" name="keterangan_pinjaman" id="keterangan_pinjaman_add" value="IURAN BULAN JUNI 2025">
-                            </div>
+                            </div> -->
                             <div class="form-group">
                                 <label for="">Nominal</label>
                                 <input type="number" min="0" class="form-control" name="saldo_pinjaman_akhir" id="saldo_pinjaman_akhir_add" value="0">
