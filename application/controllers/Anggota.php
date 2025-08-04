@@ -359,7 +359,7 @@ class Anggota extends CI_Controller
                 '.'
             ) . '</div>';
             // $row[] = $cat->tanggal_jam;
-            $row[] = $cat->nama_koperasi . " - " . $cat->nama;
+            // $row[] = $cat->nama_koperasi . " - " . $cat->nama;
             // $row[] = $cat->view_count;
             if ($cat->status == "1") {
 

@@ -22,17 +22,20 @@
 <script>
     let jquery_datatable = $("#table_1").DataTable({
         responsive: true,
-        processing: true, //Feature control the processing indicator.
-        serverSide: true, //Feature control DataTables' server-side processing mode.
-        order: [], //Initial no order.
+        processing: true,
+        serverSide: true,
+        order: [],
         iDisplayLength: 10,
 
-        // Load data for the table's content from an Ajax source
         ajax: {
-            url: "<?php echo site_url('Riwayat_Kasir/ajax_list_saldo_simpanan/' . $this->uri->segment(3)) ?> ",
+            url: "<?php echo site_url('Riwayat_Kasir/ajax_list_saldo_simpanan/' . $this->uri->segment(3)) ?>",
             type: "POST",
+            // Pass the month and year from the form to the server
+            data: function(d) {
+                d.month = $('#filter_month').val();
+                d.year = $('#filter_year').val();
+            },
             dataSrc: function(json) {
-                // Update footer
                 $('#total_saldo').html(
                     new Intl.NumberFormat('id-ID', {
                         style: 'currency',
@@ -44,10 +47,14 @@
             }
         },
         columnDefs: [{
-            // targets: 5, // The 8th column (0-indexed)
-            orderable: false // Disable sorting
+            orderable: false
         }]
-    })
+    });
+
+    // Add a click handler for the search button
+    $('#search_button').on('click', function() {
+        jquery_datatable.ajax.reload();
+    });
 </script>
 <!-- Include jQuery (required by Summernote) -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

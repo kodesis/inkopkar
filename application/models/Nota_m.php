@@ -196,15 +196,15 @@ class Nota_m extends CI_Model
     var $table_saldo_simpanan = 'saldo_simpanan';
     // var $column_order = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable orderable
     // var $column_search = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable searchable 
-    var $column_order_saldo_simpanan = array('saldo_simpanan.id', 'tanggal_jam', 'nominal_kredit', 'toko.nama_toko', 'nama'); //set column field database for datatable orderable
-    var $column_search_saldo_simpanan = array('saldo_simpanan.id', 'tanggal_jam', 'nominal_kredit', 'toko.nama_toko', 'nama'); //set column field database for datatable searchable 
+    var $column_order_saldo_simpanan = array('saldo_simpanan.nomor_anggota', 'tanggal_jam', 'nominal_kredit'); //set column field database for datatable orderable
+    var $column_search_saldo_simpanan = array('saldo_simpanan.nomor_anggota', 'tanggal_jam', 'nominal_kredit'); //set column field database for datatable searchable 
 
     var $order_saldo_simpanan = array('saldo_simpanan.id' => 'DESC'); // default order 
 
     function _get_datatables_query_saldo_simpanan($id)
     {
 
-        $this->db->select('saldo_simpanan.*, toko.nama_toko, koperasi.nama_koperasi, anggota.nama');
+        $this->db->select('saldo_simpanan.*, toko.nama_toko, koperasi.nama_koperasi, anggota.nomor_anggota, anggota.nama');
         $this->db->from('saldo_simpanan');
         $this->db->where('id_anggota', $id);
         $this->db->join('toko', 'saldo_simpanan.id_toko = toko.id', 'left');

@@ -275,23 +275,29 @@ class Riwayat_Kasir extends CI_Controller
     }
     public function ajax_list_saldo_simpanan()
     {
-        $list = $this->riwayat_kasir->get_datatables_saldo_simpanan();
+        // Get month and year from the POST data, with a default of null
+        $month = $this->input->post('month');
+        $year = $this->input->post('year');
+
+        // Pass the month and year to the model
+        $list = $this->riwayat_kasir->get_datatables_saldo_simpanan($month, $year);
         $data = array();
         $crs = "";
         $no = $_POST['start'];
 
         foreach ($list as $cat) {
-            // $path = base_url() . 'uploads/blog/' . $cat->thumbnail;
-
             $no++;
             $row = array();
-            $row[] = $cat->id;
+            $row[] = $cat->nomor_anggota;
             $row[] = $cat->nama;
-            // $row[] = $cat->nama_koperasi;
             $row[] = $cat->keterangan;
             $date = new DateTime($cat->tanggal_jam);
-            $row[] = $date->format('d F Y, H:i:s');
-            // $row[] = "Rp. " . $cat->nominal_kredit;
+            // $row[] = $date->format('d F Y, H:i:s');
+            $row[] = $date->format('d F Y');
+
+            $date = new DateTime($cat->sampai_dengan);
+            // $row[] = $date->format('d F Y, H:i:s');
+            $row[] = $date->format('d F Y');
             $row[] = '<div style="text-align: right;">' . number_format(
                 $cat->nominal,
                 0,
@@ -299,15 +305,16 @@ class Riwayat_Kasir extends CI_Controller
                 '.'
             ) . '</div>';
 
-
             $data[] = $row;
         }
-        $total_saldo = $this->riwayat_kasir->get_total_saldo_filtered_simpanan();
+
+        // Pass the month and year to the total saldo function as well
+        $total_saldo = $this->riwayat_kasir->get_total_saldo_filtered_simpanan($month, $year);
 
         $output = array(
             "draw" => $_POST['draw'],
             "recordsTotal" => $this->riwayat_kasir->count_all_saldo_simpanan(),
-            "recordsFiltered" => $this->riwayat_kasir->count_filtered_saldo_simpanan(),
+            "recordsFiltered" => $this->riwayat_kasir->count_filtered_saldo_simpanan($month, $year),
             "data" => $data,
             "total_saldo" => $total_saldo
         );

@@ -108,9 +108,55 @@ class Saldo_Simpanan extends CI_Controller
         $data['content_js'] = 'webview/admin/nota_management/nota_management_js';
         $this->load->view('parts/admin/Wrapper', $data);
     }
+
+    public function ajax_search_anggota()
+    {
+        // Get the search query from the URL parameter (GET request)
+        // We will use $_GET directly for simplicity with the fetch API
+        $query = $this->input->get('q', TRUE); // The TRUE parameter handles XSS filtering
+
+        // Build the query
+        $this->db->select('anggota.id, anggota.nomor_anggota, anggota.nama, koperasi.nama_koperasi');
+        $this->db->from('anggota');
+        $this->db->join('koperasi', 'anggota.id_koperasi = koperasi.id', 'left');
+        $this->db->where('anggota.status', '1');
+        $this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
+
+        // Use group_start() and group_end() to properly group the OR conditions
+        if ($query) {
+            $this->db->group_start();
+            $this->db->like('anggota.nomor_anggota', $query);
+            $this->db->or_like('anggota.nama', $query);
+            $this->db->group_end();
+        }
+
+        // Limit the results to prevent overwhelming the user
+        $this->db->limit(10);
+
+        $results = $this->db->get()->result();
+
+        // --- IMPORTANT: TRANSFORM THE DATA FOR CHOICES.JS ---
+        // Choices.js expects an array of objects with 'value' and 'label' keys.
+        $choices_data = [];
+        if (!empty($results)) {
+            foreach ($results as $anggota) {
+                $choices_data[] = [
+                    'value' => $anggota->id,
+                    'label' => $anggota->nama . ' - ' . $anggota->nomor_anggota
+                ];
+            }
+        }
+
+        // Return the formatted results as JSON
+        header('Content-Type: application/json');
+        echo json_encode($choices_data);
+    }
+
     public function save()
     {
         $date = (new DateTime('now', new DateTimeZone('Asia/Jakarta')))->format('Y-m-d H:i:s');
+        $tanggal_jam = $this->input->post('tanggal_jam');
+        $sampai_dengan = $this->input->post('sampai_dengan');
         $id_anggota = $this->input->post('id_anggota');
         $keterangan = $this->input->post('keterangan');
         $anggota = $this->anggota_management->get_id_edit($id_anggota);
@@ -139,7 +185,9 @@ class Saldo_Simpanan extends CI_Controller
         // Save the new data
         $sub_id = $this->saldo_simpanan->save_file([
             'id'             => $new_id, // New generated ID
-            'tanggal_jam'    => $date,
+            // 'tanggal_jam'    => $date,
+            'tanggal_jam'    => $tanggal_jam,
+            'sampai_dengan'    => $sampai_dengan,
             'id_anggota'     => $id_anggota,
             'nominal' => $nominal_kredit,
             'keterangan' => $keterangan ? $keterangan : "IURAN BULAN " . $current_month,
@@ -248,7 +296,7 @@ class Saldo_Simpanan extends CI_Controller
 
                 $nomor_anggota = isset($rowData[0]) ? $rowData[0] : null;
 
-                echo $nomor_anggota;
+                // echo $nomor_anggota;
                 // Find id_anggota from database
                 $anggota = $this->db->get_where('anggota', ['nomor_anggota' => $nomor_anggota])->row();
                 $id_anggota = $anggota->id;
@@ -261,20 +309,40 @@ class Saldo_Simpanan extends CI_Controller
                 } elseif (!empty($tanggal_excel)) {
                     // Already a valid date string
                     $tanggal_bayar = date('Y-m-d', strtotime($tanggal_excel));
+                } else {
+                    // If no date is found, you might want to set a default.
+                    // For this example, let's set it to the current time.
+                    $tanggal_bayar = date('Y-m-d H:i:s');
                 }
-                $date = new DateTime($tanggal_bayar);
+                $date_for_keterangan_tanggal_bayar = new DateTime($tanggal_bayar);
 
-                $bulan = $date->format('M');
-                $bulan_nama = $date->format('F');
-                $tahun = $date->format('Y');
+                $sd_excel = isset($rowData[3]) ? $rowData[3] : null;
+                $sampai_dengan = null;
+                if (is_numeric($sd_excel)) {
+                    // Excel date serial to Y-m-d
+                    $sampai_dengan = date('Y-m-d', \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimestamp($sd_excel));
+                } elseif (!empty($sd_excel)) {
+                    // Already a valid date string
+                    $sampai_dengan = date('Y-m-d', strtotime($sd_excel));
+                } else {
+                    // If no date is found, you might want to set a default.
+                    // For this example, let's set it to the current time.
+                    $sampai_dengan = date('Y-m-d H:i:s');
+                }
+                $date_for_keterangan_sampai_dengan = new DateTime($sampai_dengan);
+
+                $bulan = $date_for_keterangan_sampai_dengan->format('M');
+                $bulan_nama = $date_for_keterangan_sampai_dengan->format('F');
+                $tahun = $date_for_keterangan_sampai_dengan->format('Y');
 
                 // Now map Excel columns to database fields
                 $dataInsert[] = [
                     'id'          => $new_id, // **USE GENERATED ID**
                     'id_anggota'  => $id_anggota,
                     'nominal'     => isset($rowData[1]) ? (float)str_replace(',', '', $rowData[1]) : 0,
-                    'keterangan'     => isset($rowData[2]) ? $rowData[2] : "IURAN BULAN " . strtoupper($bulan_nama) . " " . $tahun,
+                    'keterangan'    => isset($rowData[2]) ? $rowData[2] : "IURAN BULAN " . strtoupper($bulan_nama) . " " . $tahun,
                     'tanggal_jam'   => $tanggal_bayar,
+                    'sampai_dengan'   => $sampai_dengan,
                     'status' => 1,
                     'id_kasir' => $this->session->userdata('user_user_id'),
                     'id_toko' => $this->session->userdata('id_toko'),

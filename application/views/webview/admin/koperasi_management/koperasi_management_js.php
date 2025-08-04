@@ -8,7 +8,46 @@
 <script src="<?= base_url('assets/admin') ?>/extensions/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?= base_url('assets/admin') ?>/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
 
+<script>
+    const element = document.getElementById('kelurahan_add');
 
+    // Initialize Choices.js and store the instance in a variable.
+    const choicesInstance = new Choices(element, {
+        searchEnabled: true,
+        placeholder: true,
+        placeholderValue: '-- Pilih Kelurahan --',
+        // Make sure the dropdown is empty initially if you're loading via AJAX
+        allowHTML: true // This might be useful if your labels have HTML
+    });
+
+    // Add an event listener to the Choices.js instance for when the user types.
+    element.addEventListener('search', (event) => {
+        const searchTerm = event.detail.value;
+
+        // Ensure the search term has at least 2 characters to trigger a search
+        if (searchTerm.length >= 2) {
+            // Use your PHP-generated URL and append the search query
+            const url = `<?php echo site_url('Koperasi_Management/ajax_search_kelurahan') ?>?q=${searchTerm}`;
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // `data` should be an array of objects like:
+                    // [{ value: '1', label: 'John Doe' }, { value: '2', label: 'Jane Smith' }]
+                    // The `setChoices` method clears existing options and replaces them with the new data.
+                    choicesInstance.setChoices(data, 'value', 'label', true);
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        }
+    });
+</script>
 <script>
     let jquery_datatable = $("#table_1").DataTable({
         responsive: true,

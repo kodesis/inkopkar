@@ -348,51 +348,55 @@ class Riwayat_Kasir_m extends CI_Model
     var $table_saldo_simpanan = 'saldo_simpanan';
     // var $column_order = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable orderable
     // var $column_search = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable searchable 
-    var $column_order_saldo_simpanan = array('saldo_simpanan.id', 'anggota.nama', 'nama_koperasi', 'tanggal_jam', 'nominal', 'status'); //set column field database for datatable orderable
-    var $column_search_saldo_simpanan = array('saldo_simpanan.id', 'anggota.nama', 'nama_koperasi', 'tanggal_jam', 'nominal', 'status'); //set column field database for datatable searchable 
+    var $column_order_saldo_simpanan = array('saldo_simpanan.nomor_anggota', 'anggota.nama', 'nama_koperasi', 'tanggal_jam', 'sampai_dengan', 'nominal', 'status'); //set column field database for datatable orderable
+    var $column_search_saldo_simpanan = array('saldo_simpanan.nomor_anggota', 'anggota.nama', 'nama_koperasi', 'tanggal_jam', 'sampai_dengan', 'nominal', 'status'); //set column field database for datatable searchable 
 
     var $order_saldo_simpanan = array('saldo_simpanan.id' => 'DESC'); // default order 
 
-    function _get_datatables_query_saldo_simpanan()
+    function _get_datatables_query_saldo_simpanan($month = null, $year = null)
     {
-
-        $this->db->select('saldo_simpanan.*, koperasi.nama_koperasi as nama_koperasi, anggota.nama');
+        $this->db->select('saldo_simpanan.*, koperasi.nama_koperasi as nama_koperasi,anggota.nomor_anggota ,anggota.nama');
         $this->db->from('saldo_simpanan');
-        // $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
         $this->db->join('anggota', 'anggota.id = saldo_simpanan.id_anggota', 'left');
         $this->db->join('koperasi', 'anggota.id_koperasi = koperasi.id', 'left');
         $this->db->where('saldo_simpanan.status', '1');
 
         if ($this->session->userdata('role') == "Koperasi") {
             $this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
-        } else  if ($this->session->userdata('role') == "Anggota") {
+        } else if ($this->session->userdata('role') == "Anggota") {
             $this->db->where('saldo_simpanan.id_anggota', $this->session->userdata('user_user_id'));
         } else if ($this->session->userdata('role') == "Puskopkar") {
             $this->db->where('anggota.id_puskopkar', $this->session->userdata('user_user_id'));
         }
 
-        $i = 0;
-        foreach ($this->column_search_saldo_simpanan as $item) // loop column 
-        {
-            if ($_POST['search']['value']) // if datatable send POST for search
-            {
+        // Add the new date range filtering logic
+        if (!empty($month) && !empty($year)) {
+            // Construct the start and end dates for the selected month/year
+            $start_date = date('Y-m-01', strtotime("$year-$month-01"));
+            $end_date = date('Y-m-t', strtotime("$year-$month-01"));
 
-                if ($i === 0) // first loop
-                {
-                    $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
+            // Apply the WHERE clause. This checks for any overlap between the record's date range
+            // (tanggal_jam to sampai_dengan) and the selected month's date range.
+            $this->db->where("(`tanggal_jam` <= '$end_date' AND `sampai_dengan` >= '$start_date')");
+        }
+
+        $i = 0;
+        foreach ($this->column_search_saldo_simpanan as $item) {
+            if ($_POST['search']['value']) {
+                if ($i === 0) {
+                    $this->db->group_start();
                     $this->db->like($item, $_POST['search']['value']);
                 } else {
                     $this->db->or_like($item, $_POST['search']['value']);
                 }
-
-                if (count($this->column_search_saldo_simpanan) - 1 == $i) //last loop
-                    $this->db->group_end(); //close bracket
+                if (count($this->column_search_saldo_simpanan) - 1 == $i) {
+                    $this->db->group_end();
+                }
             }
             $i++;
         }
 
-        if (isset($_POST['order'])) // here order processing
-        {
+        if (isset($_POST['order'])) {
             $this->db->order_by($this->column_order_saldo_simpanan[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
         } else if (isset($this->order_saldo_simpanan)) {
             $order = $this->order_saldo_simpanan;
@@ -400,21 +404,24 @@ class Riwayat_Kasir_m extends CI_Model
         }
     }
 
-    function get_datatables_saldo_simpanan()
+    // Update the function signatures for get_datatables and count functions
+    function get_datatables_saldo_simpanan($month, $year)
     {
-        $this->_get_datatables_query_saldo_simpanan();
-        if ($_POST['length'] != -1)
+        $this->_get_datatables_query_saldo_simpanan($month, $year);
+        if ($_POST['length'] != -1) {
             $this->db->limit($_POST['length'], $_POST['start']);
+        }
         $query = $this->db->get();
         return $query->result();
     }
 
-    function count_filtered_saldo_simpanan()
+    function count_filtered_saldo_simpanan($month, $year)
     {
-        $this->_get_datatables_query_saldo_simpanan();
+        $this->_get_datatables_query_saldo_simpanan($month, $year);
         $query = $this->db->get();
         return $query->num_rows();
     }
+
 
     function count_all_saldo_simpanan()
     {
@@ -425,9 +432,12 @@ class Riwayat_Kasir_m extends CI_Model
         return $this->db->count_all_results();
     }
 
-    public function get_total_saldo_filtered_simpanan()
+    // Note: count_all doesn't need the filter, as it counts all records, not just the filtered ones.
+    // So no change is needed here.
+
+    public function get_total_saldo_filtered_simpanan($month, $year)
     {
-        $this->_get_datatables_query_saldo_simpanan(); // same filter logic as your table
+        $this->_get_datatables_query_saldo_simpanan($month, $year);
         $this->db->select_sum('nominal');
         $query = $this->db->get();
         return $query->row()->nominal;

@@ -16,14 +16,70 @@
 <!-- Select2 JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
-
-
-
 <script>
+    const element = document.getElementById('id_anggota_search');
+
+    // Initialize Choices.js and store the instance in a variable.
+    const choicesInstance = new Choices(element, {
+        searchEnabled: true,
+        placeholder: true,
+        placeholderValue: '-- Pilih Anggota --',
+        // Make sure the dropdown is empty initially if you're loading via AJAX
+        allowHTML: true // This might be useful if your labels have HTML
+    });
+
+    // Add an event listener to the Choices.js instance for when the user types.
+    element.addEventListener('search', (event) => {
+        const searchTerm = event.detail.value;
+
+        // Ensure the search term has at least 2 characters to trigger a search
+        if (searchTerm.length >= 2) {
+            // Use your PHP-generated URL and append the search query
+            const url = `<?php echo site_url('Saldo_Simpanan/ajax_search_anggota') ?>?q=${searchTerm}`;
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // `data` should be an array of objects like:
+                    // [{ value: '1', label: 'John Doe' }, { value: '2', label: 'Jane Smith' }]
+                    // The `setChoices` method clears existing options and replaces them with the new data.
+                    choicesInstance.setChoices(data, 'value', 'label', true);
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        }
+    });
+</script>
+<script>
+    const dateInput1 = document.getElementById('tanggal_jam_add');
+    const dateInput2 = document.getElementById('sampai_dengan_add');
+
+    // Create a new date object for today
+    const today = new Date();
+
+    // Get the year, month, and day
+    const year = today.getFullYear();
+    // Months are 0-indexed, so we add 1
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+
+    // Format the date as 'YYYY-MM-DD', which is the required format for date inputs
+    const formattedDate = `${year}-${month}-${day}`;
+
+    // Set the value of the input field
+    dateInput1.value = formattedDate;
+    dateInput2.value = formattedDate;
+
     // let selects1 = $('#id_anggota_add').select2({
-    //     placeholder: "-- Pilih Anggota --",
-    //     allowClear: true,
-    //     width: '100%',
+    // placeholder: "-- Pilih Anggota --",
+    // allowClear: true,
+    // width: '100%',
     // });
 
     function formatNumber(input) {
@@ -55,6 +111,7 @@
             orderable: false // Disable sorting
         }]
     })
+
 
 
     function reset_Nota() {

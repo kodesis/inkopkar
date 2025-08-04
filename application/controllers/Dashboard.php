@@ -147,11 +147,11 @@ class Dashboard extends CI_Controller
 			$this->db->join('toko', 'toko.id = nota.id_toko');
 			if ($this->session->userdata('role') == "Koperasi") {
 				// $this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
-				$this->db->where('toko.id_koperasi', $this->session->userdata('id_koperasi'));
+				$this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
 			} else if ($this->session->userdata('role') == "Anggota") {
 				$this->db->where('id_anggota', $this->session->userdata('user_user_id'));
 			}
-			$this->db->where('status', '1');
+			$this->db->where('anggota.status', '1');
 
 			$query = $this->db->get();
 			$semua_kredit = $query->row();
@@ -173,7 +173,7 @@ class Dashboard extends CI_Controller
 		} else if ($this->session->userdata('role') == "Anggota") {
 			$this->db->where('id_anggota', $this->session->userdata('user_user_id'));
 		}
-		$this->db->where('status', '1');
+		$this->db->where('anggota.status', '1');
 
 		$query = $this->db->get();
 		$result = $query->row();

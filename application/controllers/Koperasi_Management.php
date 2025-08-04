@@ -376,16 +376,59 @@ class Koperasi_Management extends CI_Controller
         $data['content_js'] = 'webview/admin/koperasi_management/koperasi_management_js';
         $this->load->view('parts/admin/Wrapper', $data);
     }
+
+    public function ajax_search_kelurahan()
+    {
+        // Get the search query from the URL parameter (GET request)
+        // We will use $_GET directly for simplicity with the fetch API
+        $query = $this->input->get('q', TRUE); // The TRUE parameter handles XSS filtering
+
+        // Build the query
+        $this->db->from('kelurahan');
+
+        // Use group_start() and group_end() to properly group the OR conditions
+        if ($query) {
+            $this->db->group_start();
+            $this->db->like('kota_administrasi', $query);
+            $this->db->or_like('kecamatan', $query);
+            $this->db->or_like('kelurahan', $query);
+            $this->db->group_end();
+        }
+
+        // Limit the results to prevent overwhelming the user
+        $this->db->limit(10);
+
+        $results = $this->db->get()->result();
+
+        // --- IMPORTANT: TRANSFORM THE DATA FOR CHOICES.JS ---
+        // Choices.js expects an array of objects with 'value' and 'label' keys.
+        $choices_data = [];
+        if (!empty($results)) {
+            foreach ($results as $kelurahan) {
+                $choices_data[] = [
+                    'value' => $kelurahan->id,
+                    'label' => $kelurahan->kota_administrasi . ' - ' . $kelurahan->kecamatan . ' - ' . $kelurahan->kelurahan
+                ];
+            }
+        }
+
+        // Return the formatted results as JSON
+        header('Content-Type: application/json');
+        echo json_encode($choices_data);
+    }
+
     public function save()
     {
+        $no_induk = $this->input->post('no_induk');
         $nama_koperasi = $this->input->post('nama_koperasi');
         $kelurahan = $this->input->post('kelurahan');
         $alamat = $this->input->post('alamat');
         $telp = $this->input->post('telp');
-        $no_induk = $this->input->post('no_induk');
         $id_puskopkar = $this->input->post('id_puskopkar');
+        $username = $this->input->post('username');
+        $password = $this->input->post('password');
 
-        $this->koperasi_management->save_file(
+        $id_koperasi = $this->koperasi_management->save_file(
             array(
                 'nama_koperasi'            => $nama_koperasi,
                 'alamat'            => $alamat,
@@ -395,6 +438,29 @@ class Koperasi_Management extends CI_Controller
                 'id_puskopkar'             => $id_puskopkar,
             ),
         );
+
+        $data = array(
+            'nomor_anggota' => $no_induk,
+            'nama' => $nama_koperasi,
+            // 'tempat_lahir' => $tempat_lahir,
+            // 'tanggal_lahir' => $tanggal_lahir,
+            'no_telp' => $telp,
+            'kelurahan' => $kelurahan,
+            'username' => $username,
+            'password' => password_hash($password, PASSWORD_BCRYPT), // Hash the password
+            'kredit_limit' => 0,
+            // 'usage_kredit' => $usage_kredit,
+            'usage_kredit' => 0,
+            // 'jabatan' => $jabatan,
+            // 'id_toko' => $id_toko,
+            'id_koperasi' => $id_koperasi,
+            'role' => 2, // Add the checkbox value to the array
+            'id_creator' => $this->session->userdata('user_user_id'),
+        );
+        $data['id_puskopkar'] = $this->session->userdata('user_user_id');
+
+        $this->anggota_management->save_file($data);
+
         echo json_encode(array("status" => TRUE));
     }
     public function proses_update()

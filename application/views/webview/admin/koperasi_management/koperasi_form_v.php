@@ -68,6 +68,18 @@
                                                     <input type="text" class="form-control" id="nama_koperasi_add" name="nama_koperasi" placeholder="Nama Koperasi">
                                                 </div>
                                             </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label for="email-id-vertical">Username</label>
+                                                    <input type="text" class="form-control" id="username_add" name="username" placeholder="Username">
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label for="email-id-vertical">Password</label>
+                                                    <input type="password" class="form-control" id="password_add" name="password" placeholder="Password">
+                                                </div>
+                                            </div>
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="email-id-vertical">Nomor Telpon</label>
@@ -77,10 +89,10 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="text">Kelurahan</label>
-                                                    <select class="choices form-select" name="kelurahan" id="kelurahan_edit">
-                                                        <?php foreach ($kelurahan as $c) { ?>
+                                                    <select class="form-select" name="kelurahan" id="kelurahan_add">
+                                                        <!-- <?php foreach ($kelurahan as $c) { ?>
                                                             <option value="<?= $c->id ?>"><?= $c->kecamatan . ' - ' . $c->kelurahan ?></option>
-                                                        <?php } ?>
+                                                        <?php } ?> -->
                                                     </select>
                                                 </div>
                                             </div>

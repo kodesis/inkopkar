@@ -78,11 +78,11 @@
                         <table class="table" id="table_1">
                             <thead>
                                 <tr>
-                                    <th>No</th>
+                                    <th>No Anggota</th>
                                     <th>Tanggal</th>
                                     <th>Nominal</th>
-                                    <th>Toko - Kasir</th>
-                                    <th>Status</th>
+                                    <!-- <th>Toko - Kasir</th> -->
+                                    <!-- <th>Status</th> -->
                                     <!-- <th>#</th> -->
                                 </tr>
                             </thead>

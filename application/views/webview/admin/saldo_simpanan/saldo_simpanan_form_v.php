@@ -77,7 +77,7 @@
                                 <form class="form" id="add_Nota">
                                     <div class="row">
 
-                                        <div class="col-12">
+                                        <!-- <div class="col-12">
                                             <div class="form-group">
                                                 <label for="text">Anggota</label>
                                                 <select class="choices form-select" name="id_anggota" id="id_anggota_add" onchange="get_detail_user(); toggleNominalKredit();">
@@ -89,6 +89,14 @@
                                                     <?php
                                                     }
                                                     ?>
+                                                </select>
+                                            </div>
+                                        </div> -->
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="text">Anggota</label>
+                                                <select class="form-select" name="id_anggota" id="id_anggota_search">
+                                                    <option disabled selected value="">-- Pilih Anggota --</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -108,8 +116,26 @@
                                             <div class="form-group">
                                                 <label for="email-id-vertical">Keterangan</label>
                                                 <!-- <input type="number" class="form-control" id="nominal_kredit_add" name="nominal_kredit" onchange="cek_nominal()" placeholder="Nominal"> -->
-                                                <div class="form-group position-relative has-icon-left">
+                                                <div class="form-group">
                                                     <input type="text" class="form-control" id="keterangan_add" name="keterangan" value="IURAN BULAN <?= strtoupper(date('F'))  ?> <?= date('Y') ?>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="email-id-vertical">Tanggal Transaksi</label>
+                                                <!-- <input type="number" class="form-control" id="nominal_kredit_add" name="nominal_kredit" onchange="cek_nominal()" placeholder="Nominal"> -->
+                                                <div class="form-group">
+                                                    <input type="date" class="form-control" id="tanggal_jam_add" name="tanggal_jam">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="email-id-vertical">Sampai Dengan</label>
+                                                <!-- <input type="number" class="form-control" id="nominal_kredit_add" name="nominal_kredit" onchange="cek_nominal()" placeholder="Nominal"> -->
+                                                <div class="form-group">
+                                                    <input type="date" class="form-control" id="sampai_dengan_add" name="sampai_dengan">
                                                 </div>
                                             </div>
                                         </div>
