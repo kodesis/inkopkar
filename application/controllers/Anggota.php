@@ -337,7 +337,13 @@ class Anggota extends CI_Controller
     }
     public function ajax_list_saldo_simpanan($id)
     {
-        $list = $this->nota->get_datatables_saldo_simpanan($id);
+
+        $month = $this->input->post('month');
+        $year = $this->input->post('year');
+
+        // $list = $this->nota->get_datatables_saldo_simpanan($id);
+        $list = $this->nota->get_datatables_saldo_simpanan($id, $month, $year);
+
         $data = array();
         $crs = "";
         $no = $_POST['start'];
@@ -350,6 +356,8 @@ class Anggota extends CI_Controller
             $row[] = $cat->id;
             $date = new DateTime($cat->tanggal_jam);
             $row[] = $date->format('d F Y, H:i:s');
+            $date = new DateTime($cat->sampai_dengan);
+            $row[] = $date->format('d F Y, H:i:s');
             // $row[] = $cat->nama;
             // $row[] = "Rp. " . $cat->nominal_kredit;
             $row[] = '<div style="text-align: right;">' . number_format(
@@ -361,24 +369,27 @@ class Anggota extends CI_Controller
             // $row[] = $cat->tanggal_jam;
             // $row[] = $cat->nama_koperasi . " - " . $cat->nama;
             // $row[] = $cat->view_count;
-            if ($cat->status == "1") {
+            //         if ($cat->status == "1") {
 
-                $row[] = '<center> <div class="list-icons d-inline-flex">
-                
-                                                <a class="btn btn-success">Saldo Masuk</a>
-            </div>
-    </center>';
-            }
+            //             $row[] = '<center> <div class="list-icons d-inline-flex">
+
+            //                                             <a class="btn btn-success">Saldo Masuk</a>
+            //         </div>
+            // </center>';
+            //         }
             // <a title="Update User" href="' . base_url('Anggota_Management/update/' . $cat->id) . '" class="btn btn-warning"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"> <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path> <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path> </svg></a>
 
 
             $data[] = $row;
         }
+        $total_saldo = $this->nota->get_total_saldo_filtered_simpanan($id, $month, $year);
 
         $output = array(
             "draw" => $_POST['draw'],
             "recordsTotal" => $this->nota->count_all_saldo_simpanan($id),
-            "recordsFiltered" => $this->nota->count_filtered_saldo_simpanan($id),
+            // "recordsFiltered" => $this->nota->count_filtered_saldo_simpanan($id),
+            "recordsFiltered" => $this->nota->count_filtered_saldo_simpanan($id, $month, $year),
+            "total_saldo" => $total_saldo,
             "data" => $data,
         );
         echo json_encode($output);

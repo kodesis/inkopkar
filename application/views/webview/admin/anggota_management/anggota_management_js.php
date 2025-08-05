@@ -502,22 +502,40 @@
 
     let jquery_datatable = $("#table_1").DataTable({
         responsive: true,
-        processing: true, //Feature control the processing indicator.
-        serverSide: true, //Feature control DataTables' server-side processing mode.
-        order: [], //Initial no order.
+        processing: true,
+        serverSide: true,
+        order: [],
         iDisplayLength: 10,
-
-        // Load data for the table's content from an Ajax source
         ajax: {
             url: "<?php echo site_url('Anggota_Management/ajax_list/' . $this->uri->segment('3')) ?> ",
             type: "POST",
             data: function(data) {}
         },
         columnDefs: [{
-            targets: [10, 11], // The 8th column (0-indexed)
-            orderable: false // Disable sorting
-        }]
-    })
+            // The last column (#) is now at index 12
+            targets: [11, 12],
+            orderable: false
+        }],
+
+        createdRow: function(row, data, dataIndex) {
+            // The status data is now in the 11th column (index 10)
+            // Let's grab the actual status value from the database instead of the text
+
+            // A better approach is to pass the raw status value and hide it
+            // To do this, modify the PHP to pass the raw status
+            // I will use your provided PHP code and just access the new status column
+
+            // Find the index of the status column
+            // based on your table header, it's the 12th column (index 11)
+            const statusColumnValue = data[11];
+
+            if (statusColumnValue === 'Aktif') {
+                $(row).addClass('bg-success');
+            } else if (statusColumnValue === 'Tidak Aktif') {
+                $(row).addClass('bg-danger');
+            }
+        }
+    });
 
     function reset_Anggota() {
         document.getElementById('add_Anggota').reset(); // Reset the form
@@ -864,6 +882,132 @@
                         swalWithBootstrapButtons.fire(
                             'Gagal',
                             'Data gagal dihapus',
+                            'error'
+                        )
+                    },
+                    complete: function() {
+                        console.log('published job done');
+                    }
+                });
+
+
+            }
+
+        })
+
+
+
+    }
+
+    function onAktif(id) {
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Apakah anda ingin Meng-Aktifkan Anggota?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, Aktifkan Anggota',
+            cancelButtonText: 'Tidak',
+            reverseButtons: true
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+
+                $.ajax({
+                    url: "<?php echo site_url('Anggota_Management/activate_anggota') ?>",
+                    type: "POST",
+                    data: {
+                        id: id
+                    },
+                    dataType: "JSON",
+                    beforeSend: function() {
+                        // showLoading("Saving data...", "Mohon tunggu");
+                    },
+                    success: function(data) {
+                        if (!data.status) showAlert('Gagal!', data.message.toString().replace(/<[^>]*>/g, ''), 'error');
+                        else {
+                            swalWithBootstrapButtons.fire(
+                                'Berhasil!',
+                                'Data berhasil DiAktifkan.',
+                                'success'
+                            )
+                            jquery_datatable.ajax.reload();
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        swalWithBootstrapButtons.fire(
+                            'Gagal',
+                            'Data gagal DiAktifkan',
+                            'error'
+                        )
+                    },
+                    complete: function() {
+                        console.log('published job done');
+                    }
+                });
+
+
+            }
+
+        })
+
+
+
+    }
+
+    function onNonAktif(id) {
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Apakah anda ingin Meng-Non-Aktifkan Anggota?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, Non-Aktifkan Anggota',
+            cancelButtonText: 'Tidak',
+            reverseButtons: true
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+
+                $.ajax({
+                    url: "<?php echo site_url('Anggota_Management/non_activate_anggota') ?>",
+                    type: "POST",
+                    data: {
+                        id: id
+                    },
+                    dataType: "JSON",
+                    beforeSend: function() {
+                        // showLoading("Saving data...", "Mohon tunggu");
+                    },
+                    success: function(data) {
+                        if (!data.status) showAlert('Gagal!', data.message.toString().replace(/<[^>]*>/g, ''), 'error');
+                        else {
+                            swalWithBootstrapButtons.fire(
+                                'Berhasil!',
+                                'Data berhasil DiNon-Aktifkan.',
+                                'success'
+                            )
+                            jquery_datatable.ajax.reload();
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        swalWithBootstrapButtons.fire(
+                            'Gagal',
+                            'Data gagal DiNon-Aktifkan',
                             'error'
                         )
                     },

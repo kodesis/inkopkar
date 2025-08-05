@@ -18,6 +18,8 @@ class Kebutuhan_m extends CI_Model
         $this->db->join('anggota', 'anggota.id = kebutuhan.id_anggota', 'left');
         $this->db->join('koperasi', 'koperasi.id = anggota.id_koperasi', 'left');
         $this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
+        $this->db->where('anggota.status', '1');
+
 
         // --- LOGIKA FILTER BARU ---
         if (!empty($detail['filter_bulan'])) {
@@ -126,6 +128,8 @@ class Kebutuhan_m extends CI_Model
         $this->db->join('anggota', 'anggota.id = kebutuhan.id_anggota', 'left');
         $this->db->join('koperasi', 'koperasi.id = anggota.id_koperasi', 'left');
         $this->db->where('koperasi.id', $this->session->userdata('id_koperasi'));
+        $this->db->where('anggota.status', '1');
+
 
         // Filter berdasarkan bulan jika disediakan
         if (!empty($bulan_tahun)) {
@@ -177,6 +181,7 @@ class Kebutuhan_m extends CI_Model
         $this->db->join('anggota', 'anggota.id = kebutuhan.id_anggota', 'left');
         $this->db->join('koperasi', 'koperasi.id = anggota.id_koperasi', 'left');
         $this->db->where('koperasi.id', $this->session->userdata('id_koperasi'));
+        $this->db->where('anggota.status', '1');
 
         $query = $this->db->get();
         return $query->result_array();
@@ -193,6 +198,7 @@ class Kebutuhan_m extends CI_Model
         $this->db->join('anggota', 'anggota.id = kebutuhan.id_anggota', 'left');
         $this->db->join('koperasi', 'koperasi.id = anggota.id_koperasi', 'left');
         $this->db->where('koperasi.id', $this->session->userdata('id_koperasi'));
+        $this->db->where('anggota.status', '1');
 
         $this->db->order_by('nama_kebutuhan', 'ASC');
         $this->db->order_by('tipe_kebutuhan', 'ASC');
@@ -209,6 +215,7 @@ class Kebutuhan_m extends CI_Model
 
             $this->db->join('koperasi', 'koperasi.id = anggota.id_koperasi', 'left');
             $this->db->where('koperasi.id', $this->session->userdata('id_koperasi'));
+            $this->db->where('anggota.status', '1');
         } else if ($this->session->userdata('role') == "Anggota") {
             $this->db->where('id_anggota', $this->session->userdata('user_user_id'));
         }

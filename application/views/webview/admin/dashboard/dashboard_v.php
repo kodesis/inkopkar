@@ -337,8 +337,8 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="col-6 col-lg-3 col-md-6">
-                            <!-- <a href="<?= base_url('Riwayat_Kasir/detail_saldo_simpanan') ?>"> -->
+                        <!-- <div class="col-6 col-lg-3 col-md-6">
+                            <a href="<?= base_url('Riwayat_Kasir/detail_saldo_simpanan') ?>">
                             <a href="<?= base_url('Saldo') ?>">
                                 <div class="card">
                                     <div class="card-body px-4 py-4-5">
@@ -358,7 +358,7 @@
                                     </div>
                                 </div>
                             </a>
-                        </div>
+                        </div> -->
                         <!-- <div class="col-6 col-lg-3 col-md-6">
                             <a href="<?= base_url('Koperasi_Management') ?> ">
                                 <div class="card">

@@ -14,6 +14,7 @@ class Saldo_Simpanan_m extends CI_Model
         $this->db->from('saldo_simpanan');
         $this->db->join('anggota', 'anggota.id = saldo_simpanan.id_anggota');
         $this->db->where('saldo_simpanan.status', '1');
+        $this->db->where('anggota.status', 1);
         if ($this->session->userdata('role') == "Anggota") {
             $this->db->where('saldo_simpanan.id_anggota', $this->session->userdata('user_user_id'));
         }

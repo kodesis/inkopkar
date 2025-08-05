@@ -200,6 +200,7 @@ class Nota_Management_m extends CI_Model
         $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
         if ($this->session->userdata('role') == "Koperasi") {
             $this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
+            $this->db->where('anggota.status', 1);
             $this->db->where('role >', '3');
         } else if ($this->session->userdata('role') == "Puskopkar") {
             $this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
@@ -218,6 +219,7 @@ class Nota_Management_m extends CI_Model
         if ($this->session->userdata('role') == "Koperasi") {
             $this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
             $this->db->where('role >', '3');
+            $this->db->where('anggota.status', 1);
         } else if ($this->session->userdata('role') == "Puskopkar") {
             $this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
             $this->db->where('role', '2');

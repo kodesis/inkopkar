@@ -145,13 +145,16 @@ class Dashboard extends CI_Controller
 			$this->db->from('nota');
 			$this->db->join('anggota', 'anggota.id = nota.id_anggota');
 			$this->db->join('toko', 'toko.id = nota.id_toko');
+			$this->db->where('anggota.status', '1');
+
 			if ($this->session->userdata('role') == "Koperasi") {
 				// $this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
+				$this->db->where('anggota.status', '1');
+
 				$this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
 			} else if ($this->session->userdata('role') == "Anggota") {
 				$this->db->where('id_anggota', $this->session->userdata('user_user_id'));
 			}
-			$this->db->where('anggota.status', '1');
 
 			$query = $this->db->get();
 			$semua_kredit = $query->row();
@@ -235,6 +238,7 @@ class Dashboard extends CI_Controller
 		// $this->db->from('saldo');
 		// $this->db->join('anggota', 'anggota.id = saldo.id_anggota');
 		if ($this->session->userdata('role') == "Koperasi") {
+			$this->db->where('anggota.status', 1);
 			$this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
 		} else if ($this->session->userdata('role') == "Anggota") {
 			$this->db->where('id_anggota', $this->session->userdata('user_user_id'));
@@ -261,6 +265,7 @@ class Dashboard extends CI_Controller
 		// $this->db->from('saldo');
 		// $this->db->join('anggota', 'anggota.id = saldo.id_anggota');
 		if ($this->session->userdata('role') == "Koperasi") {
+			$this->db->where('anggota.status', 1);
 			$this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
 		} else if ($this->session->userdata('role') == "Anggota") {
 			$this->db->where('id_anggota', $this->session->userdata('user_user_id'));

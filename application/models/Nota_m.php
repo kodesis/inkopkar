@@ -196,20 +196,31 @@ class Nota_m extends CI_Model
     var $table_saldo_simpanan = 'saldo_simpanan';
     // var $column_order = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable orderable
     // var $column_search = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable searchable 
-    var $column_order_saldo_simpanan = array('saldo_simpanan.nomor_anggota', 'tanggal_jam', 'nominal_kredit'); //set column field database for datatable orderable
-    var $column_search_saldo_simpanan = array('saldo_simpanan.nomor_anggota', 'tanggal_jam', 'nominal_kredit'); //set column field database for datatable searchable 
+    var $column_order_saldo_simpanan = array('saldo_simpanan.nomor_anggota', 'tanggal_jam', 'sampai_dengan', 'nominal_kredit'); //set column field database for datatable orderable
+    var $column_search_saldo_simpanan = array('saldo_simpanan.nomor_anggota', 'tanggal_jam', 'sampai_dengan', 'nominal_kredit'); //set column field database for datatable searchable 
 
     var $order_saldo_simpanan = array('saldo_simpanan.id' => 'DESC'); // default order 
 
-    function _get_datatables_query_saldo_simpanan($id)
+    function _get_datatables_query_saldo_simpanan($id, $month = null, $year = null)
     {
 
         $this->db->select('saldo_simpanan.*, toko.nama_toko, koperasi.nama_koperasi, anggota.nomor_anggota, anggota.nama');
         $this->db->from('saldo_simpanan');
-        $this->db->where('id_anggota', $id);
         $this->db->join('toko', 'saldo_simpanan.id_toko = toko.id', 'left');
         $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
         $this->db->join('anggota', 'anggota.id = saldo_simpanan.id_kasir', 'left');
+        $this->db->where('id_anggota', $id);
+
+        // Add the new date range filtering logic
+        if (!empty($month) && !empty($year)) {
+            // Construct the start and end dates for the selected month/year
+            $start_date = date('Y-m-01', strtotime("$year-$month-01"));
+            $end_date = date('Y-m-t', strtotime("$year-$month-01"));
+
+            // Apply the WHERE clause. This checks for any overlap between the record's date range
+            // (tanggal_jam to sampai_dengan) and the selected month's date range.
+            $this->db->where("(`tanggal_jam` <= '$end_date' AND `sampai_dengan` >= '$start_date')");
+        }
 
         $i = 0;
         foreach ($this->column_search_pembayaran as $item) // loop column 
@@ -240,18 +251,18 @@ class Nota_m extends CI_Model
         }
     }
 
-    function get_datatables_saldo_simpanan($id)
+    function get_datatables_saldo_simpanan($id, $month = null, $year = null)
     {
-        $this->_get_datatables_query_saldo_simpanan($id);
+        $this->_get_datatables_query_saldo_simpanan($id, $month, $year);
         if ($_POST['length'] != -1)
             $this->db->limit($_POST['length'], $_POST['start']);
         $query = $this->db->get();
         return $query->result();
     }
 
-    function count_filtered_saldo_simpanan($id)
+    function count_filtered_saldo_simpanan($id, $month = null, $year = null)
     {
-        $this->_get_datatables_query_saldo_simpanan($id);
+        $this->_get_datatables_query_saldo_simpanan($id, $month, $year);
         $query = $this->db->get();
         return $query->num_rows();
     }
@@ -263,5 +274,13 @@ class Nota_m extends CI_Model
         $query = $this->db->get();
 
         return $this->db->count_all_results();
+    }
+
+    public function get_total_saldo_filtered_simpanan($id, $month, $year)
+    {
+        $this->_get_datatables_query_saldo_simpanan($id, $month, $year);
+        $this->db->select_sum('nominal');
+        $query = $this->db->get();
+        return $query->row()->nominal;
     }
 }

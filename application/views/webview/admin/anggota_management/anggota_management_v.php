@@ -78,6 +78,7 @@
                                     <th>Koperasi</th>
                                     <!-- <th>Role</th> -->
                                     <th>Jabatan</th>
+                                    <th>Status</th>
                                     <?php
                                     if ($this->session->userdata('role') == "Koperasi" || $this->session->userdata('role') == "Admin") {
                                     ?>

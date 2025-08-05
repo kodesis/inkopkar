@@ -20,11 +20,13 @@ class Riwayat_Kasir_m extends CI_Model
         $this->db->join('toko', 'toko.id = nota.id_toko', 'left');
 
         if ($this->session->userdata('role') == "Kasir") {
+            $this->db->where('anggota.status', '1');
             $this->db->where('nota.id_toko', $this->session->userdata('id_toko'));
             // $this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
             // $this->db->where('nota.status', '1');
             $this->db->where('nota.status <', '2');
         } else if ($this->session->userdata('role') == "Koperasi") {
+            $this->db->where('anggota.status', '1');
             $this->db->where('toko.id_koperasi', $this->session->userdata('id_koperasi'));
             // $this->db->where('toko.id_koperasi', $this->session->userdata('id_koperasi'));
             // $this->db->where('nota.status', '1');
@@ -168,11 +170,14 @@ class Riwayat_Kasir_m extends CI_Model
         // $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
         $this->db->join('anggota', 'anggota.id = nota_pembayaran.id_anggota', 'left');
         $this->db->join('koperasi', 'anggota.id_koperasi = koperasi.id', 'left');
+        $this->db->where('anggota.status', '1');
 
         if ($this->session->userdata('role') == "Kasir") {
+            $this->db->where('anggota.status', 1);
             // $this->db->where('toko.id', $this->session->userdata('id_toko'));
             $this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
         } else if ($this->session->userdata('role') == "Koperasi") {
+            $this->db->where('anggota.status', 1);
             // $this->db->where('toko.id_koperasi', $this->session->userdata('id_koperasi'));
             $this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
         } else if ($this->session->userdata('role') == "Anggota") {
@@ -248,10 +253,13 @@ class Riwayat_Kasir_m extends CI_Model
         // $this->db->join('toko', 'nota_pembayaran.id_toko = toko.id', 'left');
         // $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
         $this->db->join('anggota', 'anggota.id = nota_pembayaran.id_anggota', 'left');
+        $this->db->where('anggota.status', '1');
         if ($this->session->userdata('role') == "Kasir") {
+            $this->db->where('anggota.status', 1);
             // $this->db->where('toko.id', $this->session->userdata('id_toko'));
             $this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
         } else if ($this->session->userdata('role') == "Koperasi") {
+            $this->db->where('anggota.status', 1);
             $this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
         } else if ($this->session->userdata('role') == "Anggota") {
             $this->db->where('nota_pembayaran.id_anggota', $this->session->userdata('user_user_id'));
@@ -275,6 +283,8 @@ class Riwayat_Kasir_m extends CI_Model
         $this->db->join('anggota', 'anggota.id = log_transaksi.id_admin', 'left');
         $this->db->join('koperasi a', 'a.id = log_transaksi.id_koperasi_awal', 'left');
         $this->db->join('koperasi b', 'b.id = log_transaksi.id_koperasi_tujuan', 'left');
+        $this->db->where('anggota.status', '1');
+
 
         $i = 0;
         foreach ($this->column_search_transaksi_inkopkar as $item) // loop column 
@@ -362,10 +372,12 @@ class Riwayat_Kasir_m extends CI_Model
         $this->db->where('saldo_simpanan.status', '1');
 
         if ($this->session->userdata('role') == "Koperasi") {
+            $this->db->where('anggota.status', '1');
             $this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
         } else if ($this->session->userdata('role') == "Anggota") {
             $this->db->where('saldo_simpanan.id_anggota', $this->session->userdata('user_user_id'));
         } else if ($this->session->userdata('role') == "Puskopkar") {
+            $this->db->where('anggota.status', '1');
             $this->db->where('anggota.id_puskopkar', $this->session->userdata('user_user_id'));
         }
 
@@ -451,10 +463,12 @@ class Riwayat_Kasir_m extends CI_Model
         $this->db->join('anggota', 'saldo_simpanan.id_anggota = anggota.id', 'left');
         // $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
         if ($this->session->userdata('role') == "Koperasi") {
+            $this->db->where('anggota.status', '1');
             $this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
         } else if ($this->session->userdata('role') == "Anggota") {
             $this->db->where('saldo_simpanan.id_anggota', $this->session->userdata('user_user_id'));
         } else if ($this->session->userdata('role') == "Puskopkar") {
+            $this->db->where('anggota.status', '1');
             $this->db->where('anggota.id_puskopkar', $this->session->userdata('user_user_id'));
         }
         return $this->db->get()->row();
@@ -559,10 +573,12 @@ class Riwayat_Kasir_m extends CI_Model
         $this->db->where('saldo_pinjaman.status', '1');
 
         if ($this->session->userdata('role') == "Koperasi") {
+            $this->db->where('anggota.status', '1');
             $this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
         } else  if ($this->session->userdata('role') == "Anggota") {
             $this->db->where('saldo_pinjaman.id_anggota', $this->session->userdata('user_user_id'));
         } else if ($this->session->userdata('role') == "Puskopkar") {
+            $this->db->where('anggota.status', '1');
             $this->db->where('anggota.id_puskopkar', $this->session->userdata('user_user_id'));
         }
 
@@ -636,10 +652,12 @@ class Riwayat_Kasir_m extends CI_Model
         $this->db->join('anggota', 'saldo_pinjaman.id_anggota = anggota.id', 'left');
         // $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
         if ($this->session->userdata('role') == "Koperasi") {
+            $this->db->where('anggota.status', '1');
             $this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
         } else if ($this->session->userdata('role') == "Anggota") {
             $this->db->where('saldo_pinjaman.id_anggota', $this->session->userdata('user_user_id'));
         } else if ($this->session->userdata('role') == "Puskopkar") {
+            $this->db->where('anggota.status', '1');
             $this->db->where('anggota.id_puskopkar', $this->session->userdata('user_user_id'));
         }
         return $this->db->get()->row();
