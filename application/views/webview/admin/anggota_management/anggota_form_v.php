@@ -333,6 +333,13 @@
                                                     <input type="password" class="form-control" id="password_edit" name="password" placeholder="Password">
                                                 </div>
                                             </div>
+
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="email-id-vertical">Tanggal Simpanan Terakhir</label>
+                                                    <input type="date" class="form-control" id="tanggal_simpanan_terakhir_edit" name="tanggal_simpanan_terakhir" placeholder="Tanggal Simpanan Terakhir..." value="<?= $Anggota->tanggal_simpanan_terakhir ?>">
+                                                </div>
+                                            </div>
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="email-id-vertical">Kredit Limit</label>

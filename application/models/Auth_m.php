@@ -34,7 +34,7 @@ class Auth_m extends CI_Model
 
         $this->db->where($where);
 
-        // $this->db->where('u.kasir', 1);
+        $this->db->where('u.status', 1);
         $this->db->limit(1);
         $query = $this->db->get();
         $user = $query->row();

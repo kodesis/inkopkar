@@ -55,6 +55,17 @@
                 });
         }
     });
+
+    // --- NEW: Add event listener for when an option is selected ---
+    element.addEventListener('change', (event) => {
+        // The 'event.detail.value' will contain the value of the selected option.
+        // You can also get the selected label if needed: event.detail.label
+        const selectedAnggotaId = event.detail.value;
+        console.log('Selected Anggota ID:', selectedAnggotaId);
+
+        // Call your function here
+        toggleNominalKredit(selectedAnggotaId); // Pass the selected ID if toggleNominalKredit needs it
+    });
 </script>
 <script>
     const dateInput1 = document.getElementById('tanggal_jam_add');
@@ -120,7 +131,7 @@
 
     function save_Nota(event) {
         event.preventDefault(); // Prevent form from submitting and refreshing
-        const ttltitleValue = $('#id_anggota_add').val();
+        const ttltitleValue = $('#id_anggota_search').val();
         const ttlthumbnailValue = $('#nominal_kredit_add').val();
 
 
@@ -293,7 +304,7 @@
     function toggleNominalKredit() {
         console.log('cek anggota');
 
-        const anggotaSelect = document.getElementById('id_anggota_add');
+        const anggotaSelect = document.getElementById('id_anggota_search');
         const nominalInput = document.getElementById('nominal_kredit_add');
 
         if (anggotaSelect.value) {

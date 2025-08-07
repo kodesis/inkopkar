@@ -192,6 +192,7 @@ class Saldo_Simpanan extends CI_Controller
             'nominal' => $nominal_kredit,
             'keterangan' => $keterangan ? $keterangan : "IURAN BULAN " . $current_month,
             'id_kasir'       => $this->session->userdata('user_user_id'),
+            'id_koperasi'       => $this->session->userdata('id_koperasi'),
             'id_toko'        => $this->session->userdata('id_toko'),
             'status'         => '1'
         ]);
@@ -209,13 +210,23 @@ class Saldo_Simpanan extends CI_Controller
         $this->db->from('saldo_simpanan');
         $this->db->join('anggota', 'anggota.id = saldo_simpanan.id_anggota');
         $this->db->where('id_anggota', $id_anggota);
-        $this->db->where('status', '1');
+        $this->db->where('saldo_simpanan.status', '1');
 
         $query = $this->db->get();
         $result = $query->row();
         $usage_now = $result->nominal;
 
-        $this->anggota_management->update_data(['saldo_simpanan' => $usage_now], ['id' => $id_anggota]);
+        $this->db->from('anggota');
+        $this->db->where('id', $this->session->userdata('user_user_id'));
+        $anggota_now = $this->db->get()->row();
+
+        $tanggal_simpanan_terakhir = $anggota_now->tanggal_simpanan_terakhir;
+
+        if ($sampai_dengan > $tanggal_simpanan_terakhir) {
+            $tanggal_simpanan_terakhir = $sampai_dengan;
+        }
+
+        $this->anggota_management->update_data(['saldo_simpanan' => $usage_now, 'tanggal_simpanan_terakhir' => $tanggal_simpanan_terakhir], ['id' => $id_anggota]);
 
         // if (!$response) {
         //     echo json_encode(["status" => FALSE, "error" => "Failed to send WhatsApp message"]);
