@@ -256,7 +256,7 @@ class Anggota_Management extends CI_Controller
         $id_toko = $this->input->post('id_toko');
         // $id_koperasi = $this->input->post('id_koperasi');
         $role = $this->input->post('role') ? $this->input->post('role') : 4; // 1 if checked, 0 if unchecked
-
+        $tanggal_simpanan_terakhir = $this->input->post('tanggal_simpanan_terakhir');
         $this->db->from('toko');
         $this->db->where('id', $id_toko);
         $toko = $this->db->get()->row();
@@ -281,7 +281,8 @@ class Anggota_Management extends CI_Controller
             // 'id_koperasi' => $id_koperasi,
             'id_toko' => $id_toko,
             // 'id_creator' => $this->session->userdata('user_user_id'),
-            'role' => $role // Add the checkbox value to the array
+            'role' => $role, // Add the checkbox value to the array
+            'tanggal_simpanan_terakhir' => $tanggal_simpanan_terakhir
         ];
 
         if ($role == 2) {
