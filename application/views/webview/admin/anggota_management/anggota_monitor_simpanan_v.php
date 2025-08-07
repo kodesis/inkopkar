@@ -47,7 +47,7 @@
                                 <option value="Sudah Dibayar">Sudah Dibayar</option>
                             </select>
                         </div>
-                        <div class="col-md-9 mb-3 text-right">
+                        <div class="col-md-9 mb-3 d-flex justify-content-end">
                             <a href="#" id="export_belum_dibayar" class="btn btn-success mt-4">Export Excel (Belum Dibayar)</a>
                         </div>
                     </div>
