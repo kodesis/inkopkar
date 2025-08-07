@@ -507,34 +507,27 @@
         order: [],
         iDisplayLength: 10,
         ajax: {
-            url: "<?php echo site_url('Anggota_Management/ajax_list_monitor_simpanan') ?> ",
+            url: "<?php echo site_url('Anggota_Management/ajax_list_monitor_simpanan') ?>",
             type: "POST",
-            data: function(data) {}
+            data: function(data) {
+                data.filter_status = $('#filter_status').val(); // Mengirim nilai filter ke server
+            }
         },
         columnDefs: [{
-            // The last column (#) is now at index 12
             targets: -1,
             orderable: false
         }],
+    });
 
-        createdRow: function(row, data, dataIndex) {
-            // The status data is now in the 11th column (index 10)
-            // Let's grab the actual status value from the database instead of the text
+    // Event listener untuk dropdown filter
+    $('#filter_status').on('change', function() {
+        jquery_datatable.ajax.reload(); // Memuat ulang data tabel dengan filter baru
+    });
 
-            // A better approach is to pass the raw status value and hide it
-            // To do this, modify the PHP to pass the raw status
-            // I will use your provided PHP code and just access the new status column
-
-            // Find the index of the status column
-            // based on your table header, it's the 12th column (index 11)
-            const statusColumnValue = data[4];
-
-            // if (statusColumnValue === 'Sudah Dibayar') {
-            //     $(row).addClass('bg-success');
-            // } else if (statusColumnValue === 'Belum Dibayar') {
-            //     $(row).addClass('bg-danger');
-            // }
-        }
+    // Event listener untuk tombol ekspor
+    $('#export_belum_dibayar').on('click', function(e) {
+        e.preventDefault();
+        window.location.href = "<?php echo site_url('Anggota_Management/export_belum_dibayar_excel') ?>";
     });
 
     function reset_Anggota() {

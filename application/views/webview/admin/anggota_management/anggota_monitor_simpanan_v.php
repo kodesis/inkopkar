@@ -38,6 +38,19 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <label for="filter_status">Filter Status:</label>
+                            <select class="form-control" id="filter_status">
+                                <option value="">Semua Status</option>
+                                <option value="Belum Dibayar">Belum Dibayar</option>
+                                <option value="Sudah Dibayar">Sudah Dibayar</option>
+                            </select>
+                        </div>
+                        <div class="col-md-9 mb-3 text-right">
+                            <a href="#" id="export_belum_dibayar" class="btn btn-success mt-4">Export Excel (Belum Dibayar)</a>
+                        </div>
+                    </div>
                     <div class="table-responsive datatable-minimal">
                         <table class="table" id="table_1">
                             <thead>

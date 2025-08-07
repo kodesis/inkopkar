@@ -188,7 +188,7 @@ class Anggota_Management_m extends CI_Model
 
     var $order_monitor_simpanan = array('anggota.id' => 'DESC'); // default order 
 
-    function _get_datatables_query_monitor_simpanan($detail = null)
+    function _get_datatables_query_monitor_simpanan($filter_status  = null)
     {
 
         $this->db->select('anggota.*, koperasi.nama_koperasi');
@@ -196,11 +196,21 @@ class Anggota_Management_m extends CI_Model
         // $this->db->join('toko', 'anggota.id_toko = toko.id', 'left');
         $this->db->join('koperasi', 'koperasi.id = anggota.id_koperasi', 'left');
         $this->db->where('anggota.status', 1);
-        if ($detail) {
-            $this->db->where('id_koperasi', $detail);
-            $this->db->where('usage_kredit >', '0');
-        } else if ($this->session->userdata('role') == "Koperasi") {
+
+        // Tambahkan logika filter
+        if ($filter_status == 'Belum Dibayar') {
+            $this->db->where('tanggal_simpanan_terakhir <', date('Y-m-d'));
+            $this->db->or_where('tanggal_simpanan_terakhir', null);
+        } else if ($filter_status == 'Sudah Dibayar') {
+            $this->db->where('tanggal_simpanan_terakhir >=', date('Y-m-d'));
+        }
+        // if ($this->session->userdata('role') == "Kasir") {
+        //     $this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
+        // }
+
+        if ($this->session->userdata('role') == "Koperasi") {
             $this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
+            $this->db->where('role', '4');
         } else if ($this->session->userdata('role') == "Kasir") {
             $this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
             $this->db->where('role', '4');
@@ -208,9 +218,7 @@ class Anggota_Management_m extends CI_Model
             $this->db->where('anggota.id_puskopkar', $this->session->userdata('user_user_id'));
             $this->db->where('role', '2');
         }
-        // if ($this->session->userdata('role') == "Kasir") {
-        //     $this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
-        // }
+
         $i = 0;
         foreach ($this->column_search_monitor_simpanan as $item) // loop column 
         {
@@ -240,28 +248,50 @@ class Anggota_Management_m extends CI_Model
         }
     }
 
-    function get_datatables_monitor_simpanan($detail)
+    function get_datatables_monitor_simpanan($filter_status)
     {
-        $this->_get_datatables_query_monitor_simpanan($detail);
+        $this->_get_datatables_query_monitor_simpanan($filter_status);
         if ($_POST['length'] != -1)
             $this->db->limit($_POST['length'], $_POST['start']);
         $query = $this->db->get();
         return $query->result();
     }
 
-    function count_filtered_monitor_simpanan($detail)
+    function count_filtered_monitor_simpanan($filter_status)
     {
-        $this->_get_datatables_query_monitor_simpanan($detail);
+        $this->_get_datatables_query_monitor_simpanan($filter_status);
         $query = $this->db->get();
         return $query->num_rows();
     }
 
-    function count_all_monitor_simpanan($detail)
+    function count_all_monitor_simpanan()
     {
 
-        $this->_get_datatables_query_monitor_simpanan($detail);
+        $this->_get_datatables_query_monitor_simpanan();
         $query = $this->db->get();
 
         return $this->db->count_all_results();
+    }
+
+    public function get_data_untuk_export($status)
+    {
+        // Logika untuk mengambil semua data yang belum dibayar
+        if ($status == 'Belum Dibayar') {
+            $this->db->where('tanggal_simpanan_terakhir <', date('Y-m-d'));
+            $this->db->or_where('tanggal_simpanan_terakhir', null);
+        }
+
+        if ($this->session->userdata('role') == "Koperasi") {
+            $this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
+            $this->db->where('status', 1);
+            $this->db->where('role', '4');
+        } else if ($this->session->userdata('role') == "Kasir") {
+            $this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
+            $this->db->where('status', 1);
+            $this->db->where('role', '4');
+        }
+        // Asumsi tabel Anda bernama 'anggota'
+        $query = $this->db->get('anggota');
+        return $query->result();
     }
 }

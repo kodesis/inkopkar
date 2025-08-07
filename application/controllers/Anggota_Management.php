@@ -537,9 +537,11 @@ class Anggota_Management extends CI_Controller
         }
     }
 
-    public function ajax_list_monitor_simpanan($detail = null)
+    public function ajax_list_monitor_simpanan()
     {
-        $list = $this->anggota_management->get_datatables_monitor_simpanan($detail);
+        // Menerima filter dari POST
+        $filter_status = $this->input->post('filter_status');
+        $list = $this->anggota_management->get_datatables_monitor_simpanan($filter_status);
         $data = array();
         $crs = "";
         $no = $_POST['start'];
@@ -554,57 +556,114 @@ class Anggota_Management extends CI_Controller
             $row[] = $no;
             $row[] = $cat->nomor_anggota;
             $row[] = $cat->nama;
+
             if ($cat->tanggal_simpanan_terakhir == '' || $cat->tanggal_simpanan_terakhir == Null) {
-                $row[] = '-';
+                $tanggal_tampil = '-';
             } else {
-                $day = date('d', strtotime($cat->tanggal_simpanan_terakhir)); // Get the month
-                $month = date('F', strtotime($cat->tanggal_simpanan_terakhir)); // Get the month
-                $year = date('Y', strtotime($cat->tanggal_simpanan_terakhir));  // Get the year
-                $tanggal = $day . " " . $month . " " . $year;
-
-                $row[] = $tanggal;
+                $day = date('d', strtotime($cat->tanggal_simpanan_terakhir));
+                $month = date('F', strtotime($cat->tanggal_simpanan_terakhir));
+                $year = date('Y', strtotime($cat->tanggal_simpanan_terakhir));
+                $tanggal_tampil = $day . " " . $month . " " . $year;
             }
-            $status_simpanan = '';
-            $tanggal_sekarang = new DateTime(); // Menggunakan DateTime untuk tanggal sekarang
+            $row[] = $tanggal_tampil;
 
-            // Mengubah tanggal simpanan terakhir menjadi objek DateTime
+            $tanggal_sekarang = new DateTime();
             if ($cat->tanggal_simpanan_terakhir == '' || $cat->tanggal_simpanan_terakhir == Null) {
                 $status_simpanan_now = '<span class="text-danger"><b>Belum Dibayar</b></span>';
-                $row[] = $status_simpanan_now;
             } else {
                 $tanggal_simpanan_terakhir = new DateTime($cat->tanggal_simpanan_terakhir);
-
-                // Menghitung selisih antara dua tanggal
                 $selisih = $tanggal_sekarang->diff($tanggal_simpanan_terakhir);
 
                 if ($tanggal_simpanan_terakhir < $tanggal_sekarang) {
-                    // Jika tanggal terakhir lebih kecil dari hari ini, artinya terlambat
                     $status_simpanan = 'Belum Dibayar';
                     $keterangan_waktu = ' (' . $selisih->days . ' hari yang lalu)';
-
                     $status_simpanan_now = '<span class="text-danger"><b>' . $status_simpanan . $keterangan_waktu . '</b></span>';
                 } else {
-                    // Jika tanggal terakhir sama dengan atau lebih besar dari hari ini, artinya sudah dibayar
                     $status_simpanan = 'Sudah Dibayar';
                     $keterangan_waktu = ' (Tersisa ' . $selisih->days . ' hari)';
-
                     $status_simpanan_now = '<span class="text-success"><b>' . $status_simpanan . $keterangan_waktu . '</b></span>';
                 }
-
-                // Tambahkan status dan keterangan waktu ke baris data
-                $row[] = $status_simpanan_now;
             }
-
+            $row[] = $status_simpanan_now;
             $data[] = $row;
         }
 
         $output = array(
             "draw" => $_POST['draw'],
-            "recordsTotal" => $this->anggota_management->count_all_monitor_simpanan($detail),
-            "recordsFiltered" => $this->anggota_management->count_filtered_monitor_simpanan($detail),
+            "recordsTotal" => $this->anggota_management->count_all_monitor_simpanan(),
+            "recordsFiltered" => $this->anggota_management->count_filtered_monitor_simpanan($filter_status),
             "data" => $data,
         );
         echo json_encode($output);
+    }
+    public function export_belum_dibayar_excel()
+    {
+        // Mengambil data dengan filter 'Belum Dibayar'
+        $list_belum_dibayar = $this->anggota_management->get_data_untuk_export('Belum Dibayar');
+
+        // Load library PhpSpreadsheet secara manual
+        // Baris ini memuat semua kelas yang dibutuhkan, jadi baris di bawahnya tidak diperlukan
+        require APPPATH . 'third_party/autoload.php';
+        // Hapus baris ini karena tidak diperlukan dan bisa menyebabkan masalah
+        require APPPATH . 'third_party/psr/simple-cache/src/CacheInterface.php';
+
+        // Membuat objek Spreadsheet baru
+        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Mengatur header kolom
+        $sheet->setCellValue('A1', 'No');
+        $sheet->setCellValue('B1', 'Nomor Anggota');
+        $sheet->setCellValue('C1', 'Nama');
+        $sheet->setCellValue('D1', 'Tanggal Iuran Terakhir');
+        $sheet->setCellValue('E1', 'Status');
+
+        $row = 2;
+        $no = 1;
+        foreach ($list_belum_dibayar as $data) {
+            $sheet->setCellValue('A' . $row, $no++);
+            $sheet->setCellValue('B' . $row, $data->nomor_anggota);
+            $sheet->setCellValue('C' . $row, $data->nama);
+
+            // Logika untuk menampilkan tanggal yang sudah diformat atau '-'
+            if (empty($data->tanggal_simpanan_terakhir)) {
+                $sheet->setCellValue('D' . $row, '-');
+            } else {
+                $sheet->setCellValue('D' . $row, date('d F Y', strtotime($data->tanggal_simpanan_terakhir)));
+            }
+
+            // Logika untuk menampilkan status Belum Dibayar
+            $tanggal_sekarang = new \DateTime();
+
+            // Memastikan tanggal tidak kosong sebelum membuat objek DateTime
+            if (!empty($data->tanggal_simpanan_terakhir)) {
+                $tanggal_simpanan_terakhir = new \DateTime($data->tanggal_simpanan_terakhir);
+                $selisih = $tanggal_sekarang->diff($tanggal_simpanan_terakhir);
+                $status_text = 'Belum Dibayar (' . $selisih->days . ' hari yang lalu)';
+            } else {
+                $status_text = 'Belum Dibayar'; // Status default jika tanggal kosong
+            }
+            $sheet->setCellValue('E' . $row, $status_text);
+
+            $row++;
+        }
+
+        require APPPATH . 'third_party/autoload_zip.php';
+
+        // Gunakan Xlsx writer untuk menyimpan file
+        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+
+        // Atur header untuk mengunduh file
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="Monitoring Iuran Terakhir.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        // OUTPUT FILE KE BROWSER
+        // Baris ini adalah yang terpenting! Anda harus memanggilnya.
+        $writer->save('php://output');
+
+        // Hentikan eksekusi skrip setelah file selesai di-output
+        exit();
     }
 
     public function monitoring_simpanan()
