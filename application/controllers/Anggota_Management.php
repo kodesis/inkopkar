@@ -44,14 +44,18 @@ class Anggota_Management extends CI_Controller
 
             $no++;
             $row = array();
-            $row[] = $no;
-            $row[] = $cat->nomor_anggota;
-            $row[] = $cat->nama;
-            $row[] = $cat->tempat_lahir;
-            $row[] = $cat->tanggal_lahir;
-            $row[] = $cat->no_telp;
-            $row[] = $cat->username;
-            $row[] = '<div style="text-align: right;">Rp. ' . number_format($cat->kredit_limit, 0, ',', '.') . '</div>';
+            $status_class = ($cat->status == 1) ? 'text-success' : 'text-danger';
+
+            // Masukkan data ke dalam array $row dengan wrapper HTML
+            // yang sudah memiliki kelas status. Ini akan menerapkan warna
+            // ke seluruh teks dalam sel.
+            $row[] = '<span class="' . $status_class . '">' . $no . '</span>';
+            $row[] = '<span class="' . $status_class . '">' . $cat->nomor_anggota . '</span>';
+            $row[] = '<span class="' . $status_class . '">' . $cat->nama . '</span>';
+            $row[] = '<span class="' . $status_class . '">' . $cat->tempat_lahir . '</span>';
+            $row[] = '<span class="' . $status_class . '">' . $cat->tanggal_lahir . '</span>';
+            $row[] = '<span class="' . $status_class . '">' . $cat->no_telp . '</span>';
+            $row[] = '<span class="' . $status_class . '">' . $cat->username . '</span>';
 
             $this->db->select_sum('nominal_kredit');
             $this->db->from('nota');
@@ -59,16 +63,17 @@ class Anggota_Management extends CI_Controller
             $this->db->where('status', '1');
             $query = $this->db->get();
             $result = $query->row();
-            $row[] = '<div style="text-align: right;">Rp. ' . number_format($result->nominal_kredit ?? 0, 0, ',', '.') . '</div>';
-
-            $row[] = $cat->nama_koperasi;
-            $row[] = $cat->jabatan;
-
-            // Add the 'status' as a new column.
-            $row[] = ($cat->status == 1) ? '<span class="text-success"><b>Aktif</b></span>' : '<span class="text-danger"><b>Tidak Aktif</b></span>';
-            // $status_simpanan_now = '<span class="text-danger">Belum Dibayar</span>';
+            $row[] = '<div class="' . $status_class . '" style="text-align: right;">Rp. ' . number_format($result->kredit_limit ?? 0, 0, ',', '.') . '</div>';
 
 
+            $row[] = '<div class="' . $status_class . '" style="text-align: right;">Rp. ' . number_format($result->nominal_kredit ?? 0, 0, ',', '.') . '</div>';
+
+            $row[] = '<span class="' . $status_class . '">' . $cat->nama_koperasi . '</span>';
+            $row[] = '<span class="' . $status_class . '">' . $cat->jabatan . '</span>';
+
+            // Status kolom terakhir
+            $status_text = ($cat->status == 1) ? '<b>Aktif</b>' : '<b>Tidak Aktif</b>';
+            $row[] = '<span class="' . $status_class . '">' . $status_text . '</span>';
 
             if ($cat->status == 1) {
                 $btn_aktif = '<a title="Non-Activate User" onclick="onNonAktif(' . $cat->id . ')" class="btn btn-danger"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-x">
@@ -553,38 +558,40 @@ class Anggota_Management extends CI_Controller
 
             $no++;
             $row = array();
-            $row[] = $no;
-            $row[] = $cat->nomor_anggota;
-            $row[] = $cat->nama;
+            $tanggal_sekarang = new DateTime();
+            $status_simpanan_now = '';
+            $status_class = '';
 
             if ($cat->tanggal_simpanan_terakhir == '' || $cat->tanggal_simpanan_terakhir == Null) {
                 $tanggal_tampil = '-';
-            } else {
-                $day = date('d', strtotime($cat->tanggal_simpanan_terakhir));
-                $month = date('F', strtotime($cat->tanggal_simpanan_terakhir));
-                $year = date('Y', strtotime($cat->tanggal_simpanan_terakhir));
-                $tanggal_tampil = $day . " " . $month . " " . $year;
-            }
-            $row[] = $tanggal_tampil;
-
-            $tanggal_sekarang = new DateTime();
-            if ($cat->tanggal_simpanan_terakhir == '' || $cat->tanggal_simpanan_terakhir == Null) {
-                $status_simpanan_now = '<span class="text-danger"><b>Belum Dibayar</b></span>';
+                $status_simpanan_now = '<b>Belum Dibayar</b>';
+                $status_class = 'text-danger';
             } else {
                 $tanggal_simpanan_terakhir = new DateTime($cat->tanggal_simpanan_terakhir);
                 $selisih = $tanggal_sekarang->diff($tanggal_simpanan_terakhir);
 
                 if ($tanggal_simpanan_terakhir < $tanggal_sekarang) {
+                    $tanggal_tampil = date('d F Y', strtotime($cat->tanggal_simpanan_terakhir));
                     $status_simpanan = 'Belum Dibayar';
                     $keterangan_waktu = ' (' . $selisih->days . ' hari yang lalu)';
-                    $status_simpanan_now = '<span class="text-danger"><b>' . $status_simpanan . $keterangan_waktu . '</b></span>';
+                    $status_simpanan_now = '<b>' . $status_simpanan . $keterangan_waktu . '</b>';
+                    $status_class = 'text-danger';
                 } else {
+                    $tanggal_tampil = date('d F Y', strtotime($cat->tanggal_simpanan_terakhir));
                     $status_simpanan = 'Sudah Dibayar';
                     $keterangan_waktu = ' (Tersisa ' . $selisih->days . ' hari)';
-                    $status_simpanan_now = '<span class="text-success"><b>' . $status_simpanan . $keterangan_waktu . '</b></span>';
+                    $status_simpanan_now = '<b>' . $status_simpanan . $keterangan_waktu . '</b>';
+                    $status_class = 'text-success';
                 }
             }
-            $row[] = $status_simpanan_now;
+
+            // Terapkan kelas CSS ke setiap elemen di baris
+            $row[] = '<span class="' . $status_class . '">' . $no . '</span>';
+            $row[] = '<span class="' . $status_class . '">' . $cat->nomor_anggota . '</span>';
+            $row[] = '<span class="' . $status_class . '">' . $cat->nama . '</span>';
+            $row[] = '<span class="' . $status_class . '">' . $tanggal_tampil . '</span>';
+            $row[] = '<span class="' . $status_class . '">' . $status_simpanan_now . '</span>';
+
             $data[] = $row;
         }
 
