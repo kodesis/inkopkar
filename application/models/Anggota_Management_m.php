@@ -178,4 +178,90 @@ class Anggota_Management_m extends CI_Model
         $query = $this->db->get('toko'); // Assuming your table name is 'toko'
         return $query->result(); // Returns an array of objects
     }
+
+
+    var $table_monitor_simpanan = 'anggota';
+    // var $column_order = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable orderable
+    // var $column_search = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable searchable 
+    var $column_order_monitor_simpanan = array('anggota.id', 'nomor_anggota', 'nama', 'tanggal_simpanan_terakhir'); //set column field database for datatable orderable
+    var $column_search_monitor_simpanan = array('anggota.id', 'nomor_anggota', 'nama', 'tanggal_simpanan_terakhir'); //set column field database for datatable searchable 
+
+    var $order_monitor_simpanan = array('anggota.id' => 'DESC'); // default order 
+
+    function _get_datatables_query_monitor_simpanan($detail = null)
+    {
+
+        $this->db->select('anggota.*, koperasi.nama_koperasi');
+        $this->db->from('anggota');
+        // $this->db->join('toko', 'anggota.id_toko = toko.id', 'left');
+        $this->db->join('koperasi', 'koperasi.id = anggota.id_koperasi', 'left');
+        $this->db->where('anggota.status', 1);
+        if ($detail) {
+            $this->db->where('id_koperasi', $detail);
+            $this->db->where('usage_kredit >', '0');
+        } else if ($this->session->userdata('role') == "Koperasi") {
+            $this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
+        } else if ($this->session->userdata('role') == "Kasir") {
+            $this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
+            $this->db->where('role', '4');
+        } else if ($this->session->userdata('role') == "Puskopkar") {
+            $this->db->where('anggota.id_puskopkar', $this->session->userdata('user_user_id'));
+            $this->db->where('role', '2');
+        }
+        // if ($this->session->userdata('role') == "Kasir") {
+        //     $this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
+        // }
+        $i = 0;
+        foreach ($this->column_search_monitor_simpanan as $item) // loop column 
+        {
+            if ($_POST['search']['value']) // if datatable send POST for search
+            {
+
+                if ($i === 0) // first loop
+                {
+                    $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
+                    $this->db->like($item, $_POST['search']['value']);
+                } else {
+                    $this->db->or_like($item, $_POST['search']['value']);
+                }
+
+                if (count($this->column_search_monitor_simpanan) - 1 == $i) //last loop
+                    $this->db->group_end(); //close bracket
+            }
+            $i++;
+        }
+
+        if (isset($_POST['order'])) // here order processing
+        {
+            $this->db->order_by($this->column_order_monitor_simpanan[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+        } else if (isset($this->order_monitor_simpanan)) {
+            $order = $this->order_monitor_simpanan;
+            $this->db->order_by(key($order), $order[key($order)]);
+        }
+    }
+
+    function get_datatables_monitor_simpanan($detail)
+    {
+        $this->_get_datatables_query_monitor_simpanan($detail);
+        if ($_POST['length'] != -1)
+            $this->db->limit($_POST['length'], $_POST['start']);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function count_filtered_monitor_simpanan($detail)
+    {
+        $this->_get_datatables_query_monitor_simpanan($detail);
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    function count_all_monitor_simpanan($detail)
+    {
+
+        $this->_get_datatables_query_monitor_simpanan($detail);
+        $query = $this->db->get();
+
+        return $this->db->count_all_results();
+    }
 }

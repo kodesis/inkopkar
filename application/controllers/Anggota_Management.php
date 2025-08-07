@@ -65,7 +65,9 @@ class Anggota_Management extends CI_Controller
             $row[] = $cat->jabatan;
 
             // Add the 'status' as a new column.
-            $row[] = ($cat->status == 1) ? "Aktif" : "Tidak Aktif";
+            $row[] = ($cat->status == 1) ? '<span class="text-success"><b>Aktif</b></span>' : '<span class="text-danger"><b>Tidak Aktif</b></span>';
+            // $status_simpanan_now = '<span class="text-danger">Belum Dibayar</span>';
+
 
 
             if ($cat->status == 1) {
@@ -532,5 +534,83 @@ class Anggota_Management extends CI_Controller
         } finally {
             if (file_exists($file_path)) unlink($file_path);
         }
+    }
+
+    public function ajax_list_monitor_simpanan($detail = null)
+    {
+        $list = $this->anggota_management->get_datatables_monitor_simpanan($detail);
+        $data = array();
+        $crs = "";
+        $no = $_POST['start'];
+
+        foreach ($list as $cat) {
+            if ($cat->id == '1') {
+                continue;
+            }
+
+            $no++;
+            $row = array();
+            $row[] = $no;
+            $row[] = $cat->nomor_anggota;
+            $row[] = $cat->nama;
+            if ($cat->tanggal_simpanan_terakhir == '' || $cat->tanggal_simpanan_terakhir == Null) {
+                $row[] = '-';
+            } else {
+                $day = date('d', strtotime($cat->tanggal_simpanan_terakhir)); // Get the month
+                $month = date('F', strtotime($cat->tanggal_simpanan_terakhir)); // Get the month
+                $year = date('Y', strtotime($cat->tanggal_simpanan_terakhir));  // Get the year
+                $tanggal = $day . " " . $month . " " . $year;
+
+                $row[] = $tanggal;
+            }
+            $status_simpanan = '';
+            $tanggal_sekarang = new DateTime(); // Menggunakan DateTime untuk tanggal sekarang
+
+            // Mengubah tanggal simpanan terakhir menjadi objek DateTime
+            if ($cat->tanggal_simpanan_terakhir == '' || $cat->tanggal_simpanan_terakhir == Null) {
+                $status_simpanan_now = '<span class="text-danger"><b>Belum Dibayar</b></span>';
+                $row[] = $status_simpanan_now;
+            } else {
+                $tanggal_simpanan_terakhir = new DateTime($cat->tanggal_simpanan_terakhir);
+
+                // Menghitung selisih antara dua tanggal
+                $selisih = $tanggal_sekarang->diff($tanggal_simpanan_terakhir);
+
+                if ($tanggal_simpanan_terakhir < $tanggal_sekarang) {
+                    // Jika tanggal terakhir lebih kecil dari hari ini, artinya terlambat
+                    $status_simpanan = 'Belum Dibayar';
+                    $keterangan_waktu = ' (' . $selisih->days . ' hari yang lalu)';
+
+                    $status_simpanan_now = '<span class="text-danger"><b>' . $status_simpanan . $keterangan_waktu . '</b></span>';
+                } else {
+                    // Jika tanggal terakhir sama dengan atau lebih besar dari hari ini, artinya sudah dibayar
+                    $status_simpanan = 'Sudah Dibayar';
+                    $keterangan_waktu = ' (Tersisa ' . $selisih->days . ' hari)';
+
+                    $status_simpanan_now = '<span class="text-success"><b>' . $status_simpanan . $keterangan_waktu . '</b></span>';
+                }
+
+                // Tambahkan status dan keterangan waktu ke baris data
+                $row[] = $status_simpanan_now;
+            }
+
+            $data[] = $row;
+        }
+
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $this->anggota_management->count_all_monitor_simpanan($detail),
+            "recordsFiltered" => $this->anggota_management->count_filtered_monitor_simpanan($detail),
+            "data" => $data,
+        );
+        echo json_encode($output);
+    }
+
+    public function monitoring_simpanan()
+    {
+
+        $data['content']     = 'webview/admin/anggota_management/anggota_monitor_simpanan_v';
+        $data['content_js'] = 'webview/admin/anggota_management/anggota_monitor_simpanan_js';
+        $this->load->view('parts/admin/Wrapper', $data);
     }
 }

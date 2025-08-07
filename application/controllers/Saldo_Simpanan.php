@@ -375,9 +375,20 @@ class Saldo_Simpanan extends CI_Controller
                     $this->db->where('id_anggota', $id_anggota);
                     $total = $this->db->get('saldo_simpanan')->row();
 
+                    $this->db->from('anggota');
+                    $this->db->where('id', $id_anggota);
+                    $anggota_now = $this->db->get()->row();
+
+                    $tanggal_simpanan_terakhir = $anggota_now->tanggal_simpanan_terakhir;
+
+                    if ($sampai_dengan > $tanggal_simpanan_terakhir) {
+                        $tanggal_simpanan_terakhir = $sampai_dengan;
+                    }
+
                     $updateAnggota[] = [
                         'id' => $id_anggota,
                         'saldo_simpanan' => $total->nominal ?? 0,
+                        'tanggal_simpanan_terakhir' => $tanggal_simpanan_terakhir,
                     ];
                 }
 

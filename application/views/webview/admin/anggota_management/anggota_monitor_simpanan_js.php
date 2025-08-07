@@ -507,13 +507,13 @@
         order: [],
         iDisplayLength: 10,
         ajax: {
-            url: "<?php echo site_url('Anggota_Management/ajax_list/' . $this->uri->segment('3')) ?> ",
+            url: "<?php echo site_url('Anggota_Management/ajax_list_monitor_simpanan') ?> ",
             type: "POST",
             data: function(data) {}
         },
         columnDefs: [{
             // The last column (#) is now at index 12
-            targets: [11, 12],
+            targets: -1,
             orderable: false
         }],
 
@@ -527,11 +527,11 @@
 
             // Find the index of the status column
             // based on your table header, it's the 12th column (index 11)
-            const statusColumnValue = data[11];
+            const statusColumnValue = data[4];
 
-            // if (statusColumnValue === 'Aktif') {
+            // if (statusColumnValue === 'Sudah Dibayar') {
             //     $(row).addClass('bg-success');
-            // } else if (statusColumnValue === 'Tidak Aktif') {
+            // } else if (statusColumnValue === 'Belum Dibayar') {
             //     $(row).addClass('bg-danger');
             // }
         }
