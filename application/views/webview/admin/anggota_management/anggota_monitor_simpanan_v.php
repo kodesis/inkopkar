@@ -41,6 +41,7 @@
                     <div class="table-responsive datatable-minimal">
                         <table class="table" id="table_1">
                             <thead>
+
                                 <tr>
                                     <th>No</th>
                                     <th>Nomor Anggota</th>
