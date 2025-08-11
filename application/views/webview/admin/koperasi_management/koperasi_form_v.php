@@ -102,17 +102,23 @@
                                                     <textarea class="form-control" name="alamat" id="alamat_add"></textarea>
                                                 </div>
                                             </div>
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label for="text">Puskopkar</label>
-                                                    <select class="choices form-control" name="id_puskopkar" id="id_puskopkar_add">
-                                                        <option selected disabled>-- Pilih Puskopkar --</option>
-                                                        <?php foreach ($puskopkar as $c) { ?>
-                                                            <option value="<?= $c->id ?>"><?= $c->id . ' - ' . $c->nomor_anggota . ' - ' . $c->nama ?></option>
-                                                        <?php } ?>
-                                                    </select>
+                                            <?php
+                                            if ($this->session->userdata('role') != "Puskopkar") {
+                                            ?>
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label for="text">Puskopkar</label>
+                                                        <select class="choices form-control" name="id_puskopkar" id="id_puskopkar_add">
+                                                            <option selected disabled>-- Pilih Puskopkar --</option>
+                                                            <?php foreach ($puskopkar as $c) { ?>
+                                                                <option value="<?= $c->id ?>"><?= $c->id . ' - ' . $c->nomor_anggota . ' - ' . $c->nama ?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            <?php
+                                            }
+                                            ?>
                                         </div>
                                     </form>
                                     <div class="col-12 d-flex justify-content-end">
@@ -132,7 +138,8 @@
                                 <div class="card-body">
                                     <form class="form" id="update_Koperasi">
                                         <div class="row">
-                                            <input type="hidden" name="id_edit" value="<?= $Koperasi->id ?>">
+                                            <input type="hidden" name="id_edit_koperasi" value="<?= $Koperasi->id ?>">
+                                            <input type="hidden" name="id_edit_anggota" value="<?= $Koperasi->id_anggota ?>">
                                             <!-- <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="text">Puskopkar</label>
@@ -160,6 +167,18 @@
                                                     <input type="text" class="form-control" id="nama_koperasi_edit" name="nama_koperasi" placeholder="Nama Koperasi" value="<?= $Koperasi->nama_koperasi ?>">
                                                 </div>
                                             </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label for="email-id-vertical">Username</label>
+                                                    <input type="text" class="form-control" id="username_edit" name="username" placeholder="Username" value="<?= $Koperasi->username ?>">
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label for="email-id-vertical">Password</label>
+                                                    <input type="password" class="form-control" id="password_edit" name="password" placeholder="Password">
+                                                </div>
+                                            </div>
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label for="email-id-vertical">Nomor Telpon</label>
@@ -182,17 +201,23 @@
                                                     <textarea class="form-control" name="alamat" id="alamat_edit"><?= $Koperasi->alamat ?></textarea>
                                                 </div>
                                             </div>
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label for="text">Puskopkar</label>
-                                                    <select class="choices form-control" name="id_puskopkar" id="id_puskopkar_edit">
-                                                        <option disabled>-- Pilih Puskopkar --</option>
-                                                        <?php foreach ($puskopkar as $c) { ?>
-                                                            <option <?php if ($Anggota->id_puskopkar == $c->id) echo "selected" ?> value="<?= $c->id ?>"><?= $c->id . ' - ' . $c->nomor_anggota . ' - ' . $c->nama ?></option>
-                                                        <?php } ?>
-                                                    </select>
+                                            <?php
+                                            if ($this->session->userdata('role') != "Puskopkar") {
+                                            ?>
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label for="text">Puskopkar</label>
+                                                        <select class="choices form-control" name="id_puskopkar" id="id_puskopkar_edit">
+                                                            <option disabled>-- Pilih Puskopkar --</option>
+                                                            <?php foreach ($puskopkar as $c) { ?>
+                                                                <option <?php if ($Anggota->puskopkar_id == $c->id) echo "selected" ?> value="<?= $c->id ?>"><?= $c->id . ' - ' . $c->nomor_anggota . ' - ' . $c->nama ?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            <?php
+                                            }
+                                            ?>
                                         </div>
                                     </form>
                                     <div class="col-12 d-flex justify-content-end">

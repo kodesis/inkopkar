@@ -5,23 +5,25 @@ class Koperasi_Management_m extends CI_Model
     var $table = 'koperasi';
     // var $column_order = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable orderable
     // var $column_search = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable searchable 
-    var $column_order = array('id', 'no_induk', 'nama_koperasi', 'kelurahan.kelurahan', 'alamat', 'telp', 'saldo_iuran', 'saldo_rekening'); //set column field database for datatable orderable
-    var $column_search = array('id', 'no_induk', 'nama_koperasi', 'kelurahan.kelurahan', 'alamat', 'telp', 'saldo_iuran', 'saldo_rekening'); //set column field database for datatable searchable 
+    var $column_order = array('id', 'no_induk', 'nama_koperasi', 'anggota.username', 'kelurahan.kelurahan', 'alamat', 'telp', 'saldo_iuran', 'saldo_rekening'); //set column field database for datatable orderable
+    var $column_search = array('id', 'no_induk', 'nama_koperasi', 'anggota.username', 'kelurahan.kelurahan', 'alamat', 'telp', 'saldo_iuran', 'saldo_rekening'); //set column field database for datatable searchable 
 
     var $order = array('koperasi.saldo_rekening' => 'DESC'); // default order 
 
     function _get_datatables_query($url = null)
     {
 
-        $this->db->select('koperasi.*, kelurahan.kelurahan as nama_kelurahan');
+        $this->db->select('koperasi.*,anggota.username, kelurahan.kelurahan as nama_kelurahan');
         $this->db->from('koperasi');
         $this->db->join('kelurahan', 'koperasi.kelurahan = kelurahan.id', 'left');
+        $this->db->join('anggota', 'anggota.id_koperasi = koperasi.id',);
+        $this->db->where('role', 2);
         if (!empty($url)) {
             $this->db->where('saldo_tagihan >', 0);
         }
 
         if ($this->session->userdata('role') == "Puskopkar") {
-            $this->db->where('id_puskopkar', $this->session->userdata('user_user_id'));
+            $this->db->where('anggota.id_puskopkar', $this->session->userdata('user_user_id'));
         }
 
         $i = 0;
@@ -109,9 +111,10 @@ class Koperasi_Management_m extends CI_Model
 
     public function get_id_edit($id)
     {
-        $this->db->select('*');
+        $this->db->select('koperasi.*, anggota.id as id_anggota, anggota.username, anggota.id_puskopkar as puskopkar_id');
         $this->db->from($this->table);
-        $this->db->where('Id', $id);
+        $this->db->join('anggota', 'anggota.id_koperasi = koperasi.id',);
+        $this->db->where('koperasi.Id', $id);
         $query = $this->db->get();
 
         return $query->row();

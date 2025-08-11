@@ -196,6 +196,7 @@ class Anggota_Management_m extends CI_Model
         // $this->db->join('toko', 'anggota.id_toko = toko.id', 'left');
         $this->db->join('koperasi', 'koperasi.id = anggota.id_koperasi', 'left');
         $this->db->where('anggota.status', 1);
+        $this->db->where('role', 4);
 
         // Tambahkan logika filter
         if ($filter_status == 'Belum Dibayar') {
@@ -210,13 +211,6 @@ class Anggota_Management_m extends CI_Model
 
         if ($this->session->userdata('role') == "Koperasi") {
             $this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
-            $this->db->where('role', '4');
-        } else if ($this->session->userdata('role') == "Kasir") {
-            $this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
-            $this->db->where('role', '4');
-        } else if ($this->session->userdata('role') == "Puskopkar") {
-            $this->db->where('anggota.id_puskopkar', $this->session->userdata('user_user_id'));
-            $this->db->where('role', '2');
         }
 
         $i = 0;

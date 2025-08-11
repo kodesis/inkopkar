@@ -234,7 +234,7 @@ class Anggota_Management extends CI_Controller
             'status' => 1,
         );
 
-        if ($role == 2) {
+        if ($this->session->userdata('role') == "Puskopkar") {
             $data['id_puskopkar'] = $this->session->userdata('user_user_id');
         } else {
             $data['id_puskopkar'] = $this->input->post('id_puskopkar');
@@ -290,10 +290,10 @@ class Anggota_Management extends CI_Controller
             'tanggal_simpanan_terakhir' => $tanggal_simpanan_terakhir
         ];
 
-        if ($role == 2) {
-            $data['id_puskopkar'] = $this->session->userdata('user_user_id');
+        if ($this->session->userdata('role') == "Puskopkar") {
+            $data_update['id_puskopkar'] = $this->session->userdata('user_user_id');
         } else {
-            $data['id_puskopkar'] = $this->input->post('id_puskopkar');
+            $data_update['id_puskopkar'] = $this->input->post('id_puskopkar') ? $this->input->post('id_puskopkar') : '0';
         }
 
         if (!empty($password)) {
