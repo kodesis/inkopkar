@@ -171,4 +171,18 @@ class Saldo_Simpanan_m extends CI_Model
 
         return $result->nominal;
     }
+
+    public function insert_tipe_simpanan($data)
+    {
+        $this->db->insert('tipe_simpanan', $data);
+        return $this->db->insert_id();
+    }
+
+    public function get_tipe_saldo_simpanan()
+    {
+        $this->db->select('*');
+        $this->db->from('tipe_simpanan');
+
+        return $this->db->get()->result();
+    }
 }

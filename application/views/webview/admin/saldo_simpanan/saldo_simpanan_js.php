@@ -133,6 +133,7 @@
         event.preventDefault(); // Prevent form from submitting and refreshing
         const ttltitleValue = $('#id_anggota_search').val();
         const ttlthumbnailValue = $('#nominal_kredit_add').val();
+        const ttltipeValue = $('#tipe_simpanan_add').val();
 
 
         if (!ttltitleValue) {
@@ -149,6 +150,14 @@
                 icon: 'error',
                 showConfirmButton: false,
                 title: 'Kolom Nominal Tidak Boleh Kosong',
+                timer: 1500
+            });
+        } else if (!ttltipeValue) {
+            swal.fire({
+                customClass: 'slow-animation',
+                icon: 'error',
+                showConfirmButton: false,
+                title: 'Kolom Tipe Simpanan Tidak Boleh Kosong',
                 timer: 1500
             });
         } else {
@@ -419,6 +428,69 @@
                     // Handle error
                     console.error(error);
                     alert('Upload failed. Please try again.');
+                }
+            });
+        });
+    });
+
+    $(document).ready(function() {
+
+        // Handle the click event on the "Save" button in the modal
+        $('#saveTipeSimpanan').on('click', function() {
+
+            // Get the form data
+            var kode_tipe = $('#kode_tipe').val();
+            var nama_tipe = $('#nama_tipe').val();
+
+            // Check if fields are not empty
+            if (kode_tipe === '' || nama_tipe === '') {
+                alert('Kode Tipe dan Nama Tipe tidak boleh kosong!');
+                return;
+            }
+
+            // AJAX call to your controller
+            $.ajax({
+                url: '<?php echo base_url("saldo_simpanan/add_tipe_simpanan"); ?>',
+                type: 'POST',
+                data: {
+                    kode_tipe: kode_tipe,
+                    nama_tipe: nama_tipe
+                },
+                // Add this line to tell jQuery to parse the response as JSON
+                dataType: 'json',
+                success: function(response) {
+                    // Now 'response' is a JavaScript object, not a string
+                    console.log(response);
+
+                    if (response.status === 'success') {
+                        // Show a success message using SweetAlert
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil!',
+                            text: 'Tipe Simpanan berhasil ditambahkan!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(() => {
+                            // Close the modal and reload the page after the alert
+                            $('#addTipeSimpananModal').modal('hide');
+                            location.reload();
+                        });
+                    } else {
+                        // Show an error message using SweetAlert
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal!',
+                            text: 'Gagal menambahkan Tipe Simpanan. Pesan: ' + response.message
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX Error: ', status, error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'Terjadi kesalahan saat mengirim data.'
+                    });
                 }
             });
         });

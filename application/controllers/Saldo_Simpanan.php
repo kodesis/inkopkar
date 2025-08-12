@@ -88,6 +88,7 @@ class Saldo_Simpanan extends CI_Controller
     {
 
         $data['anggota'] = $this->nota_management->get_anggota_saldo_simpanan();
+        $data['tipe_simpanan'] = $this->nota_management->get_tipe_saldo_simpanan();
         $data['content']     = 'webview/admin/saldo_simpanan/saldo_simpanan_form_v';
         $data['content_js'] = 'webview/admin/saldo_simpanan/saldo_simpanan_js';
         $this->load->view('parts/admin/Wrapper', $data);
@@ -159,6 +160,7 @@ class Saldo_Simpanan extends CI_Controller
         $sampai_dengan = $this->input->post('sampai_dengan');
         $id_anggota = $this->input->post('id_anggota');
         $keterangan = $this->input->post('keterangan');
+        $tipe_simpanan = $this->input->post('tipe_simpanan');
         $anggota = $this->anggota_management->get_id_edit($id_anggota);
 
         $nominal_kredit = (int) str_replace('.', '', $this->input->post('nominal_kredit'));
@@ -190,6 +192,7 @@ class Saldo_Simpanan extends CI_Controller
             'sampai_dengan'    => $sampai_dengan,
             'id_anggota'     => $id_anggota,
             'nominal' => $nominal_kredit,
+            'tipe_simpanan' => $tipe_simpanan ? $tipe_simpanan : "SPW",
             'keterangan' => $keterangan ? $keterangan : "IURAN BULAN " . $current_month,
             'id_kasir'       => $this->session->userdata('user_user_id'),
             'id_koperasi'       => $this->session->userdata('id_koperasi'),
@@ -305,13 +308,23 @@ class Saldo_Simpanan extends CI_Controller
                 $new_number = str_pad($latest_number, 6, '0', STR_PAD_LEFT);
                 $new_id = $new_number . $current_year;
 
-                $nomor_anggota = isset($rowData[0]) ? $rowData[0] : null;
+                // --- Corrected column mapping based on your template ---
+                // A = No (Ignored)
+                // B = Nomor Anggota -> rowData[1]
+                // C = Nominal -> rowData[2]
+                // D = Keterangan -> rowData[3]
+                // E = Kode Tipe Simpanan -> rowData[4]
+                // F = Tanggal Bayar -> rowData[5]
+                // G = Sampai Dengan -> rowData[6]
 
+                $nomor_anggota = isset($rowData[1]) ? $rowData[1] : null;
+
+                // echo $nomor_anggota;
                 // echo $nomor_anggota;
                 // Find id_anggota from database
                 $anggota = $this->db->get_where('anggota', ['nomor_anggota' => $nomor_anggota])->row();
                 $id_anggota = $anggota->id;
-                $tanggal_excel = isset($rowData[3]) ? $rowData[3] : null;
+                $tanggal_excel = isset($rowData[5]) ? $rowData[5] : null;
 
                 $tanggal_bayar = null;
                 if (is_numeric($tanggal_excel)) {
@@ -327,7 +340,7 @@ class Saldo_Simpanan extends CI_Controller
                 }
                 $date_for_keterangan_tanggal_bayar = new DateTime($tanggal_bayar);
 
-                $sd_excel = isset($rowData[3]) ? $rowData[3] : null;
+                $sd_excel = isset($rowData[6]) ? $rowData[6] : null;
                 $sampai_dengan = null;
                 if (is_numeric($sd_excel)) {
                     // Excel date serial to Y-m-d
@@ -350,8 +363,9 @@ class Saldo_Simpanan extends CI_Controller
                 $dataInsert[] = [
                     'id'          => $new_id, // **USE GENERATED ID**
                     'id_anggota'  => $id_anggota,
-                    'nominal'     => isset($rowData[1]) ? (float)str_replace(',', '', $rowData[1]) : 0,
-                    'keterangan'    => isset($rowData[2]) ? $rowData[2] : "IURAN BULAN " . strtoupper($bulan_nama) . " " . $tahun,
+                    'nominal'     => isset($rowData[2]) ? (float)str_replace(',', '', $rowData[2]) : 0,
+                    'keterangan'    => isset($rowData[3]) ? $rowData[3] : "IURAN BULAN " . strtoupper($bulan_nama) . " " . $tahun,
+                    'tipe_simpanan'    => isset($rowData[4]) ? $rowData[4] : "SPW",
                     'tanggal_jam'   => $tanggal_bayar,
                     'sampai_dengan'   => $sampai_dengan,
                     'status' => 1,
@@ -411,5 +425,140 @@ class Saldo_Simpanan extends CI_Controller
         } finally {
             if (file_exists($file_path)) unlink($file_path);
         }
+    }
+
+    public function add_tipe_simpanan()
+    {
+        // Load the necessary models and libraries
+
+        $kode_tipe = $this->input->post('kode_tipe');
+        $nama_tipe = $this->input->post('nama_tipe');
+
+        if (empty($kode_tipe) || empty($nama_tipe)) {
+            echo json_encode(['status' => 'error', 'message' => 'Kode Tipe dan Nama Tipe tidak boleh kosong.']);
+            return;
+        }
+
+        $data = [
+            'kode_tipe' => $kode_tipe,
+            'nama_tipe' => $nama_tipe
+        ];
+
+        $insert_result = $this->saldo_simpanan->insert_tipe_simpanan($data); // Your model function to insert data
+
+        if ($insert_result) {
+            echo json_encode(['status' => 'success', 'message' => 'Data berhasil disimpan.']);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Gagal menyimpan data ke database.']);
+        }
+    }
+
+    public function export_template_simpanan()
+    {
+        // Load library PhpSpreadsheet secara manual
+        require APPPATH . 'third_party/autoload.php';
+        require APPPATH . 'third_party/psr/simple-cache/src/CacheInterface.php';
+        require APPPATH . 'third_party/autoload_zip.php';
+
+        // Membuat objek Spreadsheet baru
+        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Mengatur header kolom
+        $sheet->setCellValue('A1', 'No');
+        $sheet->setCellValue('B1', 'Nomor Anggota');
+        $sheet->setCellValue('C1', 'Nominal');
+        $sheet->setCellValue('D1', 'Keterangan');
+        $sheet->setCellValue('E1', 'Kode Tipe Simpanan');
+        $sheet->setCellValue('F1', 'Tanggal Bayar');
+        $sheet->setCellValue('G1', 'Sampai Dengan');
+        $sheet->setCellValue('I1', 'Kode Tipe Simpanan');
+
+        // Mengatur data contoh
+        $sheet->setCellValue('A2', '1');
+        $sheet->setCellValue('B2', 'KKMPCP-0001');
+        $sheet->setCellValue('C2', '100000');
+        $sheet->setCellValue('D2', 'IURAN BULAN ' . strtoupper(date('F')) . ' ' . date('Y'));
+        $sheet->setCellValue('E2', 'SPP');
+        $sheet->setCellValue('F2', date('d/m/Y'));
+        $sheet->setCellValue('G2', date('d/m/Y'));
+        $sheet->setCellValue('H2', 'CONTOH');
+
+
+        // --- FIX: Mengisi sel G2 dengan string yang benar, bukan array ---
+
+        // Ambil data tipe simpanan dari model
+        $tipe_simpanan_data = $this->saldo_simpanan->get_tipe_saldo_simpanan();
+
+        // Buat string dari data yang akan dimasukkan ke sel G2
+        $tipe_names = [];
+        foreach ($tipe_simpanan_data as $s) {
+            $tipe_names[] = $s->kode_tipe . ' :: ' . $s->nama_tipe;
+        }
+
+        // Gabungkan nama-nama tipe menjadi satu string yang dipisahkan baris baru
+        // Menggunakan "\n" akan membuat setiap tipe berada di baris baru di dalam sel Excel
+        $tipe_string = implode("\n", $tipe_names);
+
+        // $sheet->mergeCells('I2:I99');
+
+        // Terapkan wrapping teks agar baris baru terlihat
+        $sheet->getStyle('I2')->getAlignment()->setWrapText(true);
+
+        // Atur perataan vertikal ke atas
+        $sheet->getStyle('I2')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP);
+
+        // Sekarang, tetapkan nilai sel dengan string yang sudah digabungkan
+        $sheet->setCellValue('I2', $tipe_string);
+
+        // --- Penyesuaian lain-lain ---
+        $sheet->setCellValue('H3', 'MULAI DARI SINI');
+
+        // Mengatur auto-size untuk semua kolom
+        foreach (range('A', 'I') as $columnID) {
+            $sheet->getColumnDimension($columnID)->setAutoSize(true);
+        }
+        // --- Pewarnaan Sel ---
+        // A1 to H1: Dark Blue
+        $sheet->getStyle('A1:G1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
+        $sheet->getStyle('A1:G1')->getFill()->getStartColor()->setARGB('328fd1'); // Dark Blue
+
+        // A2 to H2: Light Blue
+        $sheet->getStyle('A2:G2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
+        $sheet->getStyle('A2:G2')->getFill()->getStartColor()->setARGB('32ccd1'); // Light Blue
+
+        // A3 to F3: Light Green
+        $sheet->getStyle('A3:G3')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
+        $sheet->getStyle('A3:G3')->getFill()->getStartColor()->setARGB('32d15c'); // Light Green
+
+        // --- Menambahkan Border ke seluruh sel yang digunakan ---
+        $styleArray = [
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                    'color' => ['argb' => 'FF000000'],
+                ],
+            ],
+        ];
+
+        // Tentukan range sel yang akan diberi border
+        // Ini akan menambahkan border ke header (baris 1), contoh data (baris 2), dan teks "MULAI DARI SINI" (baris 3)
+        $sheet->getStyle('A1:G3')->applyFromArray($styleArray);
+
+        // --- Bagian output file tetap sama ---
+
+        // Gunakan Xlsx writer untuk menyimpan file
+        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+
+        // Atur header untuk mengunduh file
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="Template Saldo Simpanan.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        // OUTPUT FILE KE BROWSER
+        $writer->save('php://output');
+
+        // Hentikan eksekusi skrip setelah file selesai di-output
+        exit();
     }
 }

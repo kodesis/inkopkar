@@ -247,4 +247,12 @@ class Nota_Management_m extends CI_Model
     {
         $this->db->update('iuran', $data, $where);
     }
+
+    public function get_tipe_saldo_simpanan()
+    {
+        $this->db->select('*');
+        $this->db->from('tipe_simpanan');
+
+        return $this->db->get()->result();
+    }
 }
