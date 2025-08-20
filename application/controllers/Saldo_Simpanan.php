@@ -192,7 +192,7 @@ class Saldo_Simpanan extends CI_Controller
             'sampai_dengan'    => $sampai_dengan,
             'id_anggota'     => $id_anggota,
             'nominal' => $nominal_kredit,
-            'tipe_simpanan' => $tipe_simpanan ? $tipe_simpanan : "SPW",
+            'tipe_simpanan' => $tipe_simpanan ? strtoupper($tipe_simpanan) : "SIMPANAN POKOK",
             'keterangan' => $keterangan ? $keterangan : "IURAN BULAN " . $current_month,
             'id_kasir'       => $this->session->userdata('user_user_id'),
             'id_koperasi'       => $this->session->userdata('id_koperasi'),
@@ -324,6 +324,7 @@ class Saldo_Simpanan extends CI_Controller
                 // Find id_anggota from database
                 $anggota = $this->db->get_where('anggota', ['nomor_anggota' => $nomor_anggota])->row();
                 $id_anggota = $anggota->id;
+
                 $tanggal_excel = isset($rowData[5]) ? $rowData[5] : null;
 
                 $tanggal_bayar = null;
@@ -365,7 +366,7 @@ class Saldo_Simpanan extends CI_Controller
                     'id_anggota'  => $id_anggota,
                     'nominal'     => isset($rowData[2]) ? (float)str_replace(',', '', $rowData[2]) : 0,
                     'keterangan'    => isset($rowData[3]) ? $rowData[3] : "IURAN BULAN " . strtoupper($bulan_nama) . " " . $tahun,
-                    'tipe_simpanan'    => isset($rowData[4]) ? $rowData[4] : "SPW",
+                    'tipe_simpanan'    => isset($rowData[4]) ? strtoupper($rowData[4]) : "SIMPANAN POKOK",
                     'tanggal_jam'   => $tanggal_bayar,
                     'sampai_dengan'   => $sampai_dengan,
                     'status' => 1,
