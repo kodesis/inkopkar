@@ -562,4 +562,297 @@ class Saldo_Simpanan extends CI_Controller
         // Hentikan eksekusi skrip setelah file selesai di-output
         exit();
     }
+
+
+    public function ajax_list_monitor_simpanan()
+    {
+        // Menerima filter dari POST
+        $filter_status = $this->input->post('filter_status');
+        $list = $this->saldo_simpanan->get_datatables_monitor_simpanan($filter_status);
+        $data = array();
+        $crs = "";
+        $no = $_POST['start'];
+
+        foreach ($list as $cat) {
+            if ($cat->id == '1') {
+                continue;
+            }
+
+            $no++;
+            $row = array();
+            $tanggal_sekarang = new DateTime();
+            $status_simpanan_now = '';
+            $status_class = '';
+
+            if ($cat->tanggal_simpanan_terakhir == '' || $cat->tanggal_simpanan_terakhir == Null) {
+                $tanggal_tampil = '-';
+                $status_simpanan_now = '<b>Belum Dibayar</b>';
+                $status_class = 'text-danger';
+            } else {
+                $tanggal_simpanan_terakhir = new DateTime($cat->tanggal_simpanan_terakhir);
+                $selisih = $tanggal_sekarang->diff($tanggal_simpanan_terakhir);
+
+                if ($tanggal_simpanan_terakhir < $tanggal_sekarang) {
+                    $tanggal_tampil = date('d F Y', strtotime($cat->tanggal_simpanan_terakhir));
+                    $status_simpanan = 'Belum Dibayar';
+                    $keterangan_waktu = ' (' . $selisih->days . ' hari yang lalu)';
+                    $status_simpanan_now = '<b>' . $status_simpanan . $keterangan_waktu . '</b>';
+                    $status_class = 'text-danger';
+                } else {
+                    $tanggal_tampil = date('d F Y', strtotime($cat->tanggal_simpanan_terakhir));
+                    $status_simpanan = 'Sudah Dibayar';
+                    $keterangan_waktu = ' (Tersisa ' . $selisih->days . ' hari)';
+                    $status_simpanan_now = '<b>' . $status_simpanan . $keterangan_waktu . '</b>';
+                    $status_class = 'text-success';
+                }
+            }
+
+            // Terapkan kelas CSS ke setiap elemen di baris
+            $row[] = '<span class="' . $status_class . '">' . $no . '</span>';
+            $row[] = '<span class="' . $status_class . '">' . $cat->nomor_anggota . '</span>';
+            $row[] = '<span class="' . $status_class . '">' . $cat->nama . '</span>';
+            $row[] = '<span class="' . $status_class . '">' . $tanggal_tampil . '</span>';
+            $row[] = '<span class="' . $status_class . '">' . $status_simpanan_now . '</span>';
+            $row[] = "<a href=" . base_url('Saldo_Simpanan/monitoring_simpanan_anggota/' . $cat->nomor_anggota) . " class='btn btn-primary me-1 mb-1'>Detail</a>";
+            $data[] = $row;
+        }
+
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $this->saldo_simpanan->count_all_monitor_simpanan(),
+            "recordsFiltered" => $this->saldo_simpanan->count_filtered_monitor_simpanan($filter_status),
+            "data" => $data,
+        );
+        echo json_encode($output);
+    }
+
+    public function monitoring_simpanan()
+    {
+
+        $data['content']     = 'webview/admin/saldo_simpanan/monitor_simpanan_v';
+        $data['content_js'] = 'webview/admin/saldo_simpanan/monitor_simpanan_js';
+        $this->load->view('parts/admin/Wrapper', $data);
+    }
+
+    public function export_belum_dibayar_excel()
+    {
+        // Mengambil data dengan filter 'Belum Dibayar'
+        $list_belum_dibayar = $this->saldo_simpanan->get_data_untuk_export('Belum Dibayar');
+
+        // Load library PhpSpreadsheet secara manual
+        // Baris ini memuat semua kelas yang dibutuhkan, jadi baris di bawahnya tidak diperlukan
+        require APPPATH . 'third_party/autoload.php';
+        // Hapus baris ini karena tidak diperlukan dan bisa menyebabkan masalah
+        require APPPATH . 'third_party/psr/simple-cache/src/CacheInterface.php';
+
+        // Membuat objek Spreadsheet baru
+        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Mengatur header kolom
+        $sheet->setCellValue('A1', 'No');
+        $sheet->setCellValue('B1', 'Nomor Anggota');
+        $sheet->setCellValue('C1', 'Nama');
+        $sheet->setCellValue('D1', 'Tanggal Iuran Terakhir');
+        $sheet->setCellValue('E1', 'Status');
+
+        $row = 2;
+        $no = 1;
+        foreach ($list_belum_dibayar as $data) {
+            $sheet->setCellValue('A' . $row, $no++);
+            $sheet->setCellValue('B' . $row, $data->nomor_anggota);
+            $sheet->setCellValue('C' . $row, $data->nama);
+
+            // Logika untuk menampilkan tanggal yang sudah diformat atau '-'
+            if (empty($data->tanggal_simpanan_terakhir)) {
+                $sheet->setCellValue('D' . $row, '-');
+            } else {
+                $sheet->setCellValue('D' . $row, date('d F Y', strtotime($data->tanggal_simpanan_terakhir)));
+            }
+
+            // Logika untuk menampilkan status Belum Dibayar
+            $tanggal_sekarang = new \DateTime();
+
+            // Memastikan tanggal tidak kosong sebelum membuat objek DateTime
+            if (!empty($data->tanggal_simpanan_terakhir)) {
+                $tanggal_simpanan_terakhir = new \DateTime($data->tanggal_simpanan_terakhir);
+                $selisih = $tanggal_sekarang->diff($tanggal_simpanan_terakhir);
+                $status_text = 'Belum Dibayar (' . $selisih->days . ' hari yang lalu)';
+            } else {
+                $status_text = 'Belum Dibayar'; // Status default jika tanggal kosong
+            }
+            $sheet->setCellValue('E' . $row, $status_text);
+
+            $row++;
+        }
+
+        // --- Add this section to auto-size the columns ---
+        $highestColumn = $sheet->getHighestColumn();
+        foreach (range('A', $highestColumn) as $col) {
+            $sheet->getColumnDimension($col)->setAutoSize(true);
+        }
+        // --- End of new section ---
+
+        require APPPATH . 'third_party/autoload_zip.php';
+
+        // Gunakan Xlsx writer untuk menyimpan file
+        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+
+        // Atur header untuk mengunduh file
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="Monitoring Iuran Terakhir.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        // OUTPUT FILE KE BROWSER
+        // Baris ini adalah yang terpenting! Anda harus memanggilnya.
+        $writer->save('php://output');
+
+        // Hentikan eksekusi skrip setelah file selesai di-output
+        exit();
+    }
+
+    public function ajax_list_monitor_simpanan_anggota($nomor_anggota)
+    {
+        // Menerima filter dari POST
+        $filter_status = $this->input->post('filter_status');
+        $list = $this->saldo_simpanan->get_datatables_monitor_simpanan_anggota($nomor_anggota, $filter_status);
+        $data = array();
+        $crs = "";
+        $no = $_POST['start'];
+
+        foreach ($list as $cat) {
+            if ($cat->id == '1') {
+                continue;
+            }
+
+            $no++;
+            $row = array();
+
+            $row[] = $no;
+            $row[] = $cat->tipe_simpanan;
+
+            $row[] = '<div style="text-align: right;">' . number_format(
+                $cat->nominal ?? 0,
+                0,
+                ',',
+                '.'
+            ) . '</div>';
+            $row[] = $cat->keterangan;
+
+            $tanggal_jam = date('d F Y', strtotime($cat->tanggal_jam));
+            $row[] = $tanggal_jam;
+
+            $sampai_dengan = date('d F Y', strtotime($cat->sampai_dengan));
+            $row[] = $sampai_dengan;
+
+            $data[] = $row;
+        }
+
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $this->saldo_simpanan->count_all_monitor_simpanan_anggota($nomor_anggota),
+            "recordsFiltered" => $this->saldo_simpanan->count_filtered_monitor_simpanan_anggota($nomor_anggota, $filter_status),
+            "data" => $data,
+        );
+        echo json_encode($output);
+    }
+
+    public function monitoring_simpanan_anggota($nomor_anggota)
+    {
+
+        $this->db->select('saldo_simpanan.tipe_simpanan');
+        $this->db->from('saldo_simpanan');
+        $this->db->join('anggota', 'anggota.id = saldo_simpanan.id_anggota');
+        $this->db->where('anggota.nomor_anggota', $nomor_anggota);
+        $this->db->where('saldo_simpanan.tipe_simpanan IS NOT NULL'); // Add this line
+        $this->db->group_by('saldo_simpanan.tipe_simpanan');
+        $this->db->order_by('tipe_simpanan', 'DESC');
+
+        $tipe_simpanan = $this->db->get()->result();
+
+        $data['tipe_simpanan']     = $tipe_simpanan;
+        $data['content']     = 'webview/admin/saldo_simpanan/monitor_simpanan_anggota_v';
+        $data['content_js'] = 'webview/admin/saldo_simpanan/monitor_simpanan_anggota_js';
+        $this->load->view('parts/admin/Wrapper', $data);
+    }
+
+    public function export_per_anggota($nomor_anggota)
+    {
+        // Mengambil data dengan filter 'Belum Dibayar'
+        $list_belum_dibayar = $this->saldo_simpanan->get_data_untuk_export_per_anggota($nomor_anggota);
+
+        $detail_anggota = $this->db->where('nomor_anggota', $nomor_anggota)->get('anggota')->row();
+        // Load library PhpSpreadsheet secara manual
+        // Baris ini memuat semua kelas yang dibutuhkan, jadi baris di bawahnya tidak diperlukan
+        require APPPATH . 'third_party/autoload.php';
+        // Hapus baris ini karena tidak diperlukan dan bisa menyebabkan masalah
+        require APPPATH . 'third_party/psr/simple-cache/src/CacheInterface.php';
+
+        // Membuat objek Spreadsheet baru
+        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Mengatur header kolom
+        $sheet->setCellValue('A1', 'Nomor Anggota');
+        $sheet->setCellValue('B1', $nomor_anggota);
+
+        $sheet->setCellValue('A2', 'Nama Anggota');
+        $sheet->setCellValue('B2', $detail_anggota->nama);
+
+
+        $sheet->setCellValue('A3', 'No');
+        $sheet->setCellValue('B3', 'Tipe Simpanan');
+        $sheet->setCellValue('C3', 'Nominal');
+        $sheet->setCellValue('D3', 'Keterangan');
+        $sheet->setCellValue('E3', 'Tanggal Transaksi');
+        $sheet->setCellValue('F3', 'Sampai Dengan');
+
+        $row = 4;
+        $no = 1;
+        foreach ($list_belum_dibayar as $data) {
+            $sheet->setCellValue('A' . $row, $no++);
+            $sheet->setCellValue('B' . $row, $data->tipe_simpanan);
+            $sheet->setCellValue('C' . $row, $data->nominal);
+            $sheet->setCellValue('D' . $row, $data->keterangan);
+
+            // Logika untuk menampilkan tanggal yang sudah diformat atau '-'
+            if (empty($data->tanggal_jam)) {
+                $sheet->setCellValue('E' . $row, '-');
+            } else {
+                $sheet->setCellValue('E' . $row, date('d F Y', strtotime($data->tanggal_jam)));
+            }
+
+            if (empty($data->sampai_dengan)) {
+                $sheet->setCellValue('F' . $row, '-');
+            } else {
+                $sheet->setCellValue('F' . $row, date('d F Y', strtotime($data->sampai_dengan)));
+            }
+
+            $row++;
+        }
+
+        // --- Add this section to auto-size the columns ---
+        $highestColumn = $sheet->getHighestColumn();
+        foreach (range('A', $highestColumn) as $col) {
+            $sheet->getColumnDimension($col)->setAutoSize(true);
+        }
+        // --- End of new section ---
+
+        require APPPATH . 'third_party/autoload_zip.php';
+
+        // Gunakan Xlsx writer untuk menyimpan file
+        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+
+        // Atur header untuk mengunduh file
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="Monitoring Iuran Anggota ' . $detail_anggota->nama . '.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        // OUTPUT FILE KE BROWSER
+        // Baris ini adalah yang terpenting! Anda harus memanggilnya.
+        $writer->save('php://output');
+
+        // Hentikan eksekusi skrip setelah file selesai di-output
+        exit();
+    }
 }

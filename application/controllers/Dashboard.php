@@ -376,6 +376,19 @@ class Dashboard extends CI_Controller
 
 		// UNTUK KEBUTUHAN
 
+		// UNTUK SALDO SIMPANAN
+
+
+		$this->db->select('saldo_simpanan.tipe_simpanan, SUM(saldo_simpanan.nominal) as total_nominal');
+		$this->db->from('saldo_simpanan');
+		$this->db->join('anggota', 'anggota.id = saldo_simpanan.id_anggota');
+		$this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
+		$this->db->group_by('saldo_simpanan.tipe_simpanan');
+		$this->db->order_by('tipe_simpanan', 'DESC');
+
+		$saldo_simpanan = $this->db->get()->result();
+		$data['saldo_simpanan']  = $saldo_simpanan;
+
 		$data['content']  = 'webview/admin/dashboard/dashboard_v';
 		$data['content_js'] = 'webview/admin/dashboard/dashboard_js';
 

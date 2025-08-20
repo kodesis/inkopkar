@@ -620,7 +620,66 @@
         </section>
         <?php
         if ($this->session->userdata('role') == "Koperasi" || $this->session->userdata('role') == "Anggota") {
+            if ($this->session->userdata('role') == "Koperasi") {
         ?>
+                <section class="section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Rekapitulasi Saldo Simpanan</h5>
+                        </div>
+                        <div class="card-body">
+                            <?php
+                            if ($saldo_simpanan) {
+                            ?>
+                                <table class="table" id="table_1">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Tipe Simpanan</th>
+                                            <th>Total Nominal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $no = 1;
+                                        foreach ($saldo_simpanan as $ss) {
+                                        ?>
+                                            <tr>
+                                                <td><?= $no++ ?></td>
+                                                <td><?= $ss->tipe_simpanan ?></td>
+                                                <td style="text-align: right;"><?= number_format(
+                                                                                    $ss->total_nominal ?? 0,
+                                                                                    0,
+                                                                                    ',',
+                                                                                    '.'
+                                                                                ) ?></td>
+                                            </tr>
+                                        <?php
+                                        }
+                                        ?>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th colspan="2">Total</th>
+                                            <th style="text-align: right;"><?= number_format(
+                                                                                $total_saldo_simpanan ?? 0,
+                                                                                0,
+                                                                                ',',
+                                                                                '.'
+                                                                            )  ?></th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            <?php
+                            }
+                            ?>
+                            <p class="text-muted">Tidak ada data untuk rekapitulasi.</p>
+                        </div>
+                    </div>
+                </section>
+            <?php
+            }
+            ?>
             <section class="section">
                 <div class="card">
                     <div class="card-header">

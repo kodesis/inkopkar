@@ -29,7 +29,8 @@
                 <div class="card-header mb-3">
                     <h5 class="card-title">
                         <!-- Minimal jQuery Datatable -->
-                        <!-- <a href="<?= base_url('Riwayat_Kasir/add') ?>" class="btn btn-primary">Create Riwayat Kasir</a> -->
+                        <!-- <a href="<?= base_url('saldo_simpanan/report') ?>" class="btn btn-primary">Laporan Simpanan</a> -->
+                        <a href="<?= base_url('saldo_simpanan/monitoring_simpanan') ?>" class="btn btn-primary">Monitoring Simpanan</a>
                     </h5>
                 </div>
                 <div class="card-body">

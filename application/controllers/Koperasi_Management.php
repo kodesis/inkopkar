@@ -464,6 +464,7 @@ class Koperasi_Management extends CI_Controller
             'role' => 2, // Add the checkbox value to the array
             'id_creator' => $this->session->userdata('user_user_id'),
             'status' => 1,
+            'tanggal_simpanan_terakhir' => null,
         );
         $data['id_puskopkar'] = $this->session->userdata('user_user_id');
 

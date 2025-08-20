@@ -185,4 +185,213 @@ class Saldo_Simpanan_m extends CI_Model
 
         return $this->db->get()->result();
     }
+
+    var $table_monitor_simpanan = 'anggota';
+    // var $column_order = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable orderable
+    // var $column_search = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable searchable 
+    var $column_order_monitor_simpanan = array('anggota.id', 'nomor_anggota', 'nama', 'tanggal_simpanan_terakhir'); //set column field database for datatable orderable
+    var $column_search_monitor_simpanan = array('anggota.id', 'nomor_anggota', 'nama', 'tanggal_simpanan_terakhir'); //set column field database for datatable searchable 
+
+    var $order_monitor_simpanan = array('anggota.id' => 'DESC'); // default order 
+
+    function _get_datatables_query_monitor_simpanan($filter_status  = null)
+    {
+
+        $this->db->select('anggota.*, koperasi.nama_koperasi');
+        $this->db->from('anggota');
+        // $this->db->join('toko', 'anggota.id_toko = toko.id', 'left');
+        $this->db->join('koperasi', 'koperasi.id = anggota.id_koperasi', 'left');
+        $this->db->where('anggota.status', 1);
+        $this->db->where('role', 4);
+
+        // Tambahkan logika filter
+        if ($filter_status == 'Belum Dibayar') {
+            $this->db->where('tanggal_simpanan_terakhir <', date('Y-m-d'));
+            $this->db->or_where('tanggal_simpanan_terakhir', null);
+        } else if ($filter_status == 'Sudah Dibayar') {
+            $this->db->where('tanggal_simpanan_terakhir >=', date('Y-m-d'));
+        }
+        // if ($this->session->userdata('role') == "Kasir") {
+        //     $this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
+        // }
+
+        if ($this->session->userdata('role') == "Koperasi") {
+            $this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
+        }
+
+        $i = 0;
+        foreach ($this->column_search_monitor_simpanan as $item) // loop column 
+        {
+            if ($_POST['search']['value']) // if datatable send POST for search
+            {
+
+                if ($i === 0) // first loop
+                {
+                    $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
+                    $this->db->like($item, $_POST['search']['value']);
+                } else {
+                    $this->db->or_like($item, $_POST['search']['value']);
+                }
+
+                if (count($this->column_search_monitor_simpanan) - 1 == $i) //last loop
+                    $this->db->group_end(); //close bracket
+            }
+            $i++;
+        }
+
+        if (isset($_POST['order'])) // here order processing
+        {
+            $this->db->order_by($this->column_order_monitor_simpanan[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+        } else if (isset($this->order_monitor_simpanan)) {
+            $order = $this->order_monitor_simpanan;
+            $this->db->order_by(key($order), $order[key($order)]);
+        }
+    }
+
+    function get_datatables_monitor_simpanan($filter_status)
+    {
+        $this->_get_datatables_query_monitor_simpanan($filter_status);
+        if ($_POST['length'] != -1)
+            $this->db->limit($_POST['length'], $_POST['start']);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function count_filtered_monitor_simpanan($filter_status)
+    {
+        $this->_get_datatables_query_monitor_simpanan($filter_status);
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    function count_all_monitor_simpanan()
+    {
+
+        $this->_get_datatables_query_monitor_simpanan();
+        $query = $this->db->get();
+
+        return $this->db->count_all_results();
+    }
+
+
+    public function get_data_untuk_export($status)
+    {
+        // Build the main WHERE clause
+        $this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
+        $this->db->where('status', 1);
+        $this->db->where('role', '4');
+
+        // Add a group for the 'Belum Dibayar' status conditions
+        if ($status == 'Belum Dibayar') {
+            $this->db->group_start();
+            $this->db->where('tanggal_simpanan_terakhir <', date('Y-m-d'));
+            $this->db->or_where('tanggal_simpanan_terakhir', null);
+            $this->db->group_end();
+        }
+
+        // Assume your table is named 'anggota'
+        $query = $this->db->get('anggota');
+        return $query->result();
+    }
+
+    var $table_monitor_simpanan_anggota = 'saldo_simpanan';
+    // var $column_order = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable orderable
+    // var $column_search = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable searchable 
+    var $column_order_monitor_simpanan_anggota = array('saldo_simpanan.id', 'tipe_simpanan', 'nominal', 'keterangan', 'tanggal_jam', 'sampai_dengan'); //set column field database for datatable orderable
+    var $column_search_monitor_simpanan_anggota = array('saldo_simpanan.id', 'tipe_simpanan', 'nominal', 'keterangan', 'tanggal_jam', 'sampai_dengan'); //set column field database for datatable searchable 
+
+    var $order_monitor_simpanan_anggota = array('saldo_simpanan.id' => 'DESC'); // default order 
+
+    function _get_datatables_query_monitor_simpanan_anggota($nomor_anggota, $filter_status  = null)
+    {
+
+        // $this->db->select('anggota.*, koperasi.nama_koperasi');
+        // $this->db->from('anggota');
+        // $this->db->join('toko', 'anggota.id_toko = toko.id', 'left');
+        // $this->db->join('koperasi', 'koperasi.id = anggota.id_koperasi', 'left');
+
+        $this->db->select('saldo_simpanan.*, anggota.nama, anggota.nomor_anggota');
+        $this->db->from('saldo_simpanan');
+        $this->db->join('anggota', 'anggota.id = saldo_simpanan.id_anggota');
+        $this->db->where('saldo_simpanan.status', 1);
+        $this->db->where('anggota.nomor_anggota', $nomor_anggota);
+        if ($filter_status) {
+            $this->db->where('tipe_simpanan', $filter_status);
+        }
+        // $this->db->where('role', 4);
+
+        // Tambahkan logika filter
+        // if ($this->session->userdata('role') == "Kasir") {
+        //     $this->db->where('id_koperasi', $this->session->userdata('id_koperasi'));
+        // }
+
+        $i = 0;
+        foreach ($this->column_search_monitor_simpanan_anggota as $item) // loop column 
+        {
+            if ($_POST['search']['value']) // if datatable send POST for search
+            {
+
+                if ($i === 0) // first loop
+                {
+                    $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
+                    $this->db->like($item, $_POST['search']['value']);
+                } else {
+                    $this->db->or_like($item, $_POST['search']['value']);
+                }
+
+                if (count($this->column_search_monitor_simpanan_anggota) - 1 == $i) //last loop
+                    $this->db->group_end(); //close bracket
+            }
+            $i++;
+        }
+
+        if (isset($_POST['order'])) // here order processing
+        {
+            $this->db->order_by($this->column_order_monitor_simpanan_anggota[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+        } else if (isset($this->order_monitor_simpanan_anggota)) {
+            $order = $this->order_monitor_simpanan_anggota;
+            $this->db->order_by(key($order), $order[key($order)]);
+        }
+    }
+
+    function get_datatables_monitor_simpanan_anggota($nomor_anggota, $filter_status)
+    {
+        $this->_get_datatables_query_monitor_simpanan_anggota($nomor_anggota, $filter_status);
+        if ($_POST['length'] != -1)
+            $this->db->limit($_POST['length'], $_POST['start']);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function count_filtered_monitor_simpanan_anggota($nomor_anggota, $filter_status)
+    {
+        $this->_get_datatables_query_monitor_simpanan_anggota($nomor_anggota, $filter_status);
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    function count_all_monitor_simpanan_anggota($nomor_anggota)
+    {
+
+        $this->_get_datatables_query_monitor_simpanan_anggota($nomor_anggota);
+        $query = $this->db->get();
+
+        return $this->db->count_all_results();
+    }
+
+
+    public function get_data_untuk_export_per_anggota($nomor_anggota)
+    {
+        // Logika untuk mengambil semua data yang belum dibayar
+
+
+        // Asumsi tabel Anda bernama 'anggota'
+        $this->db->select('saldo_simpanan.*, anggota.nama, anggota.nomor_anggota');
+        $this->db->from('saldo_simpanan');
+        $this->db->join('anggota', 'anggota.id = saldo_simpanan.id_anggota');
+        $this->db->where('saldo_simpanan.status', 1);
+        $this->db->where('anggota.nomor_anggota', $nomor_anggota);
+        $query = $this->db->get();
+        return $query->result();
+    }
 }
