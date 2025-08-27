@@ -73,10 +73,11 @@
                                 <tr>
                                     <th>No Anggota</th>
                                     <th>Nama</th>
-                                    <th>Koperasi</th>
+                                    <th>Tipe Simpanan</th>
+                                    <th>Nominal</th>
+                                    <th>Keterangan</th>
                                     <th>Tanggal Transaksi</th>
                                     <th>Sampai Dengan</th>
-                                    <th>Nominal</th>
                                     <!-- <th>Status</th> -->
                                     <!-- <th>#</th> -->
                                 </tr>

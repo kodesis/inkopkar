@@ -52,6 +52,39 @@
                                 ?>
                             </select>
                         </div>
+                        <!-- <div class="col-md-3">
+                            <label for="filter_status">Filter Bulan Simpanan:</label>
+                            <select id="filter_month" class="form-control">
+                                <option value="">Pilih Bulan</option>
+                                <option value="1">Januari</option>
+                                <option value="2">Februari</option>
+                                <option value="3">Maret</option>
+                                <option value="4">April</option>
+                                <option value="5">Mei</option>
+                                <option value="6">Juni</option>
+                                <option value="7">Juli</option>
+                                <option value="8">Agustus</option>
+                                <option value="9">September</option>
+                                <option value="10">Oktober</option>
+                                <option value="11">November</option>
+                                <option value="12">Desember</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="filter_status">Filter Tahun Simpanan:</label>
+                            <select id="filter_year" class="form-control">
+                                <option value="">Pilih Tahun</option>
+                                <?php
+                                $current_year = date('Y');
+                                for ($i = $current_year; $i >= $current_year - 5; $i--) {
+                                    echo "<option value='$i'>$i</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <button id="search_button" class="btn btn-primary">Cari</button>
+                        </div> -->
                         <div class="col-md-9 mb-3 d-flex justify-content-end">
                             <a href="#" id="export_per_anggota" class="btn btn-success mt-4">Export Excel</a>
                         </div>

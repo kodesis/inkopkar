@@ -290,6 +290,13 @@ class Riwayat_Kasir extends CI_Controller
             $row = array();
             $row[] = $cat->nomor_anggota;
             $row[] = $cat->nama;
+            $row[] = $cat->tipe_simpanan;
+            $row[] = '<div style="text-align: right;">' . number_format(
+                $cat->nominal,
+                0,
+                ',',
+                '.'
+            ) . '</div>';
             $row[] = $cat->keterangan;
             $date = new DateTime($cat->tanggal_jam);
             // $row[] = $date->format('d F Y, H:i:s');
@@ -298,12 +305,7 @@ class Riwayat_Kasir extends CI_Controller
             $date = new DateTime($cat->sampai_dengan);
             // $row[] = $date->format('d F Y, H:i:s');
             $row[] = $date->format('d F Y');
-            $row[] = '<div style="text-align: right;">' . number_format(
-                $cat->nominal,
-                0,
-                ',',
-                '.'
-            ) . '</div>';
+
 
             $data[] = $row;
         }

@@ -358,8 +358,8 @@ class Riwayat_Kasir_m extends CI_Model
     var $table_saldo_simpanan = 'saldo_simpanan';
     // var $column_order = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable orderable
     // var $column_search = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable searchable 
-    var $column_order_saldo_simpanan = array('saldo_simpanan.nomor_anggota', 'anggota.nama', 'nama_koperasi', 'tanggal_jam', 'sampai_dengan', 'nominal', 'status'); //set column field database for datatable orderable
-    var $column_search_saldo_simpanan = array('saldo_simpanan.nomor_anggota', 'anggota.nama', 'nama_koperasi', 'tanggal_jam', 'sampai_dengan', 'nominal', 'status'); //set column field database for datatable searchable 
+    var $column_order_saldo_simpanan = array('anggota.nomor_anggota', 'anggota.nama', 'tipe_simpanan', 'nominal', 'tanggal_jam', 'sampai_dengan'); //set column field database for datatable orderable
+    var $column_search_saldo_simpanan = array('anggota.nomor_anggota', 'anggota.nama', 'tipe_simpanan', 'nominal', 'tanggal_jam', 'sampai_dengan'); //set column field database for datatable searchable 
 
     var $order_saldo_simpanan = array('saldo_simpanan.id' => 'DESC'); // default order 
 

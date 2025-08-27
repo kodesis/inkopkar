@@ -103,7 +103,7 @@
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="email-id-vertical">Keterangan</label>
+                                                <label for="email-id-vertical">Tipe Simpanan</label>
                                                 <!-- <input type="number" class="form-control" id="nominal_kredit_add" name="nominal_kredit" onchange="cek_nominal()" placeholder="Nominal"> -->
                                                 <div class="form-group">
                                                     <input type="text" class="form-control" id="tipe_simpanan_add" name="tipe_simpanan" value="SIMPANAN POKOK">
