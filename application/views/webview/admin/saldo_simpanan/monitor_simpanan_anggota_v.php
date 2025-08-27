@@ -38,6 +38,18 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    <table class="table">
+                        <tr>
+                            <td>Nomor Anggota</td>
+                            <td>:</td>
+                            <td><?= $detail_anggota->nomor_anggota ?></td>
+                        </tr>
+                        <tr>
+                            <td>Nama Anggota</td>
+                            <td>:</td>
+                            <td><?= $detail_anggota->nama ?></td>
+                        </tr>
+                    </table>
                     <div class="row">
                         <div class="col-md-3 mb-3">
                             <label for="filter_status">Filter Tipe Simpanan:</label>

@@ -769,7 +769,9 @@ class Saldo_Simpanan extends CI_Controller
         $this->db->order_by('tipe_simpanan', 'DESC');
 
         $tipe_simpanan = $this->db->get()->result();
+        $detail_anggota = $this->db->where('nomor_anggota', $nomor_anggota)->get('anggota')->row();
 
+        $data['detail_anggota']     = $detail_anggota;
         $data['tipe_simpanan']     = $tipe_simpanan;
         $data['content']     = 'webview/admin/saldo_simpanan/monitor_simpanan_anggota_v';
         $data['content_js'] = 'webview/admin/saldo_simpanan/monitor_simpanan_anggota_js';
