@@ -411,7 +411,7 @@
                             showConfirmButton: false,
                             title: 'Upload Gagal',
                             text: response.message,
-                            timer: 1500
+                            timer: 3000
                         });
                     } else {
                         $('#uploadModal').modal('hide');
@@ -419,8 +419,8 @@
                             customClass: 'slow-animation',
                             icon: 'success',
                             showConfirmButton: false,
-                            title: 'Berhasil Menambahkan Saldo Pinjaman',
-                            timer: 1500
+                            title: 'Berhasil Menambahkan Saldo Simpanan',
+                            timer: 3000
                         });
                     }
                 },
@@ -469,7 +469,7 @@
                             title: 'Berhasil!',
                             text: 'Tipe Simpanan berhasil ditambahkan!',
                             showConfirmButton: false,
-                            timer: 1500
+                            timer: 3000
                         }).then(() => {
                             // Close the modal and reload the page after the alert
                             $('#addTipeSimpananModal').modal('hide');

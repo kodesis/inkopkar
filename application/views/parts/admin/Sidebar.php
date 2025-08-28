@@ -196,9 +196,16 @@
                                     <li class="submenu-item <?php if ($url_now == 'Riwayat_Kasir/detail_saldo_simpanan') {
                                                                 echo 'active ';
                                                             } ?>">
+                                        <a href="<?= base_url('Riwayat_Kasir/detail_saldo_pinjaman') ?>" class="submenu-link">Riwayat Saldo Pinjaman</a>
+
+                                    </li>
+                                    <li class="submenu-item <?php if ($url_now == 'Riwayat_Kasir/detail_saldo_simpanan') {
+                                                                echo 'active ';
+                                                            } ?>">
                                         <a href="<?= base_url('Riwayat_Kasir/detail_saldo_simpanan') ?>" class="submenu-link">Riwayat Saldo Simpanan</a>
 
                                     </li>
+
                                 <?php
                                 }
                                 ?>
@@ -328,7 +335,7 @@
                                     <span>Tambah Saldo Simpanan</span>
                                 </a>
                             </li>
-                            <!-- <li
+                            <li
                                 class="sidebar-item <?php if ($url_now == 'Saldo_Pinjaman/add_pinjaman') {
                                                         echo 'active ';
                                                     } ?>">
@@ -336,7 +343,7 @@
                                     <i class="bi bi-grid-fill"></i>
                                     <span>Tambah Saldo Pinjaman</span>
                                 </a>
-                            </li> -->
+                            </li>
                         <?php
                         }
                         ?>

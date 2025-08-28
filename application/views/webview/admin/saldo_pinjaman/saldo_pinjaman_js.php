@@ -18,13 +18,81 @@
 
 
 
-
 <script>
-    // let selects1 = $('#id_anggota_add').select2({
+    const element = document.getElementById('id_anggota_search');
+
+    // Initialize Choices.js and store the instance in a variable.
+    const choicesInstance = new Choices(element, {
+        searchEnabled: true,
+        placeholder: true,
+        placeholderValue: '-- Pilih Anggota --',
+        // Make sure the dropdown is empty initially if you're loading via AJAX
+        allowHTML: true // This might be useful if your labels have HTML
+    });
+
+    // Add an event listener to the Choices.js instance for when the user types.
+    element.addEventListener('search', (event) => {
+        const searchTerm = event.detail.value;
+
+        // Ensure the search term has at least 2 characters to trigger a search
+        if (searchTerm.length >= 2) {
+            // Use your PHP-generated URL and append the search query
+            const url = `<?php echo site_url('Saldo_Simpanan/ajax_search_anggota') ?>?q=${searchTerm}`;
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // `data` should be an array of objects like:
+                    // [{ value: '1', label: 'John Doe' }, { value: '2', label: 'Jane Smith' }]
+                    // The `setChoices` method clears existing options and replaces them with the new data.
+                    choicesInstance.setChoices(data, 'value', 'label', true);
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        }
+    });
+
+    // --- NEW: Add event listener for when an option is selected ---
+    element.addEventListener('change', (event) => {
+        // The 'event.detail.value' will contain the value of the selected option.
+        // You can also get the selected label if needed: event.detail.label
+        const selectedAnggotaId = event.detail.value;
+        console.log('Selected Anggota ID:', selectedAnggotaId);
+
+        // Call your function here
+        get_detail_user();
+        toggleNominalKredit(selectedAnggotaId); // Pass the selected ID if toggleNominalKredit needs it
+    });
+</script>
+<script>
+    // let selects1 = $('#id_anggota_search').select2({
     //     placeholder: "-- Pilih Anggota --",
     //     allowClear: true,
     //     width: '100%',
     // });
+
+    const dateInput1 = document.getElementById('tanggal_jam_add');
+
+    // Create a new date object for today
+    const today = new Date();
+
+    // Get the year, month, and day
+    const year = today.getFullYear();
+    // Months are 0-indexed, so we add 1
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+
+    // Format the date as 'YYYY-MM-DD', which is the required format for date inputs
+    const formattedDate = `${year}-${month}-${day}`;
+
+    // Set the value of the input field
+    dateInput1.value = formattedDate;
 
     function formatNumber(input) {
         let value = input.value.replace(/\./g, ''); // Remove existing dots
@@ -63,7 +131,7 @@
 
     function save_Nota(event) {
         event.preventDefault(); // Prevent form from submitting and refreshing
-        const ttltitleValue = $('#id_anggota_add').val();
+        const ttltitleValue = $('#id_anggota_search').val();
         const ttlthumbnailValue = $('#nominal_kredit_add').val();
 
 
@@ -140,13 +208,13 @@
                                     icon: 'success',
                                     showConfirmButton: false,
                                     title: 'Berhasil Menambahkan Nota',
-                                    timer: 1500
+                                    timer: 3000
                                 });
                                 // location.reload();
                                 setTimeout(function() {
                                     console.log('Redirecting to Nota Anggota...');
                                     // location.href = '<?= base_url('Anggota/detail/') ?>' + ttltitleValue;
-                                    location.href = '<?= base_url('Riwayat_Kasir/detail_saldo_simpanan/') ?>';
+                                    location.href = '<?= base_url('Riwayat_Kasir/detail_saldo_pinjaman/') ?>';
                                 }, 3000); // Delay for smooth transition
                             }
                         },
@@ -174,8 +242,8 @@
     });
 
     function get_detail_user() {
-        var selectedOption = $("#id_anggota_add option:selected");
-        const ttltitleValue = $('#id_anggota_add').val();
+        var selectedOption = $("#id_anggota_search option:selected");
+        const ttltitleValue = $('#id_anggota_search').val();
 
         if (selectedOption.val()) {
             var url;
@@ -236,7 +304,7 @@
     function toggleNominalKredit() {
         console.log('cek anggota');
 
-        const anggotaSelect = document.getElementById('id_anggota_add');
+        const anggotaSelect = document.getElementById('id_anggota_search');
         const nominalInput = document.getElementById('nominal_kredit_add');
 
         if (anggotaSelect.value) {
@@ -323,7 +391,7 @@
                             showConfirmButton: false,
                             title: 'Upload Gagal',
                             text: response.message,
-                            timer: 1500
+                            timer: 3000
                         });
                     } else {
                         $('#uploadModal').modal('hide');
@@ -332,7 +400,7 @@
                             icon: 'success',
                             showConfirmButton: false,
                             title: 'Berhasil Menambahkan Saldo Pinjaman',
-                            timer: 1500
+                            timer: 3000
                         });
                     }
                 },

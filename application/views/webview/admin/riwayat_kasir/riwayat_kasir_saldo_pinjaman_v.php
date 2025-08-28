@@ -30,9 +30,43 @@
                     <h5 class="card-title">
                         <!-- Minimal jQuery Datatable -->
                         <!-- <a href="<?= base_url('Riwayat_Kasir/add') ?>" class="btn btn-primary">Create Riwayat Kasir</a> -->
+                        <a href="<?= base_url('saldo_pinjaman/monitoring_pinjaman') ?>" class="btn btn-primary">Monitoring Pinjaman</a>
                     </h5>
                 </div>
                 <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <select id="filter_month" class="form-control">
+                                <option value="">Pilih Bulan</option>
+                                <option value="1">Januari</option>
+                                <option value="2">Februari</option>
+                                <option value="3">Maret</option>
+                                <option value="4">April</option>
+                                <option value="5">Mei</option>
+                                <option value="6">Juni</option>
+                                <option value="7">Juli</option>
+                                <option value="8">Agustus</option>
+                                <option value="9">September</option>
+                                <option value="10">Oktober</option>
+                                <option value="11">November</option>
+                                <option value="12">Desember</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select id="filter_year" class="form-control">
+                                <option value="">Pilih Tahun</option>
+                                <?php
+                                $current_year = date('Y');
+                                for ($i = $current_year; $i >= $current_year - 5; $i--) {
+                                    echo "<option value='$i'>$i</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <button id="search_button" class="btn btn-primary">Cari</button>
+                        </div>
+                    </div>
                     <div class="table-responsive datatable-minimal">
                         <table class="table" id="table_1">
                             <thead>
@@ -43,17 +77,19 @@
                                     <th>keterangan</th>
                                     <th>Tanggal</th>
                                     <th>Nominal</th>
+                                    <th>Cicilan</th>
+                                    <th>Sisa Cicilan</th>
                                     <!-- <th>Status</th> -->
                                     <!-- <th>#</th> -->
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
-                                    <th colspan="4" style="text-align:right">
+                                    <th colspan="5" style="text-align:right">
                                         Total
                                     </th>
                                     <th id="total_saldo" style="text-align: right;">
-                                        Rp. <?= number_format($total->nominal ?? 0, 0, ',', '.') ?>
+                                        Rp. <?= number_format($total->cicilan ?? 0, 0, ',', '.') ?>
                                     </th>
                                 </tr>
                             </tfoot>

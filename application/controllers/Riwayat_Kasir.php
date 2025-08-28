@@ -435,7 +435,11 @@ class Riwayat_Kasir extends CI_Controller
 
     public function ajax_list_saldo_pinjaman()
     {
-        $list = $this->riwayat_kasir->get_datatables_saldo_pinjaman();
+        // Get month and year from the POST data, with a default of null
+        $month = $this->input->post('month');
+        $year = $this->input->post('year');
+
+        $list = $this->riwayat_kasir->get_datatables_saldo_pinjaman($month, $year);
         $data = array();
         $total_saldo = 0;
         $no = $_POST['start'];
@@ -449,6 +453,8 @@ class Riwayat_Kasir extends CI_Controller
             $date = new DateTime($cat->tanggal_jam);
             $row[] = $date->format('d F Y, H:i:s');
             $row[] = '<div style="text-align: right;">' . number_format($cat->nominal, 0, ',', '.') . '</div>';
+            $row[] = '<div style="text-align: right;">' . number_format($cat->cicilan, 0, ',', '.') . '</div>';
+            $row[] = '<div style="text-align: right;">' . number_format($cat->sisa_cicilan, 0, ',', '.') . '</div>';
 
             // $total_saldo += $cat->nominal;
 
@@ -457,12 +463,12 @@ class Riwayat_Kasir extends CI_Controller
 
 
         // Get total saldo of all filtered results (not just current page)
-        $total_saldo = $this->riwayat_kasir->get_total_saldo_filtered_pinjaman();
+        $total_saldo = $this->riwayat_kasir->get_total_saldo_filtered_pinjaman($month, $year);
 
         $output = array(
             "draw" => $_POST['draw'],
             "recordsTotal" => $this->riwayat_kasir->count_all_saldo_pinjaman(),
-            "recordsFiltered" => $this->riwayat_kasir->count_filtered_saldo_pinjaman(),
+            "recordsFiltered" => $this->riwayat_kasir->count_filtered_saldo_pinjaman($month, $year),
             "data" => $data,
             "total_saldo" => $total_saldo
         );

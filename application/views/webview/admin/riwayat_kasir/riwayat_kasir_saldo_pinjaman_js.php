@@ -30,8 +30,13 @@
         ajax: {
             url: "<?php echo site_url('Riwayat_Kasir/ajax_list_saldo_pinjaman/' . $this->uri->segment(3)) ?>",
             type: "POST",
+            data: function(d) {
+                d.month = $('#filter_month').val();
+                d.year = $('#filter_year').val();
+            },
             dataSrc: function(json) {
                 // Update footer
+
                 $('#total_saldo').html(
                     new Intl.NumberFormat('id-ID', {
                         style: 'currency',
@@ -45,6 +50,11 @@
         columnDefs: [{
             orderable: false
         }]
+    });
+
+    // Add a click handler for the search button
+    $('#search_button').on('click', function() {
+        jquery_datatable.ajax.reload();
     });
 </script>
 <!-- Include jQuery (required by Summernote) -->

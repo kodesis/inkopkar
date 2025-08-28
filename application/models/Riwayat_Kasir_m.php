@@ -382,14 +382,41 @@ class Riwayat_Kasir_m extends CI_Model
         }
 
         // Add the new date range filtering logic
-        if (!empty($month) && !empty($year)) {
-            // Construct the start and end dates for the selected month/year
-            $start_date = date('Y-m-01', strtotime("$year-$month-01"));
-            $end_date = date('Y-m-t', strtotime("$year-$month-01"));
+        // if (!empty($month) && !empty($year)) {
+        //     // Construct the start and end dates for the selected month/year
+        //     $start_date = date('Y-m-01', strtotime("$year-$month-01"));
+        //     $end_date = date('Y-m-t', strtotime("$year-$month-01"));
 
-            // Apply the WHERE clause. This checks for any overlap between the record's date range
-            // (tanggal_jam to sampai_dengan) and the selected month's date range.
-            $this->db->where("(`tanggal_jam` <= '$end_date' AND `sampai_dengan` >= '$start_date')");
+        //     // Apply the WHERE clause. This checks for any overlap between the record's date range
+        //     // (tanggal_jam to sampai_dengan) and the selected month's date range.
+        //     // $this->db->where("(`tanggal_jam` <= '$end_date' AND `sampai_dengan` >= '$start_date')");
+        //     $this->db->where("(`tanggal_jam` <= '$end_date' AND `sampai_dengan` >= '$start_date')");
+        // }
+
+        // Add the new date range filtering logic
+        if (!empty($month) || !empty($year)) {
+            // Both month and year are specified
+            if (!empty($month) && !empty($year)) {
+                $start_date = date('Y-m-01', strtotime("$year-$month-01"));
+                $end_date = date('Y-m-t', strtotime("$year-$month-01"));
+
+                $this->db->where("(`tanggal_jam` <= '$end_date' AND `sampai_dengan` >= '$start_date')");
+            }
+            // Only month is specified (search within the current year)
+            else if (!empty($month)) {
+                $current_year = date('Y');
+                $start_date = date('Y-m-01', strtotime("$current_year-$month-01"));
+                $end_date = date('Y-m-t', strtotime("$current_year-$month-01"));
+
+                $this->db->where("(`tanggal_jam` <= '$end_date' AND `sampai_dengan` >= '$start_date')");
+            }
+            // Only year is specified (search all months within that year)
+            else if (!empty($year)) {
+                $start_date = date('Y-01-01', strtotime("$year-01-01"));
+                $end_date = date('Y-12-31', strtotime("$year-12-31"));
+
+                $this->db->where("(`tanggal_jam` <= '$end_date' AND `sampai_dengan` >= '$start_date')");
+            }
         }
 
         $i = 0;
@@ -557,12 +584,12 @@ class Riwayat_Kasir_m extends CI_Model
     var $table_saldo_pinjaman = 'saldo_pinjaman';
     // var $column_order = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable orderable
     // var $column_search = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable searchable 
-    var $column_order_saldo_pinjaman = array('saldo_pinjaman.id', 'anggota.nama', 'nama_koperasi', 'tanggal_jam', 'nominal', 'status'); //set column field database for datatable orderable
-    var $column_search_saldo_pinjaman = array('saldo_pinjaman.id', 'anggota.nama', 'nama_koperasi', 'tanggal_jam', 'nominal', 'status'); //set column field database for datatable searchable 
+    var $column_order_saldo_pinjaman = array('saldo_pinjaman.id', 'anggota.nama', 'nama_koperasi', 'tanggal_jam', 'nominal', 'cicilan', 'sisa_cicilan'); //set column field database for datatable orderable
+    var $column_search_saldo_pinjaman = array('saldo_pinjaman.id', 'anggota.nama', 'nama_koperasi', 'tanggal_jam', 'nominal', 'cicilan', 'sisa_cicilan'); //set column field database for datatable searchable 
 
     var $order_saldo_pinjaman = array('saldo_pinjaman.id' => 'DESC'); // default order 
 
-    function _get_datatables_query_saldo_pinjaman()
+    function _get_datatables_query_saldo_pinjaman($month = null, $year = null)
     {
 
         $this->db->select('saldo_pinjaman.*, koperasi.nama_koperasi as nama_koperasi, anggota.nama');
@@ -580,6 +607,29 @@ class Riwayat_Kasir_m extends CI_Model
         } else if ($this->session->userdata('role') == "Puskopkar") {
             $this->db->where('anggota.status', '1');
             $this->db->where('anggota.id_puskopkar', $this->session->userdata('user_user_id'));
+        }
+
+        if (!empty($month) || !empty($year)) {
+            // Start the WHERE clause with an empty string
+            $where_clause = '';
+
+            // If both month and year are specified, search for the exact month and year
+            if (!empty($month) && !empty($year)) {
+                $where_clause = "`tanggal_jam` BETWEEN '$year-$month-01 00:00:00' AND '$year-$month-31 23:59:59'";
+            }
+            // If only the month is specified, search for that month in any year
+            else if (!empty($month)) {
+                $where_clause = "MONTH(`tanggal_jam`) = '$month'";
+            }
+            // If only the year is specified, search for that year in any month
+            else if (!empty($year)) {
+                $where_clause = "YEAR(`tanggal_jam`) = '$year'";
+            }
+
+            // Apply the WHERE clause if it's not empty
+            if (!empty($where_clause)) {
+                $this->db->where($where_clause);
+            }
         }
 
         $i = 0;
@@ -611,18 +661,18 @@ class Riwayat_Kasir_m extends CI_Model
         }
     }
 
-    function get_datatables_saldo_pinjaman()
+    function get_datatables_saldo_pinjaman($month, $year)
     {
-        $this->_get_datatables_query_saldo_pinjaman();
+        $this->_get_datatables_query_saldo_pinjaman($month, $year);
         if ($_POST['length'] != -1)
             $this->db->limit($_POST['length'], $_POST['start']);
         $query = $this->db->get();
         return $query->result();
     }
 
-    function count_filtered_saldo_pinjaman()
+    function count_filtered_saldo_pinjaman($month, $year)
     {
-        $this->_get_datatables_query_saldo_pinjaman();
+        $this->_get_datatables_query_saldo_pinjaman($month, $year);
         $query = $this->db->get();
         return $query->num_rows();
     }
@@ -636,18 +686,19 @@ class Riwayat_Kasir_m extends CI_Model
         return $this->db->count_all_results();
     }
 
-    public function get_total_saldo_filtered_pinjaman()
+    public function get_total_saldo_filtered_pinjaman($month, $year)
     {
-        $this->_get_datatables_query_saldo_pinjaman(); // same filter logic as your table
-        $this->db->select_sum('nominal');
+        $this->_get_datatables_query_saldo_pinjaman($month, $year); // same filter logic as your table
+        $this->db->select_sum('cicilan');
         $query = $this->db->get();
-        return $query->row()->nominal;
+        return $query->row()->cicilan;
     }
 
     function get_total_saldo_pinjaman()
     {
 
-        $this->db->select_sum('nominal');
+        // $this->db->select_sum('nominal');
+        $this->db->select_sum('cicilan');
         $this->db->from('saldo_pinjaman');
         $this->db->join('anggota', 'saldo_pinjaman.id_anggota = anggota.id', 'left');
         // $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');

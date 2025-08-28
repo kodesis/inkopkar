@@ -323,9 +323,32 @@ class Saldo_Simpanan extends CI_Controller
                 // echo $nomor_anggota;
                 // Find id_anggota from database
                 $anggota = $this->db->get_where('anggota', ['nomor_anggota' => $nomor_anggota])->row();
+
+                // --- THE UPDATED LOGIC IS HERE ---
+                $hasError = false;
+                if (!$anggota) {
+                    // Rollback transaction immediately on error
+                    $this->db->trans_rollback();
+                    echo json_encode([
+                        'status' => false,
+                        'message' => 'Anggota Tidak Di Temukan pada baris ' . $rowIndex . '.'
+                    ]);
+                    $hasError = true;
+                    break; // Exit the loop
+                }
+                // --- END OF UPDATED LOGIC ---
+
                 $id_anggota = $anggota->id;
 
-                $tanggal_excel = isset($rowData[5]) ? $rowData[5] : null;
+                $column_letter = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(7);
+
+                // Get the cell object using the column letter and row index
+                $cell = $worksheet->getCell($column_letter . $rowIndex);
+
+                // Now, get the calculated value from the cell
+                $tanggal_excel = isset($rowData[5]) ? $cell->getCalculatedValue() : null;
+
+                // $tanggal_excel = isset($rowData[5]) ? $rowData[5] : null;
 
                 $tanggal_bayar = null;
                 if (is_numeric($tanggal_excel)) {
@@ -377,51 +400,54 @@ class Saldo_Simpanan extends CI_Controller
                 ];
             }
 
-            if (!empty($dataInsert)) {
-                $this->db->insert_batch('saldo_simpanan', $dataInsert); // Bulk insert
+            if (!$hasError) {
+                if (!empty($dataInsert)) {
+                    $this->db->insert_batch('saldo_simpanan', $dataInsert); // Bulk insert
 
-                $updateAnggota = [];
+                    $updateAnggota = [];
 
-                foreach ($dataInsert as $item) {
-                    $id_anggota = $item['id_anggota'];
+                    foreach ($dataInsert as $item) {
+                        $id_anggota = $item['id_anggota'];
 
-                    // Hitung total nominal terbaru dari tabel iuran
-                    $this->db->select_sum('nominal');
-                    $this->db->where('id_anggota', $id_anggota);
-                    $total = $this->db->get('saldo_simpanan')->row();
+                        // Hitung total nominal terbaru dari tabel iuran
+                        $this->db->select_sum('nominal');
+                        $this->db->where('id_anggota', $id_anggota);
+                        $total = $this->db->get('saldo_simpanan')->row();
 
-                    $this->db->from('anggota');
-                    $this->db->where('id', $id_anggota);
-                    $anggota_now = $this->db->get()->row();
+                        $this->db->from('anggota');
+                        $this->db->where('id', $id_anggota);
+                        $anggota_now = $this->db->get()->row();
 
-                    $tanggal_simpanan_terakhir = $anggota_now->tanggal_simpanan_terakhir;
+                        $tanggal_simpanan_terakhir = $anggota_now->tanggal_simpanan_terakhir;
 
-                    if ($sampai_dengan > $tanggal_simpanan_terakhir) {
-                        $tanggal_simpanan_terakhir = $sampai_dengan;
+                        if ($item['sampai_dengan']  > $tanggal_simpanan_terakhir) {
+                            $tanggal_simpanan_terakhir = $item['sampai_dengan'];
+                        }
+
+                        $updateAnggota[] = [
+                            'id' => $id_anggota,
+                            'saldo_simpanan' => $total->nominal ?? 0,
+                            'tanggal_simpanan_terakhir' => $tanggal_simpanan_terakhir,
+                        ];
                     }
 
-                    $updateAnggota[] = [
-                        'id' => $id_anggota,
-                        'saldo_simpanan' => $total->nominal ?? 0,
-                        'tanggal_simpanan_terakhir' => $tanggal_simpanan_terakhir,
-                    ];
-                }
-
-                if (!empty($updateAnggota)) {
-                    $this->db->update_batch('anggota', $updateAnggota, 'id');
-                } else {
-                    echo json_encode(['status' => false, 'message' => 'Gagal Update Iuran Koperasi']);
+                    if (!empty($updateAnggota)) {
+                        $this->db->update_batch('anggota', $updateAnggota, 'id');
+                    } else {
+                        echo json_encode(['status' => false, 'message' => 'Gagal Update Iuran Koperasi']);
+                    }
                 }
             }
 
-            if ($this->db->trans_status() === FALSE) {
+            if (!$hasError && $this->db->trans_status() === FALSE) {
                 $this->db->trans_rollback();
                 echo json_encode(['status' => false, 'message' => 'Database error while inserting data']);
-            } else {
+            } else if (!$hasError) {
                 $this->db->trans_commit();
                 echo json_encode(['status' => true, 'message' => 'Excel data inserted successfully']);
             }
         } catch (Exception $e) {
+            $this->db->trans_rollback(); // Ensure rollback on any exception
             echo json_encode(['status' => false, 'message' => $e->getMessage()]);
         } finally {
             if (file_exists($file_path)) unlink($file_path);
@@ -700,7 +726,7 @@ class Saldo_Simpanan extends CI_Controller
 
         // Atur header untuk mengunduh file
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="Monitoring Iuran Terakhir.xlsx"');
+        header('Content-Disposition: attachment; filename="Monitoring Iuran Simpanan Terakhir.xlsx"');
         header('Cache-Control: max-age=0');
 
         // OUTPUT FILE KE BROWSER
@@ -847,7 +873,7 @@ class Saldo_Simpanan extends CI_Controller
 
         // Atur header untuk mengunduh file
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="Monitoring Iuran Anggota ' . $detail_anggota->nama . '.xlsx"');
+        header('Content-Disposition: attachment; filename="Monitoring Iuran Simpanan Anggota ' . $detail_anggota->nama . '.xlsx"');
         header('Cache-Control: max-age=0');
 
         // OUTPUT FILE KE BROWSER
