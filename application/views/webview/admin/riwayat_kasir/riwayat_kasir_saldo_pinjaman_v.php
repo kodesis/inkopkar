@@ -75,6 +75,8 @@
                                     <th>Nama</th>
                                     <!-- <th>Koperasi</th> -->
                                     <th>keterangan</th>
+                                    <th>Jenis Pinjaman</th>
+                                    <th>Bulan</th>
                                     <th>Tanggal</th>
                                     <th>Nominal</th>
                                     <th>Cicilan</th>
@@ -85,7 +87,7 @@
                             </thead>
                             <tfoot>
                                 <tr>
-                                    <th colspan="5" style="text-align:right">
+                                    <th colspan="7" style="text-align:right">
                                         Total
                                     </th>
                                     <th id="total_saldo" style="text-align: right;">

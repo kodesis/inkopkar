@@ -283,26 +283,32 @@ class Saldo_Pinjaman extends CI_Controller
                 // --- END OF UPDATED LOGIC ---
 
                 $id_anggota = $anggota->id;
-                $column_letter = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(7);
+                $column_letter = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(9);
 
                 // Get the cell object using the column letter and row index
                 $cell = $worksheet->getCell($column_letter . $rowIndex);
 
                 // Now, get the calculated value from the cell
-                $tanggal_excel = isset($rowData[6]) ? $cell->getCalculatedValue() : null;
+                $tanggal_excel = isset($rowData[8]) ? $cell->getCalculatedValue() : null;
+                // $tanggal_excel = isset($rowData[8]) ? $rowData[8] : null;
                 // echo $tanggal_excel;
 
                 $tanggal_bayar = null;
-                if (is_numeric($tanggal_excel)) {
-                    // Excel date serial to Y-m-d
-                    $tanggal_bayar = date('Y-m-d', \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimestamp($tanggal_excel));
-                } elseif (!empty($tanggal_excel)) {
-                    // Already a valid date string
-                    $tanggal_bayar = date('Y-m-d', strtotime($tanggal_excel));
-                } else {
-                    // If no date is found, you might want to set a default.
-                    // For this example, let's set it to the current time.
+                if ($tanggal_bayar == "=TODAY()") {
+                    echo "Masuk";
                     $tanggal_bayar = date('Y-m-d H:i:s');
+                } else {
+                    if (is_numeric($tanggal_excel)) {
+                        // Excel date serial to Y-m-d
+                        $tanggal_bayar = date('Y-m-d', \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimestamp($tanggal_excel));
+                    } elseif (!empty($tanggal_excel)) {
+                        // Already a valid date string
+                        $tanggal_bayar = date('Y-m-d', strtotime($tanggal_excel));
+                    } else {
+                        // If no date is found, you might want to set a default.
+                        // For this example, let's set it to the current time.
+                        $tanggal_bayar = date('Y-m-d H:i:s');
+                    }
                 }
                 // echo $tanggal_bayar;
 
@@ -313,8 +319,10 @@ class Saldo_Pinjaman extends CI_Controller
                     'id_anggota'  => $id_anggota,
                     'nominal'     => isset($rowData[2]) ? (float)str_replace(',', '', $rowData[2]) : 0,
                     'keterangan'    => isset($rowData[3]) ? $rowData[3] : "CICILAN BULAN " . strtoupper($bulan_nama) . " " . $tahun,
-                    'cicilan' => isset($rowData[4]) ? (float)str_replace(',', '', $rowData[4]) : 0,
-                    'sisa_cicilan' => isset($rowData[5]) ? (float)str_replace(',', '', $rowData[5]) : 0,
+                    'jenis_pinjaman'    => isset($rowData[4]) ? $rowData[4] : "PINJAMAN",
+                    'cicilan' => isset($rowData[5]) ? (float)str_replace(',', '', $rowData[5]) : 0,
+                    'sisa_cicilan' => isset($rowData[6]) ? (float)str_replace(',', '', $rowData[6]) : 0,
+                    'bulan' => isset($rowData[7]) ? $rowData[7] : 1,
                     'tanggal_jam'   => $tanggal_bayar,
                     'status' => 1,
                     'id_kasir' => $this->session->userdata('user_user_id'),

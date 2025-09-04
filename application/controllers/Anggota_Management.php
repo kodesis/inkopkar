@@ -484,11 +484,11 @@ class Anggota_Management extends CI_Controller
 
                 // echo $no_telp;
 
-                if ($cek_no_telp != 0) {
-                    // Collect the error instead of returning
-                    $validationErrors[] = 'Baris ' . $rowIndex . ': Nomor Telepon "' . $no_telp . '" sudah digunakan.';
-                    continue; // Skip this row and continue processing others
-                }
+                // if ($cek_no_telp != 0) {
+                //     // Collect the error instead of returning
+                //     $validationErrors[] = 'Baris ' . $rowIndex . ': Nomor Telepon "' . $no_telp . '" sudah digunakan.';
+                //     continue; // Skip this row and continue processing others
+                // }
 
                 $enc_password = password_hash('password123', PASSWORD_DEFAULT);
 
@@ -500,7 +500,7 @@ class Anggota_Management extends CI_Controller
                     'tempat_lahir'     => isset($rowData[2]) ? $rowData[2] : null,
                     'tanggal_lahir'   => $tanggal_lahir,
                     'no_telp' => $no_telp,
-                    'username' => $no_telp,
+                    'username' => $nomor_anggota,
                     'password' => $enc_password,
                     'jabatan' => "Anggota",
                     'role' => 4,

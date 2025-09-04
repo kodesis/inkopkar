@@ -340,7 +340,7 @@ class Saldo_Simpanan extends CI_Controller
 
                 $id_anggota = $anggota->id;
 
-                $column_letter = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(7);
+                $column_letter = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(6);
 
                 // Get the cell object using the column letter and row index
                 $cell = $worksheet->getCell($column_letter . $rowIndex);
@@ -364,7 +364,16 @@ class Saldo_Simpanan extends CI_Controller
                 }
                 $date_for_keterangan_tanggal_bayar = new DateTime($tanggal_bayar);
 
-                $sd_excel = isset($rowData[6]) ? $rowData[6] : null;
+
+                $column_letter = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(7);
+
+                // Get the cell object using the column letter and row index
+                $cell = $worksheet->getCell($column_letter . $rowIndex);
+
+                // Now, get the calculated value from the cell
+                $sd_excel = isset($rowData[6]) ? $cell->getCalculatedValue() : null;
+
+                // $sd_excel = isset($rowData[6]) ? $rowData[6] : null;
                 $sampai_dengan = null;
                 if (is_numeric($sd_excel)) {
                     // Excel date serial to Y-m-d

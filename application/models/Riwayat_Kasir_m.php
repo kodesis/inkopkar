@@ -584,8 +584,8 @@ class Riwayat_Kasir_m extends CI_Model
     var $table_saldo_pinjaman = 'saldo_pinjaman';
     // var $column_order = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable orderable
     // var $column_search = array('Id', 'title', 'thumbnail', 'tanggal', 'view_count'); //set column field database for datatable searchable 
-    var $column_order_saldo_pinjaman = array('saldo_pinjaman.id', 'anggota.nama', 'nama_koperasi', 'tanggal_jam', 'nominal', 'cicilan', 'sisa_cicilan'); //set column field database for datatable orderable
-    var $column_search_saldo_pinjaman = array('saldo_pinjaman.id', 'anggota.nama', 'nama_koperasi', 'tanggal_jam', 'nominal', 'cicilan', 'sisa_cicilan'); //set column field database for datatable searchable 
+    var $column_order_saldo_pinjaman = array('saldo_pinjaman.id', 'anggota.nama', 'keterangan', 'jenis_pinjaman', 'bulan', 'tanggal_jam', 'nominal', 'cicilan', 'sisa_cicilan'); //set column field database for datatable orderable
+    var $column_search_saldo_pinjaman = array('saldo_pinjaman.id', 'anggota.nama', 'keterangan', 'jenis_pinjaman', 'bulan', 'tanggal_jam', 'nominal', 'cicilan', 'sisa_cicilan'); //set column field database for datatable searchable 
 
     var $order_saldo_pinjaman = array('saldo_pinjaman.id' => 'DESC'); // default order 
 
@@ -619,7 +619,7 @@ class Riwayat_Kasir_m extends CI_Model
             }
             // If only the month is specified, search for that month in any year
             else if (!empty($month)) {
-                $where_clause = "MONTH(`tanggal_jam`) = '$month'";
+                $where_clause = "MONTH(`tanggal_jam`) = '$month' OR `bulan` = '.$month.'";
             }
             // If only the year is specified, search for that year in any month
             else if (!empty($year)) {

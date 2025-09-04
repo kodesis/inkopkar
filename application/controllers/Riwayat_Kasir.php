@@ -449,7 +449,28 @@ class Riwayat_Kasir extends CI_Controller
             $row = array();
             $row[] = $cat->id;
             $row[] = $cat->nama;
-            $row[] = $cat->nama_koperasi;
+            $row[] = $cat->keterangan;
+            $row[] = $cat->jenis_pinjaman;
+
+            // Define the Indonesian month names in an array (indexed from 1).
+            $indonesian_months = [
+                1 => 'Januari',
+                2 => 'Februari',
+                3 => 'Maret',
+                4 => 'April',
+                5 => 'Mei',
+                6 => 'Juni',
+                7 => 'Juli',
+                8 => 'Agustus',
+                9 => 'September',
+                10 => 'Oktober',
+                11 => 'November',
+                12 => 'Desember',
+            ];
+
+            // Access the month name using the number as the index.
+            $row[] = $indonesian_months[(int)$cat->bulan];
+
             $date = new DateTime($cat->tanggal_jam);
             $row[] = $date->format('d F Y, H:i:s');
             $row[] = '<div style="text-align: right;">' . number_format($cat->nominal, 0, ',', '.') . '</div>';
