@@ -120,6 +120,15 @@
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
+                                                <label for="email-id-vertical">Jenis Pinjaman</label>
+                                                <!-- <input type="number" class="form-control" id="nominal_kredit_add" name="nominal_kredit" onchange="cek_nominal()" placeholder="Nominal"> -->
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" id="jenis_pinjaman_add" name="jenis_pinjaman" value="PINJAMAN">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
                                                 <label for="email-id-vertical">Cicilan</label>
                                                 <!-- <input type="number" class="form-control" id="nominal_kredit_add" name="nominal_kredit" onchange="cek_nominal()" placeholder="Nominal"> -->
                                                 <div class="form-group position-relative has-icon-left">
@@ -139,6 +148,29 @@
                                                     <div class="form-control-icon">
                                                         <p>Rp.</p>
                                                     </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="email-id-vertical">Bulan Transaksi</label>
+                                                <!-- <input type="number" class="form-control" id="nominal_kredit_add" name="nominal_kredit" onchange="cek_nominal()" placeholder="Nominal"> -->
+                                                <div class="form-group">
+                                                    <select id="bulan" name="bulan" class="form-control">
+                                                        <option value="">Pilih Bulan</option>
+                                                        <option value="1">Januari</option>
+                                                        <option value="2">Februari</option>
+                                                        <option value="3">Maret</option>
+                                                        <option value="4">April</option>
+                                                        <option value="5">Mei</option>
+                                                        <option value="6">Juni</option>
+                                                        <option value="7">Juli</option>
+                                                        <option value="8">Agustus</option>
+                                                        <option value="9">September</option>
+                                                        <option value="10">Oktober</option>
+                                                        <option value="11">November</option>
+                                                        <option value="12">Desember</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>

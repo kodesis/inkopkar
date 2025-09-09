@@ -133,6 +133,12 @@
         event.preventDefault(); // Prevent form from submitting and refreshing
         const ttltitleValue = $('#id_anggota_search').val();
         const ttlthumbnailValue = $('#nominal_kredit_add').val();
+        const keterangan_add = $('#keterangan_add').val();
+        const jenis_pinjaman_add = $('#jenis_pinjaman_add').val();
+        const cicilan_add = $('#cicilan_add').val();
+        const sisa_cicilan_add = $('#sisa_cicilan_add').val();
+        const tanggal_jam_add = $('#tanggal_jam_add').val();
+        const ttlbulanValue = $('#bulan').val();
 
 
         if (!ttltitleValue) {
@@ -149,6 +155,54 @@
                 icon: 'error',
                 showConfirmButton: false,
                 title: 'Kolom Nominal Tidak Boleh Kosong',
+                timer: 1500
+            });
+        } else if (!ttlbulanValue) {
+            swal.fire({
+                customClass: 'slow-animation',
+                icon: 'error',
+                showConfirmButton: false,
+                title: 'Kolom Bulan Tidak Boleh Kosong',
+                timer: 1500
+            });
+        } else if (!keterangan_add) {
+            swal.fire({
+                customClass: 'slow-animation',
+                icon: 'error',
+                showConfirmButton: false,
+                title: 'Kolom Keterangan Tidak Boleh Kosong',
+                timer: 1500
+            });
+        } else if (!jenis_pinjaman_add) {
+            swal.fire({
+                customClass: 'slow-animation',
+                icon: 'error',
+                showConfirmButton: false,
+                title: 'Kolom Jenis Pinjaman Tidak Boleh Kosong',
+                timer: 1500
+            });
+        } else if (!cicilan_add) {
+            swal.fire({
+                customClass: 'slow-animation',
+                icon: 'error',
+                showConfirmButton: false,
+                title: 'Kolom Cicilan Tidak Boleh Kosong',
+                timer: 1500
+            });
+        } else if (!sisa_cicilan_add) {
+            swal.fire({
+                customClass: 'slow-animation',
+                icon: 'error',
+                showConfirmButton: false,
+                title: 'Kolom Sisa Cicilan Tidak Boleh Kosong',
+                timer: 1500
+            });
+        } else if (!tanggal_jam_add) {
+            swal.fire({
+                customClass: 'slow-animation',
+                icon: 'error',
+                showConfirmButton: false,
+                title: 'Kolom Tanggal Transaksi Tidak Boleh Kosong',
                 timer: 1500
             });
         } else {

@@ -337,28 +337,28 @@
                                 </div>
                             </a>
                         </div>
-                        <!-- <div class="col-6 col-lg-3 col-md-6">
+                        <div class="col-6 col-lg-3 col-md-6">
                             <a href="<?= base_url('Riwayat_Kasir/detail_saldo_simpanan') ?>">
-                            <a href="<?= base_url('Saldo') ?>">
-                                <div class="card">
-                                    <div class="card-body px-4 py-4-5">
-                                        <div class="row">
-                                            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-                                                <div class="stats-icon red mb-2">
-                                                    <i class="iconly-boldWallet"></i>
+                                <a href="<?= base_url('Saldo') ?>">
+                                    <div class="card">
+                                        <div class="card-body px-4 py-4-5">
+                                            <div class="row">
+                                                <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                                                    <div class="stats-icon red mb-2">
+                                                        <i class="iconly-boldWallet"></i>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                                <h6 class="text-muted font-semibold">Saldo Pinjaman</h6>
-                                                <h6 class="font-extrabold mb-0">
-                                                    <?= 'Rp. ' . number_format($total_saldo_pinjaman ?? 0, 0, ',', '.') ?>
-                                                </h6>
+                                                <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                                    <h6 class="text-muted font-semibold">Saldo Pinjaman</h6>
+                                                    <h6 class="font-extrabold mb-0">
+                                                        <?= 'Rp. ' . number_format($total_saldo_pinjaman ?? 0, 0, ',', '.') ?>
+                                                    </h6>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </a>
-                        </div> -->
+                                </a>
+                        </div>
                         <!-- <div class="col-6 col-lg-3 col-md-6">
                             <a href="<?= base_url('Koperasi_Management') ?> ">
                                 <div class="card">
@@ -620,39 +620,99 @@
         </section>
         <?php
         if ($this->session->userdata('role') == "Koperasi" || $this->session->userdata('role') == "Anggota") {
-            if ($this->session->userdata('role') == "Koperasi") {
+            // if ($this->session->userdata('role') == "Koperasi") {
         ?>
+            <section class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Rekapitulasi Saldo Simpanan</h5>
+                    </div>
+                    <div class="card-body">
+                        <?php
+                        if ($saldo_simpanan) {
+                        ?>
+                            <table class="table" id="table_1">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Tipe Simpanan</th>
+                                        <th>Total Nominal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $no = 1;
+                                    foreach ($saldo_simpanan as $ss) {
+                                    ?>
+                                        <tr>
+                                            <td><?= $no++ ?></td>
+                                            <td><?= $ss->tipe_simpanan ?></td>
+                                            <td style="text-align: right;">Rp. <?= number_format(
+                                                                                    $ss->total_nominal ?? 0,
+                                                                                    0,
+                                                                                    ',',
+                                                                                    '.'
+                                                                                ) ?></td>
+                                        </tr>
+                                    <?php
+                                    }
+                                    ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th style="text-align: right;" colspan="2">Total</th>
+                                        <th style="text-align: right;">Rp. <?= number_format(
+                                                                                $total_saldo_simpanan ?? 0,
+                                                                                0,
+                                                                                ',',
+                                                                                '.'
+                                                                            )  ?></th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        <?php
+                        }
+                        ?>
+                        <p class="text-muted">Tidak ada data untuk rekapitulasi.</p>
+                    </div>
+                </div>
+            </section>
+            <?php
+            // }
+
+            if ($this->session->userdata('role') == 'Anggota') {
+            ?>
                 <section class="section">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="card-title">Rekapitulasi Saldo Simpanan</h5>
+                            <h5 class="card-title">Rekapitulasi Saldo Pinjaman</h5>
                         </div>
                         <div class="card-body">
                             <?php
-                            if ($saldo_simpanan) {
+                            if ($saldo_pinjaman) {
                             ?>
                                 <table class="table" id="table_1">
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Tipe Simpanan</th>
+                                            <th>Tipe Pinjaman</th>
                                             <th>Total Nominal</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
                                         $no = 1;
-                                        foreach ($saldo_simpanan as $ss) {
+                                        foreach ($saldo_pinjaman as $ss) {
                                         ?>
                                             <tr>
                                                 <td><?= $no++ ?></td>
-                                                <td><?= $ss->tipe_simpanan ?></td>
-                                                <td style="text-align: right;"><?= number_format(
-                                                                                    $ss->total_nominal ?? 0,
-                                                                                    0,
-                                                                                    ',',
-                                                                                    '.'
-                                                                                ) ?></td>
+                                                <td><?= $ss->jenis_pinjaman ?></td>
+                                                <td style="text-align: right;">Rp. <?= number_format(
+                                                                                        $ss->total_nominal ?? 0,
+                                                                                        0,
+                                                                                        ',',
+                                                                                        '.'
+                                                                                    ) ?></td>
                                             </tr>
                                         <?php
                                         }
@@ -660,13 +720,13 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th colspan="2">Total</th>
-                                            <th style="text-align: right;"><?= number_format(
-                                                                                $total_saldo_simpanan ?? 0,
-                                                                                0,
-                                                                                ',',
-                                                                                '.'
-                                                                            )  ?></th>
+                                            <th style="text-align: right;" colspan="2">Total</th>
+                                            <th style="text-align: right;">Rp. <?= number_format(
+                                                                                    $total_saldo_pinjaman ?? 0,
+                                                                                    0,
+                                                                                    ',',
+                                                                                    '.'
+                                                                                )  ?></th>
                                         </tr>
                                     </tfoot>
                                 </table>

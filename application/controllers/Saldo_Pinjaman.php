@@ -115,6 +115,8 @@ class Saldo_Pinjaman extends CI_Controller
         $tanggal_jam = $this->input->post('tanggal_jam');
         $id_anggota = $this->input->post('id_anggota');
         $keterangan = $this->input->post('keterangan');
+        $bulan = $this->input->post('bulan');
+        $jenis_pinjaman = $this->input->post('jenis_pinjaman');
         $anggota = $this->anggota_management->get_id_edit($id_anggota);
 
         $nominal_kredit = (int) str_replace('.', '', $this->input->post('nominal_kredit'));
@@ -146,8 +148,10 @@ class Saldo_Pinjaman extends CI_Controller
             'id_anggota'     => $id_anggota,
             'nominal' => $nominal_kredit,
             'keterangan' => $keterangan,
+            'jenis_pinjaman' => $jenis_pinjaman,
             'cicilan' => $cicilan,
             'sisa_cicilan' => $sisa_cicilan,
+            'bulan' => $bulan,
             'id_kasir'       => $this->session->userdata('user_user_id'),
             'id_toko'        => $this->session->userdata('id_toko'),
             'id_koperasi' => $this->session->userdata('id_koperasi'),

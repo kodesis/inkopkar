@@ -134,6 +134,9 @@
         const ttltitleValue = $('#id_anggota_search').val();
         const ttlthumbnailValue = $('#nominal_kredit_add').val();
         const ttltipeValue = $('#tipe_simpanan_add').val();
+        const keterangan_add = $('#keterangan_add').val();
+        const tanggal_jam_add = $('#tanggal_jam_add').val();
+        const sampai_dengan_add = $('#sampai_dengan_add').val();
 
 
         if (!ttltitleValue) {
@@ -158,6 +161,30 @@
                 icon: 'error',
                 showConfirmButton: false,
                 title: 'Kolom Tipe Simpanan Tidak Boleh Kosong',
+                timer: 1500
+            });
+        } else if (!keterangan_add) {
+            swal.fire({
+                customClass: 'slow-animation',
+                icon: 'error',
+                showConfirmButton: false,
+                title: 'Kolom Keterangan Tidak Boleh Kosong',
+                timer: 1500
+            });
+        } else if (!tanggal_jam_add) {
+            swal.fire({
+                customClass: 'slow-animation',
+                icon: 'error',
+                showConfirmButton: false,
+                title: 'Kolom Tanggal Transaksi Tidak Boleh Kosong',
+                timer: 1500
+            });
+        } else if (!sampai_dengan_add) {
+            swal.fire({
+                customClass: 'slow-animation',
+                icon: 'error',
+                showConfirmButton: false,
+                title: 'Kolom Sampai Dengan Tidak Boleh Kosong',
                 timer: 1500
             });
         } else {

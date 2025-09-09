@@ -258,7 +258,8 @@ class Dashboard extends CI_Controller
 		// $total_saldo_simpanan = $result->saldo_simpanan_akhir;
 		$data['total_saldo_simpanan'] = $total_saldo_simpanan;
 
-		$this->db->select_sum('nominal');
+		// $this->db->select_sum('nominal');
+		$this->db->select_sum('cicilan');
 		$this->db->from('saldo_pinjaman');
 		$this->db->join('anggota', 'anggota.id = saldo_pinjaman.id_anggota');
 		// $this->db->select_sum('saldo_pinjaman_akhir');
@@ -281,7 +282,8 @@ class Dashboard extends CI_Controller
 
 		$query = $this->db->get();
 		$result = $query->row();
-		$total_saldo_pinjaman = $result->nominal;
+		// $total_saldo_pinjaman = $result->nominal;
+		$total_saldo_pinjaman = $result->cicilan;
 		// $total_saldo_pinjaman = $result->saldo_pinjaman_akhir;
 		$data['total_saldo_pinjaman'] = $total_saldo_pinjaman;
 
@@ -382,12 +384,30 @@ class Dashboard extends CI_Controller
 		$this->db->select('saldo_simpanan.tipe_simpanan, SUM(saldo_simpanan.nominal) as total_nominal');
 		$this->db->from('saldo_simpanan');
 		$this->db->join('anggota', 'anggota.id = saldo_simpanan.id_anggota');
-		$this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
+		if ($this->session->userdata('role') == 'Koperasi') {
+			$this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
+		} else {
+			$this->db->where('anggota.id', $this->session->userdata('user_user_id'));
+		}
 		$this->db->group_by('saldo_simpanan.tipe_simpanan');
 		$this->db->order_by('tipe_simpanan', 'DESC');
 
 		$saldo_simpanan = $this->db->get()->result();
 		$data['saldo_simpanan']  = $saldo_simpanan;
+
+		$this->db->select('saldo_pinjaman.jenis_pinjaman, SUM(saldo_pinjaman.cicilan) as total_nominal');
+		$this->db->from('saldo_pinjaman');
+		$this->db->join('anggota', 'anggota.id = saldo_pinjaman.id_anggota');
+		if ($this->session->userdata('role') == 'Koperasi') {
+			$this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
+		} else {
+			$this->db->where('anggota.id', $this->session->userdata('user_user_id'));
+		}
+		$this->db->group_by('saldo_pinjaman.jenis_pinjaman');
+		$this->db->order_by('jenis_pinjaman', 'DESC');
+
+		$saldo_pinjaman = $this->db->get()->result();
+		$data['saldo_pinjaman']  = $saldo_pinjaman;
 
 		$data['content']  = 'webview/admin/dashboard/dashboard_v';
 		$data['content_js'] = 'webview/admin/dashboard/dashboard_js';
