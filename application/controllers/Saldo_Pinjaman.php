@@ -286,6 +286,78 @@ class Saldo_Pinjaman extends CI_Controller
                 }
                 // --- END OF UPDATED LOGIC ---
 
+                if (isset($rowData[2])) {
+                    $nominal = (float)str_replace(',', '', $rowData[2]);
+                } else {
+                    // Rollback transaction immediately on error
+                    echo json_encode([
+                        'status' => false,
+                        'message' => 'Nominal Tidak Di Temukan pada baris ' . $rowIndex . '.'
+                    ]);
+                    $hasError = true;
+                    break; // Exit the loop
+                }
+
+                if (isset($rowData[3])) {
+                    $keterangan = strtoupper($rowData[3]);
+                } else {
+                    // Rollback transaction immediately on error
+                    echo json_encode([
+                        'status' => false,
+                        'message' => 'Keterangan Tidak Di Temukan pada baris ' . $rowIndex . '.'
+                    ]);
+                    $hasError = true;
+                    break; // Exit the loop
+                }
+
+                if (isset($rowData[4])) {
+                    $jenis_pinjaman = strtoupper($rowData[4]);
+                } else {
+                    // Rollback transaction immediately on error
+                    echo json_encode([
+                        'status' => false,
+                        'message' => 'Jenis Pinjaman Tidak Di Temukan pada baris ' . $rowIndex . '.'
+                    ]);
+                    $hasError = true;
+                    break; // Exit the loop
+                }
+
+                if (isset($rowData[5])) {
+                    $cicilan = (float)str_replace(',', '', $rowData[5]);
+                } else {
+                    // Rollback transaction immediately on error
+                    echo json_encode([
+                        'status' => false,
+                        'message' => 'Cicilan Tidak Di Temukan pada baris ' . $rowIndex . '.'
+                    ]);
+                    $hasError = true;
+                    break; // Exit the loop
+                }
+
+                if (isset($rowData[6])) {
+                    $sisa_cicilan = (float)str_replace(',', '', $rowData[6]);
+                } else {
+                    // Rollback transaction immediately on error
+                    echo json_encode([
+                        'status' => false,
+                        'message' => 'Sisa Cicilan Tidak Di Temukan pada baris ' . $rowIndex . '.'
+                    ]);
+                    $hasError = true;
+                    break; // Exit the loop
+                }
+
+                if (isset($rowData[7])) {
+                    $bulan = $rowData[7];
+                } else {
+                    // Rollback transaction immediately on error
+                    echo json_encode([
+                        'status' => false,
+                        'message' => 'Bulan Tidak Di Temukan pada baris ' . $rowIndex . '.'
+                    ]);
+                    $hasError = true;
+                    break; // Exit the loop
+                }
+
                 $id_anggota = $anggota->id;
                 $column_letter = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(9);
 
@@ -297,23 +369,25 @@ class Saldo_Pinjaman extends CI_Controller
                 // $tanggal_excel = isset($rowData[8]) ? $rowData[8] : null;
                 // echo $tanggal_excel;
 
-                $tanggal_bayar = null;
-                if ($tanggal_bayar == "=TODAY()") {
-                    echo "Masuk";
-                    $tanggal_bayar = date('Y-m-d H:i:s');
+
+                if (is_numeric($tanggal_excel)) {
+                    // Excel date serial to Y-m-d
+                    $tanggal_bayar = date('Y-m-d', \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimestamp($tanggal_excel));
+                } elseif (!empty($tanggal_excel)) {
+                    // Already a valid date string
+                    $tanggal_bayar = date('Y-m-d', strtotime($tanggal_excel));
                 } else {
-                    if (is_numeric($tanggal_excel)) {
-                        // Excel date serial to Y-m-d
-                        $tanggal_bayar = date('Y-m-d', \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimestamp($tanggal_excel));
-                    } elseif (!empty($tanggal_excel)) {
-                        // Already a valid date string
-                        $tanggal_bayar = date('Y-m-d', strtotime($tanggal_excel));
-                    } else {
-                        // If no date is found, you might want to set a default.
-                        // For this example, let's set it to the current time.
-                        $tanggal_bayar = date('Y-m-d H:i:s');
-                    }
+                    // If no date is found, you might want to set a default.
+                    // For this example, let's set it to the current time.
+                    // $tanggal_bayar = date('Y-m-d H:i:s');
+                    echo json_encode([
+                        'status' => false,
+                        'message' => 'Tanggal Transaksi Tidak Di Temukan pada baris ' . $rowIndex . '.'
+                    ]);
+                    $hasError = true;
+                    break; // Exit the loop
                 }
+
                 // echo $tanggal_bayar;
 
 
@@ -321,12 +395,18 @@ class Saldo_Pinjaman extends CI_Controller
                 $dataInsert[] = [
                     'id'          => $new_id, // **USE GENERATED ID**
                     'id_anggota'  => $id_anggota,
-                    'nominal'     => isset($rowData[2]) ? (float)str_replace(',', '', $rowData[2]) : 0,
-                    'keterangan'    => isset($rowData[3]) ? $rowData[3] : "CICILAN BULAN " . strtoupper($bulan_nama) . " " . $tahun,
-                    'jenis_pinjaman'    => isset($rowData[4]) ? $rowData[4] : "PINJAMAN",
-                    'cicilan' => isset($rowData[5]) ? (float)str_replace(',', '', $rowData[5]) : 0,
-                    'sisa_cicilan' => isset($rowData[6]) ? (float)str_replace(',', '', $rowData[6]) : 0,
-                    'bulan' => isset($rowData[7]) ? $rowData[7] : 1,
+                    // 'nominal'     => isset($rowData[2]) ? (float)str_replace(',', '', $rowData[2]) : 0,
+                    // 'keterangan'    => isset($rowData[3]) ? $rowData[3] : "CICILAN BULAN " . strtoupper($bulan_nama) . " " . $tahun,
+                    // 'jenis_pinjaman'    => isset($rowData[4]) ? $rowData[4] : "PINJAMAN",
+                    // 'cicilan' => isset($rowData[5]) ? (float)str_replace(',', '', $rowData[5]) : 0,
+                    // 'sisa_cicilan' => isset($rowData[6]) ? (float)str_replace(',', '', $rowData[6]) : 0,
+                    // 'bulan' => isset($rowData[7]) ? $rowData[7] : 1,
+                    'nominal'     => $nominal,
+                    'keterangan'    => $keterangan,
+                    'jenis_pinjaman'    => $jenis_pinjaman,
+                    'cicilan' => $cicilan,
+                    'sisa_cicilan' => $sisa_cicilan,
+                    'bulan' => $bulan,
                     'tanggal_jam'   => $tanggal_bayar,
                     'status' => 1,
                     'id_kasir' => $this->session->userdata('user_user_id'),

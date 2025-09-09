@@ -340,6 +340,42 @@ class Saldo_Simpanan extends CI_Controller
 
                 $id_anggota = $anggota->id;
 
+
+                if (isset($rowData[2])) {
+                    $nominal = (float)str_replace(',', '', $rowData[2]);
+                } else {
+                    echo json_encode([
+                        'status' => false,
+                        'message' => 'Nominal Tidak Di Temukan pada baris ' . $rowIndex . '.'
+                    ]);
+                    $hasError = true;
+                    break; // Exit the loop
+                }
+                if (isset($rowData[3])) {
+                    $keterangan = strtoupper($rowData[3]);
+                } else {
+                    $keterangan = "IURAN BULAN " . strtoupper($bulan_nama) . " " . $tahun;
+
+                    // echo json_encode([
+                    //     'status' => false,
+                    //     'message' => 'Keterangan Tidak Di Temukan pada baris ' . $rowIndex . '.'
+                    // ]);
+                    // $hasError = true;
+                    // break; // Exit the loop
+                }
+
+                if (isset($rowData[4])) {
+                    $tipe_simpanan = strtoupper($rowData[4]);
+                } else {
+                    // $tipe_simpanan = "SIMPANAN POKOK";
+                    echo json_encode([
+                        'status' => false,
+                        'message' => 'Tipe Simpanan Tidak Di Temukan pada baris ' . $rowIndex . '.'
+                    ]);
+                    $hasError = true;
+                    break; // Exit the loop
+                }
+
                 $column_letter = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(6);
 
                 // Get the cell object using the column letter and row index
@@ -360,7 +396,13 @@ class Saldo_Simpanan extends CI_Controller
                 } else {
                     // If no date is found, you might want to set a default.
                     // For this example, let's set it to the current time.
-                    $tanggal_bayar = date('Y-m-d H:i:s');
+                    // $tanggal_bayar = date('Y-m-d H:i:s');
+                    echo json_encode([
+                        'status' => false,
+                        'message' => 'Tanggal Transaksi Tidak Di Temukan pada baris ' . $rowIndex . '.'
+                    ]);
+                    $hasError = true;
+                    break; // Exit the loop
                 }
                 $date_for_keterangan_tanggal_bayar = new DateTime($tanggal_bayar);
 
@@ -384,7 +426,13 @@ class Saldo_Simpanan extends CI_Controller
                 } else {
                     // If no date is found, you might want to set a default.
                     // For this example, let's set it to the current time.
-                    $sampai_dengan = date('Y-m-d H:i:s');
+                    // $sampai_dengan = date('Y-m-d H:i:s');
+                    echo json_encode([
+                        'status' => false,
+                        'message' => 'Sampai Dengan Tidak Di Temukan pada baris ' . $rowIndex . '.'
+                    ]);
+                    $hasError = true;
+                    break; // Exit the loop
                 }
                 $date_for_keterangan_sampai_dengan = new DateTime($sampai_dengan);
 
@@ -396,9 +444,9 @@ class Saldo_Simpanan extends CI_Controller
                 $dataInsert[] = [
                     'id'          => $new_id, // **USE GENERATED ID**
                     'id_anggota'  => $id_anggota,
-                    'nominal'     => isset($rowData[2]) ? (float)str_replace(',', '', $rowData[2]) : 0,
-                    'keterangan'    => isset($rowData[3]) ? $rowData[3] : "IURAN BULAN " . strtoupper($bulan_nama) . " " . $tahun,
-                    'tipe_simpanan'    => isset($rowData[4]) ? strtoupper($rowData[4]) : "SIMPANAN POKOK",
+                    'nominal'     =>  $nominal,
+                    'keterangan'    => $keterangan,
+                    'tipe_simpanan'    => $tipe_simpanan,
                     'tanggal_jam'   => $tanggal_bayar,
                     'sampai_dengan'   => $sampai_dengan,
                     'status' => 1,
