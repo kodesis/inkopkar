@@ -116,7 +116,9 @@ class Saldo_Pinjaman extends CI_Controller
         $id_anggota = $this->input->post('id_anggota');
         $keterangan = $this->input->post('keterangan');
         $bulan = $this->input->post('bulan');
+        $tahun = $this->input->post('tahun');
         $jenis_pinjaman = $this->input->post('jenis_pinjaman');
+        $sisa_jkw = $this->input->post('sisa_jkw');
         $anggota = $this->anggota_management->get_id_edit($id_anggota);
 
         $nominal_kredit = (int) str_replace('.', '', $this->input->post('nominal_kredit'));
@@ -151,7 +153,9 @@ class Saldo_Pinjaman extends CI_Controller
             'jenis_pinjaman' => $jenis_pinjaman,
             'cicilan' => $cicilan,
             'sisa_cicilan' => $sisa_cicilan,
+            'sisa_jkw' => $sisa_jkw,
             'bulan' => $bulan,
+            'tahun' => $tahun,
             'id_kasir'       => $this->session->userdata('user_user_id'),
             'id_toko'        => $this->session->userdata('id_toko'),
             'id_koperasi' => $this->session->userdata('id_koperasi'),
@@ -347,7 +351,19 @@ class Saldo_Pinjaman extends CI_Controller
                 }
 
                 if (isset($rowData[7])) {
-                    $bulan = $rowData[7];
+                    $jkw = $rowData[7];
+                } else {
+                    // Rollback transaction immediately on error
+                    echo json_encode([
+                        'status' => false,
+                        'message' => 'Sisa JKW Tidak Di Temukan pada baris ' . $rowIndex . '.'
+                    ]);
+                    $hasError = true;
+                    break; // Exit the loop
+                }
+
+                if (isset($rowData[8])) {
+                    $bulan = $rowData[8];
                 } else {
                     // Rollback transaction immediately on error
                     echo json_encode([
@@ -358,14 +374,26 @@ class Saldo_Pinjaman extends CI_Controller
                     break; // Exit the loop
                 }
 
+                if (isset($rowData[9])) {
+                    $tahun = $rowData[9];
+                } else {
+                    // Rollback transaction immediately on error
+                    echo json_encode([
+                        'status' => false,
+                        'message' => 'Tahun Tidak Di Temukan pada baris ' . $rowIndex . '.'
+                    ]);
+                    $hasError = true;
+                    break; // Exit the loop
+                }
+
                 $id_anggota = $anggota->id;
-                $column_letter = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(9);
+                $column_letter = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(11);
 
                 // Get the cell object using the column letter and row index
                 $cell = $worksheet->getCell($column_letter . $rowIndex);
 
                 // Now, get the calculated value from the cell
-                $tanggal_excel = isset($rowData[8]) ? $cell->getCalculatedValue() : null;
+                $tanggal_excel = isset($rowData[10]) ? $cell->getCalculatedValue() : null;
                 // $tanggal_excel = isset($rowData[8]) ? $rowData[8] : null;
                 // echo $tanggal_excel;
 
@@ -406,7 +434,9 @@ class Saldo_Pinjaman extends CI_Controller
                     'jenis_pinjaman'    => $jenis_pinjaman,
                     'cicilan' => $cicilan,
                     'sisa_cicilan' => $sisa_cicilan,
+                    'sisa_jkw' => $jkw,
                     'bulan' => $bulan,
+                    'tahun' => $tahun,
                     'tanggal_jam'   => $tanggal_bayar,
                     'status' => 1,
                     'id_kasir' => $this->session->userdata('user_user_id'),

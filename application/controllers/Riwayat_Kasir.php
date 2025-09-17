@@ -470,12 +470,14 @@ class Riwayat_Kasir extends CI_Controller
 
             // Access the month name using the number as the index.
             $row[] = $indonesian_months[(int)$cat->bulan];
+            $row[] = $cat->tahun;
 
             $date = new DateTime($cat->tanggal_jam);
             $row[] = $date->format('d F Y, H:i:s');
             $row[] = '<div style="text-align: right;">' . number_format($cat->nominal, 0, ',', '.') . '</div>';
             $row[] = '<div style="text-align: right;">' . number_format($cat->cicilan, 0, ',', '.') . '</div>';
             $row[] = '<div style="text-align: right;">' . number_format($cat->sisa_cicilan, 0, ',', '.') . '</div>';
+            $row[] = $cat->sisa_jkw;
 
             // $total_saldo += $cat->nominal;
 

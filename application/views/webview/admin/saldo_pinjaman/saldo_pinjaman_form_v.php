@@ -99,7 +99,7 @@
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="email-id-vertical">Nominal</label>
+                                                <label for="email-id-vertical">Nominal Pinjaman</label>
                                                 <!-- <input type="number" class="form-control" id="nominal_kredit_add" name="nominal_kredit" onchange="cek_nominal()" placeholder="Nominal"> -->
                                                 <div class="form-group position-relative has-icon-left">
                                                     <input type="text" class="form-control" id="nominal_kredit_add" name="nominal_kredit" onfocus="removeFormat(this)" onblur="formatNumber(this)" disabled>
@@ -129,7 +129,7 @@
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="email-id-vertical">Cicilan</label>
+                                                <label for="email-id-vertical">Angsuran</label>
                                                 <!-- <input type="number" class="form-control" id="nominal_kredit_add" name="nominal_kredit" onchange="cek_nominal()" placeholder="Nominal"> -->
                                                 <div class="form-group position-relative has-icon-left">
                                                     <input type="text" class="form-control" id="cicilan_add" name="cicilan" onfocus="removeFormat(this)" onblur="formatNumber(this)">
@@ -141,7 +141,7 @@
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="email-id-vertical">Sisa Cicilan</label>
+                                                <label for="email-id-vertical">Sisa Pinjaman</label>
                                                 <!-- <input type="number" class="form-control" id="nominal_kredit_add" name="nominal_kredit" onchange="cek_nominal()" placeholder="Nominal"> -->
                                                 <div class="form-group position-relative has-icon-left">
                                                     <input type="text" class="form-control" id="sisa_cicilan_add" name="sisa_cicilan" onfocus="removeFormat(this)" onblur="formatNumber(this)">
@@ -153,7 +153,14 @@
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="email-id-vertical">Bulan Transaksi</label>
+                                                <label for="email-id-vertical">Sisa Jangka Waktu</label>
+                                                <!-- <input type="number" class="form-control" id="nominal_kredit_add" name="nominal_kredit" onchange="cek_nominal()" placeholder="Nominal"> -->
+                                                <input type="number" class="form-control" id="sisa_jkw_add" name="sisa_jkw" min="0" value="0">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="email-id-vertical">Bulan Angsuran</label>
                                                 <!-- <input type="number" class="form-control" id="nominal_kredit_add" name="nominal_kredit" onchange="cek_nominal()" placeholder="Nominal"> -->
                                                 <div class="form-group">
                                                     <select id="bulan" name="bulan" class="form-control">
@@ -171,6 +178,15 @@
                                                         <option value="11">November</option>
                                                         <option value="12">Desember</option>
                                                     </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="email-id-vertical">Tahun Angsuran</label>
+                                                <!-- <input type="number" class="form-control" id="nominal_kredit_add" name="nominal_kredit" onchange="cek_nominal()" placeholder="Nominal"> -->
+                                                <div class="form-group">
+                                                    <input type="number" class="form-control" id="tahun_add" name="tahun" min="2000" value="<?= date('Y') ?>">
                                                 </div>
                                             </div>
                                         </div>

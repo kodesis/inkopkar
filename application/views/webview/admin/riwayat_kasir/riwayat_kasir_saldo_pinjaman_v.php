@@ -77,17 +77,19 @@
                                     <th>keterangan</th>
                                     <th>Jenis Pinjaman</th>
                                     <th>Bulan</th>
-                                    <th>Tanggal</th>
+                                    <th>Tahun</th>
+                                    <th>Tanggal Bayar</th>
                                     <th>Nominal</th>
                                     <th>Cicilan</th>
                                     <th>Sisa Cicilan</th>
+                                    <th>Sisa Jangka Waktu</th>
                                     <!-- <th>Status</th> -->
                                     <!-- <th>#</th> -->
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
-                                    <th colspan="7" style="text-align:right">
+                                    <th colspan="8" style="text-align:right">
                                         Total
                                     </th>
                                     <th id="total_saldo" style="text-align: right;">
