@@ -76,8 +76,8 @@
                                     <!-- <th>Koperasi</th> -->
                                     <th>keterangan</th>
                                     <th>Jenis Pinjaman</th>
-                                    <th>Bulan</th>
-                                    <th>Tahun</th>
+                                    <th>Bulan Tahun</th>
+                                    <!-- <th>Tahun</th> -->
                                     <th>Tanggal Bayar</th>
                                     <th>Nominal</th>
                                     <th>Cicilan</th>

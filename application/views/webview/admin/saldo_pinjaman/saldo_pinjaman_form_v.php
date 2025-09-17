@@ -162,7 +162,7 @@
                                             <div class="form-group">
                                                 <label for="email-id-vertical">Bulan Angsuran</label>
                                                 <!-- <input type="number" class="form-control" id="nominal_kredit_add" name="nominal_kredit" onchange="cek_nominal()" placeholder="Nominal"> -->
-                                                <div class="form-group">
+                                                <!-- <div class="form-group">
                                                     <select id="bulan" name="bulan" class="form-control">
                                                         <option value="">Pilih Bulan</option>
                                                         <option value="1">Januari</option>
@@ -178,18 +178,18 @@
                                                         <option value="11">November</option>
                                                         <option value="12">Desember</option>
                                                     </select>
-                                                </div>
+                                                </div> -->
+                                                <input type="date" class="form-control" id="bulan_add" name="bulan">
                                             </div>
                                         </div>
-                                        <div class="col-6">
+                                        <!-- <div class="col-6">
                                             <div class="form-group">
                                                 <label for="email-id-vertical">Tahun Angsuran</label>
-                                                <!-- <input type="number" class="form-control" id="nominal_kredit_add" name="nominal_kredit" onchange="cek_nominal()" placeholder="Nominal"> -->
                                                 <div class="form-group">
                                                     <input type="number" class="form-control" id="tahun_add" name="tahun" min="2000" value="<?= date('Y') ?>">
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="email-id-vertical">Tanggal Transaksi</label>

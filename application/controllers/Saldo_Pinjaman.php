@@ -155,7 +155,7 @@ class Saldo_Pinjaman extends CI_Controller
             'sisa_cicilan' => $sisa_cicilan,
             'sisa_jkw' => $sisa_jkw,
             'bulan' => $bulan,
-            'tahun' => $tahun,
+            // 'tahun' => $tahun,
             'id_kasir'       => $this->session->userdata('user_user_id'),
             'id_toko'        => $this->session->userdata('id_toko'),
             'id_koperasi' => $this->session->userdata('id_koperasi'),
@@ -362,10 +362,42 @@ class Saldo_Pinjaman extends CI_Controller
                     break; // Exit the loop
                 }
 
+                // if (isset($rowData[8])) {
+                //     $bulan = $rowData[8];
+                // } else {
+                //     echo json_encode([
+                //         'status' => false,
+                //         'message' => 'Bulan Tidak Di Temukan pada baris ' . $rowIndex . '.'
+                //     ]);
+                //     $hasError = true;
+                //     break; // Exit the loop
+                // }
+
+
                 if (isset($rowData[8])) {
-                    $bulan = $rowData[8];
+                    // $bulan = $rowData[8];
+                    $column_letter = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(9);
+
+                    // Get the cell object using the column letter and row index
+                    $cell = $worksheet->getCell($column_letter . $rowIndex);
+
+                    // Now, get the calculated value from the cell
+                    $tanggal_excel = isset($rowData[8]) ? $cell->getCalculatedValue() : null;
+
+                    if (is_numeric($tanggal_excel)) {
+                        // Excel date serial to Y-m-d
+                        $bulan = date('Y-m-d', \PhpOffice\PhpSpreadsheet\Shared\Date::excelToTimestamp($tanggal_excel));
+                    } elseif (!empty($tanggal_excel)) {
+                        // Already a valid date string
+                        $bulan = date('Y-m-d', strtotime($tanggal_excel));
+                    } else {
+                        // If no date is found, you might want to set a default.
+                        // For this example, let's set it to the current time.
+                        $bulan = date('Y-m-d');
+                    }
+
+                    echo $bulan;
                 } else {
-                    // Rollback transaction immediately on error
                     echo json_encode([
                         'status' => false,
                         'message' => 'Bulan Tidak Di Temukan pada baris ' . $rowIndex . '.'
@@ -374,26 +406,26 @@ class Saldo_Pinjaman extends CI_Controller
                     break; // Exit the loop
                 }
 
-                if (isset($rowData[9])) {
-                    $tahun = $rowData[9];
-                } else {
-                    // Rollback transaction immediately on error
-                    echo json_encode([
-                        'status' => false,
-                        'message' => 'Tahun Tidak Di Temukan pada baris ' . $rowIndex . '.'
-                    ]);
-                    $hasError = true;
-                    break; // Exit the loop
-                }
+                // if (isset($rowData[9])) {
+                //     $tahun = $rowData[9];
+                // } else {
+                //     // Rollback transaction immediately on error
+                //     echo json_encode([
+                //         'status' => false,
+                //         'message' => 'Tahun Tidak Di Temukan pada baris ' . $rowIndex . '.'
+                //     ]);
+                //     $hasError = true;
+                //     break; // Exit the loop
+                // }
 
                 $id_anggota = $anggota->id;
-                $column_letter = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(11);
+                $column_letter = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(10);
 
                 // Get the cell object using the column letter and row index
                 $cell = $worksheet->getCell($column_letter . $rowIndex);
 
                 // Now, get the calculated value from the cell
-                $tanggal_excel = isset($rowData[10]) ? $cell->getCalculatedValue() : null;
+                $tanggal_excel = isset($rowData[9]) ? $cell->getCalculatedValue() : null;
                 // $tanggal_excel = isset($rowData[8]) ? $rowData[8] : null;
                 // echo $tanggal_excel;
 
@@ -436,7 +468,7 @@ class Saldo_Pinjaman extends CI_Controller
                     'sisa_cicilan' => $sisa_cicilan,
                     'sisa_jkw' => $jkw,
                     'bulan' => $bulan,
-                    'tahun' => $tahun,
+                    // 'tahun' => $tahun,
                     'tanggal_jam'   => $tanggal_bayar,
                     'status' => 1,
                     'id_kasir' => $this->session->userdata('user_user_id'),

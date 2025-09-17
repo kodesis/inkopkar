@@ -469,8 +469,19 @@ class Riwayat_Kasir extends CI_Controller
             ];
 
             // Access the month name using the number as the index.
-            $row[] = $indonesian_months[(int)$cat->bulan];
-            $row[] = $cat->tahun;
+            $month_number = (int)date('n', strtotime($cat->bulan));
+
+            // Get the year
+            $year = date('Y', strtotime($cat->bulan));
+
+            // Access the Indonesian month name from your array
+            $indonesian_month_name = $indonesian_months[$month_number];
+
+            // Combine them to get the desired format
+            $formatted_date = $indonesian_month_name . ' ' . $year;
+
+            // Assign to your row
+            $row[] = $formatted_date;
 
             $date = new DateTime($cat->tanggal_jam);
             $row[] = $date->format('d F Y, H:i:s');
