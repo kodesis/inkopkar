@@ -475,6 +475,8 @@ class Anggota_Management extends CI_Controller
                 } elseif (!empty($tanggal_excel)) {
                     // Already a valid date string
                     $tanggal_lahir = date('Y-m-d', strtotime($tanggal_excel));
+                } else {
+                    $tanggal_lahir = date('Y-m-d');
                 }
                 $date = new DateTime($tanggal_lahir);
 
