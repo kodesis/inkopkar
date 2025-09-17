@@ -396,7 +396,7 @@ class Saldo_Pinjaman extends CI_Controller
                         $bulan = date('Y-m-d');
                     }
 
-                    echo $bulan;
+                    // echo $bulan;
                 } else {
                     echo json_encode([
                         'status' => false,
