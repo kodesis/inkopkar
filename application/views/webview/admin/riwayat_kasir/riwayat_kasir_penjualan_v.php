@@ -16,7 +16,7 @@
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="<?= base_url('dashboard') ?>">Dashboard</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Riwayat Kasir Management</li>
+                            <li class="breadcrumb-item active" aria-current="page">Riwayat Saldo Management</li>
                         </ol>
                     </nav>
                 </div>

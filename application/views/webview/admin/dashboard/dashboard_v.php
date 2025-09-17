@@ -680,7 +680,7 @@
             <?php
             // }
 
-            if ($this->session->userdata('role') == 'Anggota') {
+            if ($this->session->userdata('role') == 'koperasi') {
             ?>
                 <section class="section">
                     <div class="card">
@@ -729,6 +729,71 @@
                                                                                 )  ?></th>
                                         </tr>
                                     </tfoot>
+                                </table>
+                            <?php
+                            }
+                            ?>
+                            <p class="text-muted">Tidak ada data untuk rekapitulasi.</p>
+                        </div>
+                    </div>
+                </section>
+            <?php
+            } else if ($this->session->userdata('role') == "Anggota") {
+            ?>
+                <section class="section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Rekapitulasi Saldo Pinjaman</h5>
+                        </div>
+                        <div class="card-body">
+                            <?php
+                            if ($saldo_pinjaman) {
+                            ?>
+                                <table class="table" id="table_1">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Tipe Pinjaman</th>
+                                            <th>Nominal Pinjaman</th>
+                                            <th>Sisa Pinjaman</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $no = 1;
+                                        foreach ($saldo_pinjaman as $ss) {
+                                        ?>
+                                            <tr>
+                                                <td><?= $no++ ?></td>
+                                                <td><?= $ss->jenis_pinjaman ?></td>
+                                                <td style="text-align: right;">Rp. <?= number_format(
+                                                                                        $ss->nominal ?? 0,
+                                                                                        0,
+                                                                                        ',',
+                                                                                        '.'
+                                                                                    ) ?></td>
+                                                <td style="text-align: right;">Rp. <?= number_format(
+                                                                                        $ss->sisa_cicilan ?? 0,
+                                                                                        0,
+                                                                                        ',',
+                                                                                        '.'
+                                                                                    ) ?></td>
+                                            </tr>
+                                        <?php
+                                        }
+                                        ?>
+                                    </tbody>
+                                    <!-- <tfoot>
+                                        <tr>
+                                            <th style="text-align: right;" colspan="2">Total</th>
+                                            <th style="text-align: right;">Rp. <?= number_format(
+                                                                                    $total_saldo_pinjaman ?? 0,
+                                                                                    0,
+                                                                                    ',',
+                                                                                    '.'
+                                                                                )  ?></th>
+                                        </tr>
+                                    </tfoot> -->
                                 </table>
                             <?php
                             }
