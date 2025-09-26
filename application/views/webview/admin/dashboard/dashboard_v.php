@@ -338,27 +338,26 @@
                             </a>
                         </div>
                         <div class="col-6 col-lg-3 col-md-6">
-                            <a href="<?= base_url('Riwayat_Kasir/detail_saldo_simpanan') ?>">
-                                <a href="<?= base_url('Saldo') ?>">
-                                    <div class="card">
-                                        <div class="card-body px-4 py-4-5">
-                                            <div class="row">
-                                                <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-                                                    <div class="stats-icon red mb-2">
-                                                        <i class="iconly-boldWallet"></i>
-                                                    </div>
+                            <a href="<?= base_url('Riwayat_Kasir/detail_saldo_pinjaman') ?>">
+                                <div class="card">
+                                    <div class="card-body px-4 py-4-5">
+                                        <div class="row">
+                                            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                                                <div class="stats-icon red mb-2">
+                                                    <i class="iconly-boldWallet"></i>
                                                 </div>
-                                                <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                                    <!-- <h6 class="text-muted font-semibold">Saldo Pinjaman</h6> -->
-                                                    <h6 class="text-muted font-semibold">Total Tagihan</h6>
-                                                    <h6 class="font-extrabold mb-0">
-                                                        <?= 'Rp. ' . number_format($total_saldo_pinjaman ?? 0, 0, ',', '.') ?>
-                                                    </h6>
-                                                </div>
+                                            </div>
+                                            <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                                <!-- <h6 class="text-muted font-semibold">Saldo Pinjaman</h6> -->
+                                                <h6 class="text-muted font-semibold">Total Tagihan</h6>
+                                                <h6 class="font-extrabold mb-0">
+                                                    <?= 'Rp. ' . number_format($total_saldo_pinjaman ?? 0, 0, ',', '.') ?>
+                                                </h6>
                                             </div>
                                         </div>
                                     </div>
-                                </a>
+                                </div>
+                            </a>
                         </div>
                         <!-- <div class="col-6 col-lg-3 col-md-6">
                             <a href="<?= base_url('Koperasi_Management') ?> ">

@@ -277,7 +277,7 @@ class Dashboard extends CI_Controller
 		$this->db->join('anggota', 'anggota.id = saldo_pinjaman.id_anggota');
 
 		// Filter the main query to include only rows where the ID is in the result of the subquery
-		$this->db->where("saldo_pinjaman.id IN ({$subquery})", NULL, FALSE);
+		// $this->db->where("saldo_pinjaman.id IN ({$subquery})", NULL, FALSE);
 		if ($this->session->userdata('role') == "Anggota") {
 			// Apply the same filtering again for the main query
 			$this->db->where('anggota.id', $this->session->userdata('user_user_id'));

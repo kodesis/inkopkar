@@ -89,11 +89,14 @@
                             </thead>
                             <tfoot>
                                 <tr>
-                                    <th colspan="8" style="text-align:right">
+                                    <th colspan="7" style="text-align:right">
                                         Total
                                     </th>
                                     <th id="total_saldo" style="text-align: right;">
                                         Rp. <?= number_format($total->cicilan ?? 0, 0, ',', '.') ?>
+                                    </th>
+
+                                    <th colspan="2">
                                     </th>
                                 </tr>
                             </tfoot>
