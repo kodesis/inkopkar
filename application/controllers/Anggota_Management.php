@@ -481,7 +481,7 @@ class Anggota_Management extends CI_Controller
                 $date = new DateTime($tanggal_lahir);
 
 
-                $no_telp = $rowData[4];
+                $no_telp = $rowData[4] ?? '';
                 $cek_no_telp = $this->db->get_where('anggota', ['no_telp' => $no_telp])->num_rows();
 
                 // echo $no_telp;
