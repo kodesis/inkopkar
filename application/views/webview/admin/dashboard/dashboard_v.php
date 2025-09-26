@@ -680,13 +680,13 @@
             <?php
             // }
 
-            if ($this->session->userdata('role') == 'koperasi') {
+            if ($this->session->userdata('role') == 'Koperasi') {
             ?>
                 <section class="section">
                     <div class="card">
                         <div class="card-header">
                             <!-- <h5 class="card-title">Rekapitulasi Saldo Pinjaman</h5> -->
-                            <!-- <h5 class="card-title">Rekapitulasi Total Tagihan</h5> -->
+                            <h5 class="card-title">Rekapitulasi Total Tagihan</h5>
                         </div>
                         <div class="card-body">
                             <?php

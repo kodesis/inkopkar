@@ -426,7 +426,8 @@ class Dashboard extends CI_Controller
 		$data['saldo_simpanan']  = $saldo_simpanan;
 
 		if ($this->session->userdata('role') == "Koperasi") {
-			$this->db->select('saldo_pinjaman.jenis_pinjaman, SUM(saldo_pinjaman.cicilan) as total_nominal');
+			// $this->db->select('saldo_pinjaman.jenis_pinjaman, SUM(saldo_pinjaman.cicilan) as total_nominal');
+			$this->db->select('saldo_pinjaman.jenis_pinjaman, SUM(saldo_pinjaman.sisa_cicilan) as total_nominal');
 			$this->db->from('saldo_pinjaman');
 			$this->db->join('anggota', 'anggota.id = saldo_pinjaman.id_anggota');
 			$this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
