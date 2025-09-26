@@ -351,7 +351,7 @@
                                                 <!-- <h6 class="text-muted font-semibold">Saldo Pinjaman</h6> -->
                                                 <h6 class="text-muted font-semibold">Total Tagihan</h6>
                                                 <h6 class="font-extrabold mb-0">
-                                                    <?= 'Rp. ' . number_format($total_saldo_pinjaman ?? 0, 0, ',', '.') ?>
+                                                    <?= 'Rp. ' . number_format($total_outstanding ?? 0, 0, ',', '.') ?>
                                                 </h6>
                                             </div>
                                         </div>
@@ -686,7 +686,7 @@
                     <div class="card">
                         <div class="card-header">
                             <!-- <h5 class="card-title">Rekapitulasi Saldo Pinjaman</h5> -->
-                            <h5 class="card-title">Rekapitulasi Total Tagihan</h5>
+                            <h5 class="card-title">Rekapitulasi Total Outstanding</h5>
                         </div>
                         <div class="card-body">
                             <?php
@@ -697,7 +697,8 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Tipe Pinjaman</th>
-                                            <th>Total Nominal</th>
+                                            <th>Total Pinjaman</th>
+                                            <th>Total Outstanding</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -708,6 +709,12 @@
                                             <tr>
                                                 <td><?= $no++ ?></td>
                                                 <td><?= $ss->jenis_pinjaman ?></td>
+                                                <td style="text-align: right;">Rp. <?= number_format(
+                                                                                        $ss->nominal ?? 0,
+                                                                                        0,
+                                                                                        ',',
+                                                                                        '.'
+                                                                                    ) ?></td>
                                                 <td style="text-align: right;">Rp. <?= number_format(
                                                                                         $ss->total_nominal ?? 0,
                                                                                         0,
@@ -723,7 +730,14 @@
                                         <tr>
                                             <th style="text-align: right;" colspan="2">Total</th>
                                             <th style="text-align: right;">Rp. <?= number_format(
-                                                                                    $total_saldo_pinjaman ?? 0,
+                                                                                    $total_nominal ?? 0,
+                                                                                    0,
+                                                                                    ',',
+                                                                                    '.'
+                                                                                )  ?></th>
+
+                                            <th style="text-align: right;">Rp. <?= number_format(
+                                                                                    $total_outstanding ?? 0,
                                                                                     0,
                                                                                     ',',
                                                                                     '.'
@@ -756,8 +770,9 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Tipe Pinjaman</th>
-                                            <th>Nominal Pinjaman</th>
-                                            <th>Sisa Pinjaman</th>
+                                            <th>Total Nominal</th>
+                                            <th>Angsuran</th>
+                                            <th>Total Outstanding</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -775,6 +790,12 @@
                                                                                         '.'
                                                                                     ) ?></td>
                                                 <td style="text-align: right;">Rp. <?= number_format(
+                                                                                        $ss->cicilan ?? 0,
+                                                                                        0,
+                                                                                        ',',
+                                                                                        '.'
+                                                                                    ) ?></td>
+                                                <td style="text-align: right;">Rp. <?= number_format(
                                                                                         $ss->sisa_cicilan ?? 0,
                                                                                         0,
                                                                                         ',',
@@ -785,17 +806,29 @@
                                         }
                                         ?>
                                     </tbody>
-                                    <!-- <tfoot>
+                                    <tfoot>
                                         <tr>
                                             <th style="text-align: right;" colspan="2">Total</th>
                                             <th style="text-align: right;">Rp. <?= number_format(
-                                                                                    $total_saldo_pinjaman ?? 0,
+                                                                                    $total_nominal ?? 0,
+                                                                                    0,
+                                                                                    ',',
+                                                                                    '.'
+                                                                                )  ?></th>
+                                            <th style="text-align: right;">Rp. <?= number_format(
+                                                                                    $total_cicilan ?? 0,
+                                                                                    0,
+                                                                                    ',',
+                                                                                    '.'
+                                                                                )  ?></th>
+                                            <th style="text-align: right;">Rp. <?= number_format(
+                                                                                    $total_outstanding ?? 0,
                                                                                     0,
                                                                                     ',',
                                                                                     '.'
                                                                                 )  ?></th>
                                         </tr>
-                                    </tfoot> -->
+                                    </tfoot>
                                 </table>
                             <?php
                             }

@@ -272,7 +272,7 @@ class Dashboard extends CI_Controller
 		$subquery = $this->db->get_compiled_select(); // Get the compiled SQL for the subquery
 
 		// Main query to select all columns from saldo_pinjaman
-		$this->db->select('saldo_pinjaman.*, SUM(saldo_pinjaman.sisa_cicilan) as total_nominal'); // Select all columns from saldo_pinjaman
+		$this->db->select('saldo_pinjaman.*,SUM(saldo_pinjaman.cicilan) as cicilan, SUM(saldo_pinjaman.nominal) as nominal, SUM(saldo_pinjaman.sisa_cicilan) as total_outstanding'); // Select all columns from saldo_pinjaman
 		$this->db->from('saldo_pinjaman');
 		$this->db->join('anggota', 'anggota.id = saldo_pinjaman.id_anggota');
 
@@ -285,7 +285,10 @@ class Dashboard extends CI_Controller
 
 		$query = $this->db->get();
 		$result = $query->row();
-		$total_saldo_pinjaman = $result->total_nominal;
+		$total_cicilan = $result->cicilan;
+		$total_nominal = $result->nominal;
+		$total_outstanding = $result->total_outstanding;
+
 		// } else {
 		// 	// $this->db->select_sum('nominal');
 		// 	$this->db->select_sum('cicilan');
@@ -315,7 +318,9 @@ class Dashboard extends CI_Controller
 		// 	$total_saldo_pinjaman = $result->cicilan;
 		// 	// $total_saldo_pinjaman = $result->saldo_pinjaman_akhir;
 		// }
-		$data['total_saldo_pinjaman'] = $total_saldo_pinjaman;
+		$data['total_cicilan'] = $total_cicilan;
+		$data['total_nominal'] = $total_nominal;
+		$data['total_outstanding'] = $total_outstanding;
 
 
 		// ================================
@@ -427,7 +432,7 @@ class Dashboard extends CI_Controller
 
 		if ($this->session->userdata('role') == "Koperasi") {
 			// $this->db->select('saldo_pinjaman.jenis_pinjaman, SUM(saldo_pinjaman.cicilan) as total_nominal');
-			$this->db->select('saldo_pinjaman.jenis_pinjaman, SUM(saldo_pinjaman.sisa_cicilan) as total_nominal');
+			$this->db->select('saldo_pinjaman.jenis_pinjaman, SUM(saldo_pinjaman.cicilan) as cicilan, SUM(saldo_pinjaman.nominal) as nominal, SUM(saldo_pinjaman.sisa_cicilan) as total_nominal');
 			$this->db->from('saldo_pinjaman');
 			$this->db->join('anggota', 'anggota.id = saldo_pinjaman.id_anggota');
 			$this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
