@@ -710,13 +710,13 @@
                                                 <td><?= $no++ ?></td>
                                                 <td><?= $ss->jenis_pinjaman ?></td>
                                                 <td style="text-align: right;">Rp. <?= number_format(
-                                                                                        $ss->nominal ?? 0,
+                                                                                        $ss->total_nominal ?? 0,
                                                                                         0,
                                                                                         ',',
                                                                                         '.'
                                                                                     ) ?></td>
                                                 <td style="text-align: right;">Rp. <?= number_format(
-                                                                                        $ss->total_nominal ?? 0,
+                                                                                        $ss->total_outstanding ?? 0,
                                                                                         0,
                                                                                         ',',
                                                                                         '.'
@@ -784,19 +784,19 @@
                                                 <td><?= $no++ ?></td>
                                                 <td><?= $ss->jenis_pinjaman ?></td>
                                                 <td style="text-align: right;">Rp. <?= number_format(
-                                                                                        $ss->nominal ?? 0,
+                                                                                        $ss->total_nominal ?? 0,
                                                                                         0,
                                                                                         ',',
                                                                                         '.'
                                                                                     ) ?></td>
                                                 <td style="text-align: right;">Rp. <?= number_format(
-                                                                                        $ss->cicilan ?? 0,
+                                                                                        $ss->total_cicilan ?? 0,
                                                                                         0,
                                                                                         ',',
                                                                                         '.'
                                                                                     ) ?></td>
                                                 <td style="text-align: right;">Rp. <?= number_format(
-                                                                                        $ss->sisa_cicilan ?? 0,
+                                                                                        $ss->total_outstanding ?? 0,
                                                                                         0,
                                                                                         ',',
                                                                                         '.'

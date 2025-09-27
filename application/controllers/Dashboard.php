@@ -259,25 +259,29 @@ class Dashboard extends CI_Controller
 		$data['total_saldo_simpanan'] = $total_saldo_simpanan;
 
 		// if ($this->session->userdata('role') == "Anggota") {
-		$this->db->select('MAX(saldo_pinjaman.id) as max_id', FALSE);
+		$this->db->select('MAX(id) as max_id', FALSE);
 		$this->db->from('saldo_pinjaman');
-		$this->db->join('anggota', 'anggota.id = saldo_pinjaman.id_anggota');
 
-		// Apply the same filtering as in your original query
+		// Filter for Anggota role
 		if ($this->session->userdata('role') == "Anggota") {
-
-			$this->db->where('anggota.id', $this->session->userdata('user_user_id'));
+			// Filter by id_anggota directly since the column exists in saldo_pinjaman
+			$this->db->where('id_anggota', $this->session->userdata('user_user_id'));
 		}
-		$this->db->group_by('saldo_pinjaman.jenis_pinjaman');
+		$this->db->group_by(array('id_anggota', 'jenis_pinjaman'));
 		$subquery = $this->db->get_compiled_select(); // Get the compiled SQL for the subquery
 
+
 		// Main query to select all columns from saldo_pinjaman
-		$this->db->select('saldo_pinjaman.*,SUM(saldo_pinjaman.cicilan) as cicilan, SUM(saldo_pinjaman.nominal) as nominal, SUM(saldo_pinjaman.sisa_cicilan) as total_outstanding'); // Select all columns from saldo_pinjaman
+		$this->db->select(
+			'SUM(saldo_pinjaman.cicilan) as total_cicilan, 
+     SUM(saldo_pinjaman.nominal) as total_nominal, 
+     SUM(saldo_pinjaman.sisa_cicilan) as total_outstanding',
+			FALSE
+		);
 		$this->db->from('saldo_pinjaman');
-		$this->db->join('anggota', 'anggota.id = saldo_pinjaman.id_anggota');
 
 		// Filter the main query to include only rows where the ID is in the result of the subquery
-		// $this->db->where("saldo_pinjaman.id IN ({$subquery})", NULL, FALSE);
+		$this->db->where("saldo_pinjaman.id IN ({$subquery})", NULL, FALSE);
 		if ($this->session->userdata('role') == "Anggota") {
 			// Apply the same filtering again for the main query
 			$this->db->where('anggota.id', $this->session->userdata('user_user_id'));
@@ -285,8 +289,8 @@ class Dashboard extends CI_Controller
 
 		$query = $this->db->get();
 		$result = $query->row();
-		$total_cicilan = $result->cicilan;
-		$total_nominal = $result->nominal;
+		$total_cicilan = $result->total_cicilan;
+		$total_nominal = $result->total_nominal;
 		$total_outstanding = $result->total_outstanding;
 
 		// } else {
@@ -432,12 +436,35 @@ class Dashboard extends CI_Controller
 
 		if ($this->session->userdata('role') == "Koperasi") {
 			// $this->db->select('saldo_pinjaman.jenis_pinjaman, SUM(saldo_pinjaman.cicilan) as total_nominal');
-			$this->db->select('saldo_pinjaman.jenis_pinjaman, SUM(saldo_pinjaman.cicilan) as cicilan, SUM(saldo_pinjaman.nominal) as nominal, SUM(saldo_pinjaman.sisa_cicilan) as total_nominal');
+			$this->db->select('MAX(id) as max_id', FALSE);
 			$this->db->from('saldo_pinjaman');
-			$this->db->join('anggota', 'anggota.id = saldo_pinjaman.id_anggota');
+			// Filter by Koperasi ID
 			$this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
-			$this->db->group_by('saldo_pinjaman.jenis_pinjaman');
-			$this->db->order_by('jenis_pinjaman', 'DESC');
+
+			// Group by both id_anggota AND jenis_pinjaman to find the latest record for each member's loan type.
+			$this->db->group_by(array('id_anggota', 'jenis_pinjaman'));
+			$subquery = $this->db->get_compiled_select(); // Get the compiled SQL for the subquery
+
+			// Step 2: Main query to select the type, sum the latest records, and group the final result by jenis_pinjaman.
+			$this->db->select(
+				't1.jenis_pinjaman, 
+     SUM(t1.cicilan) as total_cicilan, 
+     SUM(t1.nominal) as total_nominal, 
+     SUM(t1.sisa_cicilan) as total_outstanding',
+				FALSE
+			);
+			$this->db->from('saldo_pinjaman as t1');
+
+			// Filter the main query to include ONLY rows where the ID is one of the MAX IDs found in the subquery.
+			$this->db->where("t1.id IN ({$subquery})", NULL, FALSE);
+
+			// Re-apply Koperasi filter for robustness
+			$this->db->join('anggota', 'anggota.id = t1.id_anggota');
+			$this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
+
+			// *** FINAL GROUPING: Now group by jenis_pinjaman to sum up the latest records from all members ***
+			$this->db->group_by('t1.jenis_pinjaman');
+			$this->db->order_by('t1.jenis_pinjaman', 'DESC');
 		} else {
 			$this->db->select('MAX(saldo_pinjaman.id) as max_id', FALSE);
 			$this->db->from('saldo_pinjaman');
