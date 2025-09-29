@@ -341,7 +341,8 @@
                                                     } ?>">
                                 <a href="<?= base_url('Saldo_Pinjaman/add_pinjaman') ?>" class='sidebar-link'>
                                     <i class="bi bi-grid-fill"></i>
-                                    <span>Tambah Saldo Pinjaman</span>
+                                    <!-- <span>Tambah Saldo Pinjaman</span> -->
+                                    <span>Input Tagihan Bulanan</span>
                                 </a>
                             </li>
                         <?php
