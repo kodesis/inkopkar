@@ -488,7 +488,7 @@ class Riwayat_Kasir extends CI_Controller
             $row[] = '<div style="text-align: right;">' . number_format($cat->nominal, 0, ',', '.') . '</div>';
             $row[] = '<div style="text-align: right;">' . number_format($cat->cicilan, 0, ',', '.') . '</div>';
             $row[] = '<div style="text-align: right;">' . number_format($cat->sisa_cicilan, 0, ',', '.') . '</div>';
-            $row[] = $cat->sisa_jkw;
+            $row[] = $cat->sisa_jkw . ' Bulan';
 
             // $total_saldo += $cat->nominal;
 
@@ -507,5 +507,44 @@ class Riwayat_Kasir extends CI_Controller
             "total_saldo" => $total_saldo
         );
         echo json_encode($output);
+    }
+
+    public function hapus_data_pinjaman_by_month()
+    {
+        // 1. Validate Request Method
+        if ($this->input->server('REQUEST_METHOD') !== 'POST') {
+            $this->output->set_status_header(405); // Method Not Allowed
+            echo json_encode(['status' => 'error', 'message' => 'Method Not Allowed.']);
+            return;
+        }
+
+        // 2. Get and Validate Input Data
+        $tanggal_data = $this->input->post('tanggal_data'); // Format: YYYY-MM
+
+        if (empty($tanggal_data)) {
+            echo json_encode(['status' => 'error', 'message' => 'Tanggal data (bulan/tahun) harus diisi.']);
+            return;
+        }
+
+        // 3. Extract Year and Month
+        $date_parts = explode('-', $tanggal_data);
+        $year = $date_parts[0];
+        $month = $date_parts[1];
+
+        // 4. Call Model to Execute Deletion
+        $result = $this->riwayat_kasir->delete_saldo_pinjaman_by_month($year, $month);
+
+        // 5. Send JSON Response
+        if ($result['success']) {
+            echo json_encode([
+                'status' => 'success',
+                'message' => 'Data saldo pinjaman untuk bulan ' . $month . ' tahun ' . $year . ' berhasil dihapus. (Total: ' . $result['affected_rows'] . ' baris)'
+            ]);
+        } else {
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'Gagal menghapus data: ' . $result['error_message']
+            ]);
+        }
     }
 }

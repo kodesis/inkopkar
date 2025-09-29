@@ -31,6 +31,7 @@
                         <!-- Minimal jQuery Datatable -->
                         <!-- <a href="<?= base_url('Riwayat_Kasir/add') ?>" class="btn btn-primary">Create Riwayat Saldo</a> -->
                         <a href="<?= base_url('saldo_pinjaman/monitoring_pinjaman') ?>" class="btn btn-primary">Monitoring Pinjaman</a>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Hapus Data</button>
                     </h5>
                 </div>
                 <div class="card-body">
@@ -106,5 +107,29 @@
             </div>
         </section>
         <!-- Minimal jQuery Datatable end -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form id="deleteDataPinjaman" method="post" enctype="multipart/form-data">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="uploadModalLabel">Hapus Data Pinjaman</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
 
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="tanggal_data" class="form-label">Tanggal Data</label>
+                                <input type="month" name="tanggal_data" id="tanggal_data" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
     </div>

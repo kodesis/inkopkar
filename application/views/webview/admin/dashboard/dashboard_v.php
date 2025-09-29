@@ -686,7 +686,7 @@
                     <div class="card">
                         <div class="card-header">
                             <!-- <h5 class="card-title">Rekapitulasi Saldo Pinjaman</h5> -->
-                            <h5 class="card-title">Rekapitulasi Total Outstanding</h5>
+                            <h5 class="card-title">Rekapitulasi Total Outstanding Per <?= date('d F Y') ?></h5>
                         </div>
                         <div class="card-body">
                             <?php
@@ -773,7 +773,7 @@
                     <div class="card">
                         <div class="card-header">
                             <!-- <h5 class="card-title">Rekapitulasi Saldo Pinjaman</h5> -->
-                            <h5 class="card-title">Rekapitulasi Total Tagihan</h5>
+                            <h5 class="card-title">Rekapitulasi Total Tagihan Per <?= date('d F Y') ?></h5>
                         </div>
                         <div class="card-body">
                             <?php

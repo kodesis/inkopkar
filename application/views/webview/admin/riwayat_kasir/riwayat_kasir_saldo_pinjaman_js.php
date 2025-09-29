@@ -57,34 +57,92 @@
         jquery_datatable.ajax.reload();
     });
 </script>
-<!-- Include jQuery (required by Summernote) -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!-- Include Summernote CSS and JS -->
-<link href="https://cdn.jsdelivr.net/npm/summernote/dist/summernote-lite.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote/dist/summernote-lite.min.js"></script>
 <script>
-    $('#summernote1').summernote({
-        callbacks: {
-            onImageUpload: function(files) {
-                uploadImage(files[0]);
+    $(document).ready(function() {
+        // 1. Intercept the form submission using the correct ID
+        $('#deleteDataPinjaman').on('submit', async function(e) {
+            // Prevent the default form submission (which would cause a page reload)
+            e.preventDefault();
+
+            // Optional: Get the action URL. You must define where to send the data.
+            // Replace 'your_delete_endpoint.php' with the actual server-side URL.
+            var actionUrl = '<?php echo base_url("riwayat_kasir/hapus_data_pinjaman_by_month"); ?>';
+
+            // 2. Collect the form data (specifically the month/year input)
+            var formData = $(this).serialize();
+
+            // Optional: Show a loading state
+            var $submitButton = $(this).find('button[type="submit"]');
+            const result = await Swal.fire({
+                title: 'Anda Yakin?',
+                text: "Anda akan menghapus semua data pinjaman untuk bulan yang dipilih. Tindakan ini tidak dapat dibatalkan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545', // Red color for delete
+                cancelButtonColor: '#6c757d', // Gray color for cancel
+                confirmButtonText: 'Ya, Hapus Sekarang!',
+                cancelButtonText: 'Batal'
+            });
+
+            // Check if the user clicked the confirmation button
+            if (result.isConfirmed) {
+
+                // --- STEP 2: START LOADING & CLOSE MODAL (ONLY IF CONFIRMED) ---
+                $submitButton.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Menghapus...');
+                $submitButton.prop('disabled', true);
+
+                // Close the form modal to focus on the SweetAlert notification later
+                $('#deleteModal').modal('hide');
+
+                // --- STEP 3: EXECUTE AJAX CALL ---
+                $.ajax({
+                    type: 'POST',
+                    url: actionUrl,
+                    data: formData,
+                    dataType: 'json',
+
+                    success: function(response) {
+                        console.log("Success:", response);
+
+                        if (response.status === 'success') {
+                            // SUCCESS NOTIFICATION using SweetAlert2
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Berhasil Dihapus!',
+                                text: response.message, // Use the detailed message from the CI3 Controller
+                                confirmButtonText: 'OK'
+                            });
+
+                            // Optional: Call a function to reload your data table here (e.g., reloadDataTable())
+                        } else {
+                            // SERVER-SIDE ERROR NOTIFICATION (e.g., validation failed or no data found)
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Gagal Menghapus Data',
+                                text: response.message,
+                                confirmButtonText: 'Tutup'
+                            });
+                        }
+                    },
+
+                    error: function(xhr, status, error) {
+                        console.error("Error:", xhr.responseText);
+                        // AJAX FAILURE NOTIFICATION (e.g., 404, 500 error, network issue)
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Kesalahan Sistem!',
+                            text: 'Terjadi kesalahan jaringan atau server. Mohon coba lagi.',
+                            confirmButtonText: 'Tutup'
+                        });
+                    },
+
+                    complete: function() {
+                        // Reset button state regardless of success or failure
+                        $submitButton.text('Hapus');
+                        $submitButton.prop('disabled', false);
+                    }
+                });
             }
-        }
+        });
     });
-    $("#hint").summernote({
-        height: 100,
-        toolbar: false,
-        placeholder: "type with apple, orange, watermelon and lemon",
-        hint: {
-            words: ["apple", "orange", "watermelon", "lemon"],
-            match: /\b(\w{1,})$/,
-            search: function(keyword, callback) {
-                callback(
-                    $.grep(this.words, function(item) {
-                        return item.indexOf(keyword) === 0
-                    })
-                )
-            },
-        },
-    })
 </script>

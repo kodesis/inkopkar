@@ -500,6 +500,7 @@ class Dashboard extends CI_Controller
 			$this->db->select(
 				't_main.jenis_pinjaman, 
 				t_main.bulan,
+				t_main.tanggal_jam,
          SUM(t_main.cicilan) as total_cicilan, 
          SUM(t_main.nominal) as total_nominal, 
          SUM(t_main.sisa_cicilan) as total_outstanding',
@@ -538,6 +539,7 @@ class Dashboard extends CI_Controller
 			// $this->db->select('t1.*'); // Select all columns from saldo_pinjaman
 			$this->db->select(
 				't1.jenis_pinjaman, 
+				t1.tanggal_jam,
 				t1.bulan,
          SUM(t1.cicilan) as total_cicilan, 
          SUM(t1.nominal) as total_nominal, 

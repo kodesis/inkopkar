@@ -713,4 +713,36 @@ class Riwayat_Kasir_m extends CI_Model
         }
         return $this->db->get()->row();
     }
+
+    public function delete_saldo_pinjaman_by_month($year, $month)
+    {
+        // Use CI's query builder where to filter based on MySQL functions YEAR() and MONTH()
+        $this->db->where('YEAR(tanggal_jam)', $year);
+        $this->db->where('MONTH(tanggal_jam)', $month);
+
+        // Define the target table
+        $table_name = 'saldo_pinjaman';
+
+        // Execute the deletion
+        $this->db->delete($table_name);
+
+        // Check for database errors after the query executes
+        $error = $this->db->error();
+
+        if ($error['code'] != 0) {
+            // Database error occurred
+            return [
+                'success' => false,
+                'error_message' => $error['message'],
+                'affected_rows' => 0
+            ];
+        } else {
+            // Successful deletion (even if 0 rows were affected)
+            return [
+                'success' => true,
+                'error_message' => null,
+                'affected_rows' => $this->db->affected_rows()
+            ];
+        }
+    }
 }

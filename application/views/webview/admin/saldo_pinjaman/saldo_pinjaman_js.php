@@ -138,7 +138,7 @@
         const cicilan_add = $('#cicilan_add').val();
         const sisa_cicilan_add = $('#sisa_cicilan_add').val();
         const tanggal_jam_add = $('#tanggal_jam_add').val();
-        const ttlbulanValue = $('#bulan').val();
+        const ttlbulanValue = $('#bulan_add').val();
 
 
         if (!ttltitleValue) {
