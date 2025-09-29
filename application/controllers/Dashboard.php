@@ -258,33 +258,85 @@ class Dashboard extends CI_Controller
 		// $total_saldo_simpanan = $result->saldo_simpanan_akhir;
 		$data['total_saldo_simpanan'] = $total_saldo_simpanan;
 
-		// if ($this->session->userdata('role') == "Anggota") {
-		$this->db->select('MAX(id) as max_id', FALSE);
+		// 	// if ($this->session->userdata('role') == "Anggota") {
+		// 	$this->db->select('MAX(id) as max_id', FALSE);
+		// 	$this->db->from('saldo_pinjaman');
+
+		// 	// Filter for Anggota role
+		// 	if ($this->session->userdata('role') == "Anggota") {
+		// 		// Filter by id_anggota directly since the column exists in saldo_pinjaman
+		// 		$this->db->where('id_anggota', $this->session->userdata('user_user_id'));
+		// 	}
+		// 	$this->db->group_by(array('id_anggota', 'jenis_pinjaman'));
+		// 	$subquery = $this->db->get_compiled_select(); // Get the compiled SQL for the subquery
+
+
+		// 	// Main query to select all columns from saldo_pinjaman
+		// 	$this->db->select(
+		// 		'SUM(saldo_pinjaman.cicilan) as total_cicilan, 
+		//  SUM(saldo_pinjaman.nominal) as total_nominal, 
+		//  SUM(saldo_pinjaman.sisa_cicilan) as total_outstanding',
+		// 		FALSE
+		// 	);
+		// 	$this->db->from('saldo_pinjaman');
+
+		// 	// Filter the main query to include only rows where the ID is in the result of the subquery
+		// 	$this->db->where("saldo_pinjaman.id IN ({$subquery})", NULL, FALSE);
+		// 	if ($this->session->userdata('role') == "Anggota") {
+		// 		// Apply the same filtering again for the main query
+		// 		$this->db->where('anggota.id', $this->session->userdata('user_user_id'));
+		// 	}
+
+		// 	$query = $this->db->get();
+		// 	$result = $query->row();
+		// 	$total_cicilan = $result->total_cicilan;
+		// 	$total_nominal = $result->total_nominal;
+		// 	$total_outstanding = $result->total_outstanding;
+
+		$this->db->select('id_anggota, jenis_pinjaman, MAX(bulan) as max_bulan', FALSE);
 		$this->db->from('saldo_pinjaman');
 
-		// Filter for Anggota role
+		// Filter for Anggota role in the subquery
 		if ($this->session->userdata('role') == "Anggota") {
-			// Filter by id_anggota directly since the column exists in saldo_pinjaman
 			$this->db->where('id_anggota', $this->session->userdata('user_user_id'));
 		}
+
+		// Group by to find the LATEST month for each unique loan type per member
 		$this->db->group_by(array('id_anggota', 'jenis_pinjaman'));
-		$subquery = $this->db->get_compiled_select(); // Get the compiled SQL for the subquery
+		$subquery_max_bulan = $this->db->get_compiled_select();
 
+		// 2. Main query to select and SUM the required fields
 
-		// Main query to select all columns from saldo_pinjaman
 		$this->db->select(
-			'SUM(saldo_pinjaman.cicilan) as total_cicilan, 
-     SUM(saldo_pinjaman.nominal) as total_nominal, 
-     SUM(saldo_pinjaman.sisa_cicilan) as total_outstanding',
+			'SUM(t1.cicilan) as total_cicilan, 
+    SUM(t1.nominal) as total_nominal, 
+    SUM(t1.sisa_cicilan) as total_outstanding',
 			FALSE
 		);
-		$this->db->from('saldo_pinjaman');
+		$this->db->from('saldo_pinjaman t1');
 
-		// Filter the main query to include only rows where the ID is in the result of the subquery
-		$this->db->where("saldo_pinjaman.id IN ({$subquery})", NULL, FALSE);
+		// JOIN the subquery to filter only the rows that match the latest month/combination
+		// This effectively finds the single latest record for each loan combination.
+		// We alias the subquery as 't2'
+		$this->db->join("({$subquery_max_bulan}) t2", 't1.id_anggota = t2.id_anggota AND t1.jenis_pinjaman = t2.jenis_pinjaman AND t1.bulan = t2.max_bulan');
+
+		// *Important:* Since you said you're worried about users having *two* pinjaman with the same jenis_pinjaman,
+		// and you want both to be summed if they share the same latest 'bulan' date,
+		// the join approach above is correct: it selects ALL records (including duplicates with the same date)
+		// that match the latest date for that loan type group.
+
+		// Filter the main query by the specific 'bulan' value you mentioned, '2025-10-01',
+		// to ensure we only count active loans *up to* that date.
+		// If your goal is truly to only sum items that have EXACTLY this 'bulan' value:
+		// $this->db->where('t1.bulan', $latest_bulan);
+
+		// If your goal is to sum the *latest* record, regardless of the date, you don't need the extra WHERE clause here,
+		// as the JOIN on t1.bulan = t2.max_bulan already filters it to the latest record(s).
+
+		// Final Anggota filter for the main query
 		if ($this->session->userdata('role') == "Anggota") {
-			// Apply the same filtering again for the main query
-			$this->db->where('anggota.id', $this->session->userdata('user_user_id'));
+			// Filter by the id_anggota on the main table (t1)
+			$this->db->where('t1.id_anggota', $this->session->userdata('user_user_id'));
 		}
 
 		$query = $this->db->get();
