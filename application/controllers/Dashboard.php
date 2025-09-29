@@ -499,6 +499,7 @@ class Dashboard extends CI_Controller
 			// 2. Main query: Select type and sum the records matching the MAX(bulan)
 			$this->db->select(
 				't_main.jenis_pinjaman, 
+				t_main.bulan,
          SUM(t_main.cicilan) as total_cicilan, 
          SUM(t_main.nominal) as total_nominal, 
          SUM(t_main.sisa_cicilan) as total_outstanding',
@@ -537,6 +538,7 @@ class Dashboard extends CI_Controller
 			// $this->db->select('t1.*'); // Select all columns from saldo_pinjaman
 			$this->db->select(
 				't1.jenis_pinjaman, 
+				t1.bulan,
          SUM(t1.cicilan) as total_cicilan, 
          SUM(t1.nominal) as total_nominal, 
          SUM(t1.sisa_cicilan) as total_outstanding',
