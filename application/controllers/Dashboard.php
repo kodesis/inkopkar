@@ -536,10 +536,10 @@ class Dashboard extends CI_Controller
 			// 2. Main query: Select the full latest records for the Anggota
 			// $this->db->select('t1.*'); // Select all columns from saldo_pinjaman
 			$this->db->select(
-				't_main.jenis_pinjaman, 
-         SUM(t_main.cicilan) as total_cicilan, 
-         SUM(t_main.nominal) as total_nominal, 
-         SUM(t_main.sisa_cicilan) as total_outstanding',
+				't1.jenis_pinjaman, 
+         SUM(t1.cicilan) as total_cicilan, 
+         SUM(t1.nominal) as total_nominal, 
+         SUM(t1.sisa_cicilan) as total_outstanding',
 				FALSE
 			);
 			$this->db->from('saldo_pinjaman t1');
