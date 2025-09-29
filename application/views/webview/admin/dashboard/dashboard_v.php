@@ -698,6 +698,7 @@
                                             <th>No</th>
                                             <th>Tipe Pinjaman</th>
                                             <th>Total Pinjaman</th>
+                                            <th>Angsuran</th>
                                             <th>Total Outstanding</th>
                                         </tr>
                                     </thead>
@@ -711,6 +712,12 @@
                                                 <td><?= $ss->jenis_pinjaman ?></td>
                                                 <td style="text-align: right;">Rp. <?= number_format(
                                                                                         $ss->total_nominal ?? 0,
+                                                                                        0,
+                                                                                        ',',
+                                                                                        '.'
+                                                                                    ) ?></td>
+                                                <td style="text-align: right;">Rp. <?= number_format(
+                                                                                        $ss->total_cicilan ?? 0,
                                                                                         0,
                                                                                         ',',
                                                                                         '.'
@@ -735,7 +742,12 @@
                                                                                     ',',
                                                                                     '.'
                                                                                 )  ?></th>
-
+                                            <th style="text-align: right;">Rp. <?= number_format(
+                                                                                    $total_cicilan ?? 0,
+                                                                                    0,
+                                                                                    ',',
+                                                                                    '.'
+                                                                                )  ?></th>
                                             <th style="text-align: right;">Rp. <?= number_format(
                                                                                     $total_outstanding ?? 0,
                                                                                     0,

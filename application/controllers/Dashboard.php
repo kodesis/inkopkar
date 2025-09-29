@@ -487,67 +487,78 @@ class Dashboard extends CI_Controller
 		$data['saldo_simpanan']  = $saldo_simpanan;
 
 		if ($this->session->userdata('role') == "Koperasi") {
-			// $this->db->select('saldo_pinjaman.jenis_pinjaman, SUM(saldo_pinjaman.cicilan) as total_nominal');
-			$this->db->select('MAX(id) as max_id', FALSE);
-			$this->db->from('saldo_pinjaman');
-			// Filter by Koperasi ID
+
+			// 1. Subquery: Find the MAX(bulan) for each unique id_anggota and jenis_pinjaman
+			$this->db->select('t1.id_anggota, t1.jenis_pinjaman, MAX(t1.bulan) as max_bulan', FALSE);
+			$this->db->from('saldo_pinjaman t1');
+			$this->db->join('anggota', 'anggota.id = t1.id_anggota'); // Join to filter by id_koperasi
 			$this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
+			$this->db->group_by(array('t1.id_anggota', 't1.jenis_pinjaman'));
+			$subquery_max_bulan = $this->db->get_compiled_select();
 
-			// Group by both id_anggota AND jenis_pinjaman to find the latest record for each member's loan type.
-			$this->db->group_by(array('id_anggota', 'jenis_pinjaman'));
-			$subquery = $this->db->get_compiled_select(); // Get the compiled SQL for the subquery
-
-			// Step 2: Main query to select the type, sum the latest records, and group the final result by jenis_pinjaman.
+			// 2. Main query: Select type and sum the records matching the MAX(bulan)
 			$this->db->select(
-				't1.jenis_pinjaman, 
-     SUM(t1.cicilan) as total_cicilan, 
-     SUM(t1.nominal) as total_nominal, 
-     SUM(t1.sisa_cicilan) as total_outstanding',
+				't_main.jenis_pinjaman, 
+         SUM(t_main.cicilan) as total_cicilan, 
+         SUM(t_main.nominal) as total_nominal, 
+         SUM(t_main.sisa_cicilan) as total_outstanding',
 				FALSE
 			);
-			$this->db->from('saldo_pinjaman as t1');
+			$this->db->from('saldo_pinjaman t_main');
 
-			// Filter the main query to include ONLY rows where the ID is one of the MAX IDs found in the subquery.
-			$this->db->where("t1.id IN ({$subquery})", NULL, FALSE);
+			// Filter using INNER JOIN on id_anggota, jenis_pinjaman, AND the MAX(bulan) date
+			$this->db->join(
+				"({$subquery_max_bulan}) t_latest",
+				't_main.id_anggota = t_latest.id_anggota AND t_main.jenis_pinjaman = t_latest.jenis_pinjaman AND t_main.bulan = t_latest.max_bulan'
+			);
 
-			// Re-apply Koperasi filter for robustness
-			$this->db->join('anggota', 'anggota.id = t1.id_anggota');
+			// The Koperasi filter is handled implicitly by the join logic above, but we must ensure we only
+			// process the correct subset of members in the main query too, as the subquery is compiled separately.
+			// To be robust and ensure data integrity, re-apply the filter or ensure the join includes the necessary table.
+
+			// We need the 'anggota' table in the main query only if we re-apply the Koperasi WHERE clause.
+			$this->db->join('anggota', 'anggota.id = t_main.id_anggota');
 			$this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
 
-			// *** FINAL GROUPING: Now group by jenis_pinjaman to sum up the latest records from all members ***
-			$this->db->group_by('t1.jenis_pinjaman');
-			$this->db->order_by('t1.jenis_pinjaman', 'DESC');
-		} else {
-			$this->db->select('MAX(saldo_pinjaman.id) as max_id', FALSE);
+
+			// FINAL GROUPING: Group the final sum by jenis_pinjaman across all members
+			$this->db->group_by('t_main.jenis_pinjaman');
+			$this->db->order_by('t_main.jenis_pinjaman', 'DESC');
+		} else { // Role is Anggota
+			// 1. Subquery: Find the MAX(bulan) for each unique jenis_pinjaman for the current Anggota
+			$this->db->select('id_anggota, jenis_pinjaman, MAX(bulan) as max_bulan', FALSE);
 			$this->db->from('saldo_pinjaman');
-			$this->db->join('anggota', 'anggota.id = saldo_pinjaman.id_anggota');
-
-			// Apply the same filtering as in your original query
-			$this->db->where('anggota.id', $this->session->userdata('user_user_id'));
-			$this->db->group_by('saldo_pinjaman.jenis_pinjaman');
-			$subquery = $this->db->get_compiled_select(); // Get the compiled SQL for the subquery
-
-			// Main query to select all columns from saldo_pinjaman
-			$this->db->select('saldo_pinjaman.*'); // Select all columns from saldo_pinjaman
-			$this->db->from('saldo_pinjaman');
-			$this->db->join('anggota', 'anggota.id = saldo_pinjaman.id_anggota');
-
-			// Filter the main query to include only rows where the ID is in the result of the subquery
-			$this->db->where("saldo_pinjaman.id IN ({$subquery})", NULL, FALSE);
-
-			// Apply the same filtering again for the main query
-			$this->db->where('anggota.id', $this->session->userdata('user_user_id'));
+			$this->db->where('id_anggota', $this->session->userdata('user_user_id'));
+			$this->db->group_by(array('id_anggota', 'jenis_pinjaman'));
+			$subquery_max_bulan = $this->db->get_compiled_select();
 
 
-			// You might want to order the final result if needed, but not grouped by jenis_pinjaman anymore
-			// $this->db->order_by('saldo_pinjaman.jenis_pinjaman', 'DESC'); // Optional: Order the final results
+			// 2. Main query: Select the full latest records for the Anggota
+			// $this->db->select('t1.*'); // Select all columns from saldo_pinjaman
+			$this->db->select(
+				't_main.jenis_pinjaman, 
+         SUM(t_main.cicilan) as total_cicilan, 
+         SUM(t_main.nominal) as total_nominal, 
+         SUM(t_main.sisa_cicilan) as total_outstanding',
+				FALSE
+			);
+			$this->db->from('saldo_pinjaman t1');
 
-			// $query = $this->db->get();
-			// $results = $query->result();
+			// Filter using INNER JOIN on id_anggota, jenis_pinjaman, AND the MAX(bulan) date
+			$this->db->join(
+				"({$subquery_max_bulan}) t2",
+				't1.id_anggota = t2.id_anggota AND t1.jenis_pinjaman = t2.jenis_pinjaman AND t1.bulan = t2.max_bulan'
+			);
+
+			// Final Anggota filter for robustness
+			$this->db->where('t1.id_anggota', $this->session->userdata('user_user_id'));
+
+			// Note: No final GROUP BY is needed here since you want individual records (t1.*)
+
 		}
 
 		$saldo_pinjaman = $this->db->get()->result();
-		$data['saldo_pinjaman']  = $saldo_pinjaman;
+		$data['saldo_pinjaman'] = $saldo_pinjaman;
 
 		$data['content']  = 'webview/admin/dashboard/dashboard_v';
 		$data['content_js'] = 'webview/admin/dashboard/dashboard_js';
