@@ -503,7 +503,9 @@ class Dashboard extends CI_Controller
 				t_main.tanggal_jam,
          SUM(t_main.cicilan) as total_cicilan, 
          SUM(t_main.nominal) as total_nominal, 
-         SUM(t_main.sisa_cicilan) as total_outstanding',
+         SUM(t_main.sisa_cicilan) as total_outstanding,
+		     MAX(t_main.post_dates) as latest_post_dates,
+',
 				FALSE
 			);
 			$this->db->from('saldo_pinjaman t_main');
@@ -525,7 +527,8 @@ class Dashboard extends CI_Controller
 
 			// FINAL GROUPING: Group the final sum by jenis_pinjaman across all members
 			$this->db->group_by('t_main.jenis_pinjaman');
-			$this->db->order_by('t_main.jenis_pinjaman', 'DESC');
+			// $this->db->order_by('t_main.jenis_pinjaman', 'DESC');
+			$this->db->order_by('t_main.post_dates', 'DESC');
 		} else { // Role is Anggota
 			// 1. Subquery: Find the MAX(bulan) for each unique jenis_pinjaman for the current Anggota
 			$this->db->select('id_anggota, jenis_pinjaman, MAX(bulan) as max_bulan', FALSE);
@@ -543,7 +546,8 @@ class Dashboard extends CI_Controller
 				t1.bulan,
          SUM(t1.cicilan) as total_cicilan, 
          SUM(t1.nominal) as total_nominal, 
-         SUM(t1.sisa_cicilan) as total_outstanding',
+         SUM(t1.sisa_cicilan) as total_outstanding,
+		 		     MAX(t1.post_dates) as latest_post_dates,',
 				FALSE
 			);
 			$this->db->from('saldo_pinjaman t1');
@@ -558,11 +562,14 @@ class Dashboard extends CI_Controller
 			$this->db->where('t1.id_anggota', $this->session->userdata('user_user_id'));
 
 			// Note: No final GROUP BY is needed here since you want individual records (t1.*)
-
+			$this->db->order_by('t1.post_dates', 'DESC');
 		}
 
 		$saldo_pinjaman = $this->db->get()->result();
 		$data['saldo_pinjaman'] = $saldo_pinjaman;
+		$first_row = $saldo_pinjaman[0];
+
+		$data['latest_post_dates'] = $first_row->latest_post_dates;
 
 		$data['content']  = 'webview/admin/dashboard/dashboard_v';
 		$data['content_js'] = 'webview/admin/dashboard/dashboard_js';

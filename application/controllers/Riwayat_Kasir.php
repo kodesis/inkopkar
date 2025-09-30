@@ -391,6 +391,7 @@ class Riwayat_Kasir extends CI_Controller
     public function detail_saldo_pinjaman()
     {
         $data['total']     = $this->riwayat_kasir->get_total_saldo_pinjaman();
+        $data['grouped_data'] = $this->riwayat_kasir->get_saldo_pinjaman_by_date();
         $data['content']     = 'webview/admin/riwayat_kasir/riwayat_kasir_saldo_pinjaman_v';
         $data['content_js'] = 'webview/admin/riwayat_kasir/riwayat_kasir_saldo_pinjaman_js';
         $this->load->view('parts/admin/Wrapper', $data);

@@ -119,7 +119,39 @@
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label for="tanggal_data" class="form-label">Tanggal Data</label>
-                                <input type="month" name="tanggal_data" id="tanggal_data" class="form-control">
+                                <!-- <input type="month" name="tanggal_data" id="tanggal_data" class="form-control"> -->
+                                <select class="form-control" name="tanggal_data" id="tanggal_data">
+                                    <option selected disabled>Pilih Tanggal Input Data</option>
+                                    <?php
+                                    // Check if $grouped_data is available and is an array/object
+                                    if (isset($grouped_data) && is_array($grouped_data)) {
+
+                                        // Loop through the data grouped by post_date
+                                        foreach ($grouped_data as $g) {
+
+                                            // The value (for POSTing) is the raw date/time string, e.g., '2025-09-25 10:30:00'
+                                            $post_date_raw = $g->post_date;
+
+                                            // Format the date/time for user display (optional, but recommended)
+                                            // You might need to adjust the format based on your database output
+                                            try {
+                                                $datetime = new DateTime($post_date_raw);
+                                                $display_date = $datetime->format('d F Y'); // e.g., 25 Sep 2025 10:30:00
+                                            } catch (Exception $e) {
+                                                $display_date = $post_date_raw; // Fallback if formatting fails
+                                            }
+                                    ?>
+                                            <option value="<?= $post_date_raw ?>"><?= $display_date ?></option>
+                                        <?php
+                                        }
+                                    } else {
+                                        // Display an option if no data is available
+                                        ?>
+                                        <option disabled>Tidak ada data tersedia</option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
                             </div>
                         </div>
 

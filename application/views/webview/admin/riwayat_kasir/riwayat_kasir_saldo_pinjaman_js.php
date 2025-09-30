@@ -111,7 +111,9 @@
                                 title: 'Berhasil Dihapus!',
                                 text: response.message, // Use the detailed message from the CI3 Controller
                                 confirmButtonText: 'OK'
-                            });
+                            }).then(
+                                jquery_datatable.ajax.reload()
+                            );
 
                             // Optional: Call a function to reload your data table here (e.g., reloadDataTable())
                         } else {

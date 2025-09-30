@@ -714,6 +714,43 @@ class Riwayat_Kasir_m extends CI_Model
         return $this->db->get()->row();
     }
 
+
+    // ... other functions ...
+
+    /**
+     * Retrieves saldo pinjaman data, grouped by the posting date, for the current Koperasi.
+     */
+    public function get_saldo_pinjaman_by_date()
+    {
+        // Get the current Koperasi ID from the session
+        $id_koperasi = $this->session->userdata('id_koperasi');
+
+        // 1. Select the relevant fields and perform the aggregation
+        $this->db->select(
+            't_main.post_dates as post_date, 
+             SUM(t_main.nominal) as total_nominal, 
+             SUM(t_main.cicilan) as total_cicilan, 
+             SUM(t_main.sisa_cicilan) as total_outstanding',
+            FALSE
+        );
+        $this->db->from('saldo_pinjaman t_main');
+
+        // 2. Join with the 'anggota' table to apply the Koperasi filter
+        $this->db->join('anggota', 'anggota.id = t_main.id_anggota');
+
+        // 3. Apply the mandatory Koperasi filter
+        $this->db->where('anggota.id_koperasi', $id_koperasi);
+
+        // 4. Group the results by the posting date
+        // Note: Assuming 'tanggal_jam' is the column that represents your 'post_dates'
+        $this->db->group_by('t_main.post_dates');
+
+        // 5. Order the results (optional, but useful for chronological order)
+        $this->db->order_by('t_main.post_dates', 'DESC');
+
+        return $this->db->get()->result();
+    }
+
     public function delete_saldo_pinjaman_by_month($year, $month)
     {
         // Use CI's query builder where to filter based on MySQL functions YEAR() and MONTH()
