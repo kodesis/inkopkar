@@ -724,6 +724,7 @@ class Riwayat_Kasir_m extends CI_Model
     {
         // Get the current Koperasi ID from the session
         $id_koperasi = $this->session->userdata('id_koperasi');
+        $date_format_select = "DATE_FORMAT(t_main.post_dates, '%Y-%m-%d')";
 
         // 1. Select the relevant fields and perform the aggregation
         $this->db->select(
@@ -743,7 +744,8 @@ class Riwayat_Kasir_m extends CI_Model
 
         // 4. Group the results by the posting date
         // Note: Assuming 'tanggal_jam' is the column that represents your 'post_dates'
-        $this->db->group_by('t_main.post_dates');
+        // $this->db->group_by('t_main.post_dates');
+        $this->db->group_by($date_format_select);
 
         // 5. Order the results (optional, but useful for chronological order)
         $this->db->order_by('t_main.post_dates', 'DESC');

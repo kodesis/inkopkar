@@ -137,6 +137,7 @@
                                             try {
                                                 $datetime = new DateTime($post_date_raw);
                                                 $display_date = $datetime->format('d F Y'); // e.g., 25 Sep 2025 10:30:00
+                                                // $display_date = $datetime->format('d F Y H:m:s'); // e.g., 25 Sep 2025 10:30:00
                                             } catch (Exception $e) {
                                                 $display_date = $post_date_raw; // Fallback if formatting fails
                                             }
