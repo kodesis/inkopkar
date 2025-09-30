@@ -504,7 +504,7 @@ class Dashboard extends CI_Controller
          SUM(t_main.cicilan) as total_cicilan, 
          SUM(t_main.nominal) as total_nominal, 
          SUM(t_main.sisa_cicilan) as total_outstanding,
-		     MAX(t_main.post_dates) as latest_post_dates,
+		     MAX(t_main.bulan) as latest_post_dates,
 ',
 				FALSE
 			);
@@ -547,7 +547,7 @@ class Dashboard extends CI_Controller
          SUM(t1.cicilan) as total_cicilan, 
          SUM(t1.nominal) as total_nominal, 
          SUM(t1.sisa_cicilan) as total_outstanding,
-		 		     MAX(t1.post_dates) as latest_post_dates,',
+		 		     MAX(t1.bulan) as latest_post_dates,',
 				FALSE
 			);
 			$this->db->from('saldo_pinjaman t1');

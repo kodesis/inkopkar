@@ -697,7 +697,7 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Tipe Pinjaman</th>
-                                            <!-- <th>Tanggal Angsuran</th> -->
+                                            <th>Tanggal Angsuran</th>
                                             <th>Total Pinjaman</th>
                                             <th>Angsuran</th>
                                             <th>Total Outstanding</th>
@@ -711,7 +711,7 @@
                                             <tr>
                                                 <td><?= $no++ ?></td>
                                                 <td><?= $ss->jenis_pinjaman ?></td>
-                                                <!-- <td><?= date('d F Y', strtotime($ss->bulan)) ?></td> -->
+                                                <td><?= date('F Y', strtotime($ss->bulan)) ?></td>
                                                 <td style="text-align: right;">Rp. <?= number_format(
                                                                                         $ss->total_nominal ?? 0,
                                                                                         0,
@@ -737,7 +737,7 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th style="text-align: right;" colspan="2">Total</th>
+                                            <th style="text-align: right;" colspan="3">Total</th>
                                             <th style="text-align: right;">Rp. <?= number_format(
                                                                                     $total_nominal ?? 0,
                                                                                     0,
@@ -784,7 +784,7 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Tipe Pinjaman</th>
-                                            <!-- <th>Tanggal Angsuran</th> -->
+                                            <th>Tanggal Angsuran</th>
                                             <th>Total Nominal</th>
                                             <th>Angsuran</th>
                                             <th>Total Outstanding</th>
@@ -798,7 +798,7 @@
                                             <tr>
                                                 <td><?= $no++ ?></td>
                                                 <td><?= $ss->jenis_pinjaman ?></td>
-                                                <!-- <td><?= date('d F Y', strtotime($ss->bulan)) ?></td> -->
+                                                <td><?= date('F Y', strtotime($ss->bulan)) ?></td>
                                                 <td style="text-align: right;">Rp. <?= number_format(
                                                                                         $ss->total_nominal ?? 0,
                                                                                         0,
@@ -824,7 +824,7 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th style="text-align: right;" colspan="2">Total</th>
+                                            <th style="text-align: right;" colspan="3">Total</th>
                                             <th style="text-align: right;">Rp. <?= number_format(
                                                                                     $total_nominal ?? 0,
                                                                                     0,
