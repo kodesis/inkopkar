@@ -711,7 +711,7 @@
                                             <tr>
                                                 <td><?= $no++ ?></td>
                                                 <td><?= $ss->jenis_pinjaman ?></td>
-                                                <td><?= date('F Y', strtotime($ss->bulan)) ?></td>
+                                                <td><?= date('d F Y', strtotime($ss->tanggal_jam)) ?></td>
                                                 <td style="text-align: right;">Rp. <?= number_format(
                                                                                         $ss->total_nominal ?? 0,
                                                                                         0,
@@ -798,7 +798,7 @@
                                             <tr>
                                                 <td><?= $no++ ?></td>
                                                 <td><?= $ss->jenis_pinjaman ?></td>
-                                                <td><?= date('F Y', strtotime($ss->bulan)) ?></td>
+                                                <td><?= date('d F Y', strtotime($ss->tanggal_jam)) ?></td>
                                                 <td style="text-align: right;">Rp. <?= number_format(
                                                                                         $ss->total_nominal ?? 0,
                                                                                         0,
