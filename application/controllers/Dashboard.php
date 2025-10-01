@@ -295,12 +295,12 @@ class Dashboard extends CI_Controller
 
 		$this->db->select('id_anggota, jenis_pinjaman, MAX(bulan) as max_bulan', FALSE);
 		$this->db->from('saldo_pinjaman');
-
+		$this->db->join('anggota', 'anggota.id = saldo_pinjaman.id_anggota'); // Join to filter by id_koperasi
 		// Filter for Anggota role in the subquery
 		if ($this->session->userdata('role') == "Anggota") {
 			$this->db->where('id_anggota', $this->session->userdata('user_user_id'));
 		}
-
+		$this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
 		// Group by to find the LATEST month for each unique loan type per member
 		$this->db->group_by(array('id_anggota', 'jenis_pinjaman'));
 		$subquery_max_bulan = $this->db->get_compiled_select();
@@ -314,6 +314,7 @@ class Dashboard extends CI_Controller
 			FALSE
 		);
 		$this->db->from('saldo_pinjaman t1');
+		$this->db->join('anggota', 'anggota.id = t1.id_anggota'); // Join to filter by id_koperasi
 
 		// JOIN the subquery to filter only the rows that match the latest month/combination
 		// This effectively finds the single latest record for each loan combination.
@@ -332,6 +333,7 @@ class Dashboard extends CI_Controller
 
 		// If your goal is to sum the *latest* record, regardless of the date, you don't need the extra WHERE clause here,
 		// as the JOIN on t1.bulan = t2.max_bulan already filters it to the latest record(s).
+		$this->db->where('anggota.id_koperasi', $this->session->userdata('id_koperasi'));
 
 		// Final Anggota filter for the main query
 		if ($this->session->userdata('role') == "Anggota") {
