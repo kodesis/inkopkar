@@ -686,7 +686,7 @@
                     <div class="card">
                         <div class="card-header">
                             <!-- <h5 class="card-title">Rekapitulasi Saldo Pinjaman</h5> -->
-                            <h5 class="card-title">Rekapitulasi Total Outstanding Per <?= date('F Y', strtotime($latest_post_dates)) ?></h5>
+                            <h5 class="card-title">Rekapitulasi Total Outstanding Per <?= date('F Y', strtotime($latest_post_dates ?? date('F Y'))) ?></h5>
                         </div>
                         <div class="card-body">
                             <?php
@@ -760,9 +760,12 @@
                                     </tfoot>
                                 </table>
                             <?php
+                            } else {
+                            ?>
+                                <p class="text-muted">Tidak ada data untuk rekapitulasi.</p>
+                            <?php
                             }
                             ?>
-                            <p class="text-muted">Tidak ada data untuk rekapitulasi.</p>
                         </div>
                     </div>
                 </section>
@@ -773,11 +776,12 @@
                     <div class="card">
                         <div class="card-header">
                             <!-- <h5 class="card-title">Rekapitulasi Saldo Pinjaman</h5> -->
-                            <h5 class="card-title">Rekapitulasi Total Tagihan Per <?= date('F Y', strtotime($latest_post_dates)) ?></h5>
+                            <h5 class="card-title">Rekapitulasi Total Tagihan Per <?= date('F Y', strtotime($latest_post_dates ?? date('F Y'))) ?></h5>
                         </div>
                         <div class="card-body">
                             <?php
-                            if ($saldo_pinjaman) {
+                            // var_dump($saldo_pinjaman);
+                            if ($saldo_pinjaman && !empty($saldo_pinjaman) && $saldo_pinjaman[0]->jenis_pinjaman !== NULL) {
                             ?>
                                 <table class="table" id="table_1">
                                     <thead>
@@ -847,9 +851,13 @@
                                     </tfoot>
                                 </table>
                             <?php
+                            } else {
+                            ?>
+                                <p class="text-muted">Tidak ada data untuk rekapitulasi.</p>
+
+                            <?php
                             }
                             ?>
-                            <p class="text-muted">Tidak ada data untuk rekapitulasi.</p>
                         </div>
                     </div>
                 </section>
