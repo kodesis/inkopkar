@@ -569,9 +569,12 @@ class Dashboard extends CI_Controller
 
 		$saldo_pinjaman = $this->db->get()->result();
 		$data['saldo_pinjaman'] = $saldo_pinjaman;
-		$first_row = $saldo_pinjaman[0];
-
-		$data['latest_post_dates'] = $first_row->latest_post_dates;
+		if ($saldo_pinjaman) {
+			$first_row = $saldo_pinjaman[0];
+			$data['latest_post_dates'] = $first_row->latest_post_dates;
+		} else {
+			$data['latest_post_dates'] = null;
+		}
 
 		$data['content']  = 'webview/admin/dashboard/dashboard_v';
 		$data['content_js'] = 'webview/admin/dashboard/dashboard_js';
