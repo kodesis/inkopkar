@@ -686,7 +686,19 @@
                     <div class="card">
                         <div class="card-header">
                             <!-- <h5 class="card-title">Rekapitulasi Saldo Pinjaman</h5> -->
-                            <h5 class="card-title">Rekapitulasi Total Outstanding Per <?= date('F Y', strtotime($latest_post_dates ?? date('F Y'))) ?></h5>
+                            <!-- <h5 class="card-title">Rekapitulasi Total Outstanding Per <?= date('F Y', strtotime($latest_post_dates ?? date('F Y'))) ?></h5> -->
+
+                            <?php
+                            if ($latest_post_dates) {
+                            ?>
+                                <h5 class="card-title">Rekapitulasi Total Tagihan Per <?= date('F Y', strtotime($latest_post_dates ?? date('F Y'))) ?></h5>
+                            <?php
+                            } else {
+                            ?>
+                                <h5 class="card-title">Rekapitulasi Saldo Pinjaman</h5>
+                            <?php
+                            }
+                            ?>
                         </div>
                         <div class="card-body">
                             <?php
@@ -775,8 +787,18 @@
                 <section class="section">
                     <div class="card">
                         <div class="card-header">
-                            <!-- <h5 class="card-title">Rekapitulasi Saldo Pinjaman</h5> -->
-                            <h5 class="card-title">Rekapitulasi Total Tagihan Per <?= date('F Y', strtotime($latest_post_dates ?? date('F Y'))) ?></h5>
+
+                            <?php
+                            if ($latest_post_dates) {
+                            ?>
+                                <h5 class="card-title">Rekapitulasi Total Tagihan Per <?= date('F Y', strtotime($latest_post_dates ?? date('F Y'))) ?></h5>
+                            <?php
+                            } else {
+                            ?>
+                                <h5 class="card-title">Rekapitulasi Saldo Pinjaman</h5>
+                            <?php
+                            }
+                            ?>
                         </div>
                         <div class="card-body">
                             <?php
