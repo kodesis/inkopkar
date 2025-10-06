@@ -474,7 +474,7 @@ class Dashboard extends CI_Controller
 		// UNTUK SALDO SIMPANAN
 
 
-		$this->db->select('saldo_simpanan.tipe_simpanan, SUM(saldo_simpanan.nominal) as total_nominal');
+		$this->db->select('saldo_simpanan.tipe_simpanan, SUM(saldo_simpanan.nominal) as total_nominal, MAX(tanggal_jam) as latest_post_dates,');
 		$this->db->from('saldo_simpanan');
 		$this->db->join('anggota', 'anggota.id = saldo_simpanan.id_anggota');
 		if ($this->session->userdata('role') == 'Koperasi') {
@@ -483,10 +483,17 @@ class Dashboard extends CI_Controller
 			$this->db->where('anggota.id', $this->session->userdata('user_user_id'));
 		}
 		$this->db->group_by('saldo_simpanan.tipe_simpanan');
-		$this->db->order_by('tipe_simpanan', 'DESC');
+		// $this->db->order_by('tipe_simpanan', 'DESC');
+		$this->db->order_by('post_dates', 'DESC');
 
 		$saldo_simpanan = $this->db->get()->result();
 		$data['saldo_simpanan']  = $saldo_simpanan;
+		if ($saldo_simpanan) {
+			$first_row = $saldo_simpanan[0];
+			$data['latest_post_dates_simpanan'] = $first_row->latest_post_dates;
+		} else {
+			$data['latest_post_dates_simpanan'] = null;
+		}
 
 		if ($this->session->userdata('role') == "Koperasi") {
 
@@ -549,7 +556,7 @@ class Dashboard extends CI_Controller
          SUM(t1.cicilan) as total_cicilan, 
          SUM(t1.nominal) as total_nominal, 
          SUM(t1.sisa_cicilan) as total_outstanding,
-		 		     MAX(t1.bulan) as latest_post_dates,',
+		 		     MAX(t1.tanggal_jam) as latest_post_dates,',
 				FALSE
 			);
 			$this->db->from('saldo_pinjaman t1');

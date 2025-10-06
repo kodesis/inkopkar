@@ -625,7 +625,18 @@
             <section class="section">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">Rekapitulasi Saldo Simpanan</h5>
+                        <!-- <h5 class="card-title">Rekapitulasi Saldo Simpanan</h5> -->
+                        <?php
+                        if ($latest_post_dates_simpanan) {
+                        ?>
+                            <h5 class="card-title">Rekapitulasi Saldo Simpanan Per <?= date('F Y', strtotime($latest_post_dates_simpanan ?? date('F Y'))) ?></h5>
+                        <?php
+                        } else {
+                        ?>
+                            <h5 class="card-title">Rekapitulasi Saldo Simpanan</h5>
+                        <?php
+                        }
+                        ?>
                     </div>
                     <div class="card-body">
                         <?php
