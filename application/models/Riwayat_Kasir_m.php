@@ -592,7 +592,7 @@ class Riwayat_Kasir_m extends CI_Model
     function _get_datatables_query_saldo_pinjaman($month = null, $year = null)
     {
 
-        $this->db->select('saldo_pinjaman.*, koperasi.nama_koperasi as nama_koperasi, anggota.nama');
+        $this->db->select('saldo_pinjaman.*, koperasi.nama_koperasi as nama_koperasi, anggota.nama, anggota.nomor_anggota');
         $this->db->from('saldo_pinjaman');
         // $this->db->join('koperasi', 'toko.id_koperasi = koperasi.id', 'left');
         $this->db->join('anggota', 'anggota.id = saldo_pinjaman.id_anggota', 'left');

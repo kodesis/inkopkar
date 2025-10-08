@@ -448,7 +448,8 @@ class Riwayat_Kasir extends CI_Controller
         foreach ($list as $cat) {
             $no++;
             $row = array();
-            $row[] = $cat->id;
+            // $row[] = $cat->id;
+            $row[] = $cat->nomor_anggota;
             $row[] = $cat->nama;
             $row[] = $cat->keterangan;
             $row[] = $cat->jenis_pinjaman;
